@@ -278,7 +278,7 @@
                     <Type>SubMenu</Type>
                     <Block></Block>
                     <AccessKey></AccessKey>
-                    <Prio>8492</Prio>
+                    <Prio>8500</Prio>
                 </NavBar>
                 <Loader>
                     <CSS>Core.AllocationList.css</CSS>
