@@ -19,19 +19,19 @@
 	<div class="col-md-4 text-center">
 		<div class="info-box">
 		<h4>Total No. of changes</h4>
-		<h1 class="text-danger">[% Data.total_changes %]</h1>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.total_changes %]</a></h1>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 	<div class="info-box">
 		<h4>Changes for the month</h4>
-		<h1 class="text-danger">[% Data.changes_month %]</h1>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.changes_month %]</a></h1>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 	<div class="info-box">
 		<h4>Changes schedule for the current month</h4>
-		<h1 class="text-danger">[% Data.changes_schedule %]</h1>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.changes_schedule %]</a></h1>
 		</div>
 	</div>
 
@@ -40,13 +40,13 @@
 	<div class="col-md-4 text-center">
 		<div class="info-box">
 		<h4>Total No. of workorder</h4>
-		<h1>[% Data.total_workorder %]</h1>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentITSMChangeMyWorkOrders;">[% Data.total_workorder %]</a></h1>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 	<div class="info-box">
 		<h4>Workorder for the month</h4>
-		<h1>[% Data.month_workorder %]</h1>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentITSMChangeMyWorkOrders;">[% Data.month_workorder %]</a></h1>
 		</div>
 	</div>
 
@@ -253,12 +253,7 @@
 	        }
 	    },
 	    tooltip: {
-	        // headerFormat: '<span style="font-size:10px">{point key}</span><table>',
-	        // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-	        //     '<td style="padding:0"><b>{point.y:1f} </b></td></tr>',
-	        // footerFormat: '</table>',
-	        // shared: true,
-	       // useHTML: true
+	       
 	    },
 	    plotOptions: {
 	        column: {
@@ -272,10 +267,28 @@
 	    series: [{
 	        name: 'Created Workorder',
 	        data: WorkorderCreatedConvertArray,
+	        point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;Filter=All";
+
+	               }
+	           }
+	        }
 
 	    }, {
 	        name: 'Aproval Workorder',
-	        data: WorkorderApprovalConvertArray
+	        data: WorkorderApprovalConvertArray,
+	        point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;Filter=approved";
+
+	               }
+	           }
+	        }
 
 	    }]
 	});
@@ -283,9 +296,9 @@
 	/******************function for refresh the page*************/
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-	// setTimeout(function(){
- //        window.location.reload(1);
- //    }, 30000);
+	setTimeout(function(){
+         window.location.reload(1);
+     }, 30000);
 	/**************end function for refresh the page***************/
 </script>
 
