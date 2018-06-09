@@ -1,11 +1,11 @@
-# Felicity
+# felicity
 
 We're really excited to announce felicity (based on [OTRS](https://github.com/OTRS/otrs)) to the community. Our first ever community release. We've had about 5 years of experience in development of ITSM products like OTRS and have garnered good enough of knowledge to try and make the system robust enough for the community to experience which has useful service desk features.
 
-# Purpose
+# purpose
 Our purpose on releasing felicity to the community was to share our own experiences and the add on features we developed in tandem with our clients. We thought the community should have this useful open source tool at their convenience. 
 
-## Installation
+# installation
 
 ### A. Docker
   1. Prerequisites
@@ -197,22 +197,22 @@ You can activate the bash autocompletion by installing the package bash-completi
 
 After restarting your shell, you can just type bin/otrs.Console.pl followed by TAB, and it will list all available commands. If you type a few characters of the command name, TAB will show all matching commands. After typing a complete command, all possible options and arguments will be shown by pressing TAB.
 
-# Getting started
+# getting started
 We have provided a basic ticket life cycle creation to issue closure functionality but feel free to explore.
 
 -- Insert ticket creation and issue closure functionality here --
 
-# Bug reporting
+# bug reporting
 We know that we are far from perfect but we'll want to know where we made mistakes and would like to fix those mistakes.
 
-# Documentation
+# documentation
 Feel free to use the tool the way you'd like. We'll be continuously working on documentation to make life simpler for the community.
 
-# License
+# license
 Since the core product remains OTRS we'll share the same license which was provided by [OTRS](https://otrs.com).
 
-# Build status
+# build status
 We have tried our best to make all the features as functional to their point but there may be certains bugs but we believe that since OTRS has been long enough and well established to have a robust tool so you can go ahead and use felicity .
 
-# Contribution
+# contribution
 Feel free to pull and modify the code according to your likeness. You can find as at <code>felicity@unotechsoft.com</code>.
