@@ -115,7 +115,7 @@ $ perl -cw /opt/felicity/bin/cgi-bin/index.pl
 /opt/felicity/bin/cgi-bin/index.pl syntax OK
 
 $ perl -cw /opt/felicity/bin/cgi-bin/customer.pl
-/opt/otrs/bin/cgi-bin/customer.pl syntax OK
+/opt/felicity/bin/cgi-bin/customer.pl syntax OK
 
 $ perl -cw /opt/felicity/bin/otrs.Console.pl
 /opt/felicity/bin/otrs.Console.pl syntax OK
@@ -149,7 +149,7 @@ $  bin/otrs.SetPermissions.pl --web-group=apache
 ```
 
 ##### 9. Database setup
-Please use the web installer at <code>http://localhost/otrs/installer.pl</code> (replace "localhost" with your Felicity hostname) to setup your database and basic system settings such as email accounts.
+Please use the web installer at <code>http://localhost/felicity/installer.pl</code> (replace "localhost" with your Felicity hostname) to setup your database and basic system settings such as email accounts.
 
 <strong>Note: </strong>The following configuration settings are recommended for MySQL setups. Please add the following lines to /etc/my.cnf under the [mysqld] section:
 
@@ -159,7 +159,7 @@ query_cache_size     = 32M
 innodb_log_file_size = 256M
 ```
 #### 10. First login
-Now you are ready to login to your system at <code>http://localhost/otrs/index.pl</code> with the credentials you configured in the web installer (User: root@localhost).
+Now you are ready to login to your system at <code>http://localhost/felicity/index.pl</code> with the credentials you configured in the web installer (User: root@localhost).
 
 With this step, the basic system setup is finished.
 
@@ -215,4 +215,4 @@ Since the core product remains OTRS we'll share the same license which was provi
 We have tried our best to make all the features as functional to their point but there may be certains bugs but we believe that since OTRS has been long enough and well established to have a robust tool so you can go ahead and use felicity .
 
 # Contribution
-Feel free to pull and modify the code according to your likeness. You can reach us out at <code>felicity@unotechsoft.com</code>
+Feel free to pull and modify the code according to your likeness. You can find as at <code>felicity@unotechsoft.com</code>.
