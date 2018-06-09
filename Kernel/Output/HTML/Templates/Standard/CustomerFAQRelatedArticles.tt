@@ -1,0 +1,40 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<div class="WidgetSimple">
+
+    <div class="Header">
+        <h3>[% Translate("This might be helpful") | html %]</h3>
+        <div class="Clear"></div>
+    </div>
+
+    <div class="Content">
+    [% IF Data.RelatedFAQArticleList.size %]
+        <ul class="Tablelike FAQMiniList">
+        [% FOREACH FAQArticle IN Data.RelatedFAQArticleList %]
+            <li>
+                <a href="[% Env("Baselink") %]Action=CustomerFAQZoom;ItemID=[% FAQArticle.ItemID | uri %]" target="_blank" title="[% FAQArticle.Title | html %] ([% FAQArticle.CategoryName | html %])">
+                    [% FAQArticle.Title | html %]
+                </a>
+            [% IF FAQArticle.Votes && Data.VoteStarsVisible && FAQArticle.StarCounter >= Data.VoteStarsVisible %]
+                <span title="[% FAQArticle.StarCounter | html %] [% Translate("out of 5") | html %]">
+                - [% FILTER repeat(FAQArticle.StarCounter) %]<span class="RateStar"><i class="fa fa-star"></i></span>[% END %]
+                </span>
+            [% END %]
+            </li>
+        [% END %]
+        </ul>
+    [% ELSIF Data.RelatedFAQArticleFoundNothing %]
+        <div class="Hint">[% Translate("Found no helpful resources for the subject and text.") | html %]</div>
+    [% ELSE %]
+        <div class="Hint">[% Translate("Type a subject or text to get a list of helpful resources.") | html %]</div>
+    [% END %]
+    </div>
+</div>
+<div class="Clear"></div>

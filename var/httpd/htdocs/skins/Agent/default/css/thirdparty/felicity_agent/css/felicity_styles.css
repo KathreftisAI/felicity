@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* Libraries and Plugins */
+@import url("bootstrap.min.css");
+@import url("line-awesome.min.css");
+@import url("slim-scroll.css");
+/*@import url("jquery-ui.min.css");*/
+@import url("fonts.css");
+@import url("bootstrap-tagsinput.css");
+@import url("animate.css");
+
+ 
+/*Felicity UI*/
+@import url("layout.css");
+@import url("layout_custom.css");
+@import url("responsive.css");
+

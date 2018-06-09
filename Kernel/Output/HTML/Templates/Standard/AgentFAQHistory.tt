@@ -1,0 +1,59 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="LayoutPopup ARIARoleMain">
+
+    <div class="Header">
+        <h1>
+            [% Translate("History of") | html %] [% Config("FAQ::FAQHook") %]: [% Data.Number | html %] - [% Data.Title | truncate(60) | html %]
+        </h1>
+        <p>
+            <a href="#" class="CancelClosePopup">[% Translate("Close") | html %]</a>
+        </p>
+    </div>
+
+    <div class="Content">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>
+                    [% Translate("History Content") | html %]
+                </h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable" summary="FAQ history data table">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Action") | html %]</th>
+                            <th>[% Translate("User") | html %]</th>
+                            <th>[% Translate("Createtime") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+[% RenderBlockStart("Row") %]
+                        <tr>
+                            <td>
+                                [% Translate(Data.Name) | html %]
+                            </td>
+                            <td>
+                                [% Data.CreatedBy | html %]
+                            </td>
+                            <td>
+                                [% Data.Created | Localize("TimeLong") %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("Row") %]
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="Footer">
+    </div>
+</div>

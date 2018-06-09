@@ -1,0 +1,411 @@
+input[type=radio]{
+	
+	margin:0px !important;
+}
+
+#previewPage{
+	/*width:1100px !important;
+	 margin-left:-255px !important; */
+	 width:1115px !important;
+	 
+}
+.expandable{cursor:pointer;}
+.menuIndicaterText{
+font-size: 11px;
+/*color: rgb(119, 119, 119);*/
+
+ margin-right: 40px;
+}
+.selected{
+	background-color:#e58f4e!important;
+	color:#000!important;
+}
+
+.menuIndicaterRect{
+width:10px;height:10px;display: inline-block;
+}
+.ciList{
+width:150px;
+height:30px;
+display:inline-block; 
+text-align: center;
+line-height: 30px!important;
+border:1px solid #d6d4d5!important;
+font: 10px sans-serif;
+}
+.col-md-2 {
+    width: 18%;
+    float: left;
+    margin: 10px 10px;
+}
+.col-md-2 div.ciList {
+    width: 100% !important;
+}
+
+/*Added on 29-06-2017*/
+
+.table>tbody>tr>td{
+padding: 2px!important;
+
+}
+.table>thead>tr>th{
+padding: 3px!important;
+}
+.table{
+    font-size: 11px!important;
+    margin-bottom: 5px!important;
+}
+.Normal{background-color: #80dfff;}
+.ParentChild{background-color: #862d59;}
+.DependsOn{background-color: blue;}
+.AlternativeTo{background-color: #ff6699;}
+.RelevantTo{background-color: #006600;}
+.ConnectedTo{background-color: #ffff00;}
+.Includes{background-color: #ff9933;}
+
+/*drag drop css*/
+
+.items {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.groups .title {
+  padding: 10px;
+  background: #ccc;
+}
+
+.groups .dndPlaceholder {
+  background: #f4f4f4;
+  margin: 10px;
+  padding: 20px;
+}
+
+.dndDraggingSource {
+  display: none;
+}
+
+
+
+.operational{
+background-color: #8bef4d;
+}
+.incident{
+background-color: #ff505e;
+}
+
+.userDetails{
+	padding:20px !important;
+	border: 2px solid #ddd!important;
+	margin:10px ;
+}
+
+.breakLine{
+	/* width:100%; */
+	clear:both;
+	
+}
+/*header .nav li a:hover{
+	background: #223652!important;
+   color:#fff!important;
+	
+}
+ header .nav li.active a , header .nav li.active a:hover{
+        background: #ccc!important;
+    color: #727f90!important;
+}
+	
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 4.5px;
+}*/
+rect[Attributes Style] {
+    width: 150;
+    height: 30;
+    stroke: white !important;
+    stroke-width: 1;
+}
+.node {
+  font: 10px sans-serif;
+  cursor: pointer;
+}
+svg{
+    overflow-x: scroll!important;
+    
+}
+svg:not(:root) {
+    overflow: scroll;
+    padding: 16px !important;
+}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.node:not(:hover) .nodetext {
+  display: none;
+}
+
+.stickynode {
+  font: 18px sans-serif;
+  cursor: move;
+}
+
+.stickynode circle {
+  cursor: move;
+  fill: #fff;
+  /*stroke: steelblue;*/
+  stroke-width: 2px;
+}
+
+.stickynode:not(:hover) .stickynodetext {
+  /*display: none;*/
+  font: 12px sans-serif;
+}
+
+.stickynode.fixed circle{
+  fill: #ccc;
+}
+
+.stickynode.fixed .stickynodetext{
+  font: 18px sans-serif
+}
+
+/**************data table *********************/
+.dataTables_wrapper{
+border-bottom: 1px solid #ccc;	
+    margin-bottom: 15px;
+}
+
+
+#sectionstable_wrapper  .dataTables_filter{
+	height:26px;
+	padding-right: 8px;
+}
+
+#sectionstable_wrapper  .dataTables_length{
+	height:26px;
+}
+#sectionstable_wrapper .dataTables_length label{
+	    font-size: 11px!important;
+	    padding-left: 8px;
+}
+#sectionstable_wrapper .dataTables_length select{
+	    padding: 0px!important;
+    font-size: 11px!important;
+    width: 40px!important;
+    height: 17px!important;
+     line-height: none !important;
+}
+#sectionstable_wrapper .dataTables_filter label{
+	font-size: 11px!important;
+	
+}
+#sectionstable_wrapper .dataTables_filter input{
+	       padding: 0px!important;
+    font-size: 11px!important; 
+    width: 115px!important;
+    height: 17px!important;
+    line-height: none !important;
+    display: inline-block;
+}
+#sectionstable_wrapper .dataTables_info{
+	font-size: 10px !important;
+    padding-top: 3px!important;
+        padding-left: 10px;
+}
+.dataTables_wrapper .dataTables_info{
+	    clear: none!important;
+    float: none!important;
+}
+#sectionstable_wrapper .dataTables_paginate {
+font-size: 10px !important;
+    padding-top: 10px!important;
+    padding-bottom: 9px!important;
+    line-height: 1px;
+    float: left;
+}
+#sectionstable_paginate span a:hover{
+	
+}
+#sectionstable_paginate .paginate_button{
+	
+}
+#linktype{
+	 font-size: 11px!important;
+	 text-align: left;
+	 width: 250px;
+	 padding-left:10px;
+	 padding-top: 30px;
+}
+#linktype select{
+	   padding: 0px!important;
+    font-size: 11px!important;
+    width: 100px!important;
+    height: 17px!important;
+     line-height: none !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+	margin-left:0px!important;
+}
+
+.ciContainer {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.ciSubDiv1{
+	width: 72%;
+	    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    display:inline-block;
+    float: left;
+    
+}
+.ciSubDiv2{
+	width: 25%;
+	float: left;
+	    position: relative;
+    min-height: 1px;
+     padding-top: 10px!important;
+    padding-left: 15px;
+    height:482px;
+}
+.textError{
+color:red;
+font-size:11px
+}
+
+.node {
+  cursor: pointer;
+}
+
+.overlay{
+    background-color:#EEE;
+}
+ 
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+ 
+.node text {
+  font-size:10px; 
+  font-family:sans-serif;
+}
+ 
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.templink {
+  fill: none;
+  stroke: red;
+  stroke-width: 3px;
+}
+
+.ghostCircle.show{
+    display:block;
+}
+
+.ghostCircle, .activeDrag .ghostCircle{
+     display: none;
+}
+
+.hidden {
+        display: none;
+}
+.CIHeading{
+    color: #2b4f96;
+    font-weight: bold;
+    font-size: 13px;
+}
+.btn-group{
+	    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.btn-group>.btn:first-child{
+	    margin-left: 0;
+}
+.btn-group>.btn{
+	position: relative;
+    float: left;
+}
+.btn .caret{
+	margin-left: 0;
+}
+.caret{
+	    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+.scrollable-menu{
+	    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+.dropdown-menu{
+	position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+}
+/*#sectionstable_filter{
+	margin-left:8px !important; 
+}
+
+ #sectionstable_length{
+ display:none;
+ }
+ table.dataTable tbody td {
+    padding: 0px 2px !important;
+}
+table.dataTable thead th{
+    padding: 3px 6px !important;
+    
+}
+.dataTables_wrapper .dataTables_filter {
+     float: left !important;
+     text-align: left !important; 
+}
+table.dataTable tfoot td {
+    padding: 0px !important; 
+}
+table.dataTable thead .sorting {
+     background-image: none !important; 
+}*/

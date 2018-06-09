@@ -1,0 +1,392 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <div class="Flag">
+            <span class="[% Data.WorkOrderStateSignal | html %]">[% Translate(Data.WorkOrderState) | html %]</span>
+        </div>
+        <h1 title="[% Config("ITSMWorkOrder::Hook") %]: [% Data.ChangeNumber | html %]-[% Data.WorkOrderNumber | html %] &ndash; [% Data.WorkOrderTitle | html %]">
+            [% Config("ITSMWorkOrder::Hook") %]: [% Data.ChangeNumber | html %]-[% Data.WorkOrderNumber | html %] <span>&mdash;</span> [% Data.WorkOrderTitle | truncate(70) | html %]
+        </h1>
+    </div>
+
+    <div class="LayoutFixedSidebar SidebarLast">
+        <div class="SidebarColumn">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Workorder Information") | html %]</h2>
+                </div>
+                <div class="Content">
+[% RenderBlockStart("Meta") %]
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("WorkOrderState") | html %]:</label>
+                        <div class="Value">
+                            <div class="Flag Small">
+                                <span class="[% Data.WorkOrderStateSignal | html %]">[% Translate(Data.WorkOrderState) | html %]</span>
+                            </div>
+                            [% Translate(Data.WorkOrderState) | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("WorkOrderType") | html %]:</label>
+[% RenderBlockStart("EmptyWorkOrderType") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyWorkOrderType") %]
+[% RenderBlockStart("WorkOrderType") %]
+                        <p class="Value">[% Data.WorkOrderType | html %]</p>
+[% RenderBlockEnd("WorkOrderType") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("PlannedStartTime") | html %]:</label>
+[% RenderBlockStart("EmptyPlannedStartTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedStartTime") %]
+[% RenderBlockStart("PlannedStartTime") %]
+                        <p class="Value">[% Data.PlannedStartTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("PlannedStartTime") %]
+                        <div class="Clear"></div>
+
+
+                        <label>[% Translate("PlannedEndTime") | html %]: </label>
+[% RenderBlockStart("EmptyPlannedEndTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedEndTime") %]
+[% RenderBlockStart("PlannedEndTime") %]
+                        <p class="Value">[% Data.PlannedEndTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("PlannedEndTime") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("ActualStartTime") | html %]: </label>
+[% RenderBlockStart("EmptyActualStartTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyActualStartTime") %]
+[% RenderBlockStart("ActualStartTime") %]
+                        <p class="Value">[% Data.ActualStartTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("ActualStartTime") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("ActualEndTime") | html %]: </label>
+[% RenderBlockStart("EmptyActualEndTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyActualEndTime") %]
+[% RenderBlockStart("ActualEndTime") %]
+                        <p class="Value">[% Data.ActualEndTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("ActualEndTime") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+[% RenderBlockStart("ShowPlannedEffort") %]
+                        <label>[% Translate("PlannedEffort") | html %]: </label>
+[% RenderBlockStart("EmptyPlannedEffort") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedEffort") %]
+[% RenderBlockStart("PlannedEffort") %]
+                        <p class="Value">[% Data.PlannedEffort | html %]</p>
+[% RenderBlockEnd("PlannedEffort") %]
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ShowPlannedEffort") %]
+
+[% RenderBlockStart("ShowAccountedTime") %]
+                        <label>[% Translate("AccountedTime") | html %]: </label>
+[% RenderBlockStart("EmptyAccountedTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyAccountedTime") %]
+[% RenderBlockStart("AccountedTime") %]
+                        <p class="Value">[% Data.AccountedTime | html %]</p>
+[% RenderBlockEnd("AccountedTime") %]
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ShowAccountedTime") %]
+                    </fieldset>
+
+# show dynamic fields
+                    <fieldset class="TableLike FixedLabelSmall Narrow">
+[% RenderBlockStart("DynamicField") %]
+                        <label>[% Translate(Data.Label) | html %]:</label>
+                        <p class="Value">
+[% RenderBlockStart("DynamicFieldLink") %]
+                            <span title="[% Data.Title | html %]"><a href="[% Data.Link | Interpolate %]" target="_blank" class="DynamicFieldLink">[% Data.Value %]</a></span>
+[% RenderBlockEnd("DynamicFieldLink") %]
+[% RenderBlockStart("DynamicFieldPlain") %]
+                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+[% RenderBlockEnd("DynamicFieldPlain") %]
+                        </p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+                    </fieldset>
+
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#                    <fieldset class="TableLike FixedLabelSmall Narrow">
+#[% RenderBlockStart("DynamicField_Field1") %]
+#                        <label>[% Translate(Data.Label) | html %]:</label>
+#                        <p class="Value">
+#[% RenderBlockStart("DynamicField_Field1_Link") %]
+#                            <span title="[% Data.Title | html %]"><a href="[% Data.Link %]" target="_blank">[% Data.Value %]</a></span>
+#[% RenderBlockEnd("DynamicField_Field1_Link") %]
+#[% RenderBlockStart("DynamicField_Field1_Plain") %]
+#                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+#[% RenderBlockEnd("DynamicField_Field1_Plain") %]
+#                        </p>
+#[% RenderBlockEnd("DynamicField_Field1") %]
+#                    </fieldset>
+#                    <fieldset class="TableLike FixedLabelSmall Narrow">
+#[% RenderBlockStart("DynamicField_Field2") %]
+#                        <label>[% Translate(Data.Label) | html %]:</label>
+#                        <p class="Value">
+#[% RenderBlockStart("DynamicField_Field2_Link") %]
+#                            <span title="[% Data.Title | html %]"><a href="[% Data.Link %]" target="_blank">[% Data.Value %]</a></span>
+#[% RenderBlockEnd("DynamicField_Field2_Link") %]
+#[% RenderBlockStart("DynamicField_Field2_Plain") %]
+#                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+#[% RenderBlockEnd("DynamicField_Field2_Plain") %]
+#                        </p>
+#[% RenderBlockEnd("DynamicField_Field2") %]
+#                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Change Builder") | html %]:</label>
+[% RenderBlockStart("EmptyChangeBuilder") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyChangeBuilder") %]
+[% RenderBlockStart("ChangeBuilder") %]
+                        <p class="Value" title="[% Data.ChangeBuilderUserLogin | html %] ([% Data.ChangeBuilderUserFirstname | html %] [% Data.ChangeBuilderUserLastname | html %])">
+                            [% Data.ChangeBuilderUserLogin | truncate(15) | html %] ([% Data.ChangeBuilderUserFirstname | html %] [% Data.ChangeBuilderUserLastname | html %])
+                        </p>
+[% RenderBlockEnd("ChangeBuilder") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("WorkOrderAgent") | html %]:</label>
+[% RenderBlockStart("EmptyWorkOrderAgent") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyWorkOrderAgent") %]
+[% RenderBlockStart("WorkOrderAgent") %]
+                        <p class="Value" title="[% Data.WorkOrderAgentUserLogin | html %] ([% Data.WorkOrderAgentUserFirstname | html %] [% Data.WorkOrderAgentUserLastname | html %])">
+                            [% Data.WorkOrderAgentUserLogin | truncate(15) | html %] ([% Data.WorkOrderAgentUserFirstname | html %] [% Data.WorkOrderAgentUserLastname | html %])
+                        </p>
+[% RenderBlockEnd("WorkOrderAgent") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                     <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Customer") | html %]:</label>
+                        <p class="Value" title="">
+                            [% Data.CustomerName | html %]
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value">[% Data.CreateTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created by") | html %]:</label>
+                        <p class="Value" title="[% Data.CreateUserLogin | html %] ([% Data.CreateUserFirstname | html %] [% Data.CreateUserLastname | html %])">
+                            [% Data.CreateUserLogin | truncate(15) | html %] ([% Data.CreateUserFirstname | html %] [% Data.CreateUserLastname | html %])
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Last changed") | html %]:</label>
+                        <p class="Value">[% Data.ChangeTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed by") | html %]:</label>
+                        <p class="Value" title="[% Data.ChangeUserLogin | html %] ([% Data.ChangeUserFirstname | html %] [% Data.ChangeUserLastname | html %])">
+                            [% Data.ChangeUserLogin | truncate(15) | html %] ([% Data.ChangeUserFirstname | html %] [% Data.ChangeUserLastname | html %])
+                        </p>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("LinkTableSimple") %]
+                        [% Data.LinkTableStrg %]
+[% RenderBlockEnd("LinkTableSimple") %]
+                    </fieldset>
+                </div>
+[% RenderBlockEnd("Meta") %]
+            </div>
+        </div>
+
+        <div class="ContentColumn">
+            <div class="ControlRow"></div>
+            <div class="ActionRow">
+                <ul class="Actions">
+[% RenderBlockStart("Menu") %]
+[% RenderBlockStart("MenuItem") %]
+                    <li>
+                        <a href="[% Env("Baselink") %][% Data.Link | Interpolate %]" id="Menu[% Data.MenuID | html %]" class="[% Data.MenuClass | html %]" title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]</a>
+                    </li>
+
+[% RenderBlockStart("ShowConfirmDialog") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfirmDialog.BindConfirmDialog({
+        ElementID:                  'Menu[% Data.MenuID %]',
+        ElementSelector:            '[% Data.ElementSelector | Interpolate %]',
+        DialogContentQueryString:   '[% Data.DialogContentQueryString | Interpolate %]',
+        ConfirmedActionQueryString: '[% Data.ConfirmedActionQueryString | Interpolate %]',
+        DialogTitle:                '[% Data.DialogTitle | Interpolate %]',
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %],
+            Ok:  [% Translate("Ok") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ShowConfirmDialog") %]
+
+[% RenderBlockEnd("MenuItem") %]
+[% RenderBlockEnd("Menu") %]
+                </ul>
+            </div>
+
+            <div class="WidgetBox SpacingTop Expanded">
+                <div class="LightRow Header">
+                    <div class="WidgetAction Toggle"><a href="#" title="[% Translate("Show or hide the content.") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+                    <h2>[% Translate("Workorder") | html %] - [% Data.WorkOrderTitle | truncate(70) | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label><strong>[% Translate("ITSMChange") | html %]</strong></label>
+                        <div class="Value">
+                            <div class="Flag Small">
+                                <span class="[% Data.ChangeStateSignal | html %]">[% Translate(Data.ChangeState) | html %]</span>
+                            </div>
+                            [% Data.ChangeNumber | html %]
+                            <a href="[% Env("Baselink") %]Action=AgentITSMChangeZoom;ChangeID=[% Data.ChangeID | uri %]">
+                                [% Data.ChangeTitle | truncate(70) | html %]
+                            </a>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label><strong>[% Translate("Workorder") | html %]</strong></label>
+                        <div class="Value">
+                            <div class="Flag Small">
+                                <span class="[% Data.WorkOrderStateSignal | html %]">[% Translate(Data.WorkOrderState) | html %]</span>
+                            </div>
+                            [% Data.ChangeNumber | html %] - [% Data.WorkOrderNumber | html %]
+                            <strong>[% Data.WorkOrderTitle | truncate(70) | html %]</strong>
+                        </div>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("BrowserLinkMessage") %]
+# Show info, that links within the iframe must be clicked with strg/cmd/shift (depending on the used browser and os)
+# to open the links in a new window without the security permissions given to the iframe
+                        <div class="ITSMMessageBrowser">
+                            <p>
+                                [% Translate("To open links in the following description blocks, you might need to press Ctrl or Cmd or Shift key while clicking the link (depending on your browser and OS).") | html %]
+                            </p>
+                            <a class="Close" title="[% Translate("Close this message") | html %]" href="#"><i class="fa fa-times"></i></a>
+                        </div>
+[% RenderBlockEnd("BrowserLinkMessage") %]
+
+[% RenderBlockStart("ITSMContent") %]
+                        <label>[% Translate( Data.Field ) | html %]: </label>
+                        <div>
+# Use the HTML5 sandbox attribute to prevent plugins and scripts from being executed in the browser.
+# Use IE's (non-standard) security attribute to achieve something similar in older IE browsers. Append session info to URL because IE will not send cookies.
+# Set 'allow-popups' to allow IE10+ to open links. ref: http://www.w3.org/html/wg/wiki/ChangeProposals/sandbox_allow_popups
+                            <iframe sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox" [% Data.MSSecurityRestricted %] class="Field" id="IframeITSM[% Data.Field | html %]" onload="if (typeof ITSM === 'object' && typeof ITSM.Agent === 'object' && typeof ITSM.Agent.ChangeManagement === 'object' && typeof ITSM.Agent.ChangeManagement.Zoom === 'object') { ITSM.Agent.ChangeManagement.Zoom.IframeAutoHeight($('#IframeITSM[% Data.Field | html %]')); };" src="#" data-src="[% Env("Baselink") %]Action=AgentITSMWorkOrderZoom;Subaction=HTMLView;WorkOrderID=[% Data.WorkOrderID | html %];Field=[% Data.Field | html %];[% Env("SessionName") | html %]=[% Env("SessionID") | html %]"></iframe>
+                        </div>
+                        <div class="Clear"></div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+    Core.Config.Set('ITSMChange::Frontend::AgentHTMLFieldHeightDefault', parseInt("[% Config("ITSMChange::Frontend::AgentHTMLFieldHeightDefault") %]" || 0, 10));
+    Core.Config.Set('ITSMChange::Frontend::AgentHTMLFieldHeightMax', parseInt("[% Config("ITSMChange::Frontend::AgentHTMLFieldHeightMax") %]" || 0, 10));
+
+    // copy data-src attribute to src attribute for all iframes to correctly display its contents after JS is fully loaded
+    $('iframe').each(function(){
+        $(this).attr("src", $(this).attr("data-src") );
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ITSMContent") %]
+
+
+                        <label>[% Translate("Attachment") | html %] ([% Translate("Workorder") | html %]):</label>
+                        <div class="Field">
+[% RenderBlockStart("AttachmentRow") %]
+                            <span class="DownloadAttachment" title="[% Translate("Download Attachment") | html %]">
+                                <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;Filename=[% Data.Filename | uri %];WorkOrderID=[% Data.WorkOrderID | uri %]">
+                                    [% Data.Filename | html %]
+                                </a>
+                                , [% Data.Filesize | html %]
+                            </span>
+                            <br/>
+[% RenderBlockEnd("AttachmentRow") %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Attachment") | html %] ([% Translate("Report") | html %]):</label>
+                        <div class="Field">
+[% RenderBlockStart("ReportAttachmentRow") %]
+                            <span class="DownloadAttachment" title="[% Translate("Download Attachment") | html %]">
+                                <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;Filename=[% Data.Filename | uri %];Type=WorkOrderReport;WorkOrderID=[% Data.WorkOrderID | uri %]">
+                                    [% Data.Filename | html %]
+                                </a>
+                                , [% Data.Filesize | html %]
+                            </span>
+                            <br/>
+[% RenderBlockEnd("ReportAttachmentRow") %]
+                        </div>
+                        <div class="Clear"></div>
+
+                    </fieldset>
+                </div>
+            </div>
+[% RenderBlockStart("LinkTableComplex") %]
+            <div class="Content">
+                [% Data.LinkTableStrg %]
+            </div>
+[% RenderBlockEnd("LinkTableComplex") %]
+        </div>
+    </div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('ul.Actions a.AsPopup').bind('click', function (Event) {
+        Core.UI.Popup.OpenPopup ($(this).attr('href'), 'Action');
+        return false;
+    });
+
+    $('ul.Actions a.HistoryBack').bind('click', function (Event) {
+
+        // if we have a referrer we use it, so the previous page will be loaded from the server
+        // and if the referer is not the current page (AgentITSMWorkOrderZoom)
+        if (document.referrer && !document.referrer.match(/AgentITSMWorkOrderZoom/) ) {
+            window.location.href = document.referrer;
+            return false;
+        }
+        // otherwise we use the browser history to go back one page (could be from the browser cache)
+        else if (history.length > 0) {
+            history.back();
+            return false;
+        }
+        // if the page was loaded from clicking a link in an email there is no referer
+        // and then we want to follow the original link target (which is the change zoom )
+        else {
+            return true;
+        }
+    });
+//]]></script>
+[% END %]

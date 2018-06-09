@@ -1,0 +1,46 @@
+---
+Debugger:
+  DebugThreshold: debug
+  TestMode: 0
+Description: ITSM Configuration Management Connector Sample
+FrameworkVersion: 5.0.x git
+Provider:
+  Operation:
+    ConfigItemCreate:
+      Description: Creates new Configuration Items from ITSMConfigurationManagement
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: ConfigItem::ConfigItemCreate
+    ConfigItemDelete:
+      Description: Deletes Configuration Items from ITSMConfigurationManagement
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: ConfigItem::ConfigItemDelete
+    ConfigItemGet:
+      Description: Get the details for Configuration Items from ITSMConfigurationManagement
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: ConfigItem::ConfigItemGet
+    ConfigItemSearch:
+      Description: Search Configuration Items from ITSMConfigurationManagement
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: ConfigItem::ConfigItemSearch
+    ConfigItemUpdate:
+      Description: Updates Configuration Items from ITSMConfigurationManagement
+      MappingInbound: {}
+      MappingOutbound: {}
+      Type: ConfigItem::ConfigItemUpdate
+  Transport:
+    Config:
+      MaxLength: 100000000
+      NameSpace: http://www.otrs.org/ConfigItemConnector
+      RequestNameFreeText: ''
+      RequestNameScheme: Plain
+      ResponseNameFreeText: ''
+      ResponseNameScheme: Response
+    Type: HTTP::SOAP
+RemoteSystem: ''
+Requester:
+  Transport:
+    Type: ''

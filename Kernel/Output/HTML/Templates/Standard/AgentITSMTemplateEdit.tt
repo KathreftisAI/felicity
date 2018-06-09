@@ -1,0 +1,50 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<form action="[% Env("CGIHandle") %]" method="post" name="compose" id="Compose" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action"       value="[% Env("Action") %]">
+    <input type="hidden" name="Subaction"    value="UpdateTemplate">
+    <input type="hidden" name="TemplateID"   value="[% Data.TemplateID | html %]">
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>[% Translate("Edit") | html %] [% Translate(Data.Type) | html %] [% Translate("Template") | html %]: [% Data.Name | html %]</h1>
+            <p>
+                <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+
+            <fieldset class="TableLike FixedLabel">
+                <label for="TemplateName">[% Translate("Template Name") | html %]:</label>
+                <div class="Field">
+                    <input type="text" id="TemplateName" name="TemplateName" value="[% Data.TemplateName | html %]" class="W75pc Validate_Required [% Data.TemplateNameInvalid | html %]" />
+                    <div id="TemplateNameError" class="TooltipErrorMessage" ><p>[% Translate("A template should have a name!") | html %]</p></div>
+                    <div id="TemplateNameServerError" class="TooltipErrorMessage"><p>[% Translate("The template name is required.") | html %]</p></div>
+                </div>
+                <div class="Clear"></div>
+
+                <label for="Comment">[% Translate("Comment") | html %]:</label>
+                <div class="Field">
+                    <input type="text" id="Comment" name="Comment" value="[% Data.Comment | html %]" class="W75pc" />
+                </div>
+                <div class="Clear"></div>
+
+                <label for="ValidID">[% Translate("Validity") | html %]:</label>
+                <div class="Field">
+                    [% Data.ValidSelectionString %]
+                </div>
+                <div class="Clear"></div>
+
+            </fieldset>
+        </div>
+        <div class="Footer">
+            <button class="Primary" id="submitEditTemplate" accesskey="g" type="submit" name="EditTemplate" value="[% Translate("Save") | html %]">[% Translate("Save") | html %]</button>
+        </div>
+    </div>
+</form>

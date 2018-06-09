@@ -1,0 +1,139 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div id="MainBox" class="TicketView ARIARoleMain SearchResults [% Config("Ticket::Frontend::CustomerTicketOverviewSortable") %] Sortable">
+    <div class="ActionRow">
+[% RenderBlockStart("Back") %]
+        <ul class="Tabs">
+            <li><a href="[% Env("Baselink") %][% Data.SearchBackLink | html %]" class="HistoryBack">&larr; [% Translate("Back to FAQ Explorer") | html %]</a></li>
+        </ul>
+        <div class="Clear"></div>
+[% RenderBlockEnd("Back") %]
+        <ul class="Tabs">
+            <li>
+                <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.Link | html %]">
+                    &larr; [% Translate("Change search options") | html %]
+                </a>
+            </li>
+        </ul>
+[% RenderBlockStart("Pagination") %]
+        <div class="Tabs Pagination">
+            <strong>[% Data.Result | html %]</strong> [% Translate("of") | html %] <strong>[% Data.TotalHits | html %]</strong> - [% Translate("Page") | html %]: [% Data.SiteNavBar %]
+        </div>
+[% RenderBlockEnd("Pagination") %]
+        <div class="Clear"></div>
+        <div class="SearchTerms">
+            <h2>[% Translate("Search Results for") | html %]:</h2>
+[% RenderBlockStart("SearchTerms") %]
+            <span>
+                [% Data.Attribute | html %]: [% Data.Value | html %]
+# hide remove link, functionality is not yet implemented
+#                <a title="[% Translate("Remove this Search Term.") | html %]" href="[% Data.SearchValue %]">&times;</a>
+            </span>
+[% RenderBlockEnd("SearchTerms") %]
+        </div>
+    </div>
+    <div class="Content">
+        <table class="Overview">
+            <thead>
+                <tr>
+                    <th class="FAQNumber [% Data.FAQIDSort %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;[% Data.Profile | html %]SortBy=FAQID;Order=[% Data.Order | uri %];TakeLastSearch=1;Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];Type=[% Data.Type | uri %]">
+                            [% Config("FAQ::FAQHook") %]
+                        </a>
+                    </th>
+                    <th class="Title [% Data.TitleSort %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;[% Data.Profile | html %]SortBy=Title;Order=[% Data.Order | uri %];TakeLastSearch=1;Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];Type=[% Data.Type | uri %]">
+                            [% Translate("Title") | html %]
+                        </a>
+                    </th>
+                    <th class="Category [% Data.CategorySort %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;[% Data.Profile | html %]SortBy=Category;Order=[% Data.Order | uri %];TakeLastSearch=1;Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];Type=[% Data.Type | uri %]">
+                            [% Translate("Category") | html %]
+                        </a>
+                    </th>
+[% RenderBlockStart("HeaderLanguage") %]
+                    <th class="Language [% Data.LanguageSort %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;[% Data.Profile | html %]SortBy=Language;Order=[% Data.Order | uri %];TakeLastSearch=1;Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];Type=[% Data.Type | uri %]">
+                            [% Translate("Language") | html %]
+                        </a>
+                    </th>
+[% RenderBlockEnd("HeaderLanguage") %]
+                    <th class="Changed [% Data.ChangedSort %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;[% Data.Profile | html %]SortBy=Changed;Order=[% Data.Order | uri %];TakeLastSearch=1;Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];Type=[% Data.Type | uri %]">
+                            [% Translate("Changed") | html %]
+                        </a>
+                    </th>
+[% RenderBlockStart("HeaderDynamicField") %]
+                    <th class="DynamicField [% Data.CSS %]">
+[% RenderBlockStart("HeaderDynamicFieldSortable") %]
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Search;SortBy=DynamicField_[% Data.DynamicFieldName | uri %];Order=[% Data.Order | uri %];Filter=[% Data.Filter | uri %];Limit=[% Data.Limit | uri %];ShowClosedTickets=[% Data.ShowClosed | uri %];Type=[% Data.Type | uri %];Profile=[% Data.Profile | uri %];TakeLastSearch=1">
+                            [% Translate(Data.Label) | html %]
+                        </a>
+[% RenderBlockEnd("HeaderDynamicFieldSortable") %]
+[% RenderBlockStart("HeaderDynamicFieldNotSortable") %]
+                        <span>[% Translate(Data.Label) | html %]</span>
+[% RenderBlockEnd("HeaderDynamicFieldNotSortable") %]
+                    </th>
+[% RenderBlockEnd("HeaderDynamicField") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                <tr id="EmptyMessage">
+                    <td colspan="6">
+                        <a href="#">[% Translate("No FAQ data found.") | html %]</a>
+                    </td>
+                </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("Record") %]
+                <tr class="MasterAction" title="[% Data.Number | html %]">
+                    <td class="FAQNumber"><a href="[% Env("Baselink") %]Action=PublicFAQZoom;ItemID=[% Data.FAQID | uri %];ZoomBackLink=[% Data.ZoomBackLink | uri %];" class="MasterActionLink">[% Data.Number | html %]</a></td>
+                    <td class="Title" title="[% Data.Title %]">[% Data.CleanTitle | html %]</td>
+                    <td class="Category">[% Data.CategoryName | truncate(60) | html %]</td>
+[% RenderBlockStart("RecordLanguage") %]
+                    <td class="Language">[% Data.Language | truncate(5) | html %]</td>
+[% RenderBlockEnd("RecordLanguage") %]
+                    <td class="Changed" title="[% Data.Changed | Localize("TimeShort") %]">[% Data.Changed | truncate(20) | html %]</td>
+[% RenderBlockStart("RecordDynamicField") %]
+                    <td class="DynamicField" title="[% Data.Title | html %]">[% Data.Value %]</td>
+[% RenderBlockEnd("RecordDynamicField") %]
+                </tr>
+[% RenderBlockEnd("Record") %]
+            </tbody>
+        </table>
+    </div>
+[% RenderBlockStart("BottomSubNavigation") %]
+    <div id="BottomActionRow" class="ActionRow BigButtons">
+        <ul class="Tabs">
+            <li>
+                <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=LoadProfile;[% Data.Link | uri %]">
+                    &larr; [% Translate("Change search options") | html %]
+                </a>
+            </li>
+        </ul>
+        <div class="Tabs Pagination">
+            <strong>[% Data.Result | html %]</strong> [% Translate("of") | html %] <strong>[% Data.TotalHits | html %]</strong> - [% Translate("Page") | html %]: [% Data.SiteNavBar %]
+        </div>
+        <div class="Clear"></div>
+    </div>
+[% RenderBlockEnd("BottomSubNavigation") %]
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('.MasterAction').bind('click', function (Event) {
+        var $MasterActionLink = $(this).find('.MasterActionLink');
+        // only act if the link was not clicked directly
+        if (Event.target !== $MasterActionLink.get(0)) {
+            window.location = $MasterActionLink.attr('href');
+            return false;
+        }
+    });
+//]]></script>
+[% END %]

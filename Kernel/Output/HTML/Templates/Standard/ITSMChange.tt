@@ -1,0 +1,199 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("WorkOrderGraph") %]
+<style type="text/css" media="screen">
+    .LabelMargin {
+        margin-left: [% Data.LabelMargin | html %]px;
+    }
+
+    .RTL .LabelMargin {
+        margin-left: auto;
+        margin-right: [% Data.LabelMargin | html %]px;
+    }
+
+    div.WorkorderLabel {
+        width: [% Data.LabelWidth | html %]px;
+    }
+
+/* [% RenderBlockStart("CSSWorkOrderType") %] */
+    span.[% Data.WorkOrderTypeName | html %] { background-color: [% Data.WorkOrderTypeColor | html %]; }
+/* [% RenderBlockEnd("CSSWorkOrderType") %] */
+
+/* [% RenderBlockStart("CSSTimeLine") %] */
+    div.Timeline {
+        background-color: [% Data.TimeLineColor | html %];
+        left: [% Data.TimeLineLeft | html %]%;
+        width: [% Data.TimeLineWidth | html %]px;
+    }
+
+    .RTL div.Timeline {
+        left: auto;
+        right: [% Data.TimeLineLeft | html %]%;
+    }
+/* [% RenderBlockEnd("CSSTimeLine") %] */
+</style>
+
+<div class="WorkorderGraphBox">
+    <div class="WorkorderGraph">
+        <div class="LinesScaleBox">
+            <div class="LinesScale LabelMargin">
+[% RenderBlockStart("TimeLine") %]
+                <div class="Timeline">&nbsp;</div>
+[% RenderBlockEnd("TimeLine") %]
+                <div class="ScaleVerticalLine Scale0">&nbsp;</div>
+                <div class="ScaleVerticalLine Scale20">&nbsp;</div>
+                <div class="ScaleVerticalLine Scale40">&nbsp;</div>
+                <div class="ScaleVerticalLine Scale60">&nbsp;</div>
+                <div class="ScaleVerticalLine Scale80">&nbsp;</div>
+                <div class="ScaleVerticalLine Scale100">&nbsp;</div>
+            </div>
+        </div>
+
+[% RenderBlockStart("WorkOrderItem") %]
+        <div class="WorkorderLabel" title="[% Data.WorkOrderLabel | html %]">
+            <div class="Flag Small">
+                <span class="[% Data.WorkOrderStateSignal | html %]">[% Translate(Data.WorkOrderState) | html %]</span>
+            </div>
+            <a href="[% Env("Baselink") %]Action=AgentITSMWorkOrderZoom;WorkOrderID=[% Data.WorkOrderID | uri %]">
+                [% Data.WorkOrderNumber | html %].
+[% RenderBlockStart("WorkOrderItemState") %]
+                - [% Translate(Data.WorkOrderState) | html %]
+[% RenderBlockEnd("WorkOrderItemState") %]
+[% RenderBlockStart("WorkOrderItemTitle") %]
+                - [% Data.WorkOrderTitle | truncate(20) | html %]
+[% RenderBlockEnd("WorkOrderItemTitle") %]
+            </a>
+        </div>
+
+[% RenderBlockStart("WorkOrderItemGraph") %]
+        <div class="Workorder LabelMargin">
+            <a href="[% Env("Baselink") %]Action=AgentITSMWorkOrderZoom;WorkOrderID=[% Data.WorkOrderID | uri %]">
+                <span>
+                    <span class="[% Data.WorkOrderType | html %]_planned [% Data.WorkOrderOpacity %]" style="[% Data.GraphDirection | html %]: [% Data.PlannedPadding | html %]%; width: [% Data.PlannedTicks | html %]%">&nbsp;</span>
+                </span>
+                <span>
+                    <span class="[% Data.WorkOrderType | html %]_actual [% Data.WorkOrderOpacity %]" style="[% Data.GraphDirection | html %]: [% Data.ActualPadding | html %]%; width: [% Data.ActualTicks | html %]%">&nbsp;</span>
+                </span>
+            </a>
+            <div class="WorkorderDetails">
+                <h3>[% Translate("Workorder Information") | html %]</h3>
+                <fieldset class="TableLike">
+
+[% RenderBlockStart("WorkOrderTitle") %]
+                    <label>[% Translate("Title") | html %]:</label>
+                    <p class="Value">[% Data.WorkOrderTitle | truncate(40) | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("WorkOrderTitle") %]
+
+[% RenderBlockStart("WorkOrderState") %]
+                    <label>[% Translate("State") | html %]:</label>
+                    <p class="Value">[% Translate(Data.WorkOrderState) | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("WorkOrderState") %]
+
+[% RenderBlockStart("WorkOrderType") %]
+                    <label>[% Translate("Type") | html %]:</label>
+                    <p class="Value">[% Translate(Data.WorkOrderType) | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("WorkOrderType") %]
+
+[% RenderBlockStart("DynamicField") %]
+                    <label>[% Translate(Data.Label) | html %]:</label>
+                    <p class="Value">[% Data.Value %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+
+[% RenderBlockStart("WorkOrderAgentBlock") %]
+                    <label>[% Translate("WorkOrderAgent") | html %]:</label>
+[% RenderBlockStart("EmptyWorkOrderAgent") %]
+                    <p class="Value">-</p>
+[% RenderBlockEnd("EmptyWorkOrderAgent") %]
+[% RenderBlockStart("WorkOrderAgent") %]
+                    <p class="Value">
+                        [% Data.WorkOrderAgentUserLogin | truncate(20) | html %] ([% Data.WorkOrderAgentUserFirstname | html %] [% Data.WorkOrderAgentUserLastname | html %])
+                    </p>
+[% RenderBlockEnd("WorkOrderAgent") %]
+                    <div class="Clear"></div>
+[% RenderBlockEnd("WorkOrderAgentBlock") %]
+
+[% RenderBlockStart("Instruction") %]
+                    <label>[% Translate("Instruction") | html %]:</label>
+                    <p class="Value">[% Data.InstructionPlain | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("Instruction") %]
+
+[% RenderBlockStart("Report") %]
+                    <label>[% Translate("Report") | html %]:</label>
+                    <p class="Value">[% Data.ReportPlain | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("Report") %]
+
+[% RenderBlockStart("PlannedEffort") %]
+                    <label>[% Translate("PlannedEffort") | html %]:</label>
+                    <p class="Value">[% Data.PlannedEffort | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("PlannedEffort") %]
+
+[% RenderBlockStart("AccountedTime") %]
+                    <label>[% Translate("AccountedTime") | html %]:</label>
+                    <p class="Value">[% Data.AccountedTime | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("AccountedTime") %]
+
+[% RenderBlockStart("PlannedStartTime") %]
+                    <label>[% Translate("PlannedStartTime") | html %]:</label>
+                    <p class="Value">[% Data.PlannedStartTime | Localize("TimeLong") %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("PlannedStartTime") %]
+
+[% RenderBlockStart("PlannedEndTime") %]
+                    <label>[% Translate("PlannedEndTime") | html %]:</label>
+                    <p class="Value">[% Data.PlannedEndTime | Localize("TimeLong") %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("PlannedEndTime") %]
+
+[% RenderBlockStart("ActualStartTime") %]
+                    <label>[% Translate("ActualStartTime") | html %]:</label>
+                    <p class="Value">[% Data.ActualStartTime | Localize("TimeLong") %][% Data.EmptyActualStartTime | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("ActualStartTime") %]
+
+[% RenderBlockStart("ActualEndTime") %]
+                    <label>[% Translate("ActualEndTime") | html %]:</label>
+                    <p class="Value">[% Data.ActualEndTime | Localize("TimeLong") %][% Data.EmptyActualEndTime | html %]</p>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("ActualEndTime") %]
+
+                </fieldset>
+            </div>
+        </div>
+[% RenderBlockEnd("WorkOrderItemGraph") %]
+        <div class="Clear"></div>
+[% RenderBlockEnd("WorkOrderItem") %]
+    </div>
+
+[% RenderBlockStart("Scale") %]
+    <div class="LabelMargin">
+        <div class="ScaleHorizontal">
+            <div class="ScaleEntry Scale0 ScaleEntryTail">[% Data.StartTime | Localize("TimeLong") %]</div>
+[% RenderBlockStart("ScaleLabel") %]
+            <div class="ScaleEntry [% Data.ScaleClass %]">[% Data.ScaleLabel | Localize("TimeLong") %]</div>
+[% RenderBlockEnd("ScaleLabel") %]
+            <div class="ScaleEntry Scale90 ScaleEntryTrail">[% Data.EndTime | Localize("TimeLong") %]</div>
+        </div>
+    </div>
+[% RenderBlockEnd("Scale") %]
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ChangeManagement.WorkorderGraph.Init();
+//]]></script>
+[% END %]
+[% RenderBlockEnd("WorkOrderGraph") %]

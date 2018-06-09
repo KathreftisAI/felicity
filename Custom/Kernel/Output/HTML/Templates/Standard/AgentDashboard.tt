@@ -1,0 +1,78 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Content") %]
+<div class="MainBox Dashboard ARIARoleMain LayoutFixedSidebar SidebarLast">
+   <div class="spacer10"></div>
+   <h1 style="float:left; margin:0px !important;">[% Translate("Dashboard") | html %]</h1>
+#code added by ashish to display colour on the basis of Severity
+
+<div class="severity_key_row">
+	<div class="severity_key">
+		<div class="Flag Medium" title="Severity - 1">
+       			 <span class="SeverityID-1" style="background-color: #F00; ">
+            			<i class="fa fa-star"></i>
+           			 <i class="fa fa-star"></i>
+           			 <em>Severity - 1</em>
+       			 </span>
+
+		</div>
+		<p>Severity-1</p>
+	</div>
+
+	<div class="severity_key">
+		<div class="Flag Medium" title="Severity - 2">
+        		<span class="SeverityID-2" style="background-color: #FFA500; ">
+           		 	<i class="fa fa-star"></i>
+           			<i class="fa fa-star"></i>
+           	 		<em>Severity - 2</em>
+       	        	</span>
+
+		</div>
+		<p>Severity-2</p>
+	</div>
+
+	<div class="severity_key">
+		<div class="Flag Medium" title="Severity - 3">
+        		<span class="SeverityID-3" style="background-color: #00688D; ">
+          		  	<i class="fa fa-star"></i>
+          	  		<i class="fa fa-star"></i>
+          	  		<em>Severity - 3</em>
+			</span>
+
+		</div>
+		<p>Severity-3</p>
+	</div>
+
+	<div class="severity_key">
+		<div class="Flag Medium" title="Severity - 4">
+        		<span class="SeverityID-4" style="background-color: #CDCDCD; ">
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+           			<em>Severity - 4</em>
+       			 </span>
+
+		</div>
+		<p>Severity-4</p>
+	</div>
+</div>
+#code ended to display colour on the basis of Severity
+
+<div class="spacer10"></div>
+
+[% InsertTemplate("AgentDashboardCommon.tt") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.Agent.Dashboard.Init();
+//]]></script>
+[% END %]
+
+
+</div>
+[% RenderBlockEnd("Content") %]

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Monthly overview of first level solution rate per Queue in the last month.
+
+X-Axis: Days of the month
+Y-Axis: Queue
+
+Restrictions:
+    -for Type "Incident"
+    -created in the past month
+    -closed with first customer contact</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMTicketFirstLevelSolutionRate</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMTicketFirstLevelSolutionRate</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>Monthly overview of first level solution rate per Queue in the last month.</Title>
+<UseAsRestriction Element="StateIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+<SelectedValues>10</SelectedValues>
+</UseAsRestriction>
+<UseAsRestriction Element="TypeIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+<SelectedValues>4</SelectedValues>
+<SelectedValues>3</SelectedValues>
+</UseAsRestriction>
+<UseAsValueSeries Element="QueueIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="CreateTime" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+    <ConfigItem Name="Frontend::Module###AgentRequest" Required="1" Valid="1">
+        <Description Translatable="1">FrontendModuleRegistration for Incident module1.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>Request</Title>
+                <Group>users</Group>
+                <Description>Request for Services (e.g., Update on OS)</Description>
+                <NavBarName>Request1</NavBarName>
+                <NavBar>
+                    <Description>Request1</Description>
+                    <Name>Request</Name>
+                    <Link></Link>
+                    <NavBar>Request</NavBar>
+                    <Type>Menu</Type>
+                    <Prio>8400</Prio>
+                    <Block>ItemArea</Block>
+                </NavBar>
+                   <Loader>
+                    <CSS>Core.AgentTicketQueue.css</CSS>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	<ConfigItem Name="Frontend::Module###1-Module::AgentRequest" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of all Request tickets.</Description>
+                <Title Translatable="1">AgentNewEscalation</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview Escalated Tickets.</Description>
+                    <Name Translatable="1">Overview</Name>
+                    <Link>Action=AgentRequest</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8460</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###RequestEscalation" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of all escalated tickets.</Description>
+                <Title Translatable="1">RequestEscalation</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview Escalated Tickets.</Description>
+                    <Name Translatable="1">Escalation</Name>
+                    <Link>Action=RequestEscalation</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8480</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="Frontend::Module###ServiceList" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Service List</Description>
+                <Title Translatable="1">RequestEscalation</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview Escalated Tickets.</Description>
+                    <Name Translatable="1">Service List</Name>
+                    <Link>Action=ServiceList</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8490</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentCatalog" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Catalog</Description>
+                <Title Translatable="1">Catalog</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Catalog.</Description>
+                    <Name Translatable="1">Catalog</Name>
+                    <Link>Action=AgentCatalog</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8492</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>    
+
+
+    <ConfigItem Name="CustomerFrontend::Module###CustomerSpagobi" Required="0" Valid="0">
+        <Description Translatable="1">Frontend module registration for the customer interface.</Description>
+        <Group>FAQ</Group>
+        <SubGroup>Frontend::Customer::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <NavBar>
+                    <Description Translatable="1">Request Catalog</Description>
+                    <Name Translatable="1">Customer Request SpagoBI Reports</Name>
+                    <Link>Action=CustomerSpagobi</Link>
+                    <Type>Submenu</Type>
+                    <Block></Block>
+                    <NavBar>Request</NavBar>
+                    <AccessKey>X</AccessKey>
+                    <Prio>710</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>FAQ.Customer.Detail.css</CSS>
+                    <CSS>FAQ.Customer.Default.css</CSS>
+                    <CSS>FAQ.Widget.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <!-- ################Added for Request Dashboard ~Ashish################################### -->
+
+    <ConfigItem Name="Frontend::Module###RequestDashboard" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of Request Dashboard.</Description>
+                <Title Translatable="1">RequestDashboard</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview of Request Dashboard.</Description>
+                    <Name Translatable="1">Request Dashboard</Name>
+                    <Link>Action=RequestDashboard</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8459</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+  
+  
+    <ConfigItem Name="CustomerFrontend::Module###CustomerCatalog" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the customer interface.</Description>
+        <Group>CustomerCatalog</Group>
+        <SubGroup>Frontend::Customer::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Customer Catalog.</Description>
+                <NavBarName>Customer Catalog</NavBarName>
+                <Title>Customer Catalog</Title>
+                <NavBar>
+                    <Description Translatable="1">Customer Catalog</Description>
+                    <Name Translatable="1">Catalog</Name>
+                    <Link>Action=CustomerCatalog</Link>
+                    <Type>Menu</Type>
+                    <Block></Block>
+                    <NavBar>Customer Catalog</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>800</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>FAQ.Customer.Detail.css</CSS>
+                    <CSS>FAQ.Customer.Default.css</CSS>
+                    <CSS>FAQ.Widget.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <!-- ################Added for sort ticket Age by ~Ashish################################### -->
+
+    <ConfigItem Name="Ticket::Frontend::AgentRequest###SortBy::Default" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default ticket attribute for ticket sorting in the status view of the agent interface.</Description>
+        <Group>Ticket</Group>
+        <SubGroup>Frontend::Agent::AgentRequest</SubGroup>
+        <Setting>
+            <Option SelectedID="">
+                <Item Key="Age" Translatable="1">Age</Item>
+                <Item Key="TicketNumber" Translatable="1">TicketNumber</Item>
+                <Item Key="Title" Translatable="1">Title</Item>
+                <Item Key="Queue" Translatable="1">Queue</Item>
+                <Item Key="Priority" Translatable="1">Priority</Item>
+                <Item Key="EscalationTime" Translatable="1">EscalationTime</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="Ticket::Frontend::AgentRequest###Order::Default" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default ticket attribute for ticket sorting in the status view of the agent interface.</Description>
+        <Group>Ticket</Group>
+        <SubGroup>Frontend::Agent::AgentRequest</SubGroup>
+        <Setting>
+            <Option SelectedID="">
+                <Item Key="Down" Translatable="1">Down</Item>
+                <Item Key="Up" Translatable="1">Up</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+
+    <!-- ################Added for create new request ticket by ~Ashish#################### -->
+
+    <ConfigItem Name="Frontend::Module###CreateRequestTicket" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Request</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Create new request phone ticket.</Description>
+                <Title Translatable="1">New phone ticket</Title>
+                <NavBarName>Request</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Create New Request.</Description>
+                    <Name Translatable="1">Create Request</Name>
+                    <Link>Action=AgentTicketPhone&amp;type=Request</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Request</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8500</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	    
+</otrs_config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

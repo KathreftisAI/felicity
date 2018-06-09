@@ -1,0 +1,323 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[%- INCLUDE "HTTPHeaders.tt" -%]
+# With this X-Header, Core.AJAX can recognize that the AJAX request returned the login page (session timeout) and perform a redirect.
+X-OTRS-Login: [% Env("Baselink") %]
+
+<!DOCTYPE html>
+<html>
+[% InsertTemplate("Copyright.tt") %]
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <link rel="shortcut icon" href="[% Config("Frontend::ImagePath") %]icons/product.ico" type="image/ico" />
+    <link rel="apple-touch-icon" href="[% Config("Frontend::ImagePath") %]icons/apple-touch-icon.png" />
+
+[% RenderBlockStart("CommonCSS") %]
+    <link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Agent/[% Data.Skin | uri %]/[% Data.CSSDirectory %]/[% Data.Filename %]" />
+[% RenderBlockEnd("CommonCSS") %]
+
+<link rel="stylesheet" href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/ui-theme/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/ui-theme/custom-style.css"/>
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/ui-theme/bootstrap-custom.css"/>
+
+
+
+
+[% RenderBlockStart("HeaderLogoCSS") %]
+    <style type="text/css">
+        #Header #Logo {
+            background-image: [% Data.URL | html %];
+            top: [% Data.StyleTop | html %];
+            right: [% Data.StyleRight | html %];
+            width: [% Data.StyleWidth | html %];
+            height: [% Data.StyleHeight | html %];
+        }
+    </style>
+[% RenderBlockEnd("HeaderLogoCSS") %]
+
+[% RenderBlockStart("LoginLogoCSS") %]
+    <style type="text/css">
+        #LoginLogo {
+            background-image: [% Data.URL | html %];
+            height: [% Data.StyleHeight | html %];
+        }
+    </style>
+[% RenderBlockEnd("LoginLogoCSS") %]
+
+    <style type="text/css">
+        @font-face {
+          font-family: 'FontAwesome';
+          src: url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?v=4.3.0');
+          src: url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+               url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+               url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),
+               url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular?v=4.3.0') format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        /* Fix poor font rendering on chrome based browsers on windows */
+        @media all and (-webkit-min-device-pixel-ratio:0) {
+            @font-face {
+                font-family: 'FontAwesome';
+                src: url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular') format('svg'),
+                     url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+                     url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+                     url('[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+        }
+
+.MainBox {display:none !important;}
+
+    </style>
+
+# decide, if responsive CSS must be loaded
+# resposive CSS will not be loaded in "desktop mode" or if the document is within an iframe (customer overview in ticket phone overlay)
+    <script>
+      (function(doc, win) {
+          var isIFrame = (win.top.location.href !== win.location.href),
+              isPopup = (win.name.search(/^OTRSPopup_/) != -1);
+          try {
+              if (((!isIFrame && !isPopup) || (isIFrame && isPopup)) && (!localStorage.getItem("DesktopMode") || parseInt(localStorage.getItem("DesktopMode"), 10) <= 0)) {
+                var ResponsiveCSS;
+    [% RenderBlockStart("ResponsiveCSS") %]
+                ResponsiveCSS = doc.createElement("link");
+                ResponsiveCSS.setAttribute("rel", "stylesheet");
+                ResponsiveCSS.setAttribute("type", "text/css");
+                ResponsiveCSS.setAttribute("href", "[% Config("Frontend::WebPath") %]skins/Agent/[% Data.Skin | uri %]/[% Data.CSSDirectory %]/[% Data.Filename %]");
+                doc.getElementsByTagName("head")[0].appendChild(ResponsiveCSS);
+    [% RenderBlockEnd("ResponsiveCSS") %]
+              }
+          }
+          catch (Exception) {}
+      }(document, window));
+    </script>
+
+    <title>[% Translate(Data.Title) | html %] - [% Config("ProductName") %]</title>
+
+[% InsertTemplate("HTMLHeadBlockEvents.tt") %]
+
+</head>
+<!-- end header -->
+
+
+<body>
+
+<div class="logform-con" style="">
+  <div class="toggle">  </div>
+  <div class="form">
+  
+   <div id="Header">
+    <div id="Logo"></div>
+   </div>
+    
+ <div id="login-form" class="animated flipInY" style="display:block">
+   
+[% RenderBlockStart("PreLogin") %]
+            <div id="LoginBox" class="animated flipInY PreLogin">
+              [% IF Config("ProductName") %]
+              <h2 class="Center">[% Config("ProductName") | html %]</h2>
+              [% END %]                   
+				<p class="Center">
+				[% Translate("One moment please, you are being redirected...") | html %]
+				</p>
+				<form action="[% Env("CGIHandle") %]" method="post" enctype="application/x-www-form-urlencoded" name="login">
+					<input type="hidden" name="Action" value="Login" />
+					<input type="hidden" name="RequestedURL" value="[% Data.RequestedURL | html %]"/>
+					<input type="hidden" name="Lang" value="[% Env("UserLanguage") | html %]"/>
+					<input type="hidden" name="TimeOffset" id="TimeOffset" value=""/>
+				</form>
+            </div>
+[% RenderBlockEnd("PreLogin") %]
+
+[% RenderBlockStart("LoginBox") %]
+            <div id="LoginBox">
+                <p class="[% IF Data.MessageType != 'Logout' %]Error [% END %] Error Center">
+                    [% Translate(Data.Message) | html %]
+                </p>
+                [% IF Config("ProductName") %]
+                <h2>[% Config("ProductName") | html %]</h2>
+                [% END %]
+                    
+                        <p class="Error Center"></p>
+
+                        <form action="[% Env("CGIHandle") %]" method="post" enctype="application/x-www-form-urlencoded" name="login" class="Validate">
+                            <input type="hidden" name="Action" value="Login" />
+                            <input type="hidden" name="RequestedURL" value="[% Data.RequestedURL | html %]"/>
+                            <input type="hidden" name="Lang" value="[% Env("UserLanguage") | html %]"/>
+                            <input type="hidden" name="TimeOffset" id="TimeOffset" value=""/>
+                            <fieldset class="TableLike">
+                                <label for="User" class="Mandatory">
+                                  <span class="Marker">*</span>[% Translate("Username") | html %] 
+                                </label>
+                               
+                                <input autocorrect="off" autocapitalize="off" type="text" id="User" name="User" value="[% Data.User | html %]" class="W75pc Validate_Required" />
+                                <div id="UserError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                                
+                                <div class="Clear"></div>
+
+                                <label for="Password" class="Mandatory">
+                                    <span class="Marker">*</span>[% Translate("Password") | html %]
+                                </label>
+                                
+                                <input type="password" id="Password" name="Password" class="W75pc Validate_Required" />
+                                <div id="PasswordError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                                
+                                <div class="Clear"></div>
+
+[% RenderBlockStart("AuthTwoFactor") %]
+                                <label for="TwoFactorToken" class="[% Data.MandatoryClass | html %]">
+[% RenderBlockStart("AuthTwoFactorMandatory") %]
+                                    <span class="Marker">*</span>
+[% RenderBlockEnd("AuthTwoFactorMandatory") %]
+                                        [% Translate("2 Factor Token") | html %]:
+                                </label>
+                               
+                                    <input type="password" id="TwoFactorToken" name="TwoFactorToken" class="W75pc [% Data.ValidateRequired | html %]" />
+                                    <div id="TwoFactorTokenError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                                
+                                <div class="Clear"></div>
+[% RenderBlockEnd("AuthTwoFactor") %]
+
+<!--
+# TODO: Implement
+#                                <div class="Field">
+#                                    <input type="checkbox" id="Remember" name="Remember" title="Remember my login on this computer" readonly="readonly" />
+#                                    <label for="Remember">Remember my login on this computer</label>
+#                                </div>
+#                                <div class="Clear"></div>
+                                -->
+ <button type="submit" id="LoginButton" class="" value="[% Translate("Login") | html %]" disabled="disabled">[% Translate("Login") | html %]</button>
+                               
+                                <div class="Clear"></div>
+                            </fieldset>
+                        </form>
+                    
+               
+[% RenderBlockStart("LostPasswordLink") %]
+                <p class="Center SpacingTop">
+                    <a href="#" id="LostPassword">[% Translate("Lost your password?") | html %]</a>
+                </p>
+            </div>
+[% RenderBlockEnd("LostPasswordLink") %]
+[% RenderBlockEnd("LoginBox") %]
+
+[% RenderBlockStart("LostPassword") %]
+            <div id="PasswordBox" class="animated flipInY Hidden">
+            <h2 class="Center Spacing">[% Translate("Request New Password") | html %]</h2>
+                  
+                        <p class="Error Center Spacing"></p>
+                        <form action="[% Env("CGIHandle") %]" method="post" enctype="application/x-www-form-urlencoded" class="Validate">
+                            <input type="hidden" name="Action" value="LostPassword"/>
+                            <input type="hidden" name="Lang" value="[% Env("UserLanguage") | html %]"/>
+
+                            <fieldset class="TableLike">
+                                <label for="PasswordUser" class="Mandatory">
+                                    <span class="Marker">*</span>
+                                        [% Translate("Username") | html %]:
+                                </label>
+                               
+                                    <input type="text" id="PasswordUser" name="User" value="" class="W75pc Validate_Required" readonly="readonly"/>
+                                    <div id="PasswordUserError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                                
+                                <div class="Clear"></div>
+									<button type="submit" Class="" value="[% Translate("Request New Password") | html %]" disabled="disabled"><span>[% Translate("Request New Password") | html %]</span></button>
+                               
+                                <div class="Clear"></div>
+                            </fieldset>
+                        </form>
+                   
+               
+                <p class="Center SpacingTop">
+                    <a href="" id="BackToLogin">&larr; [% Translate("Back to login") | html %]</a>
+                </p>
+            </div>
+[% RenderBlockEnd("LostPassword") %]
+
+# Message of the day data!
+[% Data.Motd %]
+
+  </div>
+  
+   
+     
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="MainBox ARIARoleMain SpacingTopLarge">
+[% RenderBlockStart("LoginLogo") %]
+        <div id="LoginLogo" class="CenterBox"></div>
+[% RenderBlockEnd("LoginLogo") %]
+
+        <div class="W33pc SpacingBottomLarge CenterBox">
+            <noscript>
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2 class="Center">[% Translate("JavaScript Not Available") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <p class="SpacingTop Center">
+                            [% Translate("In order to experience OTRS, you'll need to enable JavaScript in your browser.") | html %]
+                    </p>
+                </div>
+            </div>
+            </noscript>
+
+            <div class="WidgetSimple Hidden" id="OldBrowser">
+                <div class="Header">
+                    <h2 class="Center">[% Translate("Browser Warning") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <p class="SpacingTop Center">
+                        [% Translate("The browser you are using is too old.") | html %]
+                        [% Translate("OTRS runs with a huge lists of browsers, please upgrade to one of these.") | html %]
+                        [% Translate("Please see the documentation or ask your admin for further information.") | html %]
+                    </p>
+                </div>
+            </div>
+
+[% RenderBlockStart("SystemMaintenance") %]
+            <div class="MessageBox WithIcon" id="SystemMaintenance">
+                <i class="fa fa-exclamation-circle"></i>
+                <p>
+                    [% Translate(Data.LoginMessage) | html %]
+                </p>
+            </div>
+[% RenderBlockEnd("SystemMaintenance") %]
+        </div>
+    </div>
+	
+[% WRAPPER JSOnDocumentComplete %]
+    <script type="text/javascript">//<![CDATA[
+        Core.Agent.Login.Init([% Data.LoginFailed %]);
+
+        // Clear chat availability
+        $('#LoginButton').click(function () {
+            localStorage.removeItem('Availability');
+
+            // continue
+            return true;
+        });
+    //]]></script>
+[% END %]
+
+[% InsertTemplate("Footer.tt") %]

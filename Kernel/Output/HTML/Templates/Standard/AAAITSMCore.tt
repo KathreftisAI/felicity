@@ -1,0 +1,40 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+# Common
+[% Translate("Alternative to") | html %]
+[% Translate("Availability") | html %]
+[% Translate("Back End") | html %]
+[% Translate("Connected to") | html %]
+[% Translate("Current State") | html %]
+[% Translate("Demonstration") | html %]
+[% Translate("Depends on") | html %]
+[% Translate("End User Service") | html %]
+[% Translate("Errors") | html %]
+[% Translate("Front End") | html %]
+[% Translate("IT Management") | html %]
+[% Translate("IT Operational") | html %]
+[% Translate("Impact") | html %]
+[% Translate("Incident State") | html %]
+[% Translate("Includes") | html %]
+[% Translate("Other") | html %]
+[% Translate("Part of") | html %]
+[% Translate("Project") | html %]
+[% Translate("Recovery Time") | html %]
+[% Translate("Relevant to") | html %]
+[% Translate("Reporting") | html %]
+[% Translate("Required for") | html %]
+[% Translate("Resolution Rate") | html %]
+[% Translate("Response Time") | html %]
+[% Translate("SLA Overview") | html %]
+[% Translate("Service Overview") | html %]
+[% Translate("Service-Area") | html %]
+[% Translate("Training") | html %]
+[% Translate("Transactions") | html %]
+[% Translate("Underpinning Contract") | html %]
+[% Translate("allocation") | html %]

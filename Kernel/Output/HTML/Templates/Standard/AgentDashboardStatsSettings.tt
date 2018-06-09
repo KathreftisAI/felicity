@@ -1,0 +1,26 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<input type="hidden" name="[% Data.JSONFieldName | html %]" class="StatsSettingsJSON" />
+<div class="StatsSettingsBox" id="StatsSettingsBox[% Data.NamePref | html %]">
+
+[% FOR Error IN Data.Errors %]
+    <div class="MessageBox Error">
+        <p>[% Error | html %]</p>
+    </div>
+[% END %]
+
+[% Data.StatsParamsWidget %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+Core.Config.Set('StatsMaxXaxisAttributes', parseInt('[% Config("Stats::MaxXaxisAttributes") %]', 10) );
+Core.Agent.Dashboard.InitStatsConfiguration($('#StatsSettingsBox' + Core.App.EscapeSelector('[% Data.NamePref | html %]') + ''));
+//]]></script>
+[% END %]
+</div>

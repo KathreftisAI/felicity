@@ -1,0 +1,66 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain panel-forms">
+
+    <h1>[% Translate("Add Change") | html %]</h1>
+
+    <div class="ContentColumn">
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Select Change Template") | html %]</h2>
+            </div>
+
+            <div class="Content">
+                <form action="[% Env("CGIHandle") %]" method="post" name="template" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action"    value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="CreateFromTemplate"/>
+                    <input type="hidden" name="ChangeID"  value="[% Data.ChangeID | html %]"/>
+                    <input type="hidden" name="TicketID"  value="[% Data.TicketID | html %]"/>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+
+                        <label class="Mandatory" for="TemplateID"><span class="Marker">* </span>[% Translate("Template") | html %]:</label>
+                        <div class="Field">
+                            [% Data.TemplateSelectionString %]
+                            <div id="TemplateIDError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="TemplateIDServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+
+                        <label for="MoveTimeType">[% Translate("Time type") | html %]:</label>
+                        <div class="Field">
+                            [% Data.MoveTimeTypeSelectionString %]
+                            <div id="MoveTimeTypeServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid time type.") | html %]</p></div>
+                        </div>
+
+                        <label>[% Translate("New time") | html %]:</label>
+                        <div class="Field">
+                            [% Data.MoveTimeSelectionString %]
+                        </div>
+                         <div class="Clear"></div>
+
+                       <label class="Mandatory" for="ITSMChangeGroupID"><span class="Marker">*</span>[% Translate("ITSM Change Group") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ITSMChangeGroupIDSelectionString %]
+                        </div>
+                        <div id="ITSMChangeGroupIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+
+                        <div class="Field SpacingTop">
+                            <button class="btn btn-sm btn-primary" id="SubmitAddTemplate" accesskey="g" title="[% Translate("Submit") | html %] (g)" type="submit" name="AddTemplate" value="[% Translate("Submit") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Submit") | html %]</span></button>
+                        </div>
+
+                      </fieldset>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

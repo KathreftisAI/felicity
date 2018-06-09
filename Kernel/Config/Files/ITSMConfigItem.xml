@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Config">
+    <ConfigItem Name="Frontend::Module###AdminITSMConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description Translatable="1">Admin.</Description>
+                <Title Translatable="1">Config Item</Title>
+                <NavBarName>Admin</NavBarName>
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">Config Items</Name>
+                    <Description Translatable="1">Create and manage the definitions for Configuration Items.</Description>
+                    <Block>Ticket</Block>
+                    <Prio>495</Prio>
+                </NavBarModule>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <GroupRo>itsm-configitem</GroupRo>
+                <Description Translatable="1">ITSM config item overview.</Description>
+                <NavBarName>Config Item</NavBarName>
+                <Title Translatable="1">Config Item</Title>
+                <NavBar>
+                    <Description Translatable="1">Configuration Management Database.</Description>
+                    <Name>CMDB</Name>
+                    <Type>Menu</Type>
+                    <Block>ItemArea</Block>
+                    <Link>Action=AgentITSMConfigItem</Link>
+                    <NavBar>Config Item</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>3200</Prio>
+                </NavBar>
+                <NavBar>
+                    <Description Translatable="1">Overview.</Description>
+                    <Name>Overview</Name>
+                    <Link>Action=AgentITSMConfigItem</Link>
+                    <Type></Type>
+                    <Block></Block>
+                    <NavBar>Config Item</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>100</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>ITSM.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemZoom" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <GroupRo>itsm-configitem</GroupRo>
+                <Description Translatable="1">Config item zoom.</Description>
+                <Title Translatable="1">Zoom</Title>
+                <NavBarName>Config Item</NavBarName>
+                <Loader>
+                    <CSS>ITSM.Agent.Default.css</CSS>
+                    <CSS>ITSM.Agent.Detail.css</CSS>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <CSS>ITSM.Print.css</CSS>
+                    <JavaScript>thirdparty/jquery-tablesorter-2.0.5/jquery.tablesorter.js</JavaScript>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.UI.Table.Sort.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                    <JavaScript>Core.Agent.LinkObject.js</JavaScript>
+                    <JavaScript>ITSM.Agent.Zoom.js</JavaScript>
+                    <JavaScript>ITSM.Agent.ConfirmDialog.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemEdit" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>itsm-configitem</Group>
+                <Description Translatable="1">Config item edit.</Description>
+                <Title Translatable="1">Edit</Title>
+                <NavBarName>Config Item</NavBarName>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemPrint" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <GroupRo>itsm-configitem</GroupRo>
+                <Description Translatable="1">Config item print.</Description>
+                <Title Translatable="1">Print</Title>
+                <NavBarName>Config Item</NavBarName>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemDelete" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>itsm-configitem</Group>
+                <Description>Delete a configuration item</Description>
+                <Title>Delete</Title>
+                <NavBarName>ITSM ConfigItem</NavBarName>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemAdd" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>itsm-configitem</Group>
+                <Description Translatable="1">Config item add.</Description>
+                <Title Translatable="1">Add</Title>
+                <NavBarName>Config Item</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">New</Description>
+                    <Name>New</Name>
+                    <Link>Action=AgentITSMConfigItemAdd</Link>
+                    <Type></Type>
+                    <Block></Block>
+                    <NavBar>Config Item</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>200</Prio>
+                </NavBar>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemSearch" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <GroupRo>itsm-configitem</GroupRo>
+                <Description Translatable="1">Search config items.</Description>
+                <Title Translatable="1">Search</Title>
+                <NavBarName>Config Item</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Search config items.</Description>
+                    <Name>Search</Name>
+                    <Link>Action=AgentITSMConfigItemSearch</Link>
+                    <LinkOption>onclick="ITSM.Agent.ConfigItem.Search.OpenSearchDialog('AgentITSMConfigItemSearch'); if (event.stopPropagation) { event.stopPropagation(); } else { window.event.cancelBubble = true; } return false;"</LinkOption>
+                    <NavBar>Config Item</NavBar>
+                    <Type></Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>300</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>ITSM.Agent.Detail.css</CSS>
+                    <CSS>ITSM.Table.css</CSS>
+                    <CSS>ITSM.Print.css</CSS>
+                    <JavaScript>thirdparty/jquery-tablesorter-2.0.5/jquery.tablesorter.js</JavaScript>
+                    <JavaScript>Core.UI.Table.Sort.js</JavaScript>
+                    <JavaScript>ITSM.Agent.Zoom.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+
+
+ <ConfigItem Name="Frontend::Module###AgentCMDBAsset" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Asset Management.</Description>
+                <Title Translatable="1">Asset Management</Title>
+                <NavBarName>Config Item</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Search config items.</Description>
+                    <Name>Asset Management</Name>
+                    <Link>Action=AgentCMDBAsset</Link>
+                    <NavBar>Config Item</NavBar>
+                    <Type></Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>300</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>ITSM.Agent.Detail.css</CSS>
+                    <CSS>ITSM.Table.css</CSS>
+                    <CSS>ITSM.Print.css</CSS>
+                    <JavaScript>thirdparty/jquery-tablesorter-2.0.5/jquery.tablesorter.js</JavaScript>
+                    <JavaScript>Core.UI.Table.Sort.js</JavaScript>
+                    <JavaScript>ITSM.Agent.Zoom.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+
+
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###000-Back" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to go back in the configuration item zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Back</Item>
+                <Item Key="Description">Back</Item>
+                <Item Key="Action"></Item>
+                <Item Key="Link">Action=AgentITSMConfigItem;ClassID=[% Data.ClassID | html %]</Item>
+                <Item Key="Target">Back</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###200-History" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to access the history of a configuration item in the its zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">History</Item>
+                <Item Key="Description">History</Item>
+                <Item Key="Action">AgentITSMConfigItemHistory</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemHistory;ConfigItemID=[% Data.ConfigItemID | html %];VersionID=[% Data.VersionID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###300-Edit" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to edit a configuration item in the its zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Edit</Item>
+                <Item Key="Description">Edit</Item>
+                <Item Key="Action">AgentITSMConfigItemEdit</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemEdit;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###400-Print" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to print a configuration item in the its zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Print</Item>
+                <Item Key="Description">Print</Item>
+                <Item Key="Action">AgentITSMConfigItemPrint</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemPrint;ConfigItemID=[% Data.ConfigItemID | html %];VersionID=[% Data.VersionID | html %]</Item>
+                <Item Key="LinkParam">target="print"</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###500-Link" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu that allows linking a configuration item with another object in the config item zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Link</Item>
+                <Item Key="Description">Link</Item>
+                <Item Key="Action">AgentLinkObject</Item>
+                <Item Key="Link">Action=AgentLinkObject;SourceObject=ITSMConfigItem;SourceKey=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###600-Duplicate" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to duplicate a configuration item in the its zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Duplicate</Item>
+                <Item Key="Description">Duplicate</Item>
+                <Item Key="Action">AgentITSMConfigItemEdit</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemEdit;DuplicateID=[% Data.ConfigItemID | html %];VersionID=[% Data.VersionID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###700-ConfigItemDelete" Required="1" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to delete a configuration item in its zoom view of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Delete</Item>
+                <Item Key="Description">Delete Configuration Item</Item>
+                <Item Key="Action">AgentITSMConfigItemDelete</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemDelete;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="Target">ConfirmDialog</Item>
+                <Item Key="ElementSelector">#Menu[% Data.MenuID | html %]</Item>
+                <Item Key="DialogContentQueryString">Action=AgentITSMConfigItemDelete;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="ConfirmedActionQueryString">Action=AgentITSMConfigItemDelete;Subaction=ConfigItemDelete;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="DialogTitle">[% Translate("Delete") | html %] [% Config("ITSMConfigItem::Hook") %] [% Data.Number | html %]</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+<!--Jugni added new block for show link for show  all CI -->
+        <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###800-All CI" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to access the all CI related to that ticket.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Dependent CI</Item>
+                <Item Key="Description">All Config Items</Item>
+                <Item Key="Action">CIGraphView</Item>
+                <Item Key="Link">Action=CIGraphView;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+ 
+     <ConfigItem Name="ITSMConfigItem::Frontend::MenuModule###810-MoreDetails" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to show the GLPI page based on class type </Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">More Details</Item>
+                <Item Key="Description">More Details</Item>
+                <Item Key="Action">CIMoreDetails</Item>
+                <Item Key="Link">Action=CIMoreDetails;ConfigItemID=[% Data.ConfigItemID | html %];ClassID=[% Data.ClassID | html %]</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+<!-- End Block -->
+
+
+
+    <ConfigItem Name="LinkObject::ComplexTable::SettingsVisibility###ITSMConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = "complex"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::LinkObject</SubGroup>
+        <Setting>
+            <Array>
+                <Item>AgentITSMConfigItemZoom</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::NumberGenerator" Required="1" Valid="1">
+        <Description Translatable="1">Selects the configuration item number generator module. "AutoIncrement" increments the configuration item number, the SystemID, the ConfigItemClassID and the counter are used. The format is "SystemID.ConfigItemClassID.Counter", e.g. 1205000004, 1205000005.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Option Location="Kernel/System/ITSMConfigItem/Number/*.pm" SelectedID="Kernel::System::ITSMConfigItem::Number::AutoIncrement"></Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::CINameRegex" Required="0" Valid="0">
+        <Description Translatable="1">Defines regular expressions individually for each ConfigItem class to check the ConfigItem name and to show corresponding error messages.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Computer::CINameRegex">^ABC.*</Item>
+                <Item Key="Computer::CINameRegexErrorMessage">A computer name must start with ABC!</Item>
+                <Item Key="Hardware::CINameRegex">.*\d\d$</Item>
+                <Item Key="Hardware::CINameRegexErrorMessage">A hardware name must end with two digits!</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::DefaultSubObject###ITSMConfigItem" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default subobject of the class 'ITSMConfigItem'.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <String Regex="">Computer</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::ITSMConfigItem::ShowColumnsByClass" Required="0" Valid="0">
+        <Description Translatable="1">Defines the shown columns of CIs in the link table complex view, depending on the CI class. Each entry must be prefixed with the class name and double colons (i.e. Computer::). There are a few CI-Attributes that common to all CIs (example for the class Computer: Computer::Name, Computer::CurDeplState, Computer::CreateTime). To show individual CI-Attributes as defined in the CI-Definition, the following scheme must be used (example for the class Computer): Computer::HardDisk::1, Computer::HardDisk::1::Capacity::1, Computer::HardDisk::2, Computer::HardDisk::2::Capacity::1. If there is no entry for a CI class, then the default columns are shown.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Computer::Name</Item>
+                <Item>Computer::CurDeplState</Item>
+                <Item>Computer::HardDisk::1</Item>
+                <Item>Computer::HardDisk::1::Capacity::1</Item>
+                <Item>Computer::HardDisk::2</Item>
+                <Item>Computer::HardDisk::2::Capacity::1</Item>
+                <Item>Computer::HardDisk::3</Item>
+                <Item>Computer::HardDisk::3::Capacity::1</Item>
+                <Item>Computer::WarrantyExpirationDate::1</Item>
+                <Item>Computer::CreateTime</Item>
+                <Item>Location::Type::1</Item>
+                <Item>Location::Address::1</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Stats::DynamicObjectRegistration###ITSMConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Module to generate ITSM config item statistics.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Stats</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::Stats::Dynamic::ITSMConfigItem</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ImportExport::ObjectBackendRegistration###ITSMConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Object backend module registration for the import/export module.</Description>
+        <Group>ImportExport</Group>
+        <SubGroup>ObjectBackend::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ImportExport::ObjectBackend::ITSMConfigItem</Item>
+                <Item Key="Name">Config Item</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::EventModulePost###100-History" Required="0" Valid="1">
+        <Description Translatable="1">Config item event module that enables logging to history in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ITSMConfigItem::Event::DoHistory</Item>
+                <Item Key="Event">(ConfigItemCreate|VersionCreate|DeploymentStateUpdate|IncidentStateUpdate|ConfigItemDelete|LinkAdd|LinkDelete|DefinitionUpdate|NameUpdate|ValueUpdate|DefinitionCreate|VersionDelete|AttachmentAddPost|AttachmentDeletePost)</Item>
+                <Item Key="Transaction">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::HistoryOrder" Required="1" Valid="1">
+        <Description Translatable="1">Shows the config item history (reverse ordered) in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::ViewHistory</SubGroup>
+        <Setting>
+            <Option SelectedID="normal">
+                <Item Key="reverse" Translatable="1">reverse</Item>
+                <Item Key="normal" Translatable="1">normal</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemHistory" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <GroupRo>itsm-configitem</GroupRo>
+                <Description Translatable="1">Config item history.</Description>
+                <Title Translatable="1">History</Title>
+                <NavBarName>Config Item</NavBarName>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###DeploymentStates" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the deployment states in the preferences view of the agent interface.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Class">ITSM::ConfigItem::DeploymentState</Item>
+                <Item Key="Label" Translatable="1">Deployment State Type</Item>
+                <Item Key="Desc" Translatable="1">Deployment State Type.</Item>
+                <Item Key="Data">
+                    <Hash>
+                        <Item Key="postproductive">postproductive</Item>
+                        <Item Key="preproductive">preproductive</Item>
+                        <Item Key="productive">productive</Item>
+                    </Hash>
+                </Item>
+                <Item Key="PrefKey">Functionality</Item>
+                <Item Key="Block">Option</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###DeploymentStatesColors" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the deployment states color in the preferences view of the agent interface.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Class">ITSM::ConfigItem::DeploymentState</Item>
+                <Item Key="Label" Translatable="1">Deployment State Color</Item>
+                <Item Key="Desc" Translatable="1">Deployment State Color.</Item>
+                <Item Key="Data"></Item>
+                <Item Key="PrefKey">Color</Item>
+                <Item Key="Block">ColorPicker</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Permission::Class###010-ClassGroupCheck" Required="0" Valid="1">
+        <Description Translatable="1">Module to check the group responsible for a class.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ITSMConfigItem::Permission::ClassGroupCheck</Item>
+                <Item Key="Required">0</Item>
+                <Item Key="Granted">1</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Permission::Item###010-ItemClassGroupCheck" Required="0" Valid="1">
+        <Description Translatable="1">Module to check the group responsible for a configuration item.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ITSMConfigItem::Permission::ItemClassGroupCheck</Item>
+                <Item Key="Required">0</Item>
+                <Item Key="Granted">1</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItem###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the ITSM configuration item screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemEdit###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the edit ITSM configuration item screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">rw</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemAdd###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the add ITSM configuration item screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">rw</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemHistory###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the history ITSM configuration item screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemPrint###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the print ITSM configuration item screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemDelete###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required privileges to delete config items.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItemDelete</SubGroup>
+        <Setting>
+            <String Regex="^(rw|ro)$">rw</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemZoom###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the ITSM configuration item zoom screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemSearch###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Required permissions to use the ITSM configuration item search screen in the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::Permission</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AdminITSMConfigItem###EditorRows" Required="1" Valid="1">
+        <Description Translatable="1">Defines the number of rows for the CI definition editor in the admin interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Admin::ViewConfigItemDefinition</SubGroup>
+        <Setting>
+            <String Regex="">30</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###Permissions" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the example permission groups of the general catalog attributes.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Label" Translatable="1">Permission</Item>
+                <Item Key="Desc" Translatable="1">Define the group with permissions.</Item>
+                <Item Key="Block">Permission</Item>
+                <Item Key="Class">ITSM::ConfigItem::Class</Item>
+                <Item Key="PrefKey">Permission</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Search###ConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">Configuration item search backend router of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::SearchRouter</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="^(?:Agent|Admin)ITSMConfigItem">Action=AgentITSMConfigItemSearch;Subaction=AJAX</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Search::JavaScript###ConfigItem" Required="0" Valid="1">
+        <Description Translatable="1">JavaScript function for the search frontend.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::SearchRouter</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="^(?:Agent|Admin)ITSMConfigItem">ITSM.Agent.ConfigItem.Search.OpenSearchDialog('AgentITSMConfigItemSearch')</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Loader::Agent::CommonJS###100-ConfigurationManagement" Required="1" Valid="1">
+        <Description Translatable="1">List of JS files to always be loaded for the agent interface.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Web</SubGroup>
+        <Setting>
+            <Array>
+                <Item>ITSM.Agent.ConfigItem.Search.js</Item>
+                <Item>ITSM.UI.ConfigItemActionRow.js</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="PreferencesGroups###ConfigItemOverviewSmallPageShown" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the pages (in which the configuration items are shown).</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
+                <Item Key="Column">Other Settings</Item>
+                <Item Key="Label" Translatable="1">Configuration Item Limit</Item>
+                <Item Key="Key" Translatable="1">Configuration Item limit per page</Item>
+                <Item Key="Data">
+                    <Hash>
+                        <Item Key="10">10</Item>
+                        <Item Key="15">15</Item>
+                        <Item Key="20">20</Item>
+                        <Item Key="25">25</Item>
+                        <Item Key="30">30</Item>
+                        <Item Key="35">35</Item>
+                    </Hash>
+                </Item>
+                <Item Key="DataSelected">25</Item>
+                <Item Key="PrefKey">UserConfigItemOverviewSmallPageShown</Item>
+                <Item Key="Prio">8000</Item>
+                <Item Key="Active">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::Overview###Small" Required="0" Valid="1">
+        <Description Translatable="1">Defines an overview module to show the small view of a configuration item list.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItemOverview</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::OverviewSmall</Item>
+                <Item Key="Name">Small</Item>
+                <Item Key="NameShort">S</Item>
+                <Item Key="PageShown">25</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Hook" Required="1" Valid="1">
+        <Description Translatable="1">The identifier for a configuration item, e.g. ConfigItem#, MyConfigItem#. The default is ConfigItem#.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <String Regex="">ConfigItem#</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemSearch###SearchLimit" Required="1" Valid="1">
+        <Description Translatable="1">Defines the search limit for the AgentITSMConfigItemSearch screen.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItemSearch</SubGroup>
+        <Setting>
+            <String Regex="">10000</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemSearch###ShowColumns" Required="1" Valid="1">
+        <Description Translatable="1">Defines the shown columns in the config item search. This option has no effect on the position of the column.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItemSearch</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="CurInciSignal">1</Item>
+                <Item Key="CurDeplSignal">1</Item>
+                <Item Key="Number">1</Item>
+                <Item Key="Name">1</Item>
+                <Item Key="Class">0</Item>
+                <Item Key="CurDeplState">1</Item>
+                <Item Key="CurDeplStateType">0</Item>
+                <Item Key="CurInciState">1</Item>
+                <Item Key="CurInciStateType">0</Item>
+                <Item Key="LastChanged">1</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemSearch###ShowColumnsByClass" Required="0" Valid="0">
+        <Description Translatable="1">Defines the shown columns of CIs in the config item search depending on the CI class. Each entry must be prefixed with the class name and double colons (i.e. Computer::). There are a few CI-Attributes that are common to all CIs (example for the class Computer: Computer::Name, Computer::CurDeplState, Computer::CreateTime). To show individual CI-Attributes as defined in the CI-Definition, the following scheme must be used (example for the class Computer): Computer::HardDisk::1, Computer::HardDisk::1::Capacity::1, Computer::HardDisk::2, Computer::HardDisk::2::Capacity::1. If there is no entry for a CI class, then the default columns are shown as defined in the setting ITSMConfigItem::Frontend::AgentITSMConfigItem###ShowColumns.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItemSearch</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Computer::Name</Item>
+                <Item>Computer::Number</Item>
+                <Item>Computer::CurInciSignal</Item>
+                <Item>Computer::CurDeplSignal</Item>
+                <Item>Computer::CurDeplState</Item>
+                <Item>Computer::HardDisk::1</Item>
+                <Item>Computer::HardDisk::1::Capacity::1</Item>
+                <Item>Computer::HardDisk::2</Item>
+                <Item>Computer::HardDisk::2::Capacity::1</Item>
+                <Item>Computer::HardDisk::3</Item>
+                <Item>Computer::HardDisk::3::Capacity::1</Item>
+                <Item>Computer::WarrantyExpirationDate::1</Item>
+                <Item>Computer::CreateTime</Item>
+                <Item>Location::CurInciSignal</Item>
+                <Item>Location::Number</Item>
+                <Item>Location::Type::1</Item>
+                <Item>Location::Name</Item>
+                <Item>Location::Address::1</Item>
+                <Item>Location::LastChanged</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemSearch###SearchCSVData" Required="1" Valid="1">
+        <Description Translatable="1">Data used to export the search result in CSV format.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItemSearch</SubGroup>
+        <Setting>
+            <Array>
+                <Item Translatable="1">Class</Item>
+                <Item Translatable="1">Incident State</Item>
+                <Item Translatable="1">Name</Item>
+                <Item Translatable="1">ConfigItemNumber</Item>
+                <Item Translatable="1">Deployment State</Item>
+                <Item Translatable="1">Version</Item>
+                <Item Translatable="1">Create Time</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItem###SearchLimit" Required="1" Valid="1">
+        <Description Translatable="1">Defines the search limit for the AgentITSMConfigItem screen.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItem</SubGroup>
+        <Setting>
+            <String Regex="">10000</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItem###ShowColumns" Required="1" Valid="1">
+        <Description Translatable="1">Defines the shown columns in the config item overview. This option has no effect on the position of the column. Note: Class column is always available if filter 'All' is selected.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItem</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="CurInciSignal">1</Item>
+                <Item Key="CurDeplSignal">1</Item>
+                <Item Key="Number">1</Item>
+                <Item Key="Name">1</Item>
+                <Item Key="Class">0</Item>
+                <Item Key="CurDeplState">1</Item>
+                <Item Key="CurDeplStateType">0</Item>
+                <Item Key="CurInciState">1</Item>
+                <Item Key="CurInciStateType">0</Item>
+                <Item Key="LastChanged">1</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItem###ShowColumnsByClass" Required="0" Valid="0">
+        <Description Translatable="1">Defines the shown columns of CIs in the config item overview depending on the CI class. Each entry must be prefixed with the class name and double colons (i.e. Computer::). There are a few CI-Attributes that are common to all CIs (example for the class Computer: Computer::Name, Computer::CurDeplState, Computer::CreateTime). To show individual CI-Attributes as defined in the CI-Definition, the following scheme must be used (example for the class Computer): Computer::HardDisk::1, Computer::HardDisk::1::Capacity::1, Computer::HardDisk::2, Computer::HardDisk::2::Capacity::1. If there is no entry for a CI class, then the default columns are shown as defined in the setting ITSMConfigItem::Frontend::AgentITSMConfigItem###ShowColumns.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ViewConfigItem</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Computer::Name</Item>
+                <Item>Computer::Number</Item>
+                <Item>Computer::CurInciSignal</Item>
+                <Item>Computer::CurDeplSignal</Item>
+                <Item>Computer::CurDeplState</Item>
+                <Item>Computer::HardDisk::1</Item>
+                <Item>Computer::HardDisk::1::Capacity::1</Item>
+                <Item>Computer::HardDisk::2</Item>
+                <Item>Computer::HardDisk::2::Capacity::1</Item>
+                <Item>Computer::HardDisk::3</Item>
+                <Item>Computer::HardDisk::3::Capacity::1</Item>
+                <Item>Computer::WarrantyExpirationDate::1</Item>
+                <Item>Computer::CreateTime</Item>
+                <Item>Location::CurInciSignal</Item>
+                <Item>Location::Number</Item>
+                <Item>Location::Type::1</Item>
+                <Item>Location::Name</Item>
+                <Item>Location::Address::1</Item>
+                <Item>Location::LastChanged</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="UniqueCIName::EnableUniquenessCheck" Required="0" Valid="1">
+        <Description Translatable="1">Enables/disables the functionality to check ConfigItems for unique names. Before enabling this option you should check your system for already existing config items with duplicate names. You can do this with the script bin/otrs.ITSMConfigItemListDuplicates.pl.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="1" Translatable="1">Enabled</Item>
+                <Item Key="0" Translatable="1">Disabled</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="UniqueCIName::UniquenessCheckScope" Required="0" Valid="1">
+        <Description Translatable="1">Check for a unique name only within the same ConfigItem class ('class') or globally ('global'), which means every existing ConfigItem is taken into account when looking for duplicates.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::ITSMConfigItem</SubGroup>
+        <Setting>
+            <Option SelectedID="global">
+                <Item Key="global" Translatable="1">global</Item>
+                <Item Key="class" Translatable="1">class</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::BulkFeature" Required="1" Valid="1">
+        <Description Translatable="1">Enables configuration item bulk action feature for the agent frontend to work on more than one configuration item at a time.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::BulkAction</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::BulkFeatureGroup" Required="0" Valid="0">
+        <Description Translatable="1">Enables configuration item bulk action feature only for the listed groups.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::BulkAction</SubGroup>
+        <Setting>
+            <Array>
+                <Item>admin</Item>
+                <Item>users</Item>
+                <Item>itsm-configitem</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentITSMConfigItemBulk" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Configuration item bulk module.</Description>
+                <Title Translatable="1">Bulk Action</Title>
+                <NavBarName>CMDB</NavBarName>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::PreMenuModule###100-Zoom" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to zoom into a configuration item in the configuration item overview of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModulePre</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Zoom</Item>
+                <Item Key="Description">Zoom</Item>
+                <Item Key="Action">AgentITSMConfigItemZoom</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | html %]</Item>
+                <Item Key="Target"></Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::PreMenuModule###200-History" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to access the history of a configuration item in the configuration item overview of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModulePre</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">History</Item>
+                <Item Key="Description">History</Item>
+                <Item Key="Action">AgentITSMConfigItemHistory</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemHistory;ConfigItemID=[% Data.ConfigItemID | html %];VersionID=[% Data.VersionID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::PreMenuModule###300-Duplicate" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to duplicate a configuration item in the configuration item overview of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ITSMConfigItem::MenuModulePre</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::ITSMConfigItem::MenuGeneric</Item>
+                <Item Key="Name">Duplicate</Item>
+                <Item Key="Description">Duplicate</Item>
+                <Item Key="Action">AgentITSMConfigItemEdit</Item>
+                <Item Key="Link">Action=AgentITSMConfigItemEdit;DuplicateID=[% Data.ConfigItemID | html %];VersionID=[% Data.VersionID | html %];ReturnToLastScreen=1</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemBulk###DeplState" Required="0" Valid="1">
+        <Description Translatable="1">Sets the deployment state in the configuration item bulk screen of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ConfigItem::ViewBulk</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::Frontend::AgentITSMConfigItemBulk###InciState" Required="0" Valid="1">
+        <Description Translatable="1">Sets the incident state in the configuration item bulk screen of the agent interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Frontend::Agent::ConfigItem::ViewBulk</SubGroup>
+        <Setting>
+            <Option SelectedID="1">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+
+</otrs_config>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="CustomerApp">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Comments</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="assets/third-party/bootstrap.3.3.7.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+	
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="css/thirdparty/ui-theme/customer-custom-style.css" /> -->
+	<link rel="stylesheet" type="text/css" href="pages/dashboard-custom.css" />
+	
+	
+	<!-- <script src='thirdparty/jquery-2.1.4/jquery.js'></script> -->
+	<!--JAVASCRIPTS-->
+		<!-- <script type="text/javascript" src="assets/third-party/jquery-1.9.1.js"></script> -->
+		
+		<!-- <script type="text/javascript" src="assets/js/main.js"></script> -->
+		 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+		  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
+		<!-- <script src="pages/angular-route.js"></script> -->
+		<script src='app.js'></script>
+		
+	
+	<style type="text/css">
+        @font-face {
+          font-family: 'FontAwesome';
+          src: url('css/thirdparty/fontawesome/fontawesome-webfont.eot?v=4.3.0');
+          src: url('css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+               url('css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+               url('css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),
+               url('css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular?v=4.3.0') format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        /* Fix poor font rendering on chrome based browsers on windows */
+        @media all and (-webkit-min-device-pixel-ratio:0) {
+            @font-face {
+                font-family: 'FontAwesome';
+                src: url(css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular') format('svg'),
+                     url('css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+                     url('css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+                     url('css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+        }
+    </style>
+
+</head>
+
+<body ng-controller="Spicy">
+	<!-- Header goes here -->
+	<header>
+		<section class="container">
+			<div class="hd-preference">
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-3 logo-block">
+						<a href="javascript:void(0)"><img src="img/logo.png" alt="HAWK" title="HAWK" /></a>
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-9">
+
+						<!-- user preferences here -->
+						<div class="user-pref-view pull-right">
+							<a href="javascript:void(0)" class="notify">
+								<img src="assets/img/icons/mail.png" alt="" title="" />
+								<span>2</span>
+							</a>
+							<a href="javascript:void(0)">
+								<img src="assets/img/icons/settings.png" alt="" title="" />
+							</a>
+							<a href="javascript:void(0)" class="authentication dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="assets/img/icons/authentication.png" alt="" title=""/>
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dLabel">
+								<li>Drop down</li>
+								<li>Drop down</li>
+								<li>Drop down</li>
+								<li>Drop down</li>
+								<li>Drop down</li>
+							</ul>
+						</div>
+						<!-- user preferences ends -->
+						<!-- search starts here -->
+						<div class="search-block col-md-5 col-sm-5 col-xs-5 pull-right">
+							<a href="javascript:void(0)">
+								<span></span>
+							</a>
+							<input type="search" value="" placeholder="Please search here" />
+						</div>
+						<!-- search ends here -->
+					</div>
+				</div>
+			</div>
+			<!-- Nav -->
+			<ul class="nav">
+				<li class="active"><a ui-sref="home">Dashboard</a></li>
+				<li><a ui-sref="mytickets" >My Tickets</a></li>
+				<li><a ui-sref="analysis" >My Tasks</a></li>
+				<li><a ui-sref="analysis" >Analysis</a></li>
+			</ul>
+			<!-- Nav ends -->
+		</section>
+	</header> 
+	
+	<section class="breadcrum">
+		<div class="container">
+			<ul class="">
+				<li>Dashboard&nbsp; >&nbsp;</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section class='userDetails' style='background:#fff'>
+		<div ui-view></div>
+	</section>
+		<!-- Footer starts -->
+		<footer>
+			<div class="content">
+				Powered by Unotech Software
+			</div>
+		</footer>
+	</body>
+
+	</html>

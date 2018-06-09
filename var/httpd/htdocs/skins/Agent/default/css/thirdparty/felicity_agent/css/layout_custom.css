@@ -1,0 +1,426 @@
+/*Minimum Width*/
+
+@media (min-width: 1024px)
+{
+    #main_nav
+    {
+        height:40px;
+        background-color: #f5f6fa;
+        border-bottom: 1px solid #dee0e1;
+        position: relative;
+        z-index:99;
+    }  
+   #res_navbar
+    {
+        display:none;
+    }
+  #NavigationContainer
+    {
+        position:absolute;
+        top:0px;
+		min-height: 40px!important;
+		overflow:visible !important;
+    }
+	#main_nav ul#Navigation
+	{
+		margin-bottom:0px !important;
+	}
+	#main_nav #Navigation
+	{
+		width:100% !important;
+	}
+	
+	#main_nav #Navigation li
+	{
+		border-bottom: 3px solid;
+		border-color:transparent;
+		background:transparent !important;
+	}
+	#main_nav #Navigation li.Selected
+	{
+		border-bottom: 3px solid;
+		border-color:#42a5f5!important;
+		background:#FFF !important;
+	}
+	
+	
+   #main_nav #Navigation > li > a {
+    display: block;
+    height: auto;
+    padding:12px 20px 12px 15px !important;
+    line-height: 13px;
+    color: #25628f !important;
+    position: relative;
+    text-align: center;
+    font-family: 'Montserrat-regular' !important;
+    font-size: 13px;
+    text-decoration:none;
+}
+  #main_nav #Navigation > li > a:after
+  {
+      background: #42a5f5;
+  }
+  #main_nav #Navigation > li > a:hover
+  {
+      text-decoration:none;
+  }
+  #main_nav #Navigation > li.Selected 
+  {
+      background:#FFF;      
+  }
+  #main_nav #NavigationContainer > a
+  {
+    background:rgba(37, 98, 143,0.9);
+    text-decoration:none;
+  }
+  #main_nav #NavigationContainer > a:hover{padding:0px;width: 20px;height: 34px;}
+
+  #main_nav ul#Navigation li a.has-sub span:after
+  {
+    display: block;
+    content: "\f110";
+    border: none;
+    font-family: LineAwesome;
+    font-size: 11px;
+    height: 12px;
+    width: 10px;
+    margin-left: 11px;
+    padding: 0;
+    margin-right: 0;
+    position: absolute;
+    top: 13px;
+    right: 6px;
+  }
+
+#main_nav ul#Navigation li ul.dropdown-menu
+{
+    background:#FFF !important;
+    min-width:160px !important;
+    padding: 0px!important;
+    margin: 0px !important;
+    box-shadow: none !important;
+    border: 1px solid #e1e5f0 !important;
+    border-top: none !important;
+    border-radius: 0px !important;  
+    top:40px;  
+}
+
+#main_nav ul#Navigation li ul.dropdown-menu li a
+{
+    color: #333;
+    font-size:13px;
+    border-top: 1px solid #e1e5f0 !important;
+    width: 220px !important;
+    white-space: normal !important;
+	border-bottom:none !important;
+	padding:8px 10px !important;
+}
+#main_nav ul#Navigation li  ul.dropdown-menu li a:hover {
+    background-color: #f5f6fa;
+    color:#262626;
+}
+#Navigation > .Active > ul > li:hover {
+    background: #f5f6fa;
+}
+
+}
+@media (min-width: 768px)
+{
+    .navbar-nav>li>a 
+    {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }     
+}
+
+/*Sidebar Navigation*/
+#side-bar-close
+{
+    position: absolute !important;
+    padding: 2px 9px;
+    right: 15px;
+    background: rgb(10, 48, 76);
+    border: 1px solid #fff;
+    font-size: 20px;
+    top: 12px;
+    z-index: 101;
+}
+#sidebar_con{
+    position: fixed;
+    background: rgba(0,0,0,.5);
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;   
+    display:none; 
+}
+
+
+#sidebar{    
+    height: 100%;  
+}
+
+#sidebar #Navigation {
+    width: 250px;
+    background:#f5f6fa;
+    height: 100%;
+}
+
+#sidebar #Navigation li {
+    width: 100%;
+    padding: 0px 0px;
+    font-family: 'Montserrat-regular' !important;
+    font-size: 13px;
+}
+#sidebar #Navigation > li > a {
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    color:#25628f !important;
+    text-decoration: none;
+    border-bottom: 1px solid #e1e5f0;
+}
+#sidebar #Navigation > li > a:after {
+    background: #42a5f5;
+}
+#sidebar ul#Navigation li a.has-sub span:after {
+    display: block;
+    content: "\f110";
+    border: none;
+    font-family: LineAwesome;
+    font-size: 11px;
+    height: 12px;
+    width: 10px;
+    margin-left: 11px;
+    padding: 0;
+    margin-right: 0;
+    position: absolute;
+    top: 10px;
+    right: 6px;
+}
+#sidebar #Navigation > li > ul{
+    position: relative;
+    top: 0px;
+    border-radius: 0;
+    background: #f5f5f5;
+    box-shadow: none !important;
+    border: none!important;
+    border-top: 1px solid #e1e5f0;
+}
+#sidebar  #Navigation > .Active > ul > li > a {
+    display: block;
+    position: relative;
+    color: #777;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e1e5f0;
+    width: 240px;
+    white-space: normal;
+}
+
+
+/*Modal Dialog Box Style*/
+.Dialog {
+    position: absolute;
+    z-index: 6000;
+    min-width: 150px;
+    background: #FFF;
+    border-radius: 4px 4px 0px 0px;
+}
+.Dialog > .Header {
+    background: #f5f6fa!important;
+    border-bottom: 1px solid #e1e5f0!important;
+    padding: 17px 6px!important;
+    border-radius: 4px 4px 0px 0px;
+}
+.Dialog > .Content > .ContentFooter {
+    padding: 6px 0 5px;
+    background: #f5f6fa;
+    min-height: 20px;
+    border-top: 1px solid #e1e5f0;
+}
+.Dialog > .Header .Close{top:0px;}
+.Dialog > .Header h1{color:#AAA !important;}
+.Dialog > .Header i {color:#AAA !important;top: 5px; position: relative;}
+.Dialog input[type="button"],.Dialog button[type="button"]{padding: 5px 10px!important;font-size: 12px!important;line-height: 1.5;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;
+ border:1px solid #2e6da4!important;font-weight: 400!important; box-shadow:none !important;}
+.Dialog .CallForAction span{border:none!important;padding:0px!important;color:#FFF !important;text-shadow:none!important;}
+.Dialog .CallForAction {padding: 3px 7px 6px !important;border:none!important;font-size: 12px!important;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;}
+
+.Dialog #JSTree{height:65% !important;}
+.Dialog  div.InputField_Selection div.Text{background: #d1eaff!important;}
+.Dialog  div.InputField_Selection div.Remove {background: #223652!important;}
+.Dialog select,.Dialog input[type="text"]{display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;}
+
+/*Window Dialog Box */
+body.RealPopup .LayoutPopup > .Header{background: #25628f!important;}
+body.RealPopup .LayoutPopup > .Header h1{color:#FFF !important;}
+body.RealPopup .LayoutPopup > .Header p{color:#FFF !important;}
+body.RealPopup p a.CancelClosePopup,body.RealPopup p a.UndoClosePopup {position:absolute !important;right:10px; top:10px;width:22px; height:22px; background:url(/felicity-web/skins/Agent/default/img/close-btn.png) no-repeat!important; color:transparent !important; overflow:hidden !important;text-indent: -99px;}	
+body.RealPopup p a#LinkAddCloseLink,body.RealPopup p a#LinkDeleteCloseLink {position:absolute !important;right:10px; top:10px;width:22px; height:22px; background:url(/felicity-web/skins/Agent/default/img/close-btn.png) no-repeat!important; color:transparent !important; overflow:hidden !important;text-indent: -99px;}
+body.RealPopup .WidgetSimple > .Header{background-color: #c5cdd8 !important;}
+body.RealPopup select,body.RealPopup input[type="text"]{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px; max-width:90%!important;}
+body.RealPopup  div.InputField_Selection div.Text{background: #d1eaff!important;}
+body.RealPopup  div.InputField_Selection div.Remove {background: #223652!important;}
+body.RealPopup .Footer .CallForAction span{border:none!important;padding:3px!important;color:#FFF !important;text-shadow:none!important;}
+body.RealPopup .Footer .CallForAction {padding: 3px 7px 6px !important;border:none!important;font-size: 12px!important;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;}
+.RealPopup #AppWrapper .MessageBox.Notice {margin: 0!important;z-index: 0!important;}
+
+.Pagination {
+    float: right;
+    margin-right: 0;
+    font-size: 12px;
+    padding: 3px 0px 5px 0px;
+    font-family: 'Montserrat-regular' !important;
+    /* background: #f5f6fa; */
+}
+span.Pagination a {
+    color: #1c678d;
+    background: #f5f6fa;
+    padding: 3px 7px;
+    border: 1px solid #e2e5f0;
+}
+span.Pagination a:hover {
+    color: #fff;
+    background: #1c678d;
+    border: 1px solid #1c678d;
+}
+span.Pagination a.Selected {
+    font-weight: normal;
+}
+
+.SettingsWidget label:hover{background:none; border-color:#FFF !important;}
+
+input[type="text"], input[type="password"]
+{
+	display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;   
+	resize:none;
+	max-width:400px !important;
+}
+.ui-autocomplete-input textarea,textarea
+{
+	display: block;
+    width: 100%;
+    height: auto;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;   
+	resize:none;
+	max-width:400px !important;
+}
+.SearchBox input[type='text']
+{
+	display: block;
+    width: 100%;
+    height: 34px !important;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	resize:none;
+	max-width:400px !important;
+}
+.SearchBox button {
+        height: 25px;
+    width: 25px;
+    margin: 0 0 0 -4px;
+    padding: 3px 3px 4px;
+    color: #aaa;
+    font: bold 18px/14px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background: #ffffff;
+    border: none;
+    text-shadow: 0 1px 0 #FFF;
+    vertical-align: baseline;
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    border-radius: 100%;
+    outline: none;
+}
+#Source_Search{width: 248px !important;}
+ul.Tablelike {
+    border: none;
+}
+ul.Tablelike li:hover {
+    background:none;
+}
+fieldset{border:none !important;}
+th.SortAscending > a:after,th.SortDescending > a:after {
+    content: "\25B2";
+    display: block;
+    position: absolute;
+	left:auto!important;
+    right: 10px!important;
+    top: 8px!important;
+}
+#SearchForm, #AgentCustomerInformationCenterSearchForm{padding:0px !important;}
+.Dialog > .Content > .InnerContent,{padding:10px 20px !important; }
+#SysConfigGroup_Search{width:249px !important;}
+.WidgetSimple .WidgetSimple{background: #ffffff;}
+div.InputField_ListContainer {
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    text-shadow: none;
+}
+#ArticleTableBody .Scroller {
+    height: 340px !important;
+    border: none !important;
+	overflow-y: scroll !important;
+}
+
+.Scroller::-webkit-scrollbar {
+  width: .4em; 
+  height: .4em; 
+}
+.Scroller::-webkit-scrollbar,
+.Scroller::-webkit-scrollbar-thumb {
+  overflow:visible;
+  border-radius: 4px;
+}
+.Scroller::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.2); 
+}
+div#ArticleItems .ArticleMailContent iframe{border:none;}
+.InputField_Container input[type="text"] {
+    max-width: 246px !important;
+}
+button{font-weight:normal !important;}

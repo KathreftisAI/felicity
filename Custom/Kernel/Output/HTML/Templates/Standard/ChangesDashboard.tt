@@ -1,0 +1,309 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/highcharts.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/exporting.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/export-data.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/highcharts-3d.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/heatmap.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/drilldown.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/data.js"></script>
+
+<div class="spacer20"></div>
+	<div class="col-md-4 text-center">
+		<div class="info-box">
+		<h4>Total No. of changes</h4>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.total_changes %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Changes for the month</h4>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.changes_month %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Changes schedule for the current month</h4>
+		<h1 class="text-danger"><a class="text-danger" href="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=CreateTime;OrderBy=Down;View=;Filter=All;">[% Data.changes_schedule %]</a></h1>
+		</div>
+	</div>
+
+	<div class="clearfix" style="height: 20px;"></div>
+
+	<div class="col-md-4 text-center">
+		<div class="info-box">
+		<h4>Total No. of workorder</h4>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentITSMChangeMyWorkOrders;">[% Data.total_workorder %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Workorder for the month</h4>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentITSMChangeMyWorkOrders;">[% Data.month_workorder %]</a></h1>
+		</div>
+	</div>
+
+	<div class="clearfix" style="height: 20px;"></div>
+
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+	        <div class="panel-body" id="stateBarChaneDiv" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+			<div class="panel-body " id="openChangesDiv" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+	        <div class="panel-body " id="PendingWorkordeDiv" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="clearfix"></div>
+
+
+<script type="text/javascript">
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/*********code for change state count**************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	var changeStateList=[% JSON(Data.change_state_list) %];
+	var changeState = [% JSON(Data.change_state) %];
+
+	var convertedStateArray = changeState.map(function(stateValues) {
+	   	return { name : stateValues.name,y: Number(stateValues.y) };
+	});
+
+	Highcharts.chart('stateBarChaneDiv', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Changes State Count'
+	    },
+	    xAxis: {
+	        type: 'category',
+	        labels: {
+	            rotation: -45,
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Count'
+	        }
+	    },
+	    legend: {
+	        enabled: false
+	    },
+	    tooltip: {
+	        pointFormat: 'Count: <b>{point.y:1f}</b>'
+	    },
+
+	    credits: {
+	        enabled: false
+	    },
+
+	    series: [{
+	        name: 'Ticket',
+	        data:convertedStateArray,
+	        dataLabels: {
+	            enabled: false,
+	            rotation: -90,
+	            color: '#FFFFFF',
+	            align: 'right',
+	            format: '{point.y:.1f}', /********** one decimal**************/
+	            y: 10, /********* 10 pixels down from the top***********/
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        },
+	        point:{
+	           events:{
+	               click: function (event) {
+	                   window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;SortBy=ChangeNumber;OrderBy=Up;View=;Filter="+changeStateList[event.point.options.name];
+
+	               }
+	           }
+	        }
+	    }]
+	});
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/*************code for open change dashboard**************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	openchangesGroup=[% JSON(Data.open_changesGroup) %];
+//onsole.log(openchangesGroup);
+
+	var OpenChangesArray = openchangesGroup.map(function(Changesprioritylist) {
+	    	return Changesprioritylist.name;
+	    	
+	    });
+//console.log(OpenChangesArray);
+	var OpenChangesConvertArray = openchangesGroup.map(function(OpenChangesConvertVal) {
+	    	return Number(OpenChangesConvertVal.data[0]);  	
+	    });
+//console.log(OpenChangesConvertArray);
+	Highcharts.chart('openChangesDiv', {
+	    chart: {
+	        type: 'bar'
+	    },
+	    title: {
+	        text: 'Open Changes-Grouped'
+	    },
+
+	    xAxis: {
+	        categories: OpenChangesArray,
+	        title: {
+	            text: null
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Counts',
+	        },
+	        labels: {
+	            overflow: 'justify'
+	        }
+	    },
+	    tooltip: {
+	        // valueSuffix: ' millions'
+	    },
+	    plotOptions: {
+	        bar: {
+	            dataLabels: {
+	                enabled: false
+	            }
+	        }
+	    },
+	    
+	    credits: {
+	        enabled: false
+	    },
+	    series: [{
+	    	name: 'Open',
+	    	data:OpenChangesConvertArray,
+	    	point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;Filter=All";
+
+	               }
+	           }
+	        }
+	    }]
+	});
+
+
+/*******-----------------------------------------------------------------------------------------------**********/
+	/**************aproval pending****************/
+/*******---------------------------------------------------------------------------------------------------******/
+	var WorkorderCreatedData=[% JSON(Data.Workorder_created) %];
+
+	var WorkorderApprovalData=[% JSON(Data.Workorder_WeekAproval) %];
+
+	var WorkorderCreatedConvertArray = WorkorderCreatedData.map(function(a) {
+	    	return Number(a.data[0]);  	
+	    });
+
+ 	var WorkorderApprovalConvertArray = WorkorderApprovalData.map(function(b) {
+ 	    	return Number(b.data[0]);  	
+ 	    });
+
+	Highcharts.chart('PendingWorkordeDiv', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Aproval Pending For Workorder'
+	    },
+	    xAxis: {
+	        categories: [
+	            'Week1',
+	            'Week2',
+	            'Week3',
+	            'Week4'
+	        ],
+	        crosshair: true
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Counts'
+	        }
+	    },
+	    tooltip: {
+	       
+	    },
+	    plotOptions: {
+	        column: {
+	            pointPadding: 0.2,
+	            borderWidth: 0
+	        }
+	    },
+	    credits: {
+	        enabled: false
+	    },
+	    series: [{
+	        name: 'Created Workorder',
+	        data: WorkorderCreatedConvertArray,
+	        point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;Filter=All";
+
+	               }
+	           }
+	        }
+
+	    }, {
+	        name: 'Aproval Workorder',
+	        data: WorkorderApprovalConvertArray,
+	        point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentITSMChange;Filter=approved";
+
+	               }
+	           }
+	        }
+
+	    }]
+	});
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/******************function for refresh the page*************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	setTimeout(function(){
+         window.location.reload(1);
+     }, 30000);
+	/**************end function for refresh the page***************/
+</script>
+
+<style type="text/css">	
+	.text-danger {
+	  color: red;
+	}
+</style>

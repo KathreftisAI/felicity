@@ -1,0 +1,195 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.UI.ActionRow.Init();
+//]]></script>
+[% END %]
+
+<div id="OverviewBody" class="Overview TicketList">
+[% RenderBlockStart("NoFAQFound") %]
+    <div id="EmptyMessageSmall">
+        [% Translate("No FAQ data found.") | html %]
+    </div>
+[% RenderBlockEnd("NoFAQFound") %]
+[% RenderBlockStart("RecordForm") %]
+    <table class="TableSmall NoCellspacing">
+        <thead>
+            <tr>
+[% RenderBlockStart("RecordNumberHeader") %]
+                <th class="FAQNumber [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=FAQID;OrderBy=[% Data.OrderBy | uri %]">[% Config("FAQ::FAQHook") %]</a>
+                </th>
+[% RenderBlockEnd("RecordNumberHeader") %]
+[% RenderBlockStart("RecordTitleHeader") %]
+                <th class="Title [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Title;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Title") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordTitleHeader") %]
+[% RenderBlockStart("RecordCategoryHeader") %]
+                <th class="Category [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Category;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Category") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordCategoryHeader") %]
+[% RenderBlockStart("RecordLanguageHeader") %]
+                <th class="Language [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Language;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Language") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordLanguageHeader") %]
+[% RenderBlockStart("RecordStateHeader") %]
+                <th class="State [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=State;OrderBy=[% Data.OrderBy | uri %]">[% Translate("State") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordStateHeader") %]
+[% RenderBlockStart("RecordValidHeader") %]
+                <th class="State [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Valid;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Validity") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordValidHeader") %]
+[% RenderBlockStart("RecordChangedHeader") %]
+                <th class="Changed [% Data.CSS | html %]">
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Changed;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Changed") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordChangedHeader") %]
+[% RenderBlockStart("RecordDynamicFieldHeader") %]
+                <th class="DynamicField [% Data.CSS | html %]">
+[% RenderBlockStart("RecordDynamicFieldHeaderSortable") %]
+                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=DynamicField_[% Data.DynamicFieldName | uri %];OrderBy=[% Data.OrderBy | uri %]">[% Translate(Data.Label) | html %]</a>
+[% RenderBlockEnd("RecordDynamicFieldHeaderSortable") %]
+[% RenderBlockStart("RecordDynamicFieldHeaderNotSortable") %]
+                    <span>[% Translate(Data.Label) | html %]</span>
+[% RenderBlockEnd("RecordDynamicFieldHeaderNotSortable") %]
+                </th>
+[% RenderBlockEnd("RecordDynamicFieldHeader") %]
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("RecordDynamicField_Field1Header") %]
+#                <th class="DynamicField [% Data.CSS | html %]">
+#[% RenderBlockStart("RecordDynamicField_Field1HeaderSortable") %]
+#                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=DynamicField_[% Data.DynamicFieldName | uri %];OrderBy=[% Data.OrderBy | uri %]">[% Translate(Data.Label) | html %]</a>
+#[% RenderBlockEnd("RecordDynamicField_Field1HeaderSortable") %]
+#[% RenderBlockStart("RecordDynamicField_Field1HeaderNotSortable") %]
+#                    <span>[% Translate(Data.Label) | html %]</span>
+#[% RenderBlockEnd("RecordDynamicField_Field1HeaderNotSortable") %]
+#                </th>
+#[% RenderBlockEnd("RecordDynamicField_Field1Header") %]
+#[% RenderBlockStart("RecordDynamicField_Field2Header") %]
+#                <th class="DynamicField [% Data.CSS | html %]">
+#[% RenderBlockStart("RecordDynamicField_Field2HeaderSortable") %]
+#                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=DynamicField_[% Data.DynamicFieldName | uri %];OrderBy=[% Data.OrderBy | uri %]">[% Translate(Data.Label) | html %]</a>
+#[% RenderBlockEnd("RecordDynamicField_Field2HeaderSortable") %]
+#[% RenderBlockStart("RecordDynamicField_Field2HeaderNotSortable") %]
+#                    <span>[% Translate(Data.Label) | html %]</span>
+#[% RenderBlockEnd("RecordDynamicField_Field2HeaderNotSortable") %]
+#                </th>
+#[% RenderBlockEnd("RecordDynamicField_Field2Header") %]
+            </tr>
+        </thead>
+        <tbody>
+[% RenderBlockStart("Record") %]
+            <tr id="ItemID_[% Data.ItemID | html %]_[% Data.Counter | html %]" class="MasterAction[% IF Data.ValidID != 1%] Invalid[% END %]" >
+[% RenderBlockStart("RecordNumber") %]
+                <td>
+[% RenderBlockStart("RecordNumberLinkStart") %]
+                    <a href="[% Env("Baselink") %]Action=AgentFAQZoom;ItemID=[% Data.ItemID | uri %];Nav=[% Data.Nav | uri %]" title="[% Data.Number | uri %]" class="MasterActionLink">
+[% RenderBlockEnd("RecordNumberLinkStart") %]
+                        [% Data.Number | html %]
+[% RenderBlockStart("RecordNumberLinkEnd") %]
+                    </a>
+[% RenderBlockEnd("RecordNumberLinkEnd") %]
+                </td>
+[% RenderBlockEnd("RecordNumber") %]
+[% RenderBlockStart("RecordTitle") %]
+                <td>
+                    <div title="[% Data.Title | html %]">[% Data.CleanTitle | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordTitle") %]
+[% RenderBlockStart("RecordCategory") %]
+                <td>
+                    <div title="[% Translate(Data.CategoryName) | html %]">[% Translate(Data.CategoryName, "50") | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordCategory") %]
+[% RenderBlockStart("RecordLanguage") %]
+                <td>
+                    <div>[% Translate(Data.Language) | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordLanguage") %]
+[% RenderBlockStart("RecordState") %]
+                <td>
+                    <div>[% Translate(Data.State) | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordState") %]
+[% RenderBlockStart("RecordValid") %]
+                <td>
+                    <div>[% Translate(Data.Valid) | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordValid") %]
+[% RenderBlockStart("RecordChanged") %]
+                <td>
+                    <div>[% Data.Changed | Localize("TimeShort") %]</div>
+                </td>
+[% RenderBlockEnd("RecordChanged") %]
+[% RenderBlockStart("RecordDynamicField") %]
+                <td>
+                    <div title="[% Data.Title | html %]">
+[% RenderBlockStart("RecordDynamicFieldLink") %]
+                        <a href="[% Data.Link %]" class="DynamicFieldLink">[% Data.Value %]</a>
+[% RenderBlockEnd("RecordDynamicFieldLink") %]
+[% RenderBlockStart("RecordDynamicFieldPlain") %]
+                        [% Data.Value %]
+[% RenderBlockEnd("RecordDynamicFieldPlain") %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordDynamicField") %]
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("RecordDynamicField_Field1") %]
+#                <td>
+#                    <div title="[% Data.Title | html %]">
+#[% RenderBlockStart("RecordDynamicField_Field1_Link") %]
+#                        <a href="[% Data.Link %]" class="DynamicFieldLink">[% Data.Value %]</a>
+#[% RenderBlockEnd("RecordDynamicField_Field1_Link") %]
+#[% RenderBlockStart("RecordDynamicField_Field1_Plain") %]
+#                        [% Data.Value %]
+#[% RenderBlockEnd("RecordDynamicField_Field1_Plain") %]
+#                    </div>
+#                </td>
+#[% RenderBlockEnd("RecordDynamicField_Field1") %]
+#[% RenderBlockStart("RecordDynamicField_Field2") %]
+#                <td>
+#                    <div title="[% Data.Title | html %]">
+#[% RenderBlockStart("RecordDynamicField_Field2_Link") %]
+#                        <a href="[% Data.Link %]" class="DynamicFieldLink">[% Data.Value %]</a>
+#[% RenderBlockEnd("RecordDynamicField_Field2_Link") %]
+#[% RenderBlockStart("RecordDynamicField_Field2_Plain") %]
+#                        [% Data.Value %]
+#[% RenderBlockEnd("RecordDynamicField_Field2_Plain") %]
+#                    </div>
+#                </td>
+#[% RenderBlockEnd("RecordDynamicField_Field2") %]
+            </tr>
+[% RenderBlockEnd("Record") %]
+        </tbody>
+    </table>
+[% RenderBlockEnd("RecordForm") %]
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('.MasterAction').bind('click', function (Event) {
+         var $MasterActionLink = $(this).find('.MasterActionLink');
+        // only act if the link was not clicked directly
+        if (Event.target !== $MasterActionLink.get(0)) {
+            window.location = $MasterActionLink.attr('href');
+            return false;
+        }
+    });
+//]]></script>
+[% END %]

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+    <ConfigItem Name="Frontend::Module###AgentIncident" Required="1" Valid="1">
+        <Description Translatable="1">FrontendModuleRegistration for Incident module1.</Description>
+        <Group>Incident</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>Incident</Title>
+                <Group>users</Group>
+                <Description>Incident1</Description>
+                <NavBarName>Incident1</NavBarName>
+                <NavBar>
+                    <Description>Incident1</Description>
+                    <Name>Incident</Name>
+                    <Link></Link>
+                    <NavBar>Incident</NavBar>
+                    <Type>Menu</Type>
+                    <Prio>8400</Prio>
+                    <Block>ItemArea</Block>
+                </NavBar>
+                   <Loader>
+                    <CSS>Core.AgentTicketQueue.css</CSS>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	<ConfigItem Name="Frontend::Module###1-Module::AgentIncident" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Incident</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of all Incident tickets.</Description>
+                <Title Translatable="1">AgentIncidentQueue</Title>
+                <NavBarName>Incident</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview of Incident Queue Tickets.</Description>
+                    <Name Translatable="1">Overview</Name>
+                    <Link>Action=AgentIncident</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Incident</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8460</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentNewEscalation" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Incident</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of all escalated tickets.</Description>
+                <Title Translatable="1">AgentNewEscalation</Title>
+                <NavBarName>Incident</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview Escalated Tickets.</Description>
+                    <Name Translatable="1">Escalation</Name>
+                    <Link>Action=AgentNewEscalation</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Incident</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8480</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <!--  Added for Incident Dashboard by ~Ashish  -->
+
+    <ConfigItem Name="Frontend::Module###IncidentDashboard" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Incident</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Overview of Incident Dashboard.</Description>
+                <Title Translatable="1">IncidentDashboard</Title>
+                <NavBarName>Incident</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Overview of Incident Dashboard.</Description>
+                    <Name Translatable="1">Incident Dashboard</Name>
+                    <Link>Action=IncidentDashboard</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Incident</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8459</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <!--  Added for sort age of ticket by ~Ashish  -->
+
+    <ConfigItem Name="Ticket::Frontend::AgentIncident###SortBy::Default" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default ticket attribute for ticket sorting in the status view of the agent interface.</Description>
+        <Group>Ticket</Group>
+        <SubGroup>Frontend::Agent::AgentIncident</SubGroup>
+        <Setting>
+            <Option SelectedID="">
+                <Item Key="Age" Translatable="1">Age</Item>
+                <Item Key="TicketNumber" Translatable="1">TicketNumber</Item>
+                <Item Key="Title" Translatable="1">Title</Item>
+                <Item Key="Queue" Translatable="1">Queue</Item>
+                <Item Key="Priority" Translatable="1">Priority</Item>
+                <Item Key="EscalationTime" Translatable="1">EscalationTime</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="Ticket::Frontend::AgentIncident###Order::Default" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default ticket attribute for ticket sorting in the status view of the agent interface.</Description>
+        <Group>Ticket</Group>
+        <SubGroup>Frontend::Agent::AgentIncident</SubGroup>
+        <Setting>
+            <Option SelectedID="">
+                <Item Key="Down" Translatable="1">Down</Item>
+                <Item Key="Up" Translatable="1">Up</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+
+    <!--  Added for Create New incident Ticket by ~Ashish  -->
+
+    <ConfigItem Name="Frontend::Module###CreateIncidentTicket" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>Incident</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Create new incident phone ticket.</Description>
+                <Title Translatable="1">New phone ticket</Title>
+                <NavBarName>Incident</NavBarName>
+                <NavBar>
+                    <Description Translatable="1">Create New Incident.</Description>
+                    <Name Translatable="1">Create Incident</Name>
+                    <Link>Action=AgentTicketPhone&amp;type=Incident</Link>
+                    <LinkOption></LinkOption>
+                    <NavBar>Incident</NavBar>
+                    <Type>SubMenu</Type>
+                    <Block></Block>
+                    <AccessKey></AccessKey>
+                    <Prio>8493</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                    <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	    
+</otrs_config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

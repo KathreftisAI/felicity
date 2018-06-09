@@ -1,0 +1,26 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Customer User Open Ticket Icon
+ */
+
+@media screen,projection,tv,handheld {
+
+.ItemRow i.OpenTicket {
+    color: red;
+}
+
+.ItemRow i.NoOpenTicket {
+    color: green;
+}
+
+.ItemRow i.fa-power-off {
+	color: #333;
+}
+
+} /* end @media */

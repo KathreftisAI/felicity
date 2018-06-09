@@ -1,0 +1,79 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comments</title> -->
+<style>
+.Hidden {
+    display: none !important;
+}
+
+</style>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">
+$(document).ready(function() {
+nonetext();
+var baseurl = "http://[% Env('HTTP_HOST') %]/[% Config('ScriptAlias') %]dynamicfield.pl";
+var t = document.getElementById("TypeID");
+var q = document.getElementById("Dest");
+$('#TypeID,#Dest').change(function(){
+	var Type = t.options[t.selectedIndex].value;
+        var Queueval =  q.options[q.selectedIndex].value;
+	var queuearr = Queueval.split('||');
+	var Queue = queuearr[0];
+	if(Type != "" && Queue != ""){
+		show_dynamic_fields(baseurl,Type,Queue);
+	}
+});
+
+});
+function show_dynamic_fields(baseurl,Type,Queue)
+{
+$.ajax({
+        url: baseurl,
+        data: "type="+Type+"&queue="+Queue,
+        error: function() { 
+            alert("script call was not successful");
+        }, 
+        success: function(response)
+	{
+	    if(response.length > 0) {
+		var jsonObject = JSON.parse(response);
+		nonetext();
+		if(Object.keys(jsonObject).length > 0)
+		{
+			$.each($.parseJSON(response), function(key,obj) {
+			 var mydiv = ".Row_DynamicField_"+obj['field_name'];
+			 var label = "LabelDynamicField_"+obj['field_name'];
+		         var mainControler = "DynamicField_"+obj['field_name'];
+			 var content = obj['content'];
+			 if(content > 0)
+			 {
+			  $("#"+label).addClass('Mandatory LabelError');		
+			  $("#"+mainControler).addClass('Validate_Required  Error');
+			 }
+			 else
+			 {
+			  $("#"+label).removeClass('Mandatory LabelError');                
+                          $("#"+mainControler).removeClass('Validate_Required  Error');
+			 }
+         		 $(mydiv).removeClass('Hidden');
+	 		});
+		}
+	     }
+        }
+    });   
+}
+
+
+function nonetext() {
+    $("[id^=LabelDynamicField]").parent().addClass('Hidden');
+    $("[id^=DynamicField]").removeClass('Validate_Required  Error ServerError');	
+}
+</script>
+[% END %]
+
+

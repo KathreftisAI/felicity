@@ -1,0 +1,295 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("AdminNavBar") %]
+
+<style>
+.panel-group .panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+		position:relative;
+    }
+
+    .panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #f5f6fa;
+    border-color: #e2e5f0;
+    position: relative; 
+}
+
+    .panel-title {
+        font-size: 14px;
+    }
+
+    .panel-title > a {
+        display: block;
+        padding: 15px;
+        text-decoration: none;
+    }
+
+    .more-less {
+        float: right;
+        color: #212121;
+    }
+
+    .panel-default > .panel-heading + .panel-collapse > .panel-body {
+        border-top-color: #EEEEEE;
+    }
+	
+	
+	
+</style>
+
+
+<script>
+$(document).ready(function(){
+$('.panel-heading').on('click', function(){
+	$('.panel-heading').children().find('div').removeClass('minusicon')
+	$('.panel-heading').find('div').addClass('plusicon')
+	if($(this).next().hasClass('in')){
+		
+	  $(this).children().find('div').removeClass('minusicon')
+	  $(this).children().find('div').addClass('plusicon')
+	  
+	}else //if($(this).children().find('div').hasClass('plusicon'))
+	{
+	   $(this).children().find('div').removeClass('plusicon')
+	   $(this).children().find('div').addClass('minusicon')
+	}
+
+});
+
+
+
+});
+</script>
+<div class="MainBox ARIARoleMain Admin">
+
+<h1>[% Translate("Admin Settings") | html %]</h1>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headAgentSetting">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#AgentSetting" aria-expanded="true" aria-controls="AgentSetting">                        
+                       [% Translate("Agent Management") | html %]
+					   <div class="minusicon"></div>
+                    </a>
+                </h4>
+				
+            </div>
+            <div id="AgentSetting" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headAgentSetting">
+                <div class="panel-body">
+                     [% RenderBlockStart("Agent") %]
+                <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							<a class="pull-left"  href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+							   <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+							   <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+							</a>
+						  </div>
+					[% RenderBlockStart("AgentClear") %]
+					[% RenderBlockEnd("AgentClear") %]
+					[% RenderBlockEnd("Agent") %]   
+				
+                </div>
+            </div>
+        </div>
+		
+		
+				
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headCusManage">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#CusManage" aria-expanded="true" aria-controls="CusManage">                        
+                       [% Translate("Customer Management") | html %]
+					   <div class="plusicon"></div>
+                    </a>
+                </h4>
+				
+            </div>
+            <div id="CusManage" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headCusManage">
+                <div class="panel-body">
+                    [% RenderBlockStart("Customer") %]
+                             <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							 <a  href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+                                <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+                                <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+								</a>
+                            </div>
+					[% RenderBlockStart("CustomerClear") %]
+					[% RenderBlockEnd("CustomerClear") %]
+					[% RenderBlockEnd("Customer") %]            
+                </div>
+            </div>
+        </div>
+		
+		
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headEmailSetting">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#EmailSetting" aria-expanded="true" aria-controls="EmailSetting">
+                        
+                      [% Translate("Email Settings") | html %]
+					  <div class="plusicon"></div>
+                    </a>
+					
+                </h4>
+				
+            </div>
+            <div id="EmailSetting" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headEmailSetting">
+                <div class="panel-body">
+				[% RenderBlockStart("Email") %]
+					<div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+					<a href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+						<h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+						<label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+						</a>
+					</div>
+					[% RenderBlockStart("EmailClear") %]                          
+					[% RenderBlockEnd("EmailClear") %]
+					[% RenderBlockEnd("Email") %]
+                </div>
+            </div>
+        </div>
+		
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headQueueSetting">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#QueueSetting" aria-expanded="true" aria-controls="QueueSetting">
+                        
+                      [% Translate("Queue Settings") | html %]
+					  <div class="plusicon"></div>
+                    </a>
+                </h4>
+				
+            </div>
+            <div id="QueueSetting" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headQueueSetting">
+                <div class="panel-body">
+					[% RenderBlockStart("Queue") %]
+                <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							<a href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+                                <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+                                <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+							</a>
+                            </div>
+					[% RenderBlockStart("QueueClear") %]
+					[% RenderBlockEnd("QueueClear") %]
+					[% RenderBlockEnd("Queue") %]
+                </div>
+            </div>
+        </div>
+		
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headTicketSetting">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#TicketSetting" aria-expanded="true" aria-controls="TicketSetting">
+                        
+                     [% Translate("Ticket Settings") | html %]
+					 <div class="plusicon"></div>
+                    </a>
+                </h4>
+				
+            </div>
+            <div id="TicketSetting" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headTicketSetting">
+                <div class="panel-body">
+					[% RenderBlockStart("Ticket") %]
+                    <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							 <a href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+                                <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+                                <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+								</a>
+                            </div>
+					[% RenderBlockStart("TicketClear") %]
+					[% RenderBlockEnd("TicketClear") %]
+					[% RenderBlockEnd("Ticket") %]
+					</div>
+            </div>
+        </div>
+
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headCmdbSetting">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#CmdbSetting" aria-expanded="true" aria-controls="CmdbSetting">
+                        
+						[% Translate("CMDB Settings") | html %]
+						<div class="plusicon"></div>
+                    </a>
+                </h4>
+				
+            </div>
+            <div id="CmdbSetting" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headCmdbSetting">
+                <div class="panel-body">
+					[% RenderBlockStart("CMDB") %]
+                             <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							 <a href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+                                <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+                                <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+								</a>
+                            </div>
+[% RenderBlockStart("CMDBClear") %]
+[% RenderBlockEnd("CMDBClear") %]
+[% RenderBlockEnd("CMDB") %]
+				</div>
+            </div>
+        </div>
+        
+		
+		<div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headSysadmin">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#Sysadmin" aria-expanded="true" aria-controls="Sysadmin">                        
+						[% Translate("System Administration") | html %]
+						<div class="plusicon"></div>		
+                    </a>
+                </h4>
+						
+            </div>
+            <div id="Sysadmin" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headSysadmin">
+                <div class="panel-body">
+				<a href="http://otrs.github.io/doc/manual/admin/[% Data.ManualVersion | uri %].0/en/html/index.html" class="Small pull-right" target="_blank">
+                                [% Translate("Online Admin Manual") | html %] <i class="fa fa-external-link"></i>
+                            </a>
+					<div class="spacer20"></div>		
+				[% RenderBlockStart("System") %]
+                            <div class="col-md-3 col-sm-6 col-xs-12 link-box">
+						 <div class="pull-left link-icon"><i class="fa fa-link"></i></div>
+							<a  href="[% Env("Baselink") %]Action=[% Data.item("Frontend::Module") | uri %]">
+                                <h4 title="[% Translate(Data.Name) | html %]">[% Translate(Data.Name) | html %]</h4>
+                                <label title="[% Translate(Data.Description) | html %]">[% Translate(Data.Description) | html %]</label>
+							</a>
+                            </div>
+				[% RenderBlockStart("SystemClear") %]
+				[% RenderBlockEnd("SystemClear") %]
+				[% RenderBlockEnd("System") %]
+				</div>
+            </div>
+        </div>
+		
+		
+		
+
+</div>
+	
+
+#End code
+    </div>
+[% RenderBlockEnd("AdminNavBar") %]

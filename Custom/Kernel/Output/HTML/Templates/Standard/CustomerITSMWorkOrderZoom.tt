@@ -1,0 +1,123 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<div class="MainBox ARIARoleMain" id="MainBox">
+    <div class="row col-md-12">   
+        <div class="col-md-9 panel-left">
+            <div class="panel-group serv-cat-det-con">
+                <div class="panel panel-default">
+                    <ul id="Metadata">
+                        <li class="Header">
+                            <div class="MessageHeader">
+                                <h3>[% Config("ITSMWorkOrder::Hook") %]: [% Data.ChangeNumber | html %]-[% Data.WorkOrderNumber | html %] <span>&mdash;</span> [% Data.WorkOrderTitle | truncate(70) | html %]</h3>
+                                <div class="Clear"></div>
+                            </div>
+                        </li>
+                        <div class="spacer10"></div>
+                         <li><span class="Key col-md-2">[% Translate("Change Number") | html %]:</span> <span class="col-md-10" title="[% Data.Type | html %]">[% Translate(Data.ChangeNumber) | html %]</span></li>
+                        <div class="spacer10"></div>
+                         <li><span class="Key col-md-2">[% Translate("Change Title") | html %]:</span> <span class="col-md-10" title="[% Data.Type | html %]">[% Translate(Data.ChangeTitle) | html %]</span></li>
+                        <div class="spacer10"></div>
+                        <li><span class="Key col-md-2">[% Translate("Change State") | html %]:</span> <span class="col-md-10" title="[% Data.Type | html %]">[% Translate(Data.ChangeState) | html %]</span></li>
+                        <div class="spacer10"></div>
+                        <li><span class="Key col-md-2">[% Translate("Description") | html %]:</span> <span class="col-md-10" title="[% Data.Type | html %]">[% Translate(Data.DescriptionPlain) | html %]</span></li>
+                        <div class="spacer10"></div>
+                        <li><span class="Key col-md-2">[% Translate("Justification") | html %]:</span> <span class="col-md-10" title="[% Data.Type | html %]">[% Translate(Data.JustificationPlain) | html %]</span></li>
+                        <div class="spacer10"></div>
+
+                    </ul>
+                </div>        
+            </div>         
+        </div>   
+
+        <div class="col-md-3">
+            <div style="display: none" id="WorkOrderRequest">
+                <div class="MessageHeader">
+                    <h3>[% Translate("My Task") | html %]</h3>
+                    <div class="Clear"></div>
+                </div>
+                <div class="spacer10"></div>
+                <label class="Mandatory" for="Approval" ><span class="Marker">*</span>Approval:</label>
+                <input type="radio" name="Approval" value="Approve" checked> Approve &nbsp;
+                <input type="radio" name="Approval" value="Reject"> Reject<br />
+                 <div class="spacer10"></div>
+                <button class="btn btn-primary btn-sm full-width text-uppercase" id="raise-btn"><i class="fa fa-plus-circle"></i> Add My Comment</button>
+
+                <div style="display: none" class="panel panel-default"  id="raise-req-form" >
+                    <div class="panel-body">
+                        <textarea id="ReportBody" style="border: 0px;"></textarea>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button id="RequestSubmit" class="btn btn-sm btn-primary">Submit</button>
+                    </div>
+                </div>
+                <div class="spacer10"></div>
+            </div>
+            <ul id="Metadata">
+                <li class="Header">
+                    <div class="MessageHeader">
+                        <h3>[% Translate("Workorder Information") | html %]</h3>
+                        <div class="Clear"></div>
+                    </div>
+                </li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("WorkOrderState") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Translate(Data.WorkOrderState) | html %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("WorkOrderType") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.WorkOrderType | html %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("PlannedStartTime") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.PlannedStartTime | Localize("TimeLong") %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("PlannedEndTime") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.PlannedEndTime | Localize("TimeLong") %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("Created") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.CreateTime | Localize("TimeLong") %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("Created by") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.CreateUserLogin | truncate(15) | html %] ([% Data.CreateUserFirstname | html %] [% Data.CreateUserLastname | html %])</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("Last changed") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.ChangeTime | Localize("TimeLong") %]</span></li>
+                <div class="spacer10"></div>
+                <li><span class="Key catalog-details-label col-md-6 npm">[% Translate("Last changed by") | html %]:</span> <span class="col-md-6" title="[% Data.Type | html %]">[% Data.ChangeUserLogin | truncate(15) | html %] ([% Data.ChangeUserFirstname | html %] [% Data.ChangeUserLastname | html %])</span></li>
+            </ul>
+        </div>                
+    </div>
+
+</div>
+
+<form style="display: none;" id="ApprovalRequest" method="post"  action="[% Env('Baselink') %]Action=CustomerITSMWorkOrderZoom;Subaction=Approval;WorkOrderID=[% Data.WorkOrderID %]">
+  <input id="FormApproval" type="text" name="Approval" >
+  <input id="FormReport" type="text" name="Report" >
+  <input id="FormWorkOrderID" type="text" name="WorkOrderID" >
+  <input type="submit" value="Submit">
+</form> 
+
+
+
+<script type="text/javascript">
+    $('#raise-btn').on('click',function(){
+        $(this).attr('style','display:none');
+        $('#raise-req-form').removeAttr('style');
+    });
+
+    $('#RequestSubmit').on('click',function(e){
+        e.preventDefault();
+        $(this).attr('disabled','disabled');
+        $('#FormApproval').val($('input[name=Approval]:checked').val());
+        $('#FormReport').val($('#ReportBody').val());
+        $('#FormWorkOrderID').val("[% Data.WorkOrderID %]");
+        $('#WorkOrderRequest').attr('style','display:none');
+        $("#ApprovalRequest").submit();
+    });
+    
+    var ApprovalValue= "[% Data.ApprovalValue %]"
+
+    if (!ApprovalValue) {
+        $('#WorkOrderRequest').removeAttr('style');
+    }
+
+</script>
+<style type="text/css">
+    span.Marker{font-size:18px;font-weight:bold;position:relative;top:0.35em;line-height:1px;right:2px;left:auto;color: red;}
+</style>

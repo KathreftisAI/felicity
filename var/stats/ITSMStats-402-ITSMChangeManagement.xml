@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>This report shows changes that got rejected in the selected time period.</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMChangeManagementHistory</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMChangeManagementHistory</ObjectModule>
+<ObjectName>ITSMChangeManagementHistory</ObjectName>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>ITSMChange rejected changes</Title>
+<UseAsValueSeries Element="NewValues" Fixed="1">
+<SelectedValues>rejected</SelectedValues>
+</UseAsValueSeries>
+<UseAsXvalue Element="TimePeriod" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

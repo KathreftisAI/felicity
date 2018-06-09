@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketCompose" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketCompose. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketCompose-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketCompose. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketForward" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketForward. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketForward-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketForward. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketNote" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketNote. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketNote-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketNote. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketClose" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketClose. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketClose-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketClose. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketPending" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketPending. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketPending-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketPending. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketDecision" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketDecision. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketDecision-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketDecision. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketResponsible" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketResponsible. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketResponsible-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketResponsible. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketFreeText" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketFreeText. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketFreeText-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketFreeText. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+        <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketOwner" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketOwner. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketOwner-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketOwner. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+           <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketPriority" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketPriority. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketPriority-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketPriority. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+
+           <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketAddtlITSMField" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketAddtlITSMField. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketAddtlITSMField-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketAddtlITSMField. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+             <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketMove" Required="1" Valid="1">
+        <Description Translatable="1">Queue to DynamicField Mapping for AgentTicketMove. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="DynamicField_Tagging::Default::AgentTicketMove-Mandatory" Required="1" Valid="1">
+        <Description Translatable="1">Queue to Mandatory DynamicField Mapping for AgentTicketMove. Possible settings: Queue_name or Queue_id = DynamicField_name1,DynamicField_name2,...</Description>
+        <Group>DynamicField_Tagging</Group>
+        <SubGroup>DynamicField_Tagging</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+</otrs_config>

@@ -1,0 +1,13 @@
+
+
+.userDetails{
+	padding:20px !important;
+	border: 2px solid #ddd!important;
+	margin:10px ;
+}
+
+.breakLine{
+	/* width:100%; */
+	clear:both;
+	
+}

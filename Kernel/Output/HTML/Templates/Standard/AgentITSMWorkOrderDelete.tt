@@ -1,0 +1,40 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("NoWorkOrderInCondition") %]
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Title") | html %]:</label>
+    <p class="Value">
+        [% Data.WorkOrderTitle | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+<p class="SpacingTop Center">
+    [% Translate("Do you really want to delete this workorder?") | html %]
+</p>
+[% RenderBlockEnd("NoWorkOrderInCondition") %]
+
+[% RenderBlockStart("WorkOrderInCondition") %]
+<p>
+    [% Translate("You can not delete this Workorder. It is used in at least one Condition!") | html %]
+</p>
+<p class="SpacingTop SpacingBottom">
+    [% Translate("This Workorder is used in the following Condition(s)") | html %]:
+</p>
+
+<ul>
+[% RenderBlockStart("WorkOrderInConditionRow") %]
+    <li class="Indent SpacingBottomSmall">
+        <a href="[% Env("Baselink") %]Action=AgentITSMChangeConditionEdit;ChangeID=[% Data.ChangeID | uri %];ConditionID=[% Data.ConditionID | uri %]" class="AsPopupDialog">
+            [% Data.Name | html %]
+        </a>
+    </li>
+[% RenderBlockEnd("WorkOrderInConditionRow") %]
+</ul>
+
+[% RenderBlockEnd("WorkOrderInCondition") %]

@@ -1,0 +1,141 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[%- INCLUDE "HTTPHeaders.tt" -%]
+
+<!DOCTYPE html>
+#Jugni added below two line for CIGraphView code
+<span us-spinner="{radius:15, width:4, length: 10}"></span>
+<html ng-app="CustomerApp">
+
+[% InsertTemplate("Copyright.tt") %]
+[% InsertTemplate("HTMLHead.tt") %]
+<body class="[% Data.BodyClass | html %]">
+    <a name="Top"></a>
+    <div id="AppWrapper">
+    <div id="Header" class="ARIARoleBanner">
+        
+#Added home link to the logo .	
+        <a href="[% Env('Baselink') %]"><div id="Logo"></div></a>
+<!--	<div id="Logo"></div> -->
+		<!--div id="ClientLogo"></div-->
+        <!--h2 id="ClientLogo" style="color:#414411"> Welcome, [% Env("UserFullname") | html %] </h2-->
+        <ul id="ToolBar">
+[% RenderBlockStart("ToolBar") %]
+[% RenderBlockStart("ToolBarItem") %]
+            <li class="[% Data.Class | html %]"><a href="[% Data.Link %]" target="[% Data.Target | html %]" accesskey="[% Data.AccessKey | html %]" title="[% Translate(Data.Description) | html %]: [% Data.Count | html %][% Data.AccessKeyReference | html %]">[% Translate(Data.Description) | html %] <i class="icon-small fa fa-clock-o icon-show-reached"></i> <i class="icon-small fa fa-star icon-show-new"></i><i class="[% Data.Icon | html %]"></i> <span class="Counter">[% Data.Count | html %]</span> </a></li>
+[% RenderBlockEnd("ToolBarItem") %]
+[% RenderBlockStart("Login") %]
+            <li>
+                <a href="[% Env("Baselink") %]Action=AgentPreferences" title="[% Translate("Edit personal preferences") | html %]">
+                    [% Translate("Edit personal preferences") | html %]
+                    <i class="fa fa-cog"></i>
+                </a>
+            </li>
+[% RenderBlockEnd("Login") %]
+[% RenderBlockStart("Logout") %]
+            <li>
+                <a class="LogoutButton" id="LogoutButton" href="[% Env("Baselink") %]Action=Logout;[% Env("ChallengeTokenParam") | html %]" title="[% Translate("Logout") | html %] ([% Translate("You are logged in as") | html %] [% Env("UserFullname") | html %])">
+                    [% Translate("Logout") | html %] ([% Translate("You are logged in as") | html %] [% Env("UserFullname") | html %])
+                    <i class="fa fa-power-off">
+					
+					</i>
+                </a>
+            </li>
+[% RenderBlockEnd("Logout") %]
+[% RenderBlockStart("ToolBarSearchProfile") %]
+            <li class="Extended SearchProfile">
+                <form action="[% Env("CGIHandle") %]" method="post" name="SearchProfile">
+                    <input type="hidden" name="Action" value="AgentTicketSearch"/>
+                    <input type="hidden" name="Subaction" value="LoadProfile"/>
+                    <input type="hidden" name="SearchTemplate" value="[% Translate("Search") | html %]"/>
+                    [% Data.Link %]
+#                    <a href="#" id="ToolbarProfileSearch" title="[% Translate(Data.Description) | html %]  ([% Data.AccessKey | html %])" accesskey="[% Data.AccessKey | html %]" [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a>
+                </form>
+            </li>
+[% WRAPPER JSOnDocumentComplete %]
+            <script type="text/javascript">//<![CDATA[
+                $('#ToolBarSearchProfile').bind('change', function (Event) {
+                    $(Event.target).closest('form').submit();
+                    Event.preventDefault();
+                    Event.stopPropagation();
+                    return false;
+                });
+            //]]></script>
+[% END %]
+[% RenderBlockEnd("ToolBarSearchProfile") %]
+[% RenderBlockStart("ToolBarSearchFulltext") %]
+            <li class="Extended SearchFulltext">
+                <form action="[% Env("CGIHandle") %]" method="post" name="SearchFulltext">
+                    <input type="hidden" name="Action" value="AgentTicketSearch"/>
+                    <input type="hidden" name="Subaction" value="Search"/>
+                    <input type="hidden" name="SearchTemplate" value="[% Translate("Search") | html %]"/>
+                    <input type="hidden" name="CheckTicketNumberAndRedirect" value="1"/>
+                    <input type="text" size="[% Data.Size | html %]" name="Fulltext" id="Fulltext" value="[% Data.Fulltext | html %]" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+#                    <a href="#" id="ToolbarFulltextSearch" title="[% Translate(Data.Description) | html %] ([% Data.AccessKey | html %])" accesskey="[% Data.AccessKey | html %]" [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a>
+                </form>
+            </li>
+[% RenderBlockEnd("ToolBarSearchFulltext") %]
+[% RenderBlockStart("ToolBarCICSearchCustomerID") %]
+            <li class="Extended SearchFulltext">
+                <input type="text" size="[% Data.Size | html %]" id="ToolBarCICSearchCustomerID" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+            </li>
+[% WRAPPER JSOnDocumentComplete %]
+            <script type="text/javascript">//<![CDATA[
+                Core.Agent.CustomerInformationCenterSearch.InitAutocomplete( $('#ToolBarCICSearchCustomerID'), "SearchCustomerID" );
+            //]]></script>
+[% END %]
+[% RenderBlockEnd("ToolBarCICSearchCustomerID") %]
+[% RenderBlockStart("ToolBarCICSearchCustomerUser") %]
+            <li class="Extended SearchFulltext">
+                <input type="text" size="[% Data.Size | html %]" id="ToolBarCICSearchCustomerUser" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+            </li>
+[% WRAPPER JSOnDocumentComplete %]
+            <script type="text/javascript">//<![CDATA[
+                Core.Agent.CustomerInformationCenterSearch.InitAutocomplete( $('#ToolBarCICSearchCustomerUser'), "SearchCustomerUser" );
+            //]]></script>
+[% END %]
+[% RenderBlockEnd("ToolBarCICSearchCustomerUser") %]
+
+[% IF Config("ChatEngine::Active") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+if (
+    typeof Core.Agent.Chat !== 'undefined'
+    && typeof Core.Agent.Chat.Toolbar !== 'undefined'
+    )
+{
+    Core.Agent.Chat.Toolbar.Init();
+}
+//]]></script>
+[% END %]
+[% END %]
+
+[% IF Config("Frontend::ToolBarModule").item("10-Ticket::TicketSearchFulltext") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+if ($('#ToolBar li.Extended.SearchFulltext').length) {
+    Core.Agent.Search.InitToolbarFulltextSearch();
+}
+
+//]]></script>
+[% END %]
+[% END %]
+
+[% RenderBlockEnd("ToolBar") %]
+
+[% RenderBlockStart("DebugRTLButton") %]
+            <li>
+                <button type="button" onclick="Core.Debug.SimulateRTLPage();">Simulate RTL</button>
+            </li>
+[% RenderBlockEnd("DebugRTLButton") %]
+        </ul>
+    </div>
+	
+	<div class="middle_box">
+	

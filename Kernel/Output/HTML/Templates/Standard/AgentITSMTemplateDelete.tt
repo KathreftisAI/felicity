@@ -1,0 +1,30 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Name") | html %]:</label>
+    <p class="Value">
+        [% Data.Name | html %]
+    </p>
+    <div class="Clear"></div>
+
+    <label>[% Translate("Type") | html %]:</label>
+    <p class="Value">
+        [% Translate(Data.Type) | html %]
+    </p>
+    <div class="Clear"></div>
+
+    <label>[% Translate("Comment") | html %]:</label>
+    <p class="Value">
+        [% Data.Comment | truncate(40) | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+<p class="SpacingTop Center">
+    [% Translate("Do you really want to delete this template?") | html %]
+</p>

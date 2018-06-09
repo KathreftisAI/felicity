@@ -1,0 +1,112 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain FormScreen NoSidebar">
+
+    <h1>[% Translate("Create New Survey") | html %]</h1>
+    <p class="AsteriskExplanation">[% Translate("All fields marked with an asterisk (*) are mandatory.") | html %]</p>
+
+    <div class="ContentColumn">
+        <div class="Content">
+            <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="Survey" id="Survey" class="Validate PreventMultipleSubmits">
+                <input type="hidden" name="Action" value="[% Env("Action") %]" />
+                <input type="hidden" name="Subaction" value="SurveyNew" />
+
+                <fieldset class="TableLike">
+
+                    <label class="Mandatory" for="Title"><span class="Marker">*</span> [% Translate("Title") | html %]:</label>
+                    <div class="Field">
+                        <input id="Title" name="Title" type="text" class="W50pc Validate_Required [% Data.TitleServerError | html %]" value="[% Data.Title | html %]" />
+                    </div>
+                    <div class="Clear"></div>
+
+[% RenderBlockStart("RichText") %]
+[% InsertTemplate("RichTextEditor.tt") %]
+[% RenderBlockEnd("RichText") %]
+
+[% RenderBlockStart("Introduction") %]
+                    <label class="Mandatory" for="Introduction"><span class="Marker">*</span> [% Translate("Introduction") | html %]:</label>
+                    <div class="RichTextField">
+                        <textarea id="Introduction" name="Introduction" name="Introduction" class="RichText Validate_Required [% Data.IntroductionServerError | html %]" title="[% Translate("Survey Introduction") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Introduction %]</textarea>
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("Introduction") %]
+
+                    <label class="Mandatory" for="NotificationSender"><span class="Marker">*</span> [% Translate("Sender") | html %]:</label>
+                    <div class="Field">
+                        <input id="NotificationSender" name="NotificationSender" type="text" class="W50pc Validate_Required [% Data.NotificationSenderServerError | html %]" value="[% Data.NotificationSender | html %]" />
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label class="Mandatory" for="NotificationSubject"><span class="Marker">*</span> [% Translate("Subject") | html %]:</label>
+                    <div class="Field">
+                        <input id="NotificationSubject" name="NotificationSubject" type="text" class="W50pc Validate_Required [% Data.NotificationSubjectServerError | html %]" value="[% Data.NotificationSubject | html %]" />
+                    </div>
+                    <div class="Clear"></div>
+
+[% RenderBlockStart("NotificationBody") %]
+                    <label class="Mandatory" for="NotificationBody"><span class="Marker">*</span> [% Translate("Body") | html %]:</label>
+                    <div class="RichTextField">
+                        <textarea id="NotificationBody" name="NotificationBody" class="RichText Validate_Required [% Data.NotificationBodyServerError | html %]" title="[% Translate("Notification Body") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.NotificationBody | html %]</textarea>
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("NotificationBody") %]
+
+                    <label for="Queues">[% Translate("Queues") | html %]:</label>
+                    <div class="Field">
+                        [% Data.QueueString %]
+                    </div>
+                    <div class="Clear"></div>
+
+[% RenderBlockStart("TicketTypes") %]
+                    <label for="TicketTypeIDs">[% Translate("Ticket Types") | html %]:</label>
+                    <div class="Field">
+                        [% Data.TicketTypeStrg %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("TicketTypes") %]
+
+[% RenderBlockStart("TicketServices") %]
+                    <label for="ServiceIDs">[% Translate("Services") | html %]:</label>
+                    <div class="Field">
+                        [% Data.ServiceStrg %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("TicketServices") %]
+
+
+[% RenderBlockStart("InternalDescription") %]
+                    <label class="Mandatory" for="Description"><span class="Marker">*</span> [% Translate("Internal Description") | html %]:</label>
+                    <div class="RichTextField">
+                        <textarea id="Description" name="Description" class="RichText Validate_Required [% Data.DescriptionServerError | html %]" title="[% Translate("Internal Description") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Description | html %]</textarea>
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("InternalDescription") %]
+
+[% RenderBlockStart("GenericError") %]
+                    <div id="[% Data.ItemName | html %]" class="TooltipErrorMessage">
+                        <p>[% Translate("This field is required.") | html %]</p>
+                    </div>
+[% RenderBlockEnd("GenericError") %]
+
+[% RenderBlockStart("GenericServerError") %]
+                    <div id="[% Data.ItemName | html %]" class="TooltipErrorMessage">
+                        <p>[% Translate("This field is required.") | html %]</p>
+                    </div>
+[% RenderBlockEnd("GenericServerError") %]
+
+                    <div class="Field">
+                        <button class="Primary CallForAction" type="submit" value="[% Translate("Create") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Create") | html %]</span></button>
+                    </div>
+                </fieldset>
+
+            </form>
+
+        </div>
+    </div>
+</div>

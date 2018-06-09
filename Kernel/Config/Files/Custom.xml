@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<otrs_config version="1.0" init="Application">
+		<!-- Module To add AgentSignature ~MS -->
+		<ConfigItem Name="Frontend::Module###AgentSignature" Required="0" Valid="1">
+				<Description Translatable="1">Frontend module registration for the agent interface.</Description>
+				<Setting>
+						<FrontendModuleReg>
+								<Description Translatable="1">This module is part of the admin area of OTRS.</Description>
+								<Title Translatable="1">Signatures</Title>
+						</FrontendModuleReg>
+				</Setting>
+		</ConfigItem>
+
+		<!-- API To Get Agent FAQ Item RA -->
+        <ConfigItem Name="GenericInterface::Operation::Module###FAQ::AgentFAQSearch" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">AgentFAQSearch</Item>
+                                <Item Key="Controller">FAQ</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+
+        <!-- API To Get Agent FAQ Item RA -->
+        <ConfigItem Name="GenericInterface::Operation::Module###FAQ::AgentFAQGet" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">AgentFAQGet</Item>
+                                <Item Key="Controller">FAQ</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+
+        <!-- API To Create FAQ Item AJ -->
+        <ConfigItem Name="GenericInterface::Operation::Module###FAQ::CreateFAQ" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">CreateFAQ</Item>
+                                <Item Key="Controller">FAQ</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+
+        <!-- API To Get Linked Ticket and FAQ items on ticket Rohit Ambre -->
+        <ConfigItem Name="GenericInterface::Operation::Module###Ticket::GetLinkedTicketFAQData" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">GetLinkedTicketFAQData</Item>
+                                <Item Key="Controller">Ticket</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+
+        <!-- API To Get Linked Ticket  items on ticket Rohit Ambre -->
+        <ConfigItem Name="GenericInterface::Operation::Module###Ticket::GetLinkedTicketData" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">GetLinkedTicketData</Item>
+                                <Item Key="Controller">Ticket</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+
+        <!-- API To Get Linked FAQ items on ticket Rohit Ambre -->
+        <ConfigItem Name="GenericInterface::Operation::Module###Ticket::GetLinkedFAQData" Required="0" Valid="1">
+            <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+            <Group>GenericInterface</Group>
+            <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+            <Setting>
+                <Hash>
+                                <Item Key="Name">GetLinkedFAQData</Item>
+                                <Item Key="Controller">Ticket</Item>
+                                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+                </Hash>
+            </Setting>
+        </ConfigItem>
+        <!-- End of code -->
+</otrs_config>

@@ -1,0 +1,181 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("StartNormal") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarLast">
+    <h1>[% Translate("Edit") | html %]: [% Translate("Config Item") | html %]: [% Translate(Data.Number) | html %] - [% Translate("Class") | html %]: [% Translate(Data.Class) | html %]</h1>
+    <div class="ContentColumn">
+[% RenderBlockEnd("StartNormal") %]
+[% InsertTemplate("AgentITSMCustomerSearch.tt") %]
+        <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="ClassItem" class="Validate PreventMultipleSubmits" id="ClassItem">
+[% RenderBlockStart("StartSmall") %]
+            <div class="LayoutPopup ARIARoleMain">
+                <div class="Header">
+                    <h1>[% Translate("Edit") | html %]: [% Translate("Config Item") | html %]: [% Translate(Data.Number) | html %] - [% Translate("Class") | html %]: [% Translate(Data.Class) | html %]</h1>
+                    <p>
+                        <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+                    </p>
+                </div>
+                <input type="hidden" name="ScreenType" value="Popup"/>
+[% RenderBlockEnd("StartSmall") %]
+                <div class="Content">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="VersionSave"/>
+                    <input type="hidden" name="ClassID" value="[% Data.ClassID | html %]"/>
+                    <input type="hidden" name="ConfigItemID" value="[% Data.ConfigItemID | html %]"/>
+                    <input type="hidden" name="DuplicateID" value="[% Data.DuplicateID | html %]"/>
+                    <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+                    <input type="hidden" name="SubmitSave" value="[% Data.SubmitSave | html %]"/>
+                    <fieldset class="TableLike">
+[% RenderBlockStart("RowName") %]
+                        <label class="Mandatory" for="Name"><span class="Marker">*</span> [% Translate("Name") | html %]: </label>
+                        <div class="Field">
+                            <input type="text" name="Name" id="Name" class="W50pc Validate_Required [% Data.RowNameInvalid | html %]" maxlength="250" value="[% Data.Name | html %]" title="[% Translate("The name of this config item") | html %]"/>
+                            <div id="NameError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+[% RenderBlockStart("RowNameErrorDefault") %]
+                            <div id="NameServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+[% RenderBlockEnd("RowNameErrorDefault") %]
+[% RenderBlockStart("RowNameErrorDuplicates") %]
+                            <div id="NameServerError" class="TooltipErrorMessage"><p>[% Translate("Name is already in use by the ConfigItems with the following Number(s): %s", Data.Duplicates) | html %]</p></div>
+[% RenderBlockEnd("RowNameErrorDuplicates") %]
+[% RenderBlockStart("RowNameErrorRegEx") %]
+                            <div id="NameServerError" class="TooltipErrorMessage"><p>[% Translate(Data.RegExErrorMessage) | html %]</p></div>
+[% RenderBlockEnd("RowNameErrorRegEx") %]
+                        </div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("RowName") %]
+[% RenderBlockStart("RowDeplState") %]
+                        <label class="Mandatory" for="DeplStateID"><span class="Marker">*</span> [% Translate("Deployment State") | html %]: </label>
+                        <div class="Field">
+                            [% Data.DeplStateOptionStrg %]
+                            <div id="DeplStateIDError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="DeplStateIDServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("RowDeplState") %]
+[% RenderBlockStart("RowInciState") %]
+                        <label class="Mandatory" for="InciStateID"><span class="Marker">*</span> [% Translate("Incident State") | html %]: </label>
+                        <div class="Field">
+                            [% Data.InciStateOptionStrg %]
+                            <div id="InciStateIDError" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="InciStateIDServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("RowInciState") %]
+                    </fieldset>
+
+[% RenderBlockStart("XMLRow") %]
+[% RenderBlockStart("XMLRowFieldsetStart") %]
+                    <fieldset class="TableLike">
+[% RenderBlockEnd("XMLRowFieldsetStart") %]
+[% RenderBlockStart("XMLRowValue") %]
+                        <label [% Data.LabelClass %] [% Data.LabelFor %]>
+[% RenderBlockStart("XMLRowValueContentRequired") %]
+                            <span class="Marker">*</span>
+[% RenderBlockEnd("XMLRowValueContentRequired") %]
+                            [% Translate(Data.Name) | html %]:
+                        </label>
+                        <div class="[% Data.Class %] Field">
+                            [% Data.InputString %]
+[% RenderBlockStart("XMLRowValueContentDelete") %]
+                            <button class="DisableValidation Remove" type="submit" name="[% Data.InputKey | html %]::Delete" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% RenderBlockEnd("XMLRowValueContentDelete") %]
+                            <div id="[% Data.ItemID | html %]Error" class="TooltipErrorMessage" ><p>[% Translate("This field is required.") | html %]</p></div>
+[% RenderBlockStart("XMLRowValueServerError") %]
+                            <div id="[% Data.ItemID | html %]ServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+[% RenderBlockEnd("XMLRowValueServerError") %]
+[% RenderBlockStart("XMLRowValueRegExError") %]
+                            <div id="[% Data.ItemID | html %]ServerError" class="TooltipErrorMessage"><p>[% Translate(Data.RegExErrorMessage) | html %]</p></div>
+[% RenderBlockEnd("XMLRowValueRegExError") %]
+                        </div>
+[% RenderBlockEnd("XMLRowValue") %]
+
+[% RenderBlockStart("XMLRowAddContent") %]
+                        <label [% Data.Class %] for="[% Data.ItemID | html %]">[% Translate(Data.Name) | html %]: </label>
+                        <div class="Field">
+                            <button class="DisableValidation Add" id="[% Data.ItemID | html %]" type="submit" name="[% Data.InputKey | html %]::Add" value="[% Translate("Add") | html %]" title="[% Translate(Data.Description) | html %]" ></button>
+                        </div>
+[% RenderBlockEnd("XMLRowAddContent") %]
+
+[% RenderBlockStart("XMLRowFieldsetEnd") %]
+                    </fieldset>
+[% RenderBlockEnd("XMLRowFieldsetEnd") %]
+[% RenderBlockEnd("XMLRow") %]
+
+[% RenderBlockStart("AttachmentUpload") %]
+                    <fieldset class="TableLike">
+                        <label>[% Translate("Attachment") | html %]:</label>
+                        <div class="Field">
+                            <ul>
+[% RenderBlockStart("Attachment") %]
+                                <li>
+                                    [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                    <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+        Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+    });
+//]]></script>
+[% END %]
+                                </li>
+[% RenderBlockEnd("Attachment") %]
+                                <li>
+                                    <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                                    <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="Clear"></div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function (Event) {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+
+                    </fieldset>
+[% RenderBlockEnd("AttachmentUpload") %]
+
+                    <fieldset class="TableLike">
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" accesskey="g" id="SubmitButton" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Submit") | html %]</span></button>
+                        </div>
+                    </fieldset>
+                </div>
+
+[% RenderBlockStart("EndSmall") %]
+            </div>
+[% RenderBlockEnd("EndSmall") %]
+        </form>
+[% RenderBlockStart("EndNormal") %]
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("EndNormal") %]
+
+
+[% WRAPPER JSOnDocumentComplete %]
+        <script type="text/javascript">//<![CDATA[
+            $('#SubmitButton').on('click', function () {
+                $('input[name=SubmitSave]').val('1');
+            });
+
+            $('.DisableValidation').bind('click', function (Event) {
+                $('input[name=SubmitSave]').val('0');
+                Core.Form.Validate.DisableValidation($('#ClassItem'));
+                // fix for Safari: race condition with submit in Core.Form.Validate.js
+                // fixed in OTRS 3.0.5, this line remains here for backwards compatibility reasons
+                $('#ClassItem').removeClass('PreventMultipleSubmits');
+            });
+        //]]></script>
+[% END %]

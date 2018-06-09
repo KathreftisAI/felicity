@@ -1,0 +1,26 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+</div>
+[% IF !Config("Secure::DisableBanner") %]
+<div id="Footer" class="ARIARoleContentinfo">
+
+<a href="">[% Translate("Powered by") | html %] [% Config("Product" ) | html %] [% Translate("Super charged by Unotech") | html %]<a>
+    
+	<!-- <a href="[% IF !Data.IsLoginPage %]https://www.unotechsoft.com[% ELSE %]https://www.unotechsoft.com[% END %]" title="[% Config("Product") | html %][% IF !Data.IsLoginPage %] [% Config("Version") | html %][% END %]" target="_blank">
+        
+    </a> -->
+</div>
+[% END %]
+
+[% InsertTemplate("FooterJS.tt") %]
+
+    </div><!-- end AppWrapper -->
+
+</body>
+</html>

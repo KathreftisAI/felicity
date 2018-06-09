@@ -1,0 +1,21 @@
+<div>
+	<div class="modal-content" id='previewPage'>
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="dismiss()" aria-hidden="true">&times;</button>
+			<span class="modal-title">CI Graphichal View </span>
+		</div>
+	<div class="modal-body" name="admin-model">
+	
+		
+		
+		<div id="tableCosting">
+			<span>hi</b></span>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="col-lg-2" style="margin-left: 400px">
+			<button type="button" class="btn btn-sm btn-danger" ng-click="dismiss()" id='buttonProperties'  id="previewButton">Close</button>
+		</div>
+	</div>
+	</div>
+</div>

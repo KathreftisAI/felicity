@@ -1,0 +1,168 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[%- INCLUDE "HTTPHeaders.tt" -%]
+
+<!DOCTYPE html>
+#Jugni added below two line for CIGraphView code
+<span us-spinner="{radius:15, width:4, length: 10}"></span>
+[% InsertTemplate("Copyright.tt") %]
+[% InsertTemplate("HTMLHead.tt") %]
+<body class="[% Data.BodyClass | html %]">
+<header class="navbar fl_navbar">
+  <div class="col-md-12">
+
+          <div class="navbar-header">
+            <button type="button" id="top_nav_btn" class=" btn btn-sm btn-primary navbar-toggle collapsed" data-toggle="collapse" data-target="#top_nav" aria-expanded="false" aria-controls="navbar">
+             <i class="fa fa-bars"></i>             
+            </button>
+            <div class="fl-logo"><a href="#"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/felicity_agent/images/fel-logo.png"></a></div>
+          </div>
+          <div id="top_nav" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li id="nav-search">
+                <a class="Search ScreenXL ARIARoleSearch ARIAHasPopup" id="GlobalSearchNav" href="[% Env("Baselink") %]Action=AgentTicketSearch" title="[% Translate("Search") | html %]">
+                    <i class="fa fa-search"></i> Search
+                </a>
+                <!--<a class="Search SmallerOrEqualScreenL ARIARoleSearch ARIAHasPopup" id="GlobalSearchNavResponsive" href="[% Env("Baselink") %]Action=AgentTicketSearch" title="[% Translate("Search") | html %]">
+                    [% Translate("Search") | html %]
+                </a>-->
+            </li>
+              
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notifications<span class="drop-icon"></span></a>     
+              <ul class="dropdown-menu scroll-box">
+
+		[% RenderBlockStart("ToolBar") %]
+            
+		[% RenderBlockStart("ToolBarItem") %]
+            <li class="[% Data.Class | html %]">
+            <a href="[% Data.Link %]" target="[% Data.Target | html %]" accesskey="[% Data.AccessKey | html %]" title="[% Translate(Data.Description) | html %]: [% Data.Count | html %][% Data.AccessKeyReference | html %]">
+            <div class="notify_txt">[% Translate(Data.Description) | html %] </div>
+            <div class="notify_icons">
+                <i class="[% Data.Icon | html %]"></i> <span class="badge badge-danger">[% Data.Count | html %]</span> 
+            </div>
+            <div class="clearfix"></div>
+            </a>
+            
+            </li>
+
+		[% RenderBlockEnd("ToolBarItem") %]
+
+		[% RenderBlockStart("ToolBarSearchProfile") %]
+            <li class="Extended SearchProfile">
+                <form action="[% Env("CGIHandle") %]" method="post" name="SearchProfile">
+                    <input type="hidden" name="Action" value="AgentTicketSearch"/>
+                    <input type="hidden" name="Subaction" value="LoadProfile"/>
+                    <input type="hidden" name="SearchTemplate" value="[% Translate("Search") | html %]"/>
+                    [% Data.Link %]
+#                    <a href="#" id="ToolbarProfileSearch" title="[% Translate(Data.Description) | html %]  ([% Data.AccessKey | html %])" accesskey="[% Data.AccessKey | html %]" [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a>
+                </form>
+            </div>
+		[% RenderBlockEnd("ToolBarSearchProfile") %]
+
+[% RenderBlockStart("ToolBarSearchFulltext") %]
+            <li class="Extended SearchFulltext">
+                <form action="[% Env("CGIHandle") %]" method="post" name="SearchFulltext">
+                    <input type="hidden" name="Action" value="AgentTicketSearch"/>
+                    <input type="hidden" name="Subaction" value="Search"/>
+                    <input type="hidden" name="SearchTemplate" value="[% Translate("Search") | html %]"/>
+                    <input type="hidden" name="CheckTicketNumberAndRedirect" value="1"/>
+                    <input type="text" size="[% Data.Size | html %]" name="Fulltext" id="Fulltext" value="[% Data.Fulltext | html %]" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+#                    <a href="#" id="ToolbarFulltextSearch" title="[% Translate(Data.Description) | html %] ([% Data.AccessKey | html %])" accesskey="[% Data.AccessKey | html %]" [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a>
+                </form>
+            </li>
+[% RenderBlockEnd("ToolBarSearchFulltext") %]
+
+[% RenderBlockStart("ToolBarCICSearchCustomerID") %]
+            <li class="Extended SearchFulltext">
+                <input type="text" size="[% Data.Size | html %]" id="ToolBarCICSearchCustomerID" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+            </li>
+[% RenderBlockEnd("ToolBarCICSearchCustomerID") %]
+
+[% RenderBlockStart("ToolBarCICSearchCustomerUser") %]
+            <li class="Extended SearchFulltext">
+                <input type="text" size="[% Data.Size | html %]" id="ToolBarCICSearchCustomerUser" placeholder="[% Translate(Data.Description) | html %]" title="[% Translate(Data.Description) | html %]"/>
+            </li>
+[% RenderBlockEnd("ToolBarCICSearchCustomerUser") %]
+
+[% RenderBlockEnd("ToolBar") %]
+
+
+[% RenderBlockStart("DebugRTLButton") %]
+            <li>
+                <button type="button" class="DebugRTL">Simulate RTL</button>
+            </li>
+[% RenderBlockEnd("DebugRTLButton") %]
+  
+
+                </ul>
+              </li>
+             
+             
+             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> [% Env("UserFirstname") | html %] <!--[% Env("UserFullname") | html %]--><span class="drop-icon"></span></a>
+               
+                <ul class="dropdown-menu">
+               
+                <!--
+                [% IF Data.OTRSBusinessIsInstalled %]
+                <li>
+                    <a href="[% Env("Baselink") %]Action=AgentNotificationView" title="[% Translate("View notifications") | html %]">
+                        <i class="fa fa-flag-o"></i>[% Translate("Notifications") | html %]
+                    </a>
+                </li>    
+                [% ELSE %]
+                <li>
+                    <a href="#" class="OTRSBusinessRequired" title="[% Translate("Notifications (OTRS Business Solution™)") | html %]">
+                        <i class="fa fa-flag-o"></i>[% Translate("Notifications (OTRS Business Solution™)") | html %]
+                    </a>
+                </li>
+                [% END %] 
+                -->
+
+                [% RenderBlockStart("Login") %]
+                <li>
+                    <a href="[% Env("Baselink") %]Action=AgentPreferences" title="[% Translate("Edit personal preferences") | html %]">
+                        <i class="fa fa-cog"></i>[% Translate("Personal preferences") | html %]
+                    </a>
+                </li>   
+                [% RenderBlockEnd("Login") %]
+
+                
+                [% RenderBlockStart("Logout") %]
+                <li>
+                    <a class="LogoutButton" id="LogoutButton" href="[% Env("Baselink") %]Action=Logout;[% Env("ChallengeTokenParam") | html %]" title="[% Translate("Logout") | html %] ([% Translate("You are logged in as") | html %] [% Env("UserFullname") | html %])">
+                        <i class="fa fa-power-off"></i>[% Translate("Logout") | html %]
+                    </a>
+                </li>
+                [% RenderBlockEnd("Logout") %]
+               
+
+                  
+                </ul>
+              </li>
+            </ul>
+          </div>
+  </div>
+</header>
+
+
+
+  
+    <a name="Top"></a>
+    <!--<div id="AppWrapper">-->	
+   
+   <!-- <div id="Header" class="ARIARoleBanner">	
+          
+ 	
+    </div>-->
+
+	
+	
+	
+	

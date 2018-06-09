@@ -1,0 +1,258 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("FAQ Category Management") | html %]</h1>
+    <div class="SidebarColumn">
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-plus-square"></i>[% Translate("Add category") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable" summary="FAQ categories">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Name") | html %]</th>
+                            <th>[% Translate("Validity") | html %]</th>
+                            <th>[% Translate("Delete") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="4">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [% IF Data.Valid != 'valid'%]class="Invalid"[% END %] >
+                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;CategoryID=[% Data.CategoryID | uri %]">[% Data.Name | html %]</a></td>
+                            <td>[% Translate(Data.Valid) | html %]</td>
+                            <td class="Center Last">
+                                <a id="DeleteCategoryID[% Data.CategoryID | html %]" class="TrashCan" href="#">
+                                    <i class="fa fa-trash-o"></i>
+                                    <span class="InvisibleText">[% Translate("Delete") | html %]: [% Data.Name | html %]</span>
+                                </a>
+                            </td>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global FAQ: true */
+    FAQ.Agent.ConfirmationDialog.BindConfirmationDialog({
+        ElementID:                  'DeleteCategoryID[% Data.CategoryID | html %]',
+        ElementSelector:            '#DeleteCategoryID[% Data.CategoryID | html %]',
+        DialogContentQueryString:   'Action=AgentFAQCategory;Subaction=Delete;CategoryID=[% Data.CategoryID | uri %]',
+        ConfirmedActionQueryString: 'Action=AgentFAQCategory;Subaction=DeleteAction;CategoryID=[% Data.CategoryID | uri %]',
+        DialogTitle:                [% Translate("Delete Category") | JSON %],
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %],
+            Ok:  [% Translate("Ok") | JSON %]
+        }
+    });
+	
+//]]></script>
+[% END %]
+
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Category") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Category") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+            </div>
+            <div class="Content">
+			<!-- id="form" added ~GS -->
+                <form id="form" action="[% Env("CGIHandle") %]" method="post" class="Validate">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+					<!-- id="Subaction" added ~GS -->
+                    <input type="hidden" id="Subaction" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="CategoryID" value="[% Data.CategoryID | html %]"/>
+                    <fieldset class="TableLike">
+
+                        <label class="Mandatory" for="Name"><span class="Marker">*</span> [% Translate("Name") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="Name" id="Name" value="[% Data.Name | html %]" class="W50pc Validate_Required [% Data.NameServerError | html %]" maxlength="50"/>
+                            <div id="NameError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="NameServerError" class="TooltipErrorMessage">
+                                <p>[% Translate(Data.NameServerErrorMessage) | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label for="ParentID">[% Translate("Subcategory of") | html %]:</label>
+                        <div class="Field">
+                            [% Data.CategoryOption %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label class="Mandatory" for="PermissionGroups"><span class="Marker">*</span> [% Translate("Permission") | html %]:</label>
+                        <div class="Field">
+                            [% Data.GroupOption %]
+                            <div id="PermissionGroupsError" class="TooltipErrorMessage">
+                                <p>[% Translate("Please select at least one permission group.") | html %]</p>
+                            </div>
+                            <div id="PermissionGroupsServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("Please select at least one permission group.") | html %]</p>
+                            </div>
+                            <div class="FieldExplanation">[% Translate("Agent groups that can access articles in this category.") | html %]</div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label for="ValidID">[% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label class="Mandatory" for="Comment"><span class="Marker">*</span> [% Translate("Comment") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="Comment" id="Comment" value="[% Data.Comment | html %]" class="W50pc Validate_Required [% Data.CommentServerError | html %]" maxlength="80"/>
+                            <div id="CommentError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="CommentServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div class="FieldExplanation">[% Translate("Will be shown as comment in Explorer.") | html %]</div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field SpacingTop">
+                            <button id ="SubmitForm" class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("Overview") %]
+
+<!-- Block of code Added by Geeta Suryawanshi ~GS -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var subaction = $("#Subaction").val();
+	if(subaction == "AddAction")
+	{
+		$("#SubmitForm").click(function()
+		{
+		var el = $(this);
+		$(this).val('Please wait ...').attr('disabled','disabled');
+		setTimeout(function(){el.attr("disabled", false); }, 3000);
+		$('#form').submit();
+		});
+	}
+	
+});
+</script>
+
+<!-- End of Block ~GS -->
+
+[% RenderBlockStart("Delete") %]
+
+[% RenderBlockStart("NoAffected") %]
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Category") | html %]:</label>
+    <p class="Value">
+        [% Data.Name | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+<p class="SpacingTop Center">
+    [% Translate("Do you really want to delete this category?") | html %]
+</p>
+[% RenderBlockEnd("NoAffected") %]
+
+[% RenderBlockStart("Affected") %]
+<p>
+    [% Translate("You can not delete this category. It is used in at least one FAQ article and/or is parent of at least one other category") | html %]
+</p>
+[% RenderBlockEnd("Affected") %]
+
+[% RenderBlockStart("AffectedItems") %]
+<p class="SpacingTop SpacingBottom">
+    [% Translate("This category is used in the following FAQ article(s)") | html %]:
+</p>
+<ul>
+[% RenderBlockStart("AffectedItemsRow") %]
+    <li class="Indent SpacingBottomSmall">
+        <a href="[% Env("Baselink") %][% Data.Link %];Action=AgentFAQZoom;ItemID=[% Data.ItemID | uri %]">
+            [% Config("FAQ::FAQHook") %]:[% Data.Number | html %]<span>&nbsp;&mdash;</span> [% Data.Title | truncate(60) | html %]
+        </a>
+    </li>
+[% RenderBlockEnd("AffectedItemsRow") %]
+</ul>
+[% RenderBlockEnd("AffectedItems") %]
+
+[% RenderBlockStart("AffectedSubCategories") %]
+<p class="SpacingTop SpacingBottom">
+    [% Translate("This category is parent of the following subcategories") | html %]:
+</p>
+<ul>
+[% RenderBlockStart("AffectedSubCategoriesRow") %]
+    <li class="Indent SpacingBottomSmall">
+        <a href="[% Env("Baselink") %][% Data.Link %];Action=AgentFAQExplorer;CategoryID=[% Data.CategoryID | uri %]">
+            [% Data.LongName | html %]
+        </a>
+    </li>
+[% RenderBlockEnd("AffectedSubCategoriesRow") %]
+</ul>
+[% RenderBlockEnd("AffectedSubCategories") %]
+
+[% RenderBlockEnd("Delete") %]

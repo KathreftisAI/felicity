@@ -1,0 +1,74 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Import Export Screen
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection
+ */
+
+
+.MapHeaderRow label {
+    color: #929292;
+}
+
+.MapHeaderRow .Header,
+.MapHeaderRow .Field {
+    display: inline;
+    margin-right: 15px;
+    padding-left: 2px;
+}
+
+button.ArrowUp,
+button.ArrowDown {
+    height: 16px;
+    width: 16px;
+    padding: 1px;
+    margin-top: 0;
+    margin-bottom: 1px;
+    border-style: none;
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+button.ArrowUp:active,
+button.ArrowDown:active {
+    margin-top: 1px;
+    margin-bottom: 0;
+}
+
+button.ArrowUp[disabled="disabled"]:active,
+button.ArrowDown[disabled="disabled"]:active {
+    margin-top: 0px;
+    margin-bottom: 1px;
+}
+
+button.ArrowUp {
+    background: url(../img/icons/importexport_arrow_up.png);
+}
+
+button.ArrowUp[disabled="disabled"] {
+    background: url(../img/icons/importexport_arrow_up_disabled.png);
+    cursor: default;
+}
+
+button.ArrowDown {
+    background: url(../img/icons/importexport_arrow_down.png);
+}
+
+button.ArrowDown[disabled="disabled"]{
+    background: url(../img/icons/importexport_arrow_down_disabled.png);
+    cursor: default;
+}
+
+} /* end @media */

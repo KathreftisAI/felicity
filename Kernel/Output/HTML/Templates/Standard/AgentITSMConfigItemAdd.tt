@@ -1,0 +1,71 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Add") | html %]: [% Translate("Config Item") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2><label for="FilterClasses">[% Translate("Filter for Classes") | html %]</label></h2>
+            </div>
+            <div class="Content">
+                <input type="text" id="FilterClasses" class="FilterBox" name="FilterClasses" value="" title="[% Translate("Filter for Classes") | html %]" placeholder="[% Translate("Just start typing to filter...") | html %]" />
+            </div>
+        </div>
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Hint") | html %]</h2>
+            </div>
+            <div class="Content">
+                <p class="FieldExplanation">
+                    [% Translate("Select a Class from the list to create a new Config Item.") | html %]
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable" id="Classes">
+                    <thead>
+                        <tr>
+                            <th class="W100pc">[% Translate("Class") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="FilterMessage Hidden">
+                            <td>[% Translate("No matches found.") | html %]</td>
+                        </tr>
+[% RenderBlockStart("OverviewItemList") %]
+                        <tr>
+                            <td>
+                                <a href="[% Env("Baselink") %]Action=AgentITSMConfigItemEdit;ClassID=[% Data.ClassID | uri %]">[% Translate(Data.Name) | html %]</a>
+                            </td>
+                        </tr>
+[% RenderBlockEnd("OverviewItemList") %]
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.UI.Table.InitTableFilter($('#FilterClasses'), $('#Classes'));
+//]]></script>
+[% END %]

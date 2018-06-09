@@ -1,0 +1,128 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<style>
+input[type="text"]{max-width:630px;}
+label{width:100% !important;}
+</style>
+<div class="MainBox ARIARoleMain FormScreen NoSidebar">
+  <h1 style="padding: 0px !important; margin: 0px  !important;">[% Translate("Create New Survey") | html %]</h1>
+  <small>All fields marked with an asterisk <span class="danger">(*)</span> are mandatory.</small>
+  <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="Survey" id="Survey" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action" value="[% Env("Action") %]" />
+    <input type="hidden" name="Subaction" value="SurveyNew" />
+    
+    <div class="col-md-12" style="padding:30px 15px;">
+      
+	
+	  <div class="form-group">
+        <label class="Mandatory" for="Title"><span class="Marker">*</span> [% Translate("Title") | html %]</label>
+		   <input id="Title" name="Title" type="text" class="form-control Validate_Required [% Data.TitleServerError | html %]" value="[% Data.Title | html %]" />
+      </div>
+		<div class="spacer"></div>
+		[% RenderBlockStart("RichText") %]
+		[% InsertTemplate("RichTextEditor.tt") %]
+		[% RenderBlockEnd("RichText") %]
+		[% RenderBlockStart("Introduction") %]
+	
+	 
+	  <div class="form-group">
+        <label class="Mandatory" for="NotificationSender"><span class="Marker">*</span> [% Translate("Sender") | html %]</label>
+		 <input id="NotificationSender" name="NotificationSender" type="text" class="form-control Validate_Required [% Data.NotificationSenderServerError | html %]" value="[% Data.NotificationSender | html %]" />
+      </div>
+	  
+		
+	 <div class="form-group">
+       <label class="Mandatory" for="Introduction"><span class="Marker">*</span> [% Translate("Introduction") | html %]</label>
+		   <textarea id="Introduction" name="Introduction" name="Introduction" class="RichText Validate_Required [% Data.IntroductionServerError | html %]" title="[% Translate("Survey Introduction") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">
+      [% Data.Introduction %]
+      </textarea>
+	  [% RenderBlockEnd("Introduction") %]
+      </div>
+	  
+	  <div class="spacer"></div>
+      
+	  <div class="form-group">
+        <label class="Mandatory" for="NotificationSubject"><span class="Marker">*</span> [% Translate("Subject") | html %]</label>
+
+		 <input id="NotificationSubject" name="NotificationSubject" type="text" class="form-control Validate_Required [% Data.NotificationSubjectServerError | html %]" value="[% Data.NotificationSubject | html %]" />
+		 [% RenderBlockStart("NotificationBody") %]
+    </div>	
+	 <div class="spacer"></div>
+	 
+	  <div class="form-group">
+         <label class="Mandatory" for="NotificationBody"><span class="Marker">*</span> [% Translate("Body") | html %]</label>
+		  
+		    <textarea id="NotificationBody" name="NotificationBody" class="RichText Validate_Required [% Data.NotificationBodyServerError | html %]" title="[% Translate("Notification Body") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">
+      [% Data.NotificationBody | html %][% RenderBlockEnd("NotificationBody") %]
+      </textarea>
+      </div>
+	  <div class="spacer"></div>	
+	 
+	
+	
+	<div class="form-group">
+        <label for="Queues">[% Translate("Queues") | html %]</label>
+		 <div class="Field"> [% Data.QueueString %] </div>
+      </div>
+	  
+		
+		<div class="form-group">
+        [% RenderBlockStart("TicketTypes") %]
+    <label for="TicketTypeIDs">[% Translate("Ticket Types") | html %]:</label>
+    <div class="Field"> [% Data.TicketTypeStrg %] </div>
+    [% RenderBlockEnd("TicketTypes") %]
+      </div>
+		
+		<div class="form-group ">
+			 [% RenderBlockStart("TicketServices") %]
+    <label for="ServiceIDs">[% Translate("Services") | html %]:</label>
+    <div class="Field"> [% Data.ServiceStrg %] </div>
+    [% RenderBlockEnd("TicketServices") %]
+		</div>
+		
+		<div class="form-group">
+			
+    [% RenderBlockStart("InternalDescription") %]
+    <label class="Mandatory" for="Description"><span class="Marker">*</span> [% Translate("Internal Description") | html %]:</label>
+    <div class="RichTextField">
+      <textarea id="Description" name="Description" class="RichText Validate_Required [% Data.DescriptionServerError | html %]" title="[% Translate("Internal Description") | html %]" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">
+      [% Data.Description | html %]
+      </textarea>
+    </div>
+    <div class="Clear"></div>
+    [% RenderBlockEnd("InternalDescription") %]
+		</div>
+		
+		
+		
+		<div class="form-group">
+		[% RenderBlockStart("GenericError") %]
+    <div id="[% Data.ItemName | html %]" class="TooltipErrorMessage">
+      <p>[% Translate("This field is required.") | html %]</p>
+    </div>
+    [% RenderBlockEnd("GenericError") %]
+		</div>
+		
+		
+		<div class="form-group">
+			[% RenderBlockStart("GenericServerError") %]
+    <div id="[% Data.ItemName | html %]" class="TooltipErrorMessage">
+      <p>[% Translate("This field is required.") | html %]</p>
+    </div>
+    [% RenderBlockEnd("GenericServerError") %]
+		</div>
+		
+		<div class="spacer10"></div>
+		<button class="btn btn-sm btn-primary" type="submit" value="[% Translate("Create") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Create") | html %]</span></button>
+		<div class="spacer10"></div>
+		
+    </div>
+	  
+	  
+  </form>
+</div>

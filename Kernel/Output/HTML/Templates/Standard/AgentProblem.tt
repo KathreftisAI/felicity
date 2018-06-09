@@ -1,0 +1,25 @@
+
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="btn-out-div">
+<ul class="btn-box">
+	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Problem"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png" title="Add New Problem"> </a></li>
+</ul>
+</div>
+
+<!--<div class="Clear" style="height:15px;"></div>-->
+ 
+<div class="WidgetSimple QueueOverview">
+    <div class="Content">
+        [% Data.MainContent %]
+    </div>
+    <div class="Clear"></div> 
+</div>
+<div class="QueueOverviewSeparator"></div>
+

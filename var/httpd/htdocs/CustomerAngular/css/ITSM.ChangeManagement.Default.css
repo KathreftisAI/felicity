@@ -1,0 +1,141 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Customer Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Default Settings
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Flag
+ */
+
+.Flag {
+    background: transparent url(../img/flag_shadow.png) no-repeat scroll 0 0;
+    height: 18px;
+    width: 24px;
+}
+
+.Flag.Small {
+    width: 17px;
+    height: 10px;
+    background-position: bottom right;
+}
+
+.Flag span {
+    display: block;
+    height: 16px;
+    margin-right: 2px;
+    text-indent: -9999px;
+    cursor: pointer;
+    /* set a default color for priorities */
+    background-color: #cdcdcd;
+}
+
+.Flag.Small span {
+    height: 8px;
+}
+
+
+
+ul.ITSMFlag {
+    margin-top: 5px;
+}
+
+ul.ITSMFlag div.Value .Flag {
+    float: left;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+.ITSMOverview .Flag {
+    position: static;
+}
+
+.RTL fieldset.TableLike div.Value .Flag {
+    float: right;
+    margin-left: 5px;
+}
+
+.Flag span.grayled {
+    background-color:#cdcdcd;
+}
+
+.Flag span.greenled {
+    background-color: #8bef4d;
+}
+
+.Flag span.yellowled {
+    background-color: #ffdd50;
+}
+
+.Flag span.redled {
+    background-color:#ff505e;
+}
+
+.Flag span.purpleled {
+    background-color:#b23aee;
+}
+
+.Flag span.orangeled {
+    background-color:#ff8c00;
+}
+
+.Flag span.cyanled {
+    background-color:#79cdcd;
+}
+
+.Flag span.whiteled {
+    background-color:#ffffff;
+}
+
+.Flag span.blackled {
+    background-color:#000000;
+}
+
+/**
+ * @note     These classes are used for a Label and a Div with class 'Field',
+ *           that are inside a Field Div .
+ */
+
+label.SubElement {
+        margin-left: 10%;
+        margin-right: 10px;
+}
+
+div.SubElement {
+    width:35%;
+}
+
+/**
+ * @subsection NoDoubleBorders
+ */
+
+.Content.NoDoubleBorders {
+    border-left: 0 none #000000;
+    border-right: 0 none #000000;
+}
+
+/**
+ * @subsection  Standard Widths
+ */
+.W5pc {
+    width: 5%;
+}
+
+.W15pc {
+    width: 15%;
+}
+
+.W30pc {
+    width: 30%;
+}
+
+}/* end media */
+
+

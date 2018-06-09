@@ -1,0 +1,19 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     CSS for printing
+ */
+
+@media print {
+
+
+#ITSMTable {
+    display: none;
+}
+
+} /* end @media */

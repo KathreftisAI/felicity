@@ -1,0 +1,252 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Catalog Category Master") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add Catalog Category Master") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                        <th>[% Translate("Title") | html %]</th>
+                        <th>[% Translate("Description") | html %]</th>
+                        <th>[% Translate("Catalog") | html %]</th>
+                        <th>[% Translate("Location") | html %]</th>
+                        <th>[% Translate("CategoryImage") | html %]</th>
+                        <th>[% Translate("GroupID") | html %]</th>
+                       <th>[% Translate("Validity") | html %]</th>
+                       <th>[% Translate("Changed") | html %]</th>
+                        <th>[% Translate("Created") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+# No data found message block
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="8">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+
+# Overview Result Row
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+                <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.Title %]</a></td>
+                <td>[% Translate(Data.Description) | html %]</td>
+                <td>[% Translate(Data.Catalog) | html %]</td>
+                <td>[% Translate(Data.Location) | html %]</td>
+                <td>[% Data.CategoryImage %]</td>
+                <td>[% Translate(Data.GroupID) | html %]</td>
+                <td>[% Translate(Data.Valid) | html %]</td>
+                <td>[% Translate(Data.ChangeTime) | Localize("TimeShort") %]</td>
+                <td>[% Translate(Data.CreateTime) | Localize("TimeShort") %]</td>
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Catalog Category Master") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Catalog Catageory Master") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+
+                <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data"  class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                  <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+                    <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+                    <input type="hidden" name="ImageInvalid" value="[% Data.ImageInvalid | html %]"/>
+                    
+            [% RenderBlockStart("ExistIDServerError") %]
+                          <label class="LabelError">[% Translate("A record with these values already exists!") | html %] </label>
+                    [% RenderBlockEnd("ExistIDServerError") %]
+            [% RenderBlockStart("ExistImageInvalidServerError") %]
+                         <label class="LabelError">[% Translate("Invalid Image!") | html %] </label>
+                   [% RenderBlockEnd("ExistImageInvalidServerError") %]
+           [% RenderBlockStart("ExistHomeImageInvalidServerError") %]
+                          <label class="LabelError">[% Translate("Invalid Home Image!") | html %] </label>
+                [% RenderBlockEnd("ExistHomeImageInvalidServerError") %]  
+            [% RenderBlockStart("ExistMoreImageInvalidServerError") %]
+                        <label class="LabelError">[% Translate("Please upload only one image") | html %] </label>
+                  [% RenderBlockEnd("ExistMoreImageInvalidServerError") %]
+              
+                    <fieldset class="TableLike">
+
+            <label class="Mandatory" for="Title"><span class="Marker">*</span> [% Translate("Title") | html %]:</label>
+                    <div class="Field">
+                    <input type="text" name="Title" id="Title" value="[% Data.Title | html %]" class="W50pc Validate_Required  [% Data.Title | html %]" maxlength="250" />
+                         <div id="TitleError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="TitleServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                   <div class="Clear"></div>
+
+          <label  for="Description"> [% Translate("Description") | html %]:</label>
+          <div id="RichTextField" class="RichTextField">
+            <textarea id="Description" class="Description" name="Description" title="[% Translate("Message body") | html %]" rows="5" cols="47" maxlength="250">[% Data.Description | html %]</textarea>
+                  </div>
+                <div class="Clear"></div>
+
+        <label class="Mandatory" for="Catalog"><span class="Marker">*</span> [% Translate("Catalog") | html %]:</label>
+           <div class="Field">
+                     [% Data.Catalog %]
+                         <div id="CatalogError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="CatalogServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+                
+        <label for="Location"> [% Translate("Location") | html %]:</label>
+                    <div class="Field">
+                    <input type="text" name="Location" id="Location" value="[% Data.Location | html %]" class="W50pc  [% Data.Location | html %]" maxlength="250" />
+                    </div>
+                <div class="Clear"></div>        
+
+       
+         <label>[% Translate("Category Image") | html %]:</label>
+                 <div class="Field">
+
+                    <div id="ContentTooltip">
+                         <lable > [% Data.CategoryImage %]</lable>
+                         [%IF Data.CategoryImage !="" %]<input class="Checkbox" type="checkbox" name="DeleteCategoryImage" title="Delete Uploaded file" value="1" autocomplete="off"><b>Delete Uploaded File?</b> </input>[% END %]
+                    </div>
+
+                        <ul>
+[% RenderBlockStart("Attachment") %]
+                            <li>
+                                [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                <button type="button" id="AttachmentDeleteButton[% Data.FileID | html %]" name="AttachmentDeleteButton[% Data.FileID | html %]" value="[% Translate("Delete") | html %]" class="SpacingLeft">[% Translate("Delete") | html %]</button>
+                                <input type="hidden" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" />
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDeleteButton[% Data.FileID | html %]').bind('click', function () {
+        var $Form = $('#AttachmentDeleteButton[% Data.FileID | html %]').closest('form');
+        $('#AttachmentDelete[% Data.FileID | html %]').val(1);
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.trigger('submit');
+    });
+//]]></script>
+[% END %]
+                            </li>
+[% RenderBlockEnd("Attachment") %]
+                            <li>
+                                <input id="FileUpload" name="FileUpload" type="file" size="40" />
+                                <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                            </li>
+                        </ul>
+                        <div id="ContentTooltip">
+             <p style="color:red">Note: Please Upload Image File. Size : 65*65 </p>
+                        </div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function () {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+                    </div>
+                    <div class="Clear"></div>
+
+
+          <label class="Mandatory" for="GroupID"> <span class="Marker">*</span> [% Translate("GroupID") | html %]:</label>
+             <div class="Field">
+                      [% Data.GroupID %]
+                    <div id="GroupIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="GroupIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                 </div>
+                <div class="Clear"></div>
+
+         <label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                            <div id="ValidIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ValidIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                <div class="Clear"></div>
+
+                <div class="Field">
+                            <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+[% RenderBlockEnd("Overview") %]
+

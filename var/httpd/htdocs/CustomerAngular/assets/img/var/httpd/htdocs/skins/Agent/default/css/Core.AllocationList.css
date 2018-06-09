@@ -1,0 +1,46 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Allocation List, based on Tablelike lists
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection     Allocation List
+ */
+ul.AllocationList {
+    min-height: 25px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+ul.AllocationList li {
+    padding: 2px 5px;
+    cursor: move;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 60px;
+}
+
+ul.AllocationList li span.Functions {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    min-width: 40px;
+}
+
+ul.AllocationList li span.Functions a.Icon {
+    margin-left: 0px !important;
+}
+
+
+
+}/* end @media */

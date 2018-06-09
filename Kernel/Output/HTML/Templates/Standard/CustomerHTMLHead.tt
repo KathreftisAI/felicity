@@ -1,0 +1,162 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!--<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+    <meta id="viewport" name="viewport" content="">-->
+# set viewport for mobile mode, do not set viewport for DesktopMode
+    <script>
+        (function(doc, win) {
+            var viewport = doc.getElementById('viewport'),
+                isIFrame = (win.top.location.href !== win.location.href),
+                isPopup = (win.name.search(/^OTRSPopup_/) != -1);
+            try {
+              if (((!isIFrame && !isPopup) || (isIFrame && isPopup)) && (!localStorage.getItem("DesktopMode") || parseInt(localStorage.getItem("DesktopMode"), 10) <= 0)) {
+                  viewport.setAttribute("content", "width=device-width, initial-scale=1.0, user-scalable=no");
+              }
+            }
+            catch (Exception) {}
+        }(document, window));
+    </script>
+[% RenderBlockStart("MetaHttpEquivRefresh") %]
+[% INCLUDE "HTMLHeadRefresh.tt" %]
+[% RenderBlockEnd("MetaHttpEquivRefresh") %]
+[% RenderBlockStart("MetaLink") %]
+    <link rel="[% Data.Rel | html %]" type="[% Data.Type | html %]" title="[% Data.Title | html %]" href="[% Data.Href %]" />
+[% RenderBlockEnd("MetaLink") %]
+    <link rel="shortcut icon" href="[% Config("Frontend::ImagePath") %]icons/product.ico" type="image/ico" />
+    <link rel="apple-touch-icon" href="[% Config("Frontend::ImagePath") %]icons/apple-touch-icon.png" />
+
+[% RenderBlockStart("CommonCSS") %]
+    <link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/[% Data.Skin | uri %]/[% Data.CSSDirectory | html %]/[% Data.Filename | html %]" />
+[% RenderBlockEnd("CommonCSS") %]
+
+[% RenderBlockStart("ModuleCSS") %]
+    <link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/[% Data.Skin | uri %]/[% Data.CSSDirectory | html %]/[% Data.Filename | html %]" />
+[% RenderBlockEnd("ModuleCSS") %]
+
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/ui-theme/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/jstree-theme/default/style.css" />
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/ui-theme/bootstrap-custom.css"/>
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/ui-theme/customer-custom-style.css" />
+<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/css/Customer-Feature.css" />
+
+
+
+
+	<!--chart and Angular needed files starts -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+	<link href="[% Config("Frontend::WebPath") %]skins/Customer/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="[% Config("Frontend::WebPath") %]skins/Customer/css/main.css" />
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/angularjs/1.5.3/angular.min.js"></script>
+		<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/spin.js/spin.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/angular-spinner/angular-spinner.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/angular-loading-spinner/angular-loading-spinner.js"></script>
+	<script src='[% Config("Frontend::WebPath") %]skins/Customer/js/CustomerServiceListController.js'></script>
+	<script src='[% Config("Frontend::WebPath") %]skins/Customer/js/CustomerCommonService.js'></script>
+
+<!--	
+
+<script src="https://cdn.ckeditor.com/4.6.0/standard/ckeditor.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/ckeditor/config.js"></script> 
+	
+	<script src='[% Config("Frontend::WebPath") %]skins/Customer/js/CustomerTicketMessage.js'></script>
+	<script src="https://s3-ap-southeast-1.amazonaws.com/naveensingh/posts_data/ckeditor_example/ng-ckeditor.min.js"></script> 
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/js/workingD3.js"></script>
+	<script src='[% Config("Frontend::WebPath") %]skins/Customer/js/CIController.js'></script>
+	<script src='[% Config("Frontend::WebPath") %]skins/Customer/js/CustomerCommonService.js'></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/bootstrap/bootstrap.min.js"></script>
+	
+
+
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/spin.js/spin.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/angular-spinner/angular-spinner.js"></script>
+	<script src="[% Config("Frontend::WebPath") %]skins/Customer/plugins/angular-loading-spinner/angular-loading-spinner.js"></script>
+	 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/ckeditor-4.5.6/ckeditor.js" type="text/javascript"></script>
+	 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/ckeditor-4.5.6/texteditor.js" type="text/javascript"></script>-->
+	
+	<!-- chart and Angular needed files ends -->
+
+
+
+
+	
+
+[% RenderBlockStart("HeaderLogoCSS") %]
+    <style type="text/css">
+        #Header #Logo {
+            background-image: [% Data.URL | html %];
+            top: [% Data.StyleTop | html %];
+            right: [% Data.StyleRight | html %];
+            width: [% Data.StyleWidth | html %];
+            height: [% Data.StyleHeight | html %];
+        }
+    </style>
+[% RenderBlockEnd("HeaderLogoCSS") %]
+
+   <style type="text/css">
+        @font-face {
+          font-family: 'FontAwesome';
+          src: url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?v=4.3.0');
+          src: url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+               url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+               url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype'),
+               url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular?v=4.3.0') format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        /* Fix poor font rendering on chrome based browsers on windows */
+        @media all and (-webkit-min-device-pixel-ratio:0) {
+            @font-face {
+                font-family: 'FontAwesome';
+                src: url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.svg#fontawesomeregular') format('svg'),
+                     url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'),
+                     url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.woff?v=4.3.0') format('woff'),
+                     url('[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/fontawesome/fontawesome-webfont.ttf?v=4.3.0') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+        }
+    </style>
+
+# decide, if responsive CSS must be loaded
+# resposive CSS will not be loaded in "desktop mode" or if the document is within an iframe (customer overview in ticket phone overlay)
+    <script>
+      (function(doc, win) {
+          var isIFrame = (win.top.location.href !== win.location.href),
+              isPopup = (win.name.search(/^OTRSPopup_/) != -1);
+          try {
+            if (((!isIFrame && !isPopup) || (isIFrame && isPopup)) && (!localStorage.getItem("DesktopMode") || parseInt(localStorage.getItem("DesktopMode"), 10) <= 0)) {
+              var ResponsiveCSS;
+  [% RenderBlockStart("ResponsiveCSS") %]
+              ResponsiveCSS = doc.createElement("link");
+              ResponsiveCSS.setAttribute("rel", "stylesheet");
+              ResponsiveCSS.setAttribute("type", "text/css");
+              ResponsiveCSS.setAttribute("href", "[% Config("Frontend::WebPath") %]skins/Customer/[% Data.Skin | uri %]/[% Data.CSSDirectory %]/[% Data.Filename %]");
+              doc.getElementsByTagName("head")[0].appendChild(ResponsiveCSS);
+  [% RenderBlockEnd("ResponsiveCSS") %]
+            }
+          }
+          catch (Exception) {}
+      }(document, window));
+    </script>
+
+    <title>[% Data.TitleArea | html %] [% Config("ProductName") %]</title>
+
+[% INCLUDE "HTMLHeadBlockEvents.tt" %]
+
+</head>

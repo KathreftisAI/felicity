@@ -1,0 +1,85 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<!-- start form -->
+<div class="LayoutPopup ARIARoleMain">
+
+    <div class="Header">
+        <h1>
+            [% Translate("History of Config Item: %s", Data.Name) | html %]
+        </h1>
+        <p>
+            <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+
+    <div class="Content">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>
+                    [% Translate("History Content") | html %]
+                </h2>
+            </div>
+            <div class="Content">
+                <table summary="Configuration Item History" class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                [% Translate("Action") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Comment") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Zoom") | html %]
+                            </th>
+                            <th>
+                                [% Translate("User") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Createtime") | html %]
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("Row") %]
+                        <tr>
+                            <td>
+                                [% Data.HistoryType | html %]
+                            </td>
+                            <td>
+                                <div>[% Data.Comment | html %]</div>
+                            </td>
+                            <td class="Center">
+                                <a  class="LinkZoomView AsBlock" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID %];VersionID=[% Data.VersionID %]">[% Translate("Zoom view") | html %]</a>
+                            </td>
+                            <td>
+                                [% Data.UserFullname | html %]
+                            </td>
+                            <td>
+                                [% Data.CreateTime | Localize("TimeLong") %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("Row") %]
+                    </tbody>
+                </table>
+            </div>
+        </div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('a.LinkZoomView').bind('click', function () {
+        window.opener.Core.UI.Popup.FirePopupEvent('URL', { URL: $(this).attr('href')});
+        window.close();
+    });
+//]]></script>
+[% END %]
+    </div>
+    <div class="Footer">
+    </div>
+</div>
+<!-- end form -->

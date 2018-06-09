@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="1.0" init="Application">
+    <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::ConfigItemCreate" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">ConfigItemCreate</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+ <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::GetConfigItemLinkRelation" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">GetConfigItemLinkRelation</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+	<ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::GetListOfCIs" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">GetListOfCIs</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+
+    <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::ConfigItemGet" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">ConfigItemGet</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::ConfigItemUpdate" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">ConfigItemUpdate</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::ConfigItemSearch" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">ConfigItemSearch</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::Module###ConfigItem::ConfigItemDelete" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Name">ConfigItemDelete</Item>
+                <Item Key="Controller">ConfigItem</Item>
+                <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="GenericInterface::Operation::ConfigItemGet###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Defines Required permissions to get ITSM configuration items using the Generic Interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ConfigItemGet</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::ConfigItemSearch###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Defines Required permissions to search ITSM configuration items using the Generic Interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ConfigItemSearch</SubGroup>
+        <Setting>
+            <String Regex="">ro</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::ConfigItemCreate###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Defines Required permissions to create ITSM configuration items using the Generic Interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ConfigItemCreate</SubGroup>
+        <Setting>
+            <String Regex="">rw</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::ConfigItemUpdate###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Defines Required permissions to update ITSM configuration items using the Generic Interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ConfigItemUpdate</SubGroup>
+        <Setting>
+            <String Regex="">rw</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GenericInterface::Operation::ConfigItemDelete###Permission" Required="1" Valid="1">
+        <Description Translatable="1">Defines Required permissions to delete ITSM configuration items using the Generic Interface.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>GenericInterface::Operation::ConfigItemDelete</SubGroup>
+        <Setting>
+            <String Regex="">rw</String>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

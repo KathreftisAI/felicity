@@ -1,0 +1,114 @@
+@media (max-width: 1024px)
+{
+.panel-default>.panel-heading, .panel-default>.panel-footer {
+    background-color: #f5f6fa!important;
+    padding: 8px 10px!important;
+}
+
+
+
+
+
+}
+
+@media (max-width: 768px)
+{
+	.search-box
+	{
+		width:98%;
+		margin: 0 auto;
+	}
+	#top_nav_btn {
+    position: absolute !important;
+    padding: 2px 9px;
+    right: 0px;
+    background: transparent;
+    border: 1px solid #fff;
+    font-size: 20px;
+    top: 4px;
+}
+div#top_nav.in {
+    position: absolute;
+    width: 100%;
+    background: #f5f6fa;
+    left: 0;
+	top:60px;
+}
+#top_nav ul.navbar-nav li {
+    font-family: 'Montserrat-Regular';
+    letter-spacing: 1px;
+    border-left: none !important;
+}
+#top_nav .nav>li>a {
+    border-bottom: 1px solid #e2e5f0;
+    color: #1b547e;
+}
+header .nav li {
+    float: none;
+    width: 100%;
+}
+
+#top_nav li.user {
+    background: transparent;
+}
+#top_nav ul.scroll-box{height:auto;}
+
+.fl-logo {
+    width: auto;
+    float: none;
+    height: 43px;
+    margin: 9px auto !important;
+    text-align: center;
+}
+
+#res_navbar{display:block;}
+button#side-bar-btn {
+    position: absolute !important;
+    padding: 2px 9px;
+    left: 0px;
+    background: transparent;
+    border: 1px solid #fff;
+    font-size: 20px;
+    top: 12px;
+    margin-left: 15px;
+}
+.ResponsiveSidebarContainer {
+    background: rgba(22,22,22,0.7);
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    display: none;
+    z-index: 100;
+}
+.ResponsiveSidebarContainer  #Navigation {
+    height: 100%;
+    background-color: #f5f6fa;
+    border-bottom: 1px solid #dee0e1;
+    position: relative;
+    z-index: 99;
+    width: 250px !important;
+    padding: 0 10px;
+    left: 0;
+}
+
+
+}
+
+
+
+@media (max-width: 500px)
+{
+	.banner-con {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+    padding: 50px 0px 0px 0px;
+}
+.cat-con {
+    height: auto;
+}
+
+}

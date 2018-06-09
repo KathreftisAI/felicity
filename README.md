@@ -15,14 +15,20 @@ Our purpose on releasing felicity to the community was to share our own experien
   3. Check into the downloaded source code directory by running <code>cd felicity</code>.
   4. Once you're in felicity's directory, run <code>docker-compose up -d</code>.
   5. Wait until docker installs the required packages and sets up the system and then execute <code>docker ps</code> to see your containers running.
-  6. Now, run <code>http://localhost:8000/felicity/installer.pl</code> and follow the steps to install felicity.
+  6. Now, to import the database schema run <code>docker exec -i db_server mysql -u root -p*your_db_password_set_in_compose_file* < scripts/database/felicity.sql</code>. 
+  7. After this step, felicity is ready. Now, please go to <code>http://localhost:8000/felicity/index.pl</code> login with the following credentials:
+  
+  ```sh
+  username: root@localhost
+  password: admin
+  ```
   
 ### B. CentOS
 
 #### 1. Preparation: Disabling SELinux
 <strong>Note:</strong> If your system uses SELinux, you should disable it, otherwise OTRS will not work correctly.
      
-- Configure SELINUX=disabled in the ```/etc/selinux/config``` file:
+- Configure SELINUX=disabled in the <code>/etc/selinux/config</code> file:
 
 "This file controls the state of SELinux on the system.
 SELINUX= can take one of these three values:

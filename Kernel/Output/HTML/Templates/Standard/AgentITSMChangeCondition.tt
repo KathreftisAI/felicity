@@ -1,0 +1,86 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="compose">
+    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+    <input type="hidden" name="Subaction" value=""/>
+    <input type="hidden" name="ChangeID" value="[% Data.ChangeID | html %]"/>
+    <input type="hidden" name="ConditionID" value="[% Data.ConditionID | html %]"/>
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>
+                [% Translate("Overview") | html %]: [% Translate("Conditions and Actions") | html %] : [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber | html %] [% Data.ChangeTitle | truncate(70) | html %]
+            </h1>
+            <p>
+                <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Conditions and Actions") | html %]</h2>
+                </div>
+                <div class="Content">
+[% RenderBlockStart("Overview") %]
+                    <table class="DataTable SpacingTopSmall">
+                        <thead>
+                            <tr>
+                                <th class="W50pc">[% Translate("Name") | html %]</th>
+                                <th>[% Translate("Comment") | html %]</th>
+                                <th class="Center">[% Translate("Validity") | html %]</th>
+                                <th>[% Translate("Changed") | html %]</th>
+                                <th class="Center W10pc">[% Translate("Delete") | html %]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+[% RenderBlockStart("OverviewRow") %]
+                            <tr [% IF Data.ValidID != 1%]class="Invalid"[% END %]>
+                                <td>
+                                    <a href="[% Env("Baselink") %]Action=AgentITSMChangeConditionEdit;ChangeID=[% Data.ChangeID | uri %];ConditionID=[% Data.ConditionID | uri %]" class="AsBlock">
+                                        [% Data.Name | html %]
+                                    </a>
+                                </td>
+                                <td>[% Translate(Data.Comment) | html %]</td>
+                                <td class="Center">[% Translate(Data.Valid) | html %]</td>
+                                <td>[% Data.ChangeTime | Localize("TimeLong") %]</td>
+                                <td class="Center">
+                                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %];ChangeID=[% Data.ChangeID | uri %];ConditionID=[% Data.ConditionID | uri %];DeleteConditionID::[% Data.ConditionID | uri %]=Delete" title="[% Translate("Delete") | html %]">
+                                        <i class="fa fa-trash-o">
+                                            <span class="InvisibleText">[% Translate("Delete Condition") | html %]</span>
+                                        </i>
+                                    </a>
+                                </td>
+                            </tr>
+[% RenderBlockEnd("OverviewRow") %]
+                        </tbody>
+                    </table>
+[% RenderBlockEnd("Overview") %]
+                    <div class="LayoutGrid SpacingTopSmall">
+                        <div class="W100pc Right">
+                            <button type="submit" title="[% Translate("Add new condition") | html %]" value="[% Translate("Add") | html %]" name="AddCondition" class="CallForAction Plus"><span>[% Translate("Add new condition") | html %]</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Footer"></div>
+    </div>
+    <div class="Clear"></div>
+</form>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+    $('.CancelClosePopup').bind('click', function () {
+        window.close();
+    });
+
+//]]></script>
+[% END %]

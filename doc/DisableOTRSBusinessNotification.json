@@ -1,0 +1,18 @@
+{
+    "name": "DisableOTRSBusinessNotification",
+    "version": "5.0.2",
+    "framework": [
+        "4.0.x",
+        "5.0.x"
+    ],
+    "vendor": {
+        "name": "Perl-Services.de",
+        "url": "http://www.perl-services.de"
+    },
+    "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, November 2007",
+    "description" : {
+        "en": "Disable notification with adverts for OTRS Business features.",
+        "de": "Schalte Benachrichtigung mit Werbung für das OTRS Business Feature aus.",
+        "hu": "A reklámokat tartalmazó értesítés letiltása az OTRS Business funkciónál."
+    }
+}

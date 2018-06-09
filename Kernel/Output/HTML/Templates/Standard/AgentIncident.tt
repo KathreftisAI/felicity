@@ -1,0 +1,27 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+#jugni changed the URL from Email to Phone and addedd & in second button.
+<br>
+<div class="btn-out-div">
+	<ul class="btn-box">
+	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Incident&name=quickIncident"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/quick-add.png" title="Add Quick Incident"> </a></li>
+	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Incident&"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png" title="Add New Incident"> </a></li>
+	</ul> 
+</div>
+
+<br>
+<div class="WidgetSimple QueueOverview">
+    <div class="Content">
+
+        [% Data.MainContent %]
+    </div>
+    <div class="Clear"></div>
+</div>
+<div class="QueueOverviewSeparator"></div>

@@ -1,0 +1,103 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.UI.ActionRow.Init();
+//]]></script>
+[% END %]
+
+<div id="OverviewBody" class="Overview TicketList">
+[% RenderBlockStart("NoFAQFound") %]
+    <div id="EmptyMessageSmall">
+        [% Translate("No FAQ Journal data found.") | html %]
+    </div>
+[% RenderBlockEnd("NoFAQFound") %]
+[% RenderBlockStart("RecordForm") %]
+    <table class="TableSmall NoCellspacing" summary="A generic FAQ table">
+        <thead>
+            <tr>
+[% RenderBlockStart("RecordNumberHeader") %]
+                <th class="FAQNumber OverviewHeader">
+                    <span>[% Config("FAQ::FAQHook") %]</span>
+                </th>
+[% RenderBlockEnd("RecordNumberHeader") %]
+[% RenderBlockStart("RecordTitleHeader") %]
+                <th class="Title OverviewHeader">
+                    <span>[% Translate("Title") | html %]</span>
+                </th>
+[% RenderBlockEnd("RecordTitleHeader") %]
+[% RenderBlockStart("RecordCategoryHeader") %]
+                <th class="Category OverviewHeader">
+                    <span>[% Translate("Category") | html %]</span>
+                </th>
+[% RenderBlockEnd("RecordCategoryHeader") %]
+[% RenderBlockStart("RecordNameHeader") %]
+                <th class="Action OverviewHeader">
+                    <span>[% Translate("Action") | html %]</span>
+                </th>
+[% RenderBlockEnd("RecordNameHeader") %]
+[% RenderBlockStart("RecordTimeHeader") %]
+                <th class="Time OverviewHeader">
+                    <span>[% Translate("Time") | html %]</span>
+                </th>
+[% RenderBlockEnd("RecordTimeHeader") %]
+            </tr>
+        </thead>
+        <tbody>
+[% RenderBlockStart("Record") %]
+            <tr id="ItemID_[% Data.ItemID | html %]_[% Data.Counter | html %]" class="MasterAction">
+[% RenderBlockStart("RecordNumber") %]
+                <td>
+[% RenderBlockStart("RecordNumberLinkStart") %]
+                    <a href="[% Env("Baselink") %]Action=AgentFAQZoom;ItemID=[% Data.ItemID | uri %]" title="[% Data.Number | uri %]" class="MasterActionLink">
+[% RenderBlockEnd("RecordNumberLinkStart") %]
+                        [% Data.Number | html %]
+[% RenderBlockStart("RecordNumberLinkEnd") %]
+                    </a>
+[% RenderBlockEnd("RecordNumberLinkEnd") %]
+                </td>
+[% RenderBlockEnd("RecordNumber") %]
+[% RenderBlockStart("RecordTitle") %]
+                <td>
+                    <div title="[% Data.Subject | html %]">[% Data.CleanSubject | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordTitle") %]
+[% RenderBlockStart("RecordCategory") %]
+                <td>
+                    <div title="[% Translate(Data.Category) | html %]">[% Translate(Data.Category) | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordCategory") %]
+[% RenderBlockStart("RecordName") %]
+                <td>
+                    <div title="[% Translate(Data.Action) | html %]">[% Translate(Data.Action) | html %]</div>
+                </td>
+[% RenderBlockEnd("RecordName") %]
+[% RenderBlockStart("RecordTime") %]
+                <td>
+                    <div title="[% Data.Created | Localize("TimeLong") %]">[% Data.Created | Localize("TimeLong") %]</div>
+                </td>
+[% RenderBlockEnd("RecordTime") %]
+            </tr>
+[% RenderBlockEnd("Record") %]
+        </tbody>
+    </table>
+[% RenderBlockEnd("RecordForm") %]
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('.MasterAction').bind('click', function (Event) {
+        var $MasterActionLink = $(this).find('.MasterActionLink');
+        // only act if the link was not clicked directly
+        if (Event.target !== $MasterActionLink.get(0)) {
+            window.location = $MasterActionLink.attr('href');
+            return false;
+        }
+    });
+//]]></script>
+[% END %]

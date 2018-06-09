@@ -1,0 +1,248 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <h1 title="[% Translate("Zoom") | html %] [% Config("FAQ::FAQHook") %]: [% Data.Number | html %] &ndash; [% Data.Title | html %]">
+            [% Config("FAQ::FAQHook") %]: [% Data.Number %] <span>&mdash;</span> [% Data.Title | html %]
+        </h1>
+    </div>
+
+    <ul class="BreadCrumb">
+[% RenderBlockStart("FAQPathCategoryElement") %]
+        <li>
+            <a href="[% Env("Baselink") %]Action=AgentFAQExplorer;CategoryID=[% Data.CategoryID | uri %];Nav=[% Data.Nav | uri %]">
+                [% Data.Name | html %]
+            </a>
+        </li>
+[% RenderBlockEnd("FAQPathCategoryElement") %]
+    </ul>
+
+    <div class="Clear"></div>
+    <div class="LayoutFixedSidebar SidebarLast">
+        <div class="ContentColumn">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("FAQ Information") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Category") | html %]:</label>
+                        <p class="Value" title="[% Translate(Data.CategoryName) | html %]">[% Translate(Data.CategoryName) | html %]</p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Keywords") | html %]:</label>
+                        <p class="Value">
+[% RenderBlockStart("Keywords") %]
+                            <a href="[% Env("Baselink") %]Action=AgentFAQSearchSmall;Subaction=Search;Keyword=[% Data.Keyword | uri %]" title="[% Data.Keyword | html %]">[% Data.Keyword | html %]</a>
+[% RenderBlockEnd("Keywords") %]
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("State") | html %]:</label>
+                        <p class="Value" title="[% Translate(Data.State) | html %]">[% Translate(Data.State) | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Validity") | html %]:</label>
+                        <p class="Value" title="[% Translate(Data.Valid) | html %]">[% Translate(Data.Valid, "25") | html %]</p>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("Language") %]
+                        <label>[% Translate("Language") | html %]:</label>
+                        <p class="Value" title="[% Translate(Data.Language) | html %]">[% Translate(Data.Language) | html %]</p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("Language") %]
+
+[% RenderBlockStart("ViewApproval") %]
+                        <label>[% Translate("Approval") | html %]:</label>
+                        <p class="Value" title="[% Translate(Data.Approval) | html %]">[% Translate(Data.Approval) | html %]</p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ViewApproval") %]
+
+[% RenderBlockStart("ViewRating") %]
+                        <label>[% Translate("Rating") | html %]:</label>
+                        <div class="Value" title="[% Translate("Rating") | html %] [% Data.VoteResult %]%">
+[% RenderBlockStart("RateStars") %]
+                            <div>
+                                <span class="RateStar"><i class="fa fa-star"></i></span>
+                            </div>
+[% RenderBlockEnd("RateStars") %]
+[% RenderBlockStart("RateStarsCount") %]
+                            <div class="RateStarText">
+                                [% Data.Stars | html %] [% Translate("out of 5") | html %]
+                            </div>
+[% RenderBlockEnd("RateStarsCount") %]
+                        </div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ViewRating") %]
+
+[% RenderBlockStart("ViewVotes") %]
+                        <label>[% Translate("Votes") | html %]:</label>
+                        <p class="Value">[% Data.Votes | html %]</p>
+[% RenderBlockEnd("ViewVotes") %]
+[% RenderBlockStart("ViewNoVotes") %]
+                        <label>[% Translate("Votes") | html %]:</label>
+                        <p class="Value" title="[% Translate("No votes found!") | html %]">[% Translate("No votes found! Be the first one to rate this FAQ article.") | html %]</p>
+[% RenderBlockEnd("ViewNoVotes") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value" title="[% Data.Created | Localize("TimeLong") %] ([% Data.CreatedByLogin | html %])">[% Data.Created | Localize("TimeShort") %]  ([% Data.CreatedByLogin | html %])</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Changed") | html %]:</label>
+                        <p class="Value" title="[% Data.Changed | Localize("TimeLong") %] ([% Data.CreatedByLogin | html %])">[% Data.Changed | Localize("TimeShort") %]  ([% Data.CreatedByLogin | html %])</p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+        <div class="ContentColumn">
+            <div>
+[% RenderBlockStart("FAQContent") %]
+                <div class="WidgetSimple">
+                    <div class="Header">
+                        <h2>[% Translate(Data.Caption) | html %]</h2>
+                    </div>
+                    <div class="Content">
+[% RenderBlockStart("FAQContentHTML") %]
+# execute IFrame JS asynchronously. Otherwise it could happen before our API was loaded
+# the following JS code must be within the template, otherwise it could happen, that also this code itself is not loaded yet
+<script>
+function CheckIFrameHeight(IFrameID) {
+    if (typeof FAQ === 'object' && typeof FAQ.Agent === 'object' && typeof FAQ.Agent.FAQZoom === 'object') {
+        FAQ.Agent.FAQZoom.IframeAutoHeight($('#' + IFrameID));
+    }
+    else {
+        window.setTimeout(function () {
+            CheckIFrameHeight(IFrameID);
+        }, 500);
+    }
+}
+</script>
+                        <div>
+# Use the HTML5 sandbox attribute to prevent plugins and scripts from being executed in the browser.
+# Append session info to URL because IE will not send cookies.
+# Set 'allow-popups' to allow IE10+ to open links. ref: http://www.w3.org/html/wg/wiki/ChangeProposals/sandbox_allow_popups
+                            <iframe sandbox="allow-same-origin allow-popups ms-allow-popups allow-popups-to-escape-sandbox" class="FAQField" id="IframeFAQ[% Data.Field | html %]" onload="window.setTimeout( function (){ CheckIFrameHeight('IframeFAQ[% Data.Field | html %]'); }, 500);" src="[% Env("Baselink") %]Action=AgentFAQZoom;Subaction=HTMLView;ItemID=[% Data.ItemID | html %];Field=[% Data.Field | html %];[% Env("SessionName") | html %]=[% Env("SessionID") | html %]"></iframe>
+                        </div>
+[% RenderBlockEnd("FAQContentHTML") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+    Core.Config.Set('FAQ::Frontend::AgentHTMLFieldHeightDefault', parseInt("[% Config("FAQ::Frontend::AgentHTMLFieldHeightDefault") %]" || 0, 10));
+    Core.Config.Set('FAQ::Frontend::AgentHTMLFieldHeightMax', parseInt("[% Config("FAQ::Frontend::AgentHTMLFieldHeightMax") %]" || 0, 10));
+//]]></script>
+[% END %]
+[% RenderBlockStart("FAQContentPlain") %]
+                        <div class="ArticleFAQContent">
+                            <div class="message">
+                                [% Data.Content %]
+                            </div>
+                        </div>
+[% RenderBlockEnd("FAQContentPlain") %]
+                    </div>
+                </div>
+[% RenderBlockEnd("FAQContent") %]
+            </div>
+            <div class="Clear"></div>
+        </div>
+        <div class="Clear"></div>
+    </div>
+    <input id="FAQID" type="hidden" name="FAQID" value="[% Data.ID | html %]">
+    <input id="FAQTitle" type="hidden" name="Title" value="[% Data.Title | html %]">
+    <input id="FAQBody" type="hidden" name="Body" value="[% Data.FullBody | html %]">
+    <input id="FAQPublicLink" type="hidden" name="Link"  value="[% Data.Publiclink %]">
+
+</div>
+
+<div class="ZoomSmallFooter">
+[% RenderBlockStart("UpdateArticleSubject") %]
+    <input id="UpdateArticleSubjectOption" type="checkbox" class="ZoomSmallButton" name="UpdateArticleSubjectOption" checked="checked" value"1"/>
+    <label for="UpdateArticleSubjectOption">[% Translate("Add FAQ title to article subject") | html %]</label>
+[% RenderBlockEnd("UpdateArticleSubject") %]
+[% RenderBlockStart("InsertText") %]
+    <button id="InsertText" class="Primary CallForAction ZoomSmallButton"><span>[% Translate("Insert FAQ Text") | html %]</span></button>
+[% RenderBlockEnd("InsertText") %]
+
+[% RenderBlockStart("InsertFull") %]
+    <button id="InsertFull" class="Primary CallForAction ZoomSmallButton"><span>[% Translate("Insert Full FAQ") | html %]</span></button>
+[% RenderBlockEnd("InsertFull") %]
+
+[% RenderBlockStart("InsertLink") %]
+    <button id="InsertLink" class="Primary CallForAction ZoomSmallButton"><span>[% Translate("Insert FAQ Link") | html %]</span></button>
+[% RenderBlockEnd("InsertLink") %]
+
+[% RenderBlockStart("InsertTextAndLink") %]
+    <button id="InsertTextAndLink" class="Primary CallForAction ZoomSmallButton"><span>[% Translate("Insert FAQ Text & Link") | html %]</span></button>
+[% RenderBlockEnd("InsertTextAndLink") %]
+
+[% RenderBlockStart("InsertFullAndLink") %]
+    <button id="InsertFullAndLink" class="Primary CallForAction ZoomSmallButton"><span>[% Translate("Insert Full FAQ & Link") | html %]</span></button>
+[% RenderBlockEnd("InsertFullAndLink") %]
+
+[% RenderBlockStart("Or") %]
+    [% Translate("or") | html %]
+[% RenderBlockEnd("Or") %]
+
+    <a id="Cancel" class="[% Data.CancelButtonClass | html %]" href="#">[% Translate("Cancel & close") | html %]</a>
+
+    <div class="Clear"></div>
+    <br />
+
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global FAQ: true */
+Core.Config.Set('TicketCompose.UpdateArticleSubject', "[% Data.UpdateArticleSubject | html %]");
+
+$('#Cancel').bind('click', function (event) {
+    parent.Core.UI.Dialog.CloseDialog($('.Dialog', parent.document));
+});
+
+$('#InsertText').bind('click', function (event) {
+    var InsertText = 1,
+        InsertLink = 0;
+
+    FAQ.Agent.TicketCompose.SetText(InsertText, InsertLink);
+});
+
+$('#InsertLink').bind('click', function (event) {
+    var InsertText = 0,
+        InsertLink = 1;
+
+    FAQ.Agent.TicketCompose.SetText(InsertText, InsertLink);
+});
+
+$('#InsertTextAndLink').bind('click', function (event) {
+    var InsertText = 1,
+        InsertLink = 1;
+
+    FAQ.Agent.TicketCompose.SetText(InsertText, InsertLink);
+});
+
+$('#InsertFull').bind('click', function (event) {
+    var InsertText = 1,
+        InsertLink = 0;
+
+    FAQ.Agent.TicketCompose.SetFullFAQ(InsertText, InsertLink);
+});
+
+$('#InsertFullAndLink').bind('click', function (event) {
+    var InsertText = 1,
+        InsertLink = 1;
+
+    FAQ.Agent.TicketCompose.SetFullFAQ(InsertText, InsertLink);
+});
+//]]></script>
+[% END %]

@@ -1,0 +1,30 @@
+FROM centos/systemd
+MAINTAINER "Unotech Software Pvt. Ltd."
+WORKDIR /opt/felicity
+COPY . .
+RUN yum -y update; yum clean all
+RUN yum -y install epel-release; yum clean all
+RUN yum -y install git perl-devel vim  perl-version perl-GD perl-String-Random \
+httpd perl-Authen-Captcha gcc wget perl-Sys-Syslog nano\
+    "perl(Archive::Zip)" "perl(Crypt::Eksblowfish::Bcrypt)" "perl(Archive::Tar)" \
+    "perl(Crypt::SSLeay)" "perl(Date::Format)" "perl(DBI)" "perl(DBD::mysql)" \
+    "perl(Digest::SHA)" "perl(Encode::HanExtra)" "perl(IO::Socket::SSL)" \
+    "perl(JSON::XS)" "perl(Mail::IMAPClient)" "perl(IO::Socket::SSL)" \
+    "perl(ModPerl::Util)" "perl(Net::DNS)" "perl(Net::LDAP)" "perl(Template)" \
+    "perl(Template::Stash::XS)" "perl(Text::CSV_XS)" "perl(Time::Piece)" \
+    "perl(XML::LibXML)" "perl(XML::LibXSLT)" "perl(XML::Parser)" "perl(YAML::XS)" \
+    "perl(DBD::Pg)" "perl(YAML::XS)" "perl(Crypt::Eksblowfish::Bcrypt)" "perl(JSON::XS)" \
+    "perl(Mail::IMAPClient)" 
+
+RUN useradd -d /opt/felicity -c 'OTRS user' otrs
+RUN /opt/felicity/bin/otrs.SetPermissions.pl --web-group=apache
+RUN yes |cp /opt/felicity/scripts/apache2-httpd.include.conf /etc/httpd/conf.d/felicity.conf && yes | cp /opt/felicity/var/httpd/htdocs/index.html /var/www/html/
+RUN yes |cp /opt/felicity/scripts/custom_errors.conf /etc/httpd/conf.d/
+RUN yes |cp /opt/felicity/Kernel/Config.pm.dist /opt/felicity/Kernel/Config.pm
+WORKDIR /opt/perlModules
+RUN wget https://cpan.metacpan.org/authors/id/P/PJ/PJB/Crypt-Tea_JS-2.23.tar.gz
+RUN tar xvf Crypt-Tea_JS-2.23.tar.gz && cd Crypt-Tea_JS-2.23 && perl Makefile.PL && make && make install && rm -rf /opt/perlModules/
+WORKDIR /opt/felicity
+RUN systemctl enable httpd
+CMD ["apachectl","-k","start","-DFOREGROUND"]
+EXPOSE 80

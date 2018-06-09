@@ -1,0 +1,300 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<div id="MainBox" class="TicketView ARIARoleMain Sortable">
+    <div class="ActionRow">
+        <ul class="Filter Tabs">
+[% RenderBlockStart("FilterHeader") %]
+            <li class="[% Data.ClassLI | html %]">
+                <a class="[% Data.ClassA | html %]" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=[% Env("Subaction") %];Filter=[% Data.Filter | uri %];SortBy=[% Data.SortBy | uri %];Order=[% Data.OrderBy | uri %];">
+                    [% Translate(Data.Name) | html %] [% Data.CountStrg | html %]
+                </a>
+            </li>
+[% RenderBlockEnd("FilterHeader") %]
+            <li class="Clear"></li>
+        </ul>
+        <div class="Tabs Pagination">
+            [% Data.SiteNavBar %]
+        </div>
+        <div class="Clear"></div>
+    </div>
+    <div class="Content">
+        <table class="ITSMOverview">
+            <thead>
+                <tr>
+[% RenderBlockStart("RecordChangeStateSignalHeader") %]
+                    <th>
+                        <span>[% Translate("State") | html %]</span>
+                    </th>
+[% RenderBlockEnd("RecordChangeStateSignalHeader") %]
+[% RenderBlockStart("RecordWorkOrderStateSignalHeader") %]
+                    <th>
+                        <span>[% Translate("Services") | html %]</span>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderStateSignalHeader") %]
+[% RenderBlockStart("RecordChangeNumberHeader") %]
+                    <th class="ChangeNumber [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeNumber;OrderBy=[% Data.OrderBy | uri %]">[% Config("ITSMChange::Hook") %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeNumberHeader") %]
+[% RenderBlockStart("RecordWorkOrderNumberHeader") %]
+                    <th class="WorkOrderNumber [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=WorkOrderNumber;OrderBy=[% Data.OrderBy | uri %]">[% Config("ITSMWorkOrder::Hook") %]</a>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderNumberHeader") %]
+[% RenderBlockStart("RecordWorkOrderTitleHeader") %]
+                    <th class="WorkOrderTitle [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=WorkOrderTitle;OrderBy=[% Data.OrderBy | uri %]">[% Translate("WorkOrderTitle") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderTitleHeader") %]
+[% RenderBlockStart("RecordChangeTitleHeader") %]
+                    <th class="ChangeTitle [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeTitle;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ChangeTitle") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeTitleHeader") %]
+[% RenderBlockStart("RecordWorkOrderAgentHeader") %]
+                    <th class="WorkOrderAgentID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=WorkOrderAgentID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("WorkOrderAgent") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderAgentHeader") %]
+[% RenderBlockStart("RecordChangeBuilderHeader") %]
+                    <th class="ChangeBuilderID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeBuilderID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ChangeBuilder") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeBuilderHeader") %]
+[% RenderBlockStart("RecordChangeManagerHeader") %]
+                    <th class="ChangeBuilderID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeManagerID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ChangeManager") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeManagerHeader") %]
+[% RenderBlockStart("RecordWorkOrderCountHeader") %]
+                    <th><span>[% Translate("Workorders") | html %]</span></th>
+[% RenderBlockEnd("RecordWorkOrderCountHeader") %]
+[% RenderBlockStart("RecordChangeStateHeader") %]
+                    <th class="ChangeStateID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeStateID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ChangeState") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeStateHeader") %]
+[% RenderBlockStart("RecordWorkOrderStateHeader") %]
+                    <th class="WorkOrderStateID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=WorkOrderStateID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("WorkOrderState") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderStateHeader") %]
+[% RenderBlockStart("RecordWorkOrderTypeHeader") %]
+                    <th class="WorkOrderTypeID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=WorkOrderTypeID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("WorkOrderType") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordWorkOrderTypeHeader") %]
+[% RenderBlockStart("RecordCategoryHeader") %]
+                    <th class="CategoryID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=CategoryID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Category") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordCategoryHeader") %]
+[% RenderBlockStart("RecordImpactHeader") %]
+                    <th class="ImpactID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ImpactID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Impact") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordImpactHeader") %]
+[% RenderBlockStart("RecordPriorityHeader") %]
+                    <th class="PriorityID [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=PriorityID;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Priority") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordPriorityHeader") %]
+
+[% RenderBlockStart("RecordServicesHeader") %]
+                    <th><span>[% Translate("Services") | html %]</span></th>
+[% RenderBlockEnd("RecordServicesHeader") %]
+
+[% RenderBlockStart("RecordRequestedTimeHeader") %]
+                    <th class="RequestedTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=RequestedTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Requested Time") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordRequestedTimeHeader") %]
+[% RenderBlockStart("RecordPlannedStartTimeHeader") %]
+                    <th class="PlannedStartTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=PlannedStartTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("PlannedStartTime") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordPlannedStartTimeHeader") %]
+[% RenderBlockStart("RecordPlannedEndTimeHeader") %]
+                    <th class="PlannedEndTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=PlannedEndTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("PlannedEndTime") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordPlannedEndTimeHeader") %]
+[% RenderBlockStart("RecordActualStartTimeHeader") %]
+                    <th class="ActualStartTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ActualStartTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ActualStartTime") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordActualStartTimeHeader") %]
+[% RenderBlockStart("RecordActualEndTimeHeader") %]
+                    <th class="ActualEndTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ActualEndTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("ActualEndTime") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordActualEndTimeHeader") %]
+[% RenderBlockStart("RecordCreateTimeHeader") %]
+                    <th class="CreateTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=CreateTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Created") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordCreateTimeHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                <tr>
+                    <td colspan="[% Data.TotalColumns | html %]">
+                        [% Translate("No data found.") | html %]
+                    </td>
+                </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("Record") %]
+                <tr>
+[% RenderBlockStart("RecordChangeStateSignal") %]
+                    <td title="[% Translate(Data.ChangeState) | html %]">
+                        <div class="Flag Small">
+                            <span class="[% Data.ChangeStateSignal | html %]">"[% Data.ChangeState | html %]"</span>
+                        </div>
+                    </td>
+[% RenderBlockEnd("RecordChangeStateSignal") %]
+[% RenderBlockStart("RecordWorkOrderStateSignal") %]
+                    <td title="[% Translate(Data.WorkOrderState) | html %]">
+                        <div class="Flag Small">
+                            <span class="[% Data.WorkOrderStateSignal | html %]">"[% Data.WorkOrderState | html %]"</span>
+                        </div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderStateSignal") %]
+[% RenderBlockStart("RecordChangeNumber") %]
+                    <td>
+                        <div>[% Data.ChangeNumber | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordChangeNumber") %]
+[% RenderBlockStart("RecordWorkOrderNumber") %]
+                    <td>
+                        <div>[% Data.ChangeNumber | html %]-[% Data.WorkOrderNumber | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderNumber") %]
+[% RenderBlockStart("RecordWorkOrderTitle") %]
+                    <td>
+                        <div>[% Data.WorkOrderTitle | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderTitle") %]
+[% RenderBlockStart("RecordChangeTitle") %]
+                    <td>
+                        <div title="[% Data.ChangeTitle | html %]">[% Data.ChangeTitle | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordChangeTitle") %]
+[% RenderBlockStart("RecordWorkOrderAgent") %]
+                    <td>
+                        <div title="[% Data.WorkOrderAgentUserLogin | html %] [% Data.WorkOrderAgentLeftParenthesis | html %][% Data.WorkOrderAgentUserFirstname | html %] [% Data.WorkOrderAgentUserLastname | html %][% Data.WorkOrderAgentRightParenthesis | html %]">
+                            [% Data.WorkOrderAgentUserLogin | truncate(15) | html %] [% Data.WorkOrderAgentLeftParenthesis | html %][% Data.WorkOrderAgentUserFirstname | truncate(15) | html %] [% Data.WorkOrderAgentUserLastname | truncate(15) | html %][% Data.WorkOrderAgentRightParenthesis | html %]
+                        </div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderAgent") %]
+[% RenderBlockStart("RecordChangeBuilder") %]
+                    <td>
+                        <div title="[% Data.ChangeBuilderUserLogin | html %] [% Data.ChangeBuilderLeftParenthesis | html %][% Data.ChangeBuilderUserFirstname | html %] [% Data.ChangeBuilderUserLastname | html %][% Data.ChangeBuilderRightParenthesis | html %]">
+                            [% Data.ChangeBuilderUserLogin | truncate(15) | html %] [% Data.ChangeBuilderLeftParenthesis | html %][% Data.ChangeBuilderUserFirstname | truncate(15) | html %] [% Data.ChangeBuilderUserLastname | truncate(15) | html %][% Data.ChangeBuilderRightParenthesis | html %]
+                        </div>
+                    </td>
+[% RenderBlockEnd("RecordChangeBuilder") %]
+[% RenderBlockStart("RecordChangeManager") %]
+                    <td>
+                        <div title="[% Data.ChangeManagerUserLogin | html %] [% Data.ChangeManagerLeftParenthesis | html %][% Data.ChangeManagerUserFirstname | html %] [% Data.ChangeManagerUserLastname | html %][% Data.ChangeManagerRightParenthesis | html %]">
+                            [% Data.ChangeManagerUserLogin | truncate(15) | html %] [% Data.ChangeManagerLeftParenthesis | html %][% Data.ChangeManagerUserFirstname | truncate(15) | html %] [% Data.ChangeManagerUserLastname | truncate(15) | html %][% Data.ChangeManagerRightParenthesis | html %]
+                        </div>
+                    </td>
+[% RenderBlockEnd("RecordChangeManager") %]
+[% RenderBlockStart("RecordWorkOrderCount") %]
+                    <td>
+                        <div class="Center">[% Data.WorkOrderCount | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderCount") %]
+[% RenderBlockStart("RecordChangeState") %]
+                    <td>
+                        <div>[% Translate(Data.ChangeState) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordChangeState") %]
+[% RenderBlockStart("RecordWorkOrderState") %]
+                    <td>
+                        <div>[% Translate(Data.WorkOrderState) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderState") %]
+[% RenderBlockStart("RecordWorkOrderType") %]
+                    <td>
+                        <div>[% Translate(Data.WorkOrderType) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordWorkOrderType") %]
+[% RenderBlockStart("RecordCategory") %]
+                    <td>
+                        <div>[% Translate(Data.Category) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordCategory") %]
+[% RenderBlockStart("RecordImpact") %]
+                    <td>
+                        <div>[% Translate(Data.Impact) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordImpact") %]
+[% RenderBlockStart("RecordPriority") %]
+                    <td>
+                        <div>[% Translate(Data.Priority) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordPriority") %]
+[% RenderBlockStart("RecordServices") %]
+                    <td>
+                        <ul class="ITSMFlag">
+[% RenderBlockStart("RecordServicesSubElement") %]
+                            <li>
+                                <div title="[% Translate(Data.Name) | html %]">
+                                    <div class="Value">
+                                        <div class="Flag Small">
+                                            <span class="[% Data.CurInciSignal | html %]">"[% Data.CurrInciState | html %]"</span>
+                                        </div>
+                                    </div>
+                                    [% Data.Name | html %]
+                                </div>
+                            </li>
+[% RenderBlockEnd("RecordServicesSubElement") %]
+[% RenderBlockStart("RecordServicesSubElementEmpty") %]
+                            <li>&nbsp;</li>
+[% RenderBlockEnd("RecordServicesSubElementEmpty") %]
+                        </ul>
+                    </td>
+[% RenderBlockEnd("RecordServices") %]
+[% RenderBlockStart("RecordRequestedTime") %]
+                    <td>
+                        <div>[% Data.RequestedTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordRequestedTime") %]
+[% RenderBlockStart("RecordPlannedStartTime") %]
+                    <td>
+                        <div>[% Data.PlannedStartTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordPlannedStartTime") %]
+[% RenderBlockStart("RecordPlannedEndTime") %]
+                    <td>
+                        <div>[% Data.PlannedEndTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordPlannedEndTime") %]
+[% RenderBlockStart("RecordActualStartTime") %]
+                    <td>
+                        <div>[% Data.ActualStartTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordActualStartTime") %]
+[% RenderBlockStart("RecordActualEndTime") %]
+                    <td>
+                        <div>[% Data.ActualEndTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordActualEndTime") %]
+[% RenderBlockStart("RecordCreateTime") %]
+                    <td>
+                        <div>[% Data.CreateTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordCreateTime") %]
+                </tr>
+[% RenderBlockEnd("Record") %]
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<link href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/fullcalendar-2.4.0/fullcalendar.min.css" rel="stylesheet" />
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/momentjs-2.10.6/moment.min.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/fullcalendar-2.4.0/fullcalendar.min.js"></script>
+
+<div id='calendar'></div>
+
+<style>
+    #calendar {
+        margin: 0 30px;
+    }
+</style>
+
+<div id='calendar'></div>
+
+<script type="text/javascript">
+var Change_List=[% JSON(Data.ChangeList) %];
+
+        $('#calendar').fullCalendar({
+
+            viewRender: function(currentView){
+                var minDate = moment().subtract(5,'years'),
+                maxDate = moment().add(5,'years');
+                // Past
+                if (minDate >= currentView.start && minDate <= currentView.end) {
+                    $(".fc-prev-button").prop('disabled', true); 
+                    $(".fc-prev-button").addClass('fc-state-disabled'); 
+                }
+                else {
+                    $(".fc-prev-button").removeClass('fc-state-disabled'); 
+                    $(".fc-prev-button").prop('disabled', false); 
+                }
+                // Future
+                if (maxDate >= currentView.start && maxDate <= currentView.end) {
+                    $(".fc-next-button").prop('disabled', true); 
+                    $(".fc-next-button").addClass('fc-state-disabled'); 
+                } else {
+                    $(".fc-next-button").removeClass('fc-state-disabled'); 
+                    $(".fc-next-button").prop('disabled', false); 
+                }
+            },
+                
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month'
+            },
+
+            selectable: true,
+            selectHelper: true,
+
+            eventLimit: true, // allow "more" link when too many events
+
+            events: Change_List,
+            
+        });
+
+    </script>

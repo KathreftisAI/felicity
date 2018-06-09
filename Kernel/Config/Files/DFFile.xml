@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+
+	<ConfigItem Name="Frontend::Module###AgentDFFileAttachment" Required="1" Valid="1">
+        <Description Translatable="1">FrontendModuleRegistration for DFFile module.</Description>
+        <Group>DynamicFiedFile</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>AgentDFFileAttachment</Title>
+                <Description>AgentDFFileAttachment</Description>
+                <NavBarName>AgentDFFileAttachment</NavBarName>
+                <NavBar>
+                    
+                </NavBar>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    
+    <ConfigItem Name="CustomerFrontend::Module###CustomerDFFileAttachment" Required="1" Valid="1">
+        <Description Translatable="1">FrontendModuleRegistration for DFFile module.</Description>
+        <Group>DynamicFiedFile</Group>
+        <SubGroup>Frontend::Customer::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>CustomerDFFileAttachment</Title>
+                <Description>CustomerDFFileAttachment</Description>
+                <NavBarName>CustomerDFFileAttachment</NavBarName>
+                <NavBar>
+
+                </NavBar>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+         
+    <ConfigItem Name="DynamicFields::Driver###File" Required="0" Valid="1">
+        <Description Translatable="1">DynamicField backend registration.</Description>
+        <Group>DynamicFields</Group>
+        <SubGroup>DynamicFields::Driver::Registration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="DisplayName" Translatable="1">File</Item>
+                <Item Key="Module">Kernel::System::DynamicField::Driver::File</Item>
+                <Item Key="ConfigDialog">AdminDynamicFieldFile</Item>
+                <Item Key="DeleteFileDB">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    
+    <ConfigItem Name="Frontend::Module###AdminDynamicFieldFile" Required="0" Valid="1">
+        <Description Translatable="1">AdminDynamicFieldFile</Description>
+        <Group>DynamicFiedFile</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description>Admin</Description>
+                <Title Translatable="1">Dynamic Fields Text Backend GUI</Title>
+                <Loader>
+                    <JavaScript>Core.Agent.Admin.DynamicField.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+</otrs_config>
+        

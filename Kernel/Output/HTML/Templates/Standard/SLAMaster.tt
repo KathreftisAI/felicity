@@ -1,0 +1,234 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("SLA Master") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add SLA based on Queue") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("SLA") | html %]</th>
+			    <th>[% Translate("Queue") | html %]</th>
+                            <th>[% Translate("Dynamic Field Name") | html %]</th>
+			    <th>[% Translate("Dynamic Field Value") | html %]</th>
+                            <th>[% Translate("Validity") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="5">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.Name | html %]</a></td>
+			    <td>[% Translate(Data.Dest) | html %]</td>
+			    <td>[% Translate(Data.DynamicFieldID) | html %]</td>
+			    <td>[% Translate(Data.DynamicFieldValue) | html %]</td>
+                            <td>[% Translate(Data.Valid) | html %]</td>
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add SLA") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit SLA") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+
+                <form action="[% Env("CGIHandle") %]" method="post" id="SLAMaster" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+	            <input type="hidden" name="SLAID" value="[% Data.SLAID | html %]"/>		
+		    [% RenderBlockStart("ExistNameServerError") %]
+		          <label class="LabelError">[% Translate("A record with this Name already exists!") | html %] </label>
+		    [% RenderBlockEnd("ExistNameServerError") %]
+                    <fieldset class="TableLike">
+
+		     <label class="Mandatory" for="Name"><span class="Marker">*</span> [% Translate("SLA") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="Name" id="Name" value="[% Data.Name | html %]" class="W50pc Validate_Required [% Data.NameInvalid | html %]" maxlength="200"/>
+                            <div id="NameError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="NameServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+
+		   <label class="Mandatory" for="Dest"><span class="Marker">*</span> [% Translate("Queue") | html %]:</label>
+                    <div class="Field">
+                        [% Data.QueueList %]
+                        <div id="DestError" class="TooltipErrorMessage" >
+				<p>[% Translate("This field is required.") | html %]</p>
+			</div>
+                        <div id="DestServerError" class="TooltipErrorMessage">
+				<p>[% Translate("This field is required.") | html %]</p>
+			</div>
+                    </div>
+                    <div class="Clear"></div>
+
+
+   		        <label class="Mandatory" for="DynamicFieldID"><span class="Marker">*</span> [% Translate("Dynamic Field") | html %]:</label>
+                        <div class="Field">
+                            [% Data.DynamicFieldOption %]
+                            <div id="DynamicFieldIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="DynamicFieldIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+
+		        <label class="Mandatory" for="DynamicFieldValue"><span class="Marker">*</span> [% Translate("Dynamic Field Value") | html %]:</label>
+                        <div class="Field">
+                            [% Data.DynamicFieldValueOption %]
+                            <div id="DynamicFieldValueError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="DynamicFieldValueServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+			
+			 <label for="FirstResponseTime">[% Translate("Escalation - first response time") | html %]
+			 ([% Translate("minutes") | html %]):</label>
+                        <div class="Field">
+                            <input type="text" name="FirstResponseTime" id="FirstResponseTime" value="[% Data.FirstResponseTime | html %]" class="W50px Validate_Number" maxlength="10"/>
+                            <div id="FirstResponseTimeError" class="TooltipErrorMessage"><p>[% Translate("Please write only numbers!") | html %]</p></div>
+                            (<label for="FirstResponseNotify">[% Translate("Notify by") | html %]</label> [% Data.FirstResponseNotifyOptionStrg %])
+                            <p class="FieldExplanation">
+                                [% Translate("0 = no escalation") | html %] - 24 [% Translate("hours") | html %] = 1440 [% Translate("minutes") | html %] - [% Translate("Only business hours are counted.") | html %]
+                            </p>
+                        </div>
+                        <div class="Clear"></div>
+
+			<label for="UpdateTime">[% Translate("Escalation - update time") | html %] ([% Translate("minutes") | html %]):</label>
+                        <div class="Field">
+                            <input type="text" name="UpdateTime" id="UpdateTime" value="[% Data.UpdateTime | html %]" class="W50px Validate_Number" maxlength="10"/>
+                            <div id="UpdateTimeError" class="TooltipErrorMessage"><p>[% Translate("Please write only numbers!") | html %]</p></div>
+                            (<label for="UpdateNotify">[% Translate("Notify by") | html %]</label> [% Data.UpdateNotifyOptionStrg %])
+                            <p class="FieldExplanation">
+                                [% Translate("0 = no escalation") | html %] - 24 [% Translate("hours") | html %] = 1440 [% Translate("minutes") | html %] - [% Translate("Only business hours are counted.") | html %]
+                            </p>
+                        </div>
+                        <div class="Clear"></div>
+
+			 <label for="SolutionTime">[% Translate("Escalation - solution time") | html %] ([% Translate("minutes") | html %]):</label>
+                        <div class="Field">
+                            <input type="text" name="SolutionTime" id="SolutionTime" value="[% Data.SolutionTime | html %]" class="W50px Validate_Number" maxlength="10"/>
+                            <div id="SolutionTimeError" class="TooltipErrorMessage"><p>[% Translate("Please write only numbers!") | html %]</p></div>
+                            (<label for="SolutionNotify">[% Translate("Notify by") | html %]</label> [% Data.SolutionNotifyOptionStrg %])
+                            <p class="FieldExplanation">
+                                [% Translate("0 = no escalation") | html %] - 24 [% Translate("hours") | html %] = 1440 [% Translate("minutes") | html %] - [% Translate("Only business hours are counted.") | html %]
+                            </p>
+                        </div>
+                        <div class="Clear"></div>
+
+
+
+                        <label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                            <div id="ValidIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ValidIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field">
+                            <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#DynamicFieldID').bind('change', function (Event) {
+	var DynamicFieldID = this.value;
+ 	            $.ajax({
+                    url: Core.Config.Get('Baselink') + 'Action=SLAMaster&Subaction=GetDynamicFieldValue&DynamicFieldID=' + DynamicFieldID,
+                    type: "POST",
+                    success: function(data) {
+			console.log(data);
+			$("#DynamicFieldValue").empty();
+			$("#DynamicFieldValue_Search").attr("readonly", false);
+                        $("#DynamicFieldValue_Search").closest('div').find('div').html('')
+                        $("#DynamicFieldValue").trigger('change');
+			$.each(data, function (key, value) {
+			   $("#DynamicFieldValue").append($("<option></option>").val(value).html(value));
+			});
+                      }
+                    });
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("OverviewUpdate") %]
+
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("Overview") %]

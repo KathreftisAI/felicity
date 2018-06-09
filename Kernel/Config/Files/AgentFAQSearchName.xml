@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<otrs_config version="1.0" init="Application">           
+            <!-- API To Search Agent FAQ Item id and name MS -->
+    <ConfigItem Name="GenericInterface::Operation::Module###FAQ::AgentFAQSearchName" Required="0" Valid="1">
+        <Description Translatable="1">GenericInterface module registration for the operation layer.</Description>
+        <Group>GenericInterface</Group>
+        <SubGroup>GenericInterface::Operation::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                            <Item Key="Name">AgentFAQSearchName</Item>
+                            <Item Key="Controller">FAQ</Item>
+                            <Item Key="ConfigDialog">AdminGenericInterfaceOperationDefault</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <!-- End of code -->
+</otrs_config>

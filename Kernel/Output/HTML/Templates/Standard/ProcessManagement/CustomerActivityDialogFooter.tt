@@ -1,0 +1,59 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+# nofilter(TidyAll::Plugin::OTRS::TT::Format)
+                    </fieldset>
+                </div>
+[% RenderBlockStart("Footer") %]
+                <div class="PopupFooter">
+                    <button class="Primary" id="[% Data.ButtonID | html %]" accesskey="g" title="[% Translate(Data.ButtonTitle) | html %] (g)" type="submit" value="[% Translate(Data.ButtonText) | html %]">[% Translate(Data.ButtonText) | html %]</button>
+[% RenderBlockStart("SubmitAdviceText") %]
+                    <span class="AdviceText">[% Data.AdviceText | html %]</span>
+[% RenderBlockEnd("SubmitAdviceText") %]
+                </div>
+[% RenderBlockEnd("Footer") %]
+            </div>
+        </form>
+    </div>
+</div>
+[% RenderBlockStart("ParentReload") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+Core.UI.Popup.ExecuteInParentWindow(function(WindowObject) {
+    if (WindowObject.Core.UI.Popup.GetWindowMode() !== 'Iframe') {
+        WindowObject.Core.UI.Popup.FirePopupEvent('Reload');
+    }
+});
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ParentReload") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+Core.Form.Validate.Init();
+
+// move help triggers into field rows for dynamic fields
+$('.Row > .FieldHelpContainer').each(function() {
+    if (!$(this).next('label').find('.Marker').length) {
+        $(this).prependTo($(this).next('label'));
+    }
+    else {
+        $(this).insertAfter($(this).next('label').find('.Marker'));
+    }
+});
+
+// Register event for tree selection dialog
+Core.UI.TreeSelection.InitTreeSelection();
+
+//]]></script>
+[% END %]
+
+[% RenderBlockStart("FooterJS") %]
+<script type="text/javascript">
+[% PROCESS JSOnDocumentCompleteInsert %]
+</script>
+[% RenderBlockEnd("FooterJS") %]

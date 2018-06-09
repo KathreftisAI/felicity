@@ -1,0 +1,36 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+#
+<!DOCTYPE html>
+<html lang="en" ng-app="CustomerApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comments</title>
+
+</head>
+<body>
+</body>
+</html>
+
+
+
+<div class="MainBox AriaRoleMain LayoutFixedSidebar SidebarFirst">
+<!--    <h1>[% Data.title | html %]</h1> -->
+    <div class="ContentColumn">
+	<script>
+		console.log("test");
+                console.log("meow"+"[% Data.url %]");
+	</script>
+	<iframe src="[% Data.url %]" width="100%" height="500" target="_parent">
+            Sorry your browser does not support inline frames.
+        </iframe>
+
+    </div>
+</div>

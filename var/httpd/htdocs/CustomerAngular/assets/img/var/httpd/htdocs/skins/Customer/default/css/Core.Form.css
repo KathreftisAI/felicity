@@ -1,0 +1,516 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Customer Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     OTRS Framework - Skin "Default"
+ * @section     Customer
+ */
+
+button,
+.Button,
+.cke_dialog_footer_buttons a.cke_dialog_ui_button {
+    padding: 4px 11px !important;
+    color: #333;
+    font-size: 12px;
+    background: #eee;
+    border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cke_dialog_footer_buttons a.cke_dialog_ui_button {
+    font-weight: bold !important;
+}
+
+.cke_dialog_footer_buttons a.cke_dialog_ui_button:hover {
+    background-color: #e5e5e5;
+    border-color: #999;
+}
+
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+button:hover,
+.Button:hover,
+button:active,
+.Button:active {
+    border-color: #888;
+    color: #333;
+}
+
+.SmallButton {
+    padding: 0 8px;
+    margin: 0 2px;
+    color: #797979;
+    font-size: 10px;
+    line-height: 12px;
+    font-weight: bold;
+    background: #F9F9F9;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eeeeee));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#eeeeee 100%);
+    background: -o-linear-gradient(top,  #ffffff 0%,#eeeeee 100%);
+    background: -ms-linear-gradient(top,  #ffffff 0%,#eeeeee 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#eeeeee 100%);
+    border: 1px solid #DDD;
+    border-bottom: 1px solid #CCC;
+    text-shadow: 0 1px 0 #FFF;
+}
+
+.SmallButton:hover {
+    color: #555;
+}
+
+.SmallButton:active {
+    background: #EEE;
+    background: -moz-linear-gradient(top,  #cccccc 0%, #eeeeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cccccc), color-stop(100%,#eeeeee));
+    background: -webkit-linear-gradient(top,  #cccccc 0%,#eeeeee 100%);
+    background: -o-linear-gradient(top,  #cccccc 0%,#eeeeee 100%);
+    background: -ms-linear-gradient(top,  #cccccc 0%,#eeeeee 100%);
+    background: linear-gradient(to bottom,  #cccccc 0%,#eeeeee 100%);
+    border-color: #CCC #CCC #D9D9D9;
+    text-shadow: 0 1px 0 #EEE;
+}
+
+label {
+    margin-right: 8px;
+    padding: 4px 0;
+    width: 120px;
+    text-align: right;
+    float: left;
+    font-size: 12px;
+}
+
+.RTL label {
+    margin: 0 0 0 8px;
+    float: right;
+    text-align: left;
+}
+
+/* Fix bug#8673: labels in CKEditor  popups should be ignored by our css */
+.cke label {
+    float: none;
+}
+
+/**
+ * @note        Give the user a hint about linked label elements (they are clickable and
+ *              give focus to the linked element.
+ */
+
+form label[for] {
+    cursor: pointer;
+}
+
+input[type=text],
+input[type=email],
+input[type=password] {
+    margin: 0;
+    width: 250px;
+    font-size: 14px;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea,
+select[multiple=multiple] {
+    border: 1px solid #C9C9C9;
+    border-top-color: #C0C0C0;
+    /* Opera 10.5 has per default a grey background */
+    background-color: #FFF;
+    -webkit-box-shadow: 0 1px 2px #E8E8E8 inset, 0 1px 0 #FFF;
+    box-shadow: 0 1px 2px #E8E8E8 inset, 0 1px 0 #FFF;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+    padding: 3px;
+    font-size: 12px;
+    color: #333;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+textarea:focus {
+    -webkit-box-shadow: 0 1px 2px #E8E8E8 inset, 0 0 3px #CCC;
+    box-shadow: 0 1px 2px #E8E8E8 inset, 0 0 3px #CCC;
+}
+
+input[type=text].TicketFreeKey,
+input[type=text].ArticleFreeKey {
+    width: 80%;
+}
+
+input.DateSelection {
+    width: auto;
+}
+
+select.TicketFreeKey,
+select.ArticleFreeKey {
+    margin-top: -2px;
+    max-width: 90%;
+}
+
+#RichText {
+    margin: 7px;
+    border: 1px solid #D6D6D6;
+}
+
+.TicketCompose .Content,
+.Preferences .Content,
+.Search .Content {
+    margin: 0;
+    display: block;
+}
+
+fieldset {
+    margin: 8px 0 13px;
+    padding-bottom: 5px;
+    background: #f9f9f9;
+    border: 1px solid #EAEEEE;
+}
+
+fieldset div {
+    padding: 3px 8px 3px 0;
+}
+
+fieldset div:first-child {
+    padding-top: 8px;
+    border-top: 1px solid #FFF;
+}
+
+fieldset h2 {
+    margin: 0;
+    padding: 5px 8px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #E8E9E9;
+    text-shadow: 0 1px 0 #FFF;
+}
+
+fieldset h2 + p.Description {
+    font-size: 11px;
+    margin-left: 0px;
+    padding: 10px 10px;
+    color: #555;
+}
+
+fieldset h2 + div {
+    padding-top: 13px;
+    border-top: 1px solid #FFF;
+    overflow: hidden;
+}
+
+fieldset p {
+    margin: 1px 0 0 140px;
+    font-size: 11px;
+    color: #AAA;
+}
+
+.RTL fieldset p {
+    margin: 1px 140px 0 0;
+}
+
+fieldset label {
+    padding: 4px 9px 3px 0px;
+    margin: 0px 6px 0px 0px;
+    color: #333;
+    font-size: 11px;
+    background: #e4e4e4;
+}
+
+.RTL fieldset label {
+    padding: 4px 0 3px 9px;
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+fieldset select {
+    margin-top: 2px;
+}
+
+.TicketCompose fieldset #Subject {
+    width: 50%;
+}
+
+fieldset.Columns .Column {
+    width: 50%;
+    padding: 0;
+    float: left;
+    border: none;
+}
+
+.RTL fieldset.Columns .Column {
+    float: right;
+}
+
+fieldset.Columns .Column div {
+    padding: 13px 8px 3px;
+    overflow: auto;
+}
+
+fieldset.Columns label,
+.TimeSearchType label {
+    padding: 0;
+    color: #000;
+    font-size: 12px;
+    float: none;
+    border: none;
+    background: none;
+}
+
+fieldset .RichTextHolder {
+    padding: 0;
+    margin-top: 3px;
+}
+
+fieldset div.Field {
+    padding: 0 !important;
+}
+
+.Preferences .Content {
+    padding: 5px 13px;
+}
+
+.Box {
+    width: 50%;
+    float: left;
+}
+
+.Box form {
+    padding: 8px 8px 0;
+    display: block;
+}
+
+.Box fieldset {
+    min-height: 125px;
+    margin-bottom: 0;
+}
+
+.Box label {
+    padding: 3px 9px 3px 5px;
+    width: 110px;
+}
+
+.Box input[type=password] {
+    width: 160px;
+    font-size: 12px;
+}
+
+.Box button {
+    margin: 0 0 0 131px;
+    display: block;
+}
+
+.RTL .Box button {
+    margin: 4px 131px 0 0;
+}
+
+/**
+ * @subsection  Textarea
+ * @note        Fixed font needed in textareas because otherwise the line wrapping is incorrect.
+ */
+textarea {
+    font-family: monospace,fixed;
+}
+
+/**
+* @note         Validation
+*/
+form label.Mandatory {
+    color: black !important;
+}
+
+form label.Mandatory span.Marker {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top: 0.35em;
+    line-height: 1px;
+}
+
+form label.LabelError {
+    color: #ff505e !important;
+}
+
+/*
+ * @note    This will be displayed by Core.UI.Tooltips
+ */
+div.TooltipErrorMessage {
+    display: none;
+}
+
+/*
+ * @note    Special case: do display
+ *          ServerError message divs when JavaScript is not active,
+ *          otherwise the user will not see these messages
+ */
+.NoJavaScript .NoJavaScriptMessageServerError {
+    display: block;
+    padding: 2px 5px;
+}
+
+.NoJavaScript .NoJavaScriptMessageServerError,
+.NoJavaScript .NoJavaScriptMessageServerError * {
+    color: #ff505e;
+}
+
+/**
+ * @subsection AJAX Loader
+ */
+
+.AJAXLoader {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    background: url("../img/loader.gif") no-repeat right center;
+    vertical-align: bottom;
+}
+
+/**
+ * @subsection    Tree selection icon and overlay for select boxes
+ */
+
+.ShowTreeSelection {
+    width: 16px;
+    height: 16px;
+    margin-left: 1px;
+    display: inline-block;
+    position: relative;
+    color: #333;
+}
+
+.ShowTreeSelection span {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+.ShowTreeSelection:focus {
+    color: #f92;
+}
+
+fieldset .ShowTreeSelection {
+    display: inline-block;
+}
+
+#TreeContainer #TreeSearch {
+    position: relative;
+}
+
+#TreeContainer #TreeSearch span {
+    color: #AAAAAA;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    height: 12px;
+    position: absolute;
+    right: 9px;
+    top: 4px;
+    width: 16px;
+}
+
+#TreeContainer #TreeSearch input {
+    display: block;
+    margin: 10px 12px 0px 12px;
+    width: 92%;
+}
+
+#JSTree {
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    height: 72%;
+    margin: 10px 12px;
+    -moz-box-shadow: inset 0px 0px 6px #ccc;
+    -webkit-box-shadow: inset 0px 0px 6px #ccc;
+    box-shadow: inset 0px 0px 6px #ccc;
+    overflow: auto;
+    padding: 0px 10px 10px 10px;
+}
+
+#JSTree.InOverlay {
+    margin: 5px 5px 5px 0px;
+    width: 85%;
+    float: left;
+}
+
+#JSTree .Disabled > a {
+    color: #aaa;
+    font-style: italic;
+}
+
+#JSTree .jstree-search {
+    color: #E07006;
+}
+
+#JSTree .jstree-search.jstree-clicked {
+    color: #000;
+}
+
+#JSTree .jstree-clicked {
+    background: #f3960d;
+    background: -moz-linear-gradient(top,  #ffe7bd 0%, #fbba49 20%, #f6ad3e 51%, #f3960d 51%, #e98207 95%, #e07006 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe7bd), color-stop(20%,#fbba49), color-stop(51%,#f6ad3e), color-stop(51%,#f3960d), color-stop(95%,#e98207), color-stop(100%,#e07006));
+    background: -webkit-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: -o-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: -ms-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: linear-gradient(to bottom,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    border-color: #f3960d;
+    padding: 0px 3px;
+}
+
+#JSTree .jstree-hovered {
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+#JSTree a:focus {
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+#SubmitTree {
+    display: block;
+    width: 120px;
+    margin: 0px auto;
+}
+
+.RTL .ShowTreeSelection {
+    margin: 0 3px 0 0;
+}
+
+.OverlayTreeSelector {
+    width: 400px;
+    height: 300px;
+    margin: -10px -15px;
+}
+
+/**
+ * @subsection Chat
+ */
+
+.ArticleChat {
+    padding: 2px 5px;
+    font-size: 11px;
+    max-height: 100px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.ArticleMailContent .ArticleChat {
+    max-height: none;
+    font-size: 12px;
+    padding: 10px;
+}

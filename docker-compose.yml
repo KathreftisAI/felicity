@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  app_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.AppServer
+    container_name: app_server
+    image: felicity-app:latest
+    restart: always    
+    depends_on:
+       - db_server
+    ports:
+      - "8000:80"
+  db_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.DBServer
+      args:
+        - MYSQL_ROOT_PASSWORD=dochangeme
+    container_name: db_server
+    image: felicity-db:latest
+    ports:
+      - "33306:3306"

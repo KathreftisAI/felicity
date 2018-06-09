@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Framework">
+    <ConfigItem Name="Frontend::Module###AdminImportExport" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+        <Group>ImportExport</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description Translatable="1">Import and export object information.</Description>
+                <Title Translatable="1">Import/Export</Title>
+                <NavBarName>Admin</NavBarName>
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">Import/Export</Name>
+                    <Block>System</Block>
+                    <Prio>710</Prio>
+                </NavBarModule>
+                <Loader>
+                    <CSS>ITSM.ImportExport.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ImportExport::FormatBackendRegistration###CSV" Required="0" Valid="1">
+        <Description Translatable="1">Format backend module registration for the import/export module.</Description>
+        <Group>ImportExport</Group>
+        <SubGroup>FormatBackend::ModuleRegistration</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::ImportExport::FormatBackend::CSV</Item>
+                <Item Key="Name">CSV</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

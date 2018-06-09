@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Monthly overview of all config items created in the last month per State.
+
+X-Axis: Days of the month
+Y-Axis: State
+
+Restrictions:
+    -created in the past month</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMConfigItem</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMConfigItem</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>Monthly overview of all config items created in the last month per State.</Title>
+<UseAsValueSeries Element="StateIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="CreateTime" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

@@ -1,0 +1,19 @@
+/*Minimum Width*/
+
+@media (min-width: 1024px)
+{
+}
+
+@media (min-width: 768px)
+{
+    .navbar-nav>li>a 
+    {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }  
+	
+	.navbar-header {
+		float: none !important;
+	}
+	
+}
