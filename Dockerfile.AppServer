@@ -1,6 +1,6 @@
 FROM centos/systemd
 MAINTAINER "Unotech Software Pvt. Ltd."
-WORKDIR /opt/Felicity
+WORKDIR /opt/felicity
 COPY . .
 RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
