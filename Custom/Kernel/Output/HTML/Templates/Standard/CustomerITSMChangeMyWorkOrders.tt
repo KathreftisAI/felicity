@@ -1,0 +1,41 @@
+<div id="MainBox" class="Content">
+
+<h3>Overview: My Task: All</h3>
+<div class="Tabs Pagination">
+	[% Data.PageNavBar.ResultLong %] - Page:
+[% RenderBlockStart("PageNavBar") %]
+	  [% Data.SiteNavBar %]
+[% RenderBlockEnd("PageNavBar") %]
+</div>
+<div class="spacer10"></div>
+<table  class="TableSmall NoCellspacing Overview">
+	<thead>	
+	  <tr>
+	  	[% RenderBlockStart("ShowColumns") %]
+		  <th>[% Data.ColumnName %]</th>
+		[% RenderBlockEnd("ShowColumns") %]
+
+	  </tr>
+	</thead>
+	<tbody>
+	[% RenderBlockStart("ColumnsData") %]
+	  <tr>
+	    <td>[% Data.WorkOrderNumber %]</td> 
+	    <td>[% Data.WorkOrderTitle %]</td>
+	    <td>[% Data.ChangeTitle %]</td>
+	    <td>[% Data.WorkOrderState %]</td>
+	    <td>[% Data.PlannedStartTime %]</td>
+	    <td>[% Data.PlannedEndTime %]</td> 
+	  </tr>
+	 [% RenderBlockEnd("ColumnsData") %]
+	</tbody>
+</table>
+</div>
+
+<style type="text/css">
+
+h3 {
+	color: #666!important;
+}	
+	
+</style>

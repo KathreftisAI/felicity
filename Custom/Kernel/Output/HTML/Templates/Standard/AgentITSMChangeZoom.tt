@@ -1,0 +1,649 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <div class="Flag" title="[% Translate(Data.ChangeState) | html %]">
+            <span class="[% Data.ChangeStateSignal | html %]">[% Translate(Data.ChangeState) | html %]</span>
+        </div>
+        <h1 title="[% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber | html %] &ndash; [% Data.ChangeTitle | html %]">
+            [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber | html %] <span>&mdash;</span> [% Data.ChangeTitle | truncate(70) | html %]
+        </h1>
+    </div>
+
+    <div class="LayoutFixedSidebar SidebarLast">
+        <div class="SidebarColumn">
+
+           <div class="WidgetSimple">
+               <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Approval Information") | html %]</h2>
+               </div>
+               
+               <div class="Content">
+                    [% FOREACH item_wo = Data.WOD %]
+                      <fieldset class="TableLike FixedLabelSmall" style="margin:1px; border-style: solid; border-width: 2px; border-color: #D3D3D3">
+                      <label>[% Translate("W.O. Title") | html %]: </label>
+                      <p class="Value">[% Translate(item_wo.WorkOrderTitle) | html %] - [% Translate(item_wo.WAgentFullname) %]</p>
+                      <div class="Clear"></div>
+                      <label>[% Translate("W.O. State") | html %]:</label>
+                      <p class="Value">[% Translate(item_wo.WorkOrderState) | html %]</p>
+                      <a target="_blank" href="/felicity/index.pl?Action=AgentITSMWorkOrderReport;WorkOrderID=[% item_wo.WorkOrderID %];WorkOrderStateID=125" class="AsPopup   btn btn-sm btn-primary" title="Accept">Accept</a>
+                      <a target="_blank" href="/felicity/index.pl?Action=AgentITSMWorkOrderReport;WorkOrderID=[% item_wo.WorkOrderID %];WorkOrderStateID=129" class="AsPopup btn btn-sm btn-primary" style="float:right;" title="Reject">Reject</a>
+                      <div class="Clear"></div>
+                      </fieldset>
+                    [% END %]
+               </div>
+           </div>
+
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Change Information") | html %]</h2>
+                </div>
+
+                <div class="Content">
+
+
+[% RenderBlockStart("Meta") %]
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("ChangeState") | html %]:</label>
+                        <div class="Value">
+                            <div class="Flag Small">
+                                <span class="[% Data.ChangeStateSignal | html %]">[% Translate(Data.ChangeState) | html %]</span>
+                            </div>
+                            [% Translate(Data.ChangeState) | html %]
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                     <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("ITSM Change Group") | html %]:</label>
+                        <div class="Value">
+                            [% Translate(Data.ITSMChangeGroup) | html %]
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("PlannedStartTime") | html %]:</label>
+[% RenderBlockStart("EmptyPlannedStartTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedStartTime") %]
+[% RenderBlockStart("PlannedStartTime") %]
+                        <p class="Value">[% Data.PlannedStartTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("PlannedStartTime") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("PlannedEndTime") | html %]: </label>
+[% RenderBlockStart("EmptyPlannedEndTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedEndTime") %]
+[% RenderBlockStart("PlannedEndTime") %]
+                        <p class="Value">[% Data.PlannedEndTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("PlannedEndTime") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("ActualStartTime") | html %]: </label>
+[% RenderBlockStart("EmptyActualStartTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyActualStartTime") %]
+[% RenderBlockStart("ActualStartTime") %]
+                        <p class="Value">[% Data.ActualStartTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("ActualStartTime") %]
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("ActualEndTime") | html %]: </label>
+[% RenderBlockStart("EmptyActualEndTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyActualEndTime") %]
+[% RenderBlockStart("ActualEndTime") %]
+                        <p class="Value">[% Data.ActualEndTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("ActualEndTime") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+[% RenderBlockStart("ShowRequestedTime") %]
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Requested Date") | html %]: </label>
+[% RenderBlockStart("EmptyRequestedTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyRequestedTime") %]
+[% RenderBlockStart("RequestedTime") %]
+                        <p class="Value">[% Data.RequestedTime | Localize("TimeLong") %]</p>
+[% RenderBlockEnd("RequestedTime") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+[% RenderBlockEnd("ShowRequestedTime") %]
+
+                    <fieldset class="TableLike FixedLabelSmall">
+[% RenderBlockStart("ShowPlannedEffort") %]
+                        <label>[% Translate("PlannedEffort") | html %]: </label>
+[% RenderBlockStart("EmptyPlannedEffort") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyPlannedEffort") %]
+[% RenderBlockStart("PlannedEffort") %]
+                        <p class="Value">[% Data.PlannedEffort | html %]</p>
+[% RenderBlockEnd("PlannedEffort") %]
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ShowPlannedEffort") %]
+
+[% RenderBlockStart("ShowAccountedTime") %]
+                        <label>[% Translate("AccountedTime") | html %]: </label>
+[% RenderBlockStart("EmptyAccountedTime") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyAccountedTime") %]
+[% RenderBlockStart("AccountedTime") %]
+                        <p class="Value">[% Data.AccountedTime | html %]</p>
+[% RenderBlockEnd("AccountedTime") %]
+                        <div class="Clear"></div>
+[% RenderBlockEnd("ShowAccountedTime") %]
+                    </fieldset>
+
+
+                    <fieldset class="TableLike FixedLabelSmall">
+[% RenderBlockStart("Category") %]
+                        <label>[% Translate("Category") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Category) | html %]</p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("Category") %]
+
+[% RenderBlockStart("Impact") %]
+                        <label>[% Translate("Impact") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Impact) | html %]</p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("Impact") %]
+
+[% RenderBlockStart("Priority") %]
+                        <label>[% Translate("Priority") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Priority) | html %]</p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("Priority") %]
+                    </fieldset>
+
+#[% FOREACH item_wo = Data.WOD %]
+# <fieldset class="TableLike FixedLabelSmall">
+#  <label>[% Translate("W.O. Title") | html %] [% loop.count %] </label>
+#  <p class="Value">[% Translate(item_wo.WorkOrderTitle) | html %]</p>
+#  <div class="Clear"></div>
+#  <label>[% Translate("W.O. State") | html %] [% loop.count %]:</label>
+#  <p class="Value">[% Translate(item_wo.WorkOrderState) | html %]</p>
+#  <div class="Clear"></div>
+# </fieldset>
+#[% END %]
+
+
+#[% FOREACH item_woa = Data.WODA %]
+# <fieldset class="TableLike FixedLabelSmall">
+#    <label>[% Translate("W.O. Agent") | html %] [% loop.count %] :</label>
+#    <p class="Value"> [% Translate(item_woa) | html %] </p>
+#    <div class="Clear"></div>
+# </fieldset>
+#[% END %]
+
+# show dynamic fields
+                    <fieldset class="TableLike FixedLabelSmall Narrow">
+[% RenderBlockStart("DynamicField") %]
+                        <label>[% Translate(Data.Label) | html %]:</label>
+                        <p class="Value">
+[% RenderBlockStart("DynamicFieldLink") %]
+                            <span title="[% Data.Title | html %]"><a href="[% Data.Link | Interpolate %]" target="_blank" class="DynamicFieldLink">[% Data.Value %]</a></span>
+[% RenderBlockEnd("DynamicFieldLink") %]
+[% RenderBlockStart("DynamicFieldPlain") %]
+                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+[% RenderBlockEnd("DynamicFieldPlain") %]
+                        </p>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+                    </fieldset>
+
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#                    <fieldset class="TableLike FixedLabelSmall Narrow">
+#[% RenderBlockStart("DynamicField_Field1") %]
+#                        <label>[% Translate(Data.Label) | html %]:</label>
+#                        <p class="Value">
+#[% RenderBlockStart("DynamicField_Field1_Link") %]
+#                            <span title="[% Data.Title | html %]"><a href="[% Data.Link %]" target="_blank">[% Data.Value %]</a></span>
+#[% RenderBlockEnd("DynamicField_Field1_Link") %]
+#[% RenderBlockStart("DynamicField_Field1_Plain") %]
+#                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+#[% RenderBlockEnd("DynamicField_Field1_Plain") %]
+#                        </p>
+#[% RenderBlockEnd("DynamicField_Field1") %]
+#                    </fieldset>
+#                    <fieldset class="TableLike FixedLabelSmall Narrow">
+#[% RenderBlockStart("DynamicField_Field2") %]
+#                        <label>[% Translate(Data.Label) | html %]:</label>
+#                        <p class="Value">
+#[% RenderBlockStart("DynamicField_Field2_Link") %]
+#                            <span title="[% Data.Title | html %]"><a href="[% Data.Link %]" target="_blank">[% Data.Value %]</a></span>
+#[% RenderBlockEnd("DynamicField_Field2_Link") %]
+#[% RenderBlockStart("DynamicField_Field2_Plain") %]
+#                            <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+#[% RenderBlockEnd("DynamicField_Field2_Plain") %]
+#                        </p>
+#[% RenderBlockEnd("DynamicField_Field2") %]
+#                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Change Initiator(s)") | html %]:</label>
+[% RenderBlockStart("EmptyChangeInitiators") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyChangeInitiators") %]
+[% RenderBlockStart("ChangeInitiatorExists") %]
+[% RenderBlockStart("ChangeInitiator") %]
+                        <p class="Value" title="[% Data.UserLogin | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])">
+                            [% Data.UserLogin | truncate(15) | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])
+                        </p>
+[% RenderBlockEnd("ChangeInitiator") %]
+[% RenderBlockEnd("ChangeInitiatorExists") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Change Manager") | html %]:</label>
+[% RenderBlockStart("EmptyChangeManager") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyChangeManager") %]
+[% RenderBlockStart("ChangeManager") %]
+                        <p class="Value" title="[% Data.ChangeManagerUserLogin | html %] ([% Data.ChangeManagerUserFirstname | html %] [% Data.ChangeManagerUserLastname | html %])">
+                            [% Data.ChangeManagerUserLogin | truncate(15) | html %] ([% Data.ChangeManagerUserFirstname | html %] [% Data.ChangeManagerUserLastname | html %])
+                        </p>
+[% RenderBlockEnd("ChangeManager") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Change Builder") | html %]:</label>
+                        <p class="Value" title="[% Data.ChangeBuilderUserLogin | html %] ([% Data.ChangeBuilderUserFirstname | html %] [% Data.ChangeBuilderUserLastname | html %])">
+                            [% Data.ChangeBuilderUserLogin | truncate(15) | html %] ([% Data.ChangeBuilderUserFirstname | html %] [% Data.ChangeBuilderUserLastname | html %])
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("CAB") | html %]:</label>
+[% RenderBlockStart("EmptyCAB") %]
+                        <p class="Value" title="-">-</p>
+[% RenderBlockEnd("EmptyCAB") %]
+[% RenderBlockStart("CAB") %]
+[% RenderBlockStart("CABAgent") %]
+                        <p class="Value" title="[% Data.CABAgentUserLogin | html %] ([% Data.CABAgentUserFirstname | html %] [% Data.CABAgentUserLastname | html %])">
+                            [% Data.CABAgentUserLogin | truncate(15) | html %] ([% Data.CABAgentUserFirstname | html %] [% Data.CABAgentUserLastname | html %])
+                        </p>
+[% RenderBlockEnd("CABAgent") %]
+[% RenderBlockStart("CABCustomer") %]
+                        <p class="Value" title="[% Data.CABCustomerUserLogin | html %] ([% Data.CABCustomerUserFirstname | html %] [% Data.CABCustomerUserLastname | html %])">
+                            [% Data.CABCustomerUserLogin | truncate(15) | html %] ([% Data.CABCustomerUserFirstname | html %] [% Data.CABCustomerUserLastname | html %])
+                        </p>
+[% RenderBlockEnd("CABCustomer") %]
+[% RenderBlockEnd("CAB") %]
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value" title="[% Data.CreateTime | html %]">[% Data.CreateTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created by") | html %]:</label>
+                        <p class="Value" title="[% Data.CreateUserLogin | html %] ([% Data.CreateUserFirstname | html %] [% Data.CreateUserLastname | html %])">
+                            [% Data.CreateUserLogin | truncate(15) | html %] ([% Data.CreateUserFirstname | html %] [% Data.CreateUserLastname | html %])
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Last changed") | html %]:</label>
+                        <p class="Value" title="[% Data.ChangeTime | html %]">[% Data.ChangeTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed by") | html %]:</label>
+                        <p class="Value" title="[% Data.ChangeUserLogin | html %] ([% Data.ChangeUserFirstname | html %] [% Data.ChangeUserLastname | html %])">
+                            [% Data.ChangeUserLogin | truncate(15) | html %] ([% Data.ChangeUserFirstname | html %] [% Data.ChangeUserLastname | html %])
+                        </p>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("LinkTableSimple") %]
+                        [% Data.LinkTableStrg %]
+[% RenderBlockEnd("LinkTableSimple") %]
+                    </fieldset>
+[% RenderBlockEnd("Meta") %]
+                </div>
+            </div>
+        </div>
+
+        <div class="ContentColumn">
+            <div class="ControlRow"></div>
+            <div class="ActionRow">
+                <ul class="Actions">
+[% RenderBlockStart("Menu") %]
+[% RenderBlockStart("MenuItem") %]
+                    <li>
+                        <a href="[% Env("Baselink") %][% Data.Link | Interpolate %]" id="Menu[% Data.MenuID | html %]" class="[% Data.MenuClass | html %]" title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]</a>
+                    </li>
+
+[% RenderBlockStart("ShowConfirmDialog") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfirmDialog.BindConfirmDialog({
+        ElementID:                  'Menu[% Data.MenuID %]',
+        ElementSelector:            '[% Data.ElementSelector | Interpolate %]',
+        DialogContentQueryString:   '[% Data.DialogContentQueryString | Interpolate %]',
+        ConfirmedActionQueryString: '[% Data.ConfirmedActionQueryString | Interpolate %]',
+        DialogTitle:                '[% Data.DialogTitle | Interpolate %]',
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %],
+            Ok:  [% Translate("Ok") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ShowConfirmDialog") %]
+
+[% RenderBlockEnd("MenuItem") %]
+[% RenderBlockEnd("Menu") %]
+                </ul>
+            </div>
+
+[% RenderBlockStart("WorkOrderGraph") %]
+            <div>
+                [% Data.WorkOrderGraph %]
+            </div>
+[% RenderBlockEnd("WorkOrderGraph") %]
+
+            <div class="WidgetSimple Expanded SpacingTop">
+                <div class="LightRow Header">
+                    <div class="WidgetAction Toggle"><a href="#" title="[% Translate("Show or hide the content.") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+                    <h2>[% Translate("ITSMChange") | html %] - [% Data.ChangeTitle | truncate(70) | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall">
+
+[% RenderBlockStart("BrowserLinkMessage") %]
+# Show info, that links within the iframe must be clicked with strg/cmd/shift (depending on the used browser and os)
+# to open the links in a new window without the security permissions given to the iframe
+                        <div class="ITSMMessageBrowser">
+                            <p>
+                                [% Translate("To open links in the following description blocks, you might need to press Ctrl or Cmd or Shift key while clicking the link (depending on your browser and OS).") | html %]
+                            </p>
+                            <a class="Close" title="[% Translate("Close this message") | html %]" href="#"><i class="fa fa-times"></i></a>
+                        </div>
+[% RenderBlockEnd("BrowserLinkMessage") %]
+
+[% RenderBlockStart("ITSMContent") %]
+                        <label>[% Translate( Data.Field ) | html %]: </label>
+                        <div>
+# Use the HTML5 sandbox attribute to prevent plugins and scripts from being executed in the browser.
+# Use IE's (non-standard) security attribute to achieve something similar in older IE browsers. Append session info to URL because IE will not send cookies.
+# Set 'allow-popups' to allow IE10+ to open links. ref: http://www.w3.org/html/wg/wiki/ChangeProposals/sandbox_allow_popups
+                            <iframe sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox" [% Data.MSSecurityRestricted %] class="Field" id="IframeITSM[% Data.Field | html %]" onload="if (typeof ITSM === 'object' && typeof ITSM.Agent === 'object' && typeof ITSM.Agent.ChangeManagement === 'object' && typeof ITSM.Agent.ChangeManagement.Zoom === 'object') { ITSM.Agent.ChangeManagement.Zoom.IframeAutoHeight($('#IframeITSM[% Data.Field | html %]')); };" src="#" data-src="[% Env("Baselink") %]Action=AgentITSMChangeZoom;Subaction=HTMLView;ChangeID=[% Data.ChangeID | html %];Field=[% Data.Field | html %];[% Env("SessionName") | html %]=[% Env("SessionID") | html %]"></iframe>
+                        </div>
+                        <div class="Clear"></div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+    Core.Config.Set('ITSMChange::Frontend::AgentHTMLFieldHeightDefault', parseInt("[% Config("ITSMChange::Frontend::AgentHTMLFieldHeightDefault") %]" || 0, 10));
+    Core.Config.Set('ITSMChange::Frontend::AgentHTMLFieldHeightMax', parseInt("[% Config("ITSMChange::Frontend::AgentHTMLFieldHeightMax") %]" || 0, 10));
+
+    // copy data-src attribute to src attribute for all iframes to correctly display its contents after JS is fully loaded
+    $('iframe').each(function(){
+        $(this).attr("src", $(this).attr("data-src") );
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ITSMContent") %]
+
+                        <label>[% Translate("Attachment") | html %]:</label>
+                        <div class="Field">
+[% RenderBlockStart("AttachmentRow") %]
+                            <span class="DownloadAttachment" title="[% Translate("Download Attachment") | html %]">
+                                <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;Filename=[% Data.Filename | uri %];ChangeID=[% Data.ChangeID | uri %]">
+                                    [% Data.Filename | html %]
+                                </a>
+                                , [% Data.Filesize | html %]
+                            </span>
+                            <br/>
+[% RenderBlockEnd("AttachmentRow") %]
+                        </div>
+                        <div class="Clear"></div>
+
+                    </fieldset>
+                </div>
+            </div>
+[% RenderBlockStart("LinkTableComplex") %]
+            <div class="Content">
+                [% Data.LinkTableStrg %]
+            </div>
+[% RenderBlockEnd("LinkTableComplex") %]
+
+<div class="content ticket_details">
+
+</div>
+
+	<div class="WidgetSimple SpacingTop Expanded" id='uno_wo_div'>
+    <div class="LightRow Header">
+        <div class="WidgetAction Toggle"><a href="#" title="Show or hide the content" aria-controls="Core_UI_AutogeneratedID_1" aria-expanded="true"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+        <h2>WorkOrder Status</h2>
+    </div>
+    
+    <div class="LightRow Content AutoHeight " id="Core_UI_AutogeneratedID_1">
+	<div style="float:right;"><b>Show: </b>
+	<select id="agentSearch"></select>&nbsp;&nbsp;&nbsp;&nbsp;
+	</div>
+        <div>
+            <table class="DataTable" >
+                <thead id="dtplan">
+                    <tr class="Last">
+		        <th class="Last"> Agent </th>
+                        <th> WorkOrder# </th>
+                        <th> Title </th>
+                        <th>Type</th>
+                       	<th> State </th>
+                        <th> Created Time</th>
+                        <th> Planned Start Time</th>
+                        <th> Created By</th>
+                     </tr>
+		</thead>
+                </thead id="dtagent" style="display:none; !important">
+	        <tbody id='uno_linked_wo'>
+		     <tr class="Last">
+			<td class="">	</td>
+                        <td class="">	</td>
+                        <td class="">   </td>
+                        <td class="">   </td>
+                        <td class="">   </td>
+			<td class="">   </td>
+			<td class="">   </td>
+                        <td class="Last"> </td>
+		     </tr>
+                </tbody>
+            </table>
+			
+        </div>
+		
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('ul.Actions a.AsPopup').bind('click', function (Event) {
+    Core.UI.Popup.OpenPopup ($(this).attr('href'), 'Action');
+    return false;
+    });
+
+    $('ul.Actions a.HistoryBack').bind('click', function (Event) {
+        history.back();
+        return false;
+    });
+
+    var sessionid ="[% Env("SessionID") %]";
+    var change_id ="[%  Data.ChangeID %]";
+    var TicketInfo=[% JSON(Data.Ticket) %];
+    var LinkedTicketCount=$('.DataTable tr a').size();
+
+    //If Linked ticket is there than add show ticket detail
+    for (var i = 0; i < LinkedTicketCount; i++) {
+        if (i==0) {
+            //added table head show details
+             $('.DataTable tr').eq(i).append("<th>Show Details</td>");
+        }
+        //get TicketNumber
+        var LinkedTicketNumber=parseInt($(".DataTable").find("a").eq(i).html());
+        var IncrementedI=i+1;
+        //add show more details td
+        $('.DataTable tr').eq(IncrementedI).append("<td><span class='ticketDetails' id="+LinkedTicketNumber+"> Show Details </span></td>");
+    }
+    //on click span show details call GetTicketDetails function 
+    $('.DataTable span.ticketDetails').on('click',function(){GetTicketDetails( $(this).attr('id'));});
+
+
+
+#Fetch the ticket details based on show details click event*
+	function GetTicketDetails(ticketno){
+		var ticket_no = ticketno;
+        $.ajax({
+    		url: Core.Config.Get('Baselink') + 'Action=GetTicketDetails',
+    		type: "GET",
+    		data: {TicketNumber : ticket_no},
+    		success : function(data){
+    			var TicketNumberInfo = $.parseJSON(data);
+
+    			var ticket_string = "\
+                <div style='border: thin solid #ccc; margin-top: 10px;'class='WidgetBox'>\
+                    <div class='LightRow Header'>\
+                        <h2>Ticket Details&amp; Correspondence</h2>\
+                    </div>\
+                    <div style=' padding: 15px;  width: 20%;float:left;'>\
+                        <h3 style='font-weight: bold;'>Ticket Details</h3>\
+                        <table style='width: 200px;' class='DataTable'>\
+                            <thead>\
+                                <tr class='Last'>\
+                                    <th>Ticket Created By</th>\
+                                    <th class='Last'>Ticket Owner</th>\
+                                </tr>\
+                            </thead>\
+                            <tbody>\
+                                <tr class='Last'>\
+                                    <td class='temp_ticket_created_by'>"+TicketNumberInfo.CreateBy+"</td>\
+                                    <td class='temp_ticket_owner Last'>"+TicketNumberInfo.Owner+"</td>\
+                                </tr>\
+                            </tbody>\
+                        </table>\
+                    </div>\
+                    <div style='float: left;  width: 69%; padding: 15px;margin-left:33px;'>";
+                //if article exist than add article table head    
+    			if(Object.keys(TicketNumberInfo.Articles).length > 0 ){
+    				ticket_string += "\
+                        <h3 style='font-weight: bold;'>Correspondence</h3>\
+                        <table style='width: 100%;' class='DataTable temp_correspondence_table'>\
+                            <thead>\
+                                <tr class='Last'>\
+                                    <th>From</th>\
+                                    <th>To</th>\
+                                    <th>Subject</th>\
+                                    <th class='Last'>Created</th>\
+                                    <th class='Last'>Type</th>\
+                                </tr>\
+                            </thead>\
+                            <tbody>";
+                    //if article exit than add table
+                    $.each(TicketNumberInfo.Articles,function(i, v){
+    					ticket_string += "\
+                                <tr>\
+                                    <td>"+v.From+"</td>\
+                                    <td>"+v.To+"</td>\
+                                    <td>"+v.Subject+"</td>\
+                                    <td>"+v.Created+"</td>\
+                                    <td>"+v.ArticleType+"</td>\
+                                </tr>";							
+                        });
+    				ticket_string += "\
+                            </tbody>\
+                        </table>\
+                    </div>\
+                    <div style='clear:both;'></div>\
+                </div>";
+                }					
+    			$('.ticket_details').html(ticket_string);
+    	    }
+		});
+	};
+
+#End of ticket details API fetch
+#Start of Fetch Workorder details based on Change id
+        var WorkOrderBy='PlannedStartTime';
+        CreateWorkorderTable(WorkOrderBy);
+		var agentHtml = "\
+        <option value='PlannedStartTime' selected>By Planned Date</option>";           
+        $("#agentSearch").html(agentHtml);		
+
+#End of Fetch workorder details API
+
+
+    function CreateWorkorderTable(WorkOrderBy){
+        $.ajax({ 
+            url: Core.Config.Get('Baselink') + 'Action=GetChangeWorkorderDetails;',
+            type: "GET",
+            data: {ChangeID : change_id,OrderBy:WorkOrderBy},
+            success : function(data){
+                data = $.parseJSON(data);
+                var str = '';
+                if(data[0]){
+                    $.each(data, function(i,v){
+                        var wo_no = '[% Data.ChangeNumber %]' +" - "+ v.WorkOrderNumber;
+                        str += "\
+                        <tr class='Last'>\
+                            <td class=''><span >" + v.WorkOrderAgent+ "</span></td>\
+                            <td class=''>" + wo_no +"</td>\
+                            <td class=''><span >" + v.WorkOrderTitle+"</span></td>\
+                            <td class=''><span >" + v.WorkOrderType+"</span></td>\
+                            <td class=''>" + v.WorkOrderState+ "</td>\
+                            <td class=''>" +v.CreateTime + "</td>\
+                            <td class=''><span >" + v.PlannedStartTime+ "</span></td>\
+                            <td class='Last'><span>" +v.CreateBy + "</span></td>\
+                        </tr>";
+                    });
+                    $('#uno_linked_wo').html(str);
+                      
+                }else{
+                    $('#uno_wo_div').hide();  
+                }
+                
+            }
+        }); 
+    }
+
+
+#End of code filter
+//]]></script>
+[% END %]
+
+<style>
+span.ticketDetails {
+	color: orange;
+	cursor: pointer;
+}
+
+th { font-weight: bold; }
+
+</style>

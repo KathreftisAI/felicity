@@ -1,0 +1,481 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<style>
+    .ticketDetails{
+	color: #F92;
+    }
+</style>
+<div class="MainBox ARIARoleMain panel-forms">
+
+    <h1>[% Translate("Add Change") | html %]</h1>
+    <div class="LayoutFixedSidebar SidebarLast">
+
+        <div class="SidebarColumn Large" style="width:400px !important;">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>Workorder Approval</h2>
+                </div>
+                <div class="Content">
+                    <form action="[% Env("CGIHandle") %]" method="post" name="compose" id="ChangeAddForm" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label for="RequireAndOr">[% Translate("Approval By") | html %]:</label>
+                        <div class="Field">
+                            <input type="Radio" value="all" name="RequireAndOr" id="RequireAndOr"  checked="checked" /> All
+                            <input type="Radio" value="any" name="RequireAndOr" id="RequireAndOr"  style="margin-left:20px;"/> Any
+                            <div id="ChangeTitleError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ChangeTitleServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+                        <label for="workorder_tagging">[% Translate("Workorder Tagging") | html %]:</label>
+                        <div class="Field">
+                            [% Data.WorkOrderTagging %]
+                        </div>
+                        <div class="Clear"></div>
+                        <label for="search">[% Translate("Search") | html %]:</label>
+                        <div class="Field">
+                            <input type="Radio" value="user" name="search" checked="checked" /> User
+                            <input type="Radio" value="group" name="search" style="margin-left:20px;"/> Group
+                        </div>
+                        <div class="Field">
+                            <input id="auto_suggest" type="text" name="auto_suggest" value="" class="CustomerAutoComplete W75pc" autocomplete="off" />
+                        </div>
+                        <div class="Field">
+                            <div style="height: 120px;overflow-y: scroll; overflow-x:hidden;border: 1px solid #e1e1e1;border-radius: 5px;margin-top: 12px;background-color:#ffffff;">
+                                <div  id='result_data' style="padding: 10px;" >
+                                </div>
+                            </div>
+                            <div id='actual_approvers' style="line-height: 24px;height:120px;overflow: scroll; overflow-y: auto;margin-top: 16px;padding: 10px;border: 1px solid #e1e1e1;border-radius: 5px;background-color:#ffffff;">
+                                <input type="hidden" name="NoofApprovers" id="NoofApprovers" value="">
+
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+            <div class="Clear"></div>
+            [% RenderBlockStart("TicketInformation") %]
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>Ticket Information</h2>
+                </div>
+                <div class="Content">
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label for="type">[% Translate("Type") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Type) | html %]</p>
+                        <div class="Clear"></div>
+                        <label for="state">[% Translate("State") | html %]:</label>
+                        <p class="Value">[% Translate(Data.State) | html %]</p>
+                        <div class="Clear"></div>
+                        <label for="locked">[% Translate("Locked") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Lock) | html %]</p>
+                        <div class="Clear"></div>
+                        <label for="queue">[% Translate("Queue") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Queue) | html %]</p>
+                        <div class="Clear"></div>
+                        <label for="owner">[% Translate("Owner") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Owner) | html %]</p>
+                        <div class="Clear"></div>
+                        <label for="priority">[% Translate("Priority") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Priority) | html %]</p>
+                    </fieldset>
+
+                </div>
+            </div>
+            [% RenderBlockEnd("TicketInformation") %]
+        </div>
+        <div class="ContentColumn">
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("ITSM Change") | html %]</h2>
+            </div>
+
+            <div class="Content">
+
+                    <input type="hidden" name="Action"    value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="Save"/>
+                    <input type="hidden" name="TicketID" id="TicketID"  value="[% Data.TicketID | html %]"/>
+                    <input type="hidden" name="FormID"    value="[% Data.FormID | html %]"/>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+
+                        <label class="Mandatory" for="ChangeTitle"><span class="Marker">* </span>[% Translate("Title") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="ChangeTitle" id="ChangeTitle" value="[% Data.ChangeTitle | html %]" class="W75pc Validate_Required [% Data.ChangeTitleTitleServerError | html %]" maxlength="250"/>
+                            <div id="ChangeTitleError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="ChangeTitleServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        [% RenderBlockStart("RichText") %]
+                        [% InsertTemplate("RichTextEditor.tt") %]
+                        [% RenderBlockEnd("RichText") %]
+                        <label class="Mandatory" for="RichText1"><span class="Marker">*</span> [% Translate("Description") | html %]:</label>
+                        <div class="RichTextField">
+                            <textarea id="RichText1" class="RichText Validate_Required [% Data.DescriptionInvalid %]" name="Description" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Description | html %]</textarea>
+                            <div id="RichText1Error" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="RichText1ServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label class="Mandatory" for="RichText2"><span class="Marker">*</span> [% Translate("Justification") | html %]:</label>
+                        <div class="RichTextField">
+                            <textarea id="RichText2" class="RichText Validate_Required [% Data.JustificationInvalid %]" name="Justification" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Justification | html %]</textarea>
+                            <div id="RichText2Error" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="RichText2ServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label for="CategoryID">[% Translate("Category") | html %]:</label>
+                        <div class="Field">
+                            [% Data.CategorySelectionString %]
+                        </div>
+                        <div id="CategoryIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+                        <label for="ImpactID">[% Translate("Impact") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ImpactSelectionString %]
+                        </div>
+                        <div id="ImpactIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+                        <label for="PriorityID">[% Translate("Priority") | html %]:</label>
+                        <div class="Field">
+                            [% Data.PrioritySelectionString %]
+                        </div>
+                        <div id="PriorityIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+                        [% WRAPPER JSOnDocumentComplete %]
+                        <script type="text/javascript">//<![CDATA[
+                            $('#CategoryID').bind('change', function (Event) {
+                                Core.AJAX.FormUpdate($('#ChangeAddForm'), 'AJAXUpdate', 'CategoryID', ['ImpactID', 'PriorityID']);
+                            });
+                            $('#ImpactID').bind('change', function (Event) {
+                                Core.AJAX.FormUpdate($('#ChangeAddForm'), 'AJAXUpdate', 'ImpactID', ['PriorityID']);
+                            });
+                        //]]></script>
+                        [% END %]
+
+                        [% RenderBlockStart("DynamicField") %]
+                                                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+                                                    [% Data.Label %]
+                                                    <div class="Field">
+                                                        [% Data.Field %]
+                                                    </div>
+                                                    <div class="Clear"></div>
+                                                </div>
+                        [% RenderBlockEnd("DynamicField") %]
+                        <div id="PriorityIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("RequestedTime") %]
+                        <label>[% Translate("Requested Date") | html %]:</label>
+                        <div class="Field">
+                            [% Data.RequestedTimeString %]
+                            <div id="RequestedTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="RequestedTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockStart("RequestedTimeGenericServerError") %]
+                            <div id="RequestedTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="RequestedTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockEnd("RequestedTimeGenericServerError") %]
+                        </div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("RequestedTime") %]
+
+[% RenderBlockStart("AttachmentUpload") %]
+                        <label>[% Translate("Attachment") | html %]:</label>
+                        <div class="Field">
+                            <ul>
+[% RenderBlockStart("Attachment") %]
+                                <li>
+                                    [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                    <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+        Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+    });
+//]]></script>
+[% END %]
+                                </li>
+[% RenderBlockEnd("Attachment") %]
+                                <li>
+                                    <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                                    <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="Clear"></div>
+                        [% RenderBlockEnd("AttachmentUpload") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function (Event) {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+$(document).ready(function(){
+	var ticket_id = $('#TicketID').val();
+	var sessionid ="[% Env("SessionID") %]";
+        
+	if(ticket_id.length > 0)
+        { 
+				$.ajax({
+				url : "nph-genericinterface.pl/Webservice/GetTicketDetails/TicketGet/"+ticket_id+"?SessionID="+sessionid,  
+				type: "GET",
+				data : "",
+				success: function(data)
+				{
+					var result = data.Ticket[0];
+					$('#ticket_no').html(result.TicketNumber);
+					$('#ticket_title').html(result.Title);
+					$('#ticket_created_date').html(result.Created);
+					$('#linked_ticket_queue').html(result.Queue);
+					$('#linked_ticket_state').html(result.State);
+					var url = "index.pl?Action=AgentTicketZoom;TicketID="+ticket_id;	
+					$('.tn').attr('href', url);      
+//To fllup the ticket details on right side
+					$("#ticket_type").html(result.Type);
+					$("#ticket_lock").html(result.Lock);	
+					$("#ticket_state").html(result.State);
+					$("#ticket_owner").html(result.Owner);
+					$("#ticket_queue").html(result.Queue);
+					$("#ticket_priority").html(result.Priority);
+				} 
+			});
+	}else{
+		$('#linked_ticket').css('display', 'none'); 
+	}
+
+
+	$(".ticketDetails").click(function(){
+                var ticket_no = $(this).closest('tr').find('.LinkObjectLink').html();
+                                $.ajax({
+                                url: "nph-genericinterface.pl/Webservice/GetTicketDetails/GetTicketDetails/"+ticket_no+"?SessionID="+sessionid,
+                                type: "GET",
+                                data: {tn : ticket_no},
+                                success : function(data){
+                                        data = $.parseJSON(data);
+                                        var owner = data.owner.name;
+                                        var creator = data.create_by.name;
+                                //      if(data.msg == "success"){
+                                                var ticket_string = "<div style='border: thin solid #ccc; margin-top: 10px;'class='WidgetBox'><div class='LightRow Header'><h2>Ticket Details&amp; Correspondence</h2></div><div style=' padding: 15px;  width: 20%;float:left;'><h3 style='font-weight: bold;'>Ticket Details</h3>     <table style='width: 200px;' class='DataTable'><thead><tr class='Last'><th>Ticket Created By</th><th class='Last'>Ticket Owner</th></tr></thead><tbody><tr class='Last'><td class='temp_ticket_created_by'>"+owner+"</td><td class='temp_ticket_owner Last'>"+creator+"</td></tr></tbody></table></div><div style='float: left;  width: 69%; padding: 15px;margin-left:33px;'>";
+                                                if(Object.keys(data.correspondance).length > 0 ){
+                                                ticket_string += "<h3 style='font-weight: bold;'>Correspondence</h3><table style='width: 100%;' class='DataTable temp_correspondence_table'><thead><tr class='Last'><th>From</th><th>To</th><th>Subject</th><th class='Last'>Created</th><th class='Last'>Type</th></tr></thead><tbody>";
+                                                $.each(data.correspondance,function(i, v){
+                                                                ticket_string += "<tr><td>"+v.from+"</td><td>"+v.to+"</td><td>"+v.subject+"</td><td>"+v.created_time+"</td><td>"+v.type+"</td></tr>";
+                                                        });
+                                                ticket_string += "</tbody></table></div><div style='clear:both;'></div></div>";
+
+                                                }
+                                                $('.ticket_details').html(ticket_string);
+
+
+                                        }
+                                });
+        });		
+});
+//]]></script>
+[% END %]
+
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#auto_suggest').keyup(function() {
+        var search_type = $('input:radio[name=search]:checked').val();
+        var key = $('#auto_suggest').val();
+        if (search_type == 'user') {
+            if (key.length > 1) {
+                $.ajax({
+                        url: Core.Config.Get('Baselink') + 'Action=AgentCustomerSearch&Subaction=AllUserSearch&Term=' + key,
+                    type: "POST",
+                    success: function(data) {
+                        var str = "";
+                        var str = '<table>';
+                        var name = "approver_";
+                        var i = 1;
+                        $.each(data, function() {
+                            str += "<tr><td>";
+                            str += "<img  class= 'add_user' height='15px' width='15px' src='[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png' name='" + "approver_" + i + "' value='" + this.id + "' style='vertical-align: middle'/>";
+                            str += "<span style='float:left:;margin-top:-3px;margin-left: 6px;'>";
+                            str += "<input class='user_id' type='hidden' value='" + this.id + "' />";
+                            str += this.first_name + " " + this.last_name;
+                            str += "</span>" + "<span style='margin-left: 19px;'>" + ' - ' + this.login + "</span></td></tr>";
+                            i++;
+                        });
+                        str += "</table>";
+                        $('#result_data').html(str);
+                    }
+                });
+            } else {
+                $('#result_data').html('');
+            }
+        }
+    });
+    $(document).on('click', '.add_user', function() {
+        var user_val = $(this).siblings('span').find(".user_id").val();
+        var user_type = $(this).siblings('span').find(".user_type").val();
+        var user_name = $(this).siblings('span').text();
+        document.gw.addToGrid(user_val, user_name, user_type);
+    });
+    $(document).on('click', '.remove_user', function(){
+        var uid = $(this).attr('uid');
+        document.gw.removeFromGrid(uid);
+    });
+    document.gw = {
+        usersFromTop: function() {
+            var th = this;
+            $.each($(".from_top"), function(inv, val) {
+                var temp_uid = "";
+                var temp_name = "";
+                temp_uid = $(val).attr("uid");
+                temp_name = $(val).attr("rel");
+                if (temp_uid.length > 0) {
+                    th.addToGrid(temp_uid, temp_name);
+                }
+            });
+        },
+        addToGrid: function(uid, name, type) {
+            // First check its not duplicate, if duplicate, don't need to insert again
+            // TODO
+            var hasDuplicate = this.checkItsNotDuplicate(uid);
+            if (hasDuplicate) {
+                return;
+            }
+            // Get approver_ number that is to be used.
+            var app_num = this.giveTheNextNumber();
+            // Adds to grid
+            var str = "";
+            str += '<span class="added_users" rel="' + uid + '">';
+            str += "<input type='hidden' value='" + uid + "' name='approver_" + app_num + "' rel='" + app_num + "' />";
+            str += "<input type='hidden' value='" + name + "' name='approver_" + app_num + "_name' />";
+            str += name + ' <a href="#" class="remove_user" uid="' + uid + '" >Remove</a><br/>';
+            str += "</span>";
+            $("#actual_approvers").append(str);
+            this.countNoofAgents();
+        },
+        checkItsNotDuplicate: function(uid) {
+            var duplicateFound = "";
+            var t = this;
+            $(".added_users").each(function(ind, val) {
+                if ($(val).find("input").val() == uid) {
+                    duplicateFound = true;
+                }
+            });
+            return duplicateFound;
+        },
+        countNoofAgents:function(){
+            var k = [];
+            $("span.added_users").each(function(ind, val) {
+                var temp = $(val).find("input").attr('rel');
+                k.push(temp);
+            });
+            if (k.length > 0) {
+                var maxInt = Math.max.apply(Math, k);
+            } else {
+                maxInt = 0;
+            }
+            $("#NoofApprovers").val(maxInt);
+        },
+        giveTheNextNumber: function() {
+            // Get the maximum integer for the current input boxes increment by one and return that
+            var default_number = 1;
+            var t = this;
+            var k = [];
+            $("span.added_users").each(function(ind, val) {
+                var temp = $(val).find("input").attr('rel');
+                k.push(temp);
+            });
+            if (k.length > 0) {
+                var maxInt = Math.max.apply(Math, k);
+                maxInt += 1;
+            } else {
+                maxInt = 1;
+            }
+            return maxInt;
+        },
+        removeFromGrid: function(uid) {
+            // Remove the input hidden and the visible box
+            $(".added_users[rel=" + uid + "]").remove();
+            this.countNoofAgents();
+        }
+    };
+//]]></script>
+[% END %]
+
+
+
+                        <div class="Field SpacingTop">
+                            <button class="btn btn-sm btn-primary" id="SubmitChangeAdd" name="ChangeAdd" title="[% Translate("Create") | html %]" type="submit" value="[% Translate("Create") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Create") | html %]</span></button>
+                        </div>
+                        <div class=" WidgetSimple ContentColumn" id='linked_ticket' style="width:850px;margin-top:10px;">
+    <div class="LightRow Header">
+        <div class="WidgetAction Toggle"><a aria-expanded="true" aria-controls="Core_UI_AutogeneratedID_1" href="#" title="Show or hide the content"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+        <h2>Linked: Ticket</h2>
+    </div>
+    <div id="Core_UI_AutogeneratedID_1" class="LightRow Content AutoHeight ">
+        <div>
+            <table class="DataTable">
+                <thead>
+                    <tr class="Last">
+                        <th> Ticket# </th>
+                        <th> Title </th>
+                        <th> Queue </th>
+                        <th> State </th>
+                        <th> Created </th>
+                        <th class="Last"> Details </th>
+                    </tr>
+                </thead>
+                <tbody>
+			<tr class="Last">
+			<td class="">
+			<a class="AsBlock LinkObjectLink tn"  title="" id='ticket_no' target='_blank'></a>
+			</td><td class="">
+			<span id='ticket_title' ></span>
+			</td>
+			<td class="">
+			<span id='linked_ticket_queue' ></span>
+			</td>
+			<td class="">
+			<span  id='linked_ticket_state' ></span>
+			</td>
+			<td class="" id='ticket_created_date'>
+
+			</td>
+			<td class="Last"><span class="ticketDetails"> Show Details </span></td>
+			</tr>
+		</tbody>
+	</table>
+     </div>
+    </div>
+</div>
+    <div class="content ticket_details" style="width:850px;margin:15px 10px;">
+    </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</div>

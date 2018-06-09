@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Config">
+    <ConfigItem Name="ProductName" Required="1" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">Defines the name of the application, shown in the web interface, tabs and title bar of the web browser.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <String Regex="">OTRS::ITSM 5s</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::ViewMode" Required="1" Valid="1">
+        <Description Translatable="1">Determines the way the linked objects are displayed in each zoom mask.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Option SelectedID="Complex">
+                <Item Key="Simple" Translatable="1">Simple</Item>
+                <Item Key="Complex" Translatable="1">Complex</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Package::RepositoryList" Required="0" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">Defines the list of online repositories. Another installations can be used as repository, for example: Key="http://example.com/otrs/public.pl?Action=PublicRepository;File=" and Content="Some Name".</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Package</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="http://ftp.otrs.org/pub/otrs/itsm/packages5/">OTRS::ITSM 5 Master</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

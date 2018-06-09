@@ -1,0 +1,201 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div id="OverviewBody" class="Overview TicketList">
+    <table class="TableSmall">
+        <thead>
+            <tr>
+[% RenderBlockStart("RecordTemplateIDHeader") %]
+                <th><span>[% Translate("TemplateID") | html %]</span></th>
+[% RenderBlockEnd("RecordTemplateIDHeader") %]
+[% RenderBlockStart("RecordNameHeader") %]
+                <th class="Name [% Data.SortName | html %]">
+                    <a name="OverviewControl" href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=Name;OrderBy=[% Data.OrderByName | uri %]">[% Translate("Name") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordNameHeader") %]
+[% RenderBlockStart("RecordTypeHeader") %]
+                <th class="Type [% Data.SortTemplateTypeID | html %]">
+                    <a name="OverviewControl" href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=TemplateTypeID;OrderBy=[% Data.OrderByTemplateTypeID | uri %]">[% Translate("Type") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordTypeHeader") %]
+[% RenderBlockStart("RecordCommentHeader") %]
+                <th><span>[% Translate("Comment") | html %]</span></th>
+[% RenderBlockEnd("RecordCommentHeader") %]
+[% RenderBlockStart("RecordValidHeader") %]
+                <th class="ValidID [% Data.SortValidID | html %]">
+                    <a name="OverviewControl" href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ValidID;OrderBy=[% Data.OrderByValidID | uri %]">[% Translate("Validity") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordValidHeader") %]
+[% RenderBlockStart("RecordEditContentHeader") %]
+                <th class="Center Last"><span>[% Translate("Edit Content") | html %]</span></th>
+[% RenderBlockEnd("RecordEditContentHeader") %]
+[% RenderBlockStart("RecordDeleteHeader") %]
+                <th class="Center Last"><span>[% Translate("Delete") | html %]</span></th>
+[% RenderBlockEnd("RecordDeleteHeader") %]
+[% RenderBlockStart("RecordCreateByHeader") %]
+                <th><span>[% Translate("CreateBy") | html %]</span></th>
+[% RenderBlockEnd("RecordCreateByHeader") %]
+[% RenderBlockStart("RecordCreateTimeHeader") %]
+                <th class="CreateTime [% Data.SortCreateTime | html %]">
+                    <a name="OverviewControl" href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=CreateTime;OrderBy=[% Data.OrderByCreateTime | uri %]">[% Translate("CreateTime") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordCreateTimeHeader") %]
+[% RenderBlockStart("RecordChangeByHeader") %]
+                <th><span>[% Translate("ChangeBy") | html %]</span></th>
+[% RenderBlockEnd("RecordChangeByHeader") %]
+[% RenderBlockStart("RecordChangeTimeHeader") %]
+                <th class="ChangeTime [% Data.SortChangeTime | html %]">
+                    <a name="OverviewControl" href="[% Env("Baselink") %]Action=[% Env("Action") %];[% Data.LinkSort %];SortBy=ChangeTime;OrderBy=[% Data.OrderByChangeTime | uri %]">[% Translate("ChangeTime") | html %]</a>
+                </th>
+[% RenderBlockEnd("RecordChangeTimeHeader") %]
+            </tr>
+        </thead>
+        <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+            <tr>
+                <td colspan="[% Data.TotalColumns | html %]">
+                    [% Translate("No data found.") | html %]
+                </td>
+            </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("Record") %]
+            <tr [% IF Data.ValidID != 1 %]class="Invalid"[% END %] id="TemplateID_[% Data.TemplateID | html %]">
+[% RenderBlockStart("RecordTemplateID") %]
+                <td>[% Translate(Data.TemplateID) | html %]</td>
+[% RenderBlockEnd("RecordTemplateID") %]
+[% RenderBlockStart("RecordName") %]
+                <td>
+                    <a href="[% Env("Baselink") %]Action=AgentITSMTemplateEdit;TemplateID=[% Data.TemplateID | uri %]" title="[% Data.Name | html %] (ID=[% Data.TemplateID | html %])" class="AsBlock AsPopup">[% Data.Name | html %]</a>
+                </td>
+[% RenderBlockEnd("RecordName") %]
+[% RenderBlockStart("RecordType") %]
+                <td>
+                    <div title="[% Translate(Data.Type) | html %] (ID=[% Data.TypeID | html %])">
+                        [% Translate(Data.Type) | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordType") %]
+[% RenderBlockStart("RecordComment") %]
+                <td>
+                    <div title="[% Data.Comment | html %]">
+                        [% Data.Comment | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordComment") %]
+[% RenderBlockStart("RecordValid") %]
+                <td>
+                    <div title="[% Translate(Data.Valid) | html %]">
+                        [% Translate(Data.Valid) | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordValid") %]
+
+[% RenderBlockStart("RecordEditContent") %]
+                <td class="Center Last">
+                    <a class="" href="#" title="[% Translate("Edit Content") | html %]">
+                        <i id="EditContentTemplateID[% Data.TemplateID | html %]" class="fa fa-pencil"></i>
+                        <span class="InvisibleText">[% Translate("Edit Content") | html %]</span>
+                    </a>
+                </td>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfirmDialog.BindConfirmDialog({
+        ElementID:                  'EditContentTemplateID[% Data.TemplateID | html %]',
+        ElementSelector:            '#EditContentTemplateID[% Data.TemplateID | html %]',
+        DialogContentQueryString:   'Action=AgentITSMTemplateEditContent;Subaction=TemplateEditContentShowDialog;TemplateID=[% Data.TemplateID | uri %]',
+        ConfirmedActionQueryString: 'Action=AgentITSMTemplateEditContent;Subaction=TemplateEditContent;TemplateID=[% Data.TemplateID | uri %]',
+        DialogTitle:                [% Translate("Edit Template Content") | JSON %],
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("RecordEditContent") %]
+
+[% RenderBlockStart("RecordEditContentCAB") %]
+                <td class="Center">
+                    <a href="[% Env("Baselink") %]Action=AgentITSMTemplateEditCAB;TemplateID=[% Data.TemplateID | uri %]" title="[% Translate("Edit Content") | html %]" class="AsBlock AsPopup">
+                        <i class="fa fa-pencil"></i>
+                        <span class="InvisibleText">[% Translate("Edit Content") | html %]</span>
+                    </a>
+                </td>
+[% RenderBlockEnd("RecordEditContentCAB") %]
+
+[% RenderBlockStart("RecordDelete") %]
+                <td class="Center Last">
+                    <a href="#" title="[% Translate("Delete") | html %]">
+                        <i id="DeleteTemplateID[% Data.TemplateID | html %]" class="fa fa-trash-o">
+                            <span class="InvisibleText">[% Translate("Delete") | html %]</span>
+                        </i>
+                    </a>
+                </td>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfirmDialog.BindConfirmDialog({
+        ElementID:                  'DeleteTemplateID[% Data.TemplateID | html %]',
+        ElementSelector:            '#DeleteTemplateID[% Data.TemplateID | html %]',
+        DialogContentQueryString:   'Action=AgentITSMTemplateDelete;TemplateID=[% Data.TemplateID | uri %]',
+        ConfirmedActionQueryString: 'Action=AgentITSMTemplateDelete;Subaction=TemplateDelete;TemplateID=[% Data.TemplateID | uri %]',
+        DialogTitle:                [% Translate("Delete Template") | JSON %],
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("RecordDelete") %]
+[% RenderBlockStart("RecordCreateBy") %]
+                <td>
+                    <div title="[% Data.CreateByUserLogin | html %] [% Data.CreateByLeftParenthesis | html %][% Data.CreateByUserFirstname | html %] [% Data.CreateByUserLastname | html %][% Data.CreateByRightParenthesis | html %]">
+                        [% Data.CreateByUserLogin | truncate(15) | html %] [% Data.CreateByLeftParenthesis | html %][% Data.CreateByUserFirstname | html %] [% Data.CreateByUserLastname | html %][% Data.CreateByRightParenthesis | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordCreateBy") %]
+[% RenderBlockStart("RecordCreateTime") %]
+                <td>
+                    <div title="[% Data.CreateTime | html %]">
+                        [% Data.CreateTime | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordCreateTime") %]
+[% RenderBlockStart("RecordChangeBy") %]
+                <td>
+                    <div title="[% Data.ChangeByUserLogin | html %] [% Data.ChangeByLeftParenthesis | html %][% Data.ChangeByUserFirstname | html %] [% Data.ChangeByUserLastname | html %][% Data.ChangeByRightParenthesis | html %]">
+                        [% Data.ChangeByUserLogin | truncate(15) | html %] [% Data.ChangeByLeftParenthesis | html %][% Data.ChangeByUserFirstname | html %] [% Data.ChangeByUserLastname | html %][% Data.ChangeByRightParenthesis | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordChangeBy") %]
+[% RenderBlockStart("RecordChangeTime") %]
+                <td>
+                    <div title="[% Data.ChangeTime | html %]">
+                        [% Data.ChangeTime | truncate(40) | html %]
+                    </div>
+                </td>
+[% RenderBlockEnd("RecordChangeTime") %]
+            </tr>
+[% RenderBlockEnd("Record") %]
+        </tbody>
+    </table>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('tbody tr td a.AsPopup').bind('click', function (Event) {
+        Core.UI.Popup.OpenPopup($(this).attr('href'), 'Action');
+        return false;
+    });
+//]]></script>
+[% END %]

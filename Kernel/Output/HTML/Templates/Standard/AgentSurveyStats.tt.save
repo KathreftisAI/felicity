@@ -1,0 +1,130 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Stats") %]
+<div class="LayoutPopup ARIARoleMain">
+    <div class="Header">
+        <h1>[% Translate("Stats Overview of") | html %] : [% Translate(Config("Survey::Hook")) | html %][% Data.SurveyNumber %] - [% Data.Title %] </h1>
+        <p>
+            <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+    <div class="Content">
+
+        <div class="Header">
+            <h2></h2>
+        </div>
+        <div class="WidgetSimple SpacingTop SpacingBottomMedium">
+            <div class="Header">
+                <h2>[% Translate("Requests Table") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                [% Translate("Details") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Send Time") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Vote Time") | html %]
+                            </th>
+                            <th>
+                                [% Translate("Ticket") | html %]
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("StatsVote") %]
+                        <tr>
+                            <td class="Center">
+                                <a class="SeeDetails AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=StatsDetail;SurveyID=[% Data.SurveyID | uri %];RequestID=[% Data.RequestID | uri %];TicketNumber=[% Data.TicketNumber | uri %]">
+                                    <i class="fa fa-search-plus"></i>
+                                    <span>[% Translate("See Details") | html %]</span>
+                                </a>
+                            </td>
+                            <td>
+                                [% Data.SendTime | Localize("TimeLong") %]
+                            </td>
+                            <td>
+                                [% Data.VoteTime | Localize("TimeLong") %]
+                            </td>
+                            <td>
+                                <a class="LinkZoomView AsBlock" href="[% Env("Baselink") %]Action=AgentTicketZoom;TicketID=[% Data.TicketID | uri %]">
+                                    [% Data.TicketNumber | html %]
+                                </a>
+                            </td>
+                        </tr>
+[% RenderBlockEnd("StatsVote") %]
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="Footer">
+        <button type="submit" class="CancelClosePopup Primary CallForAction" value="[% Translate("Close") | html %]"><span><i class="fa fa-times"></i> [% Translate("Close") | html %]</span></button>
+    </div>
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('a.LinkZoomView').bind('click', function () {
+        window.opener.Core.UI.Popup.FirePopupEvent('URL', { URL: $(this).attr('href')});
+        window.close();
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("Stats") %]
+
+[% RenderBlockStart("StatsDetail") %]
+<div class="LayoutPopup ARIARoleMain">
+    <div class="Header">
+        <h1>[% Translate("Survey Stat Details") | html %] : [% Translate("Ticket") | html %]#[% Data.TicketNumber %] : [% Config("Survey::Hook") %][% Data.SurveyNumber %] - [% Data.Title %] :  </h1>
+        <p>
+            <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            [% Translate("or") | html %]
+            <a class="HistoryBack" href="[% Env("Baselink") %]Action=[% Env("Action") %];SurveyID=[% Data.SurveyID | uri %]">[% Translate("go back to stats overview") | html %]</a>
+        </p>
+    </div>
+    <div class="Content">
+
+        <div class="Header">
+            <h2></h2>
+        </div>
+        <div class="WidgetSimple SpacingTop SpacingBottomMedium">
+            <div class="Header">
+                <h2>[% Translate("Details") | html %]</h2>
+            </div>
+            <div class="Content">
+                <fieldset class="TableLike FixedLabel">
+[% RenderBlockStart("StatsDetailQuestion") %]
+                    <label class="[% Data.Class %]">[% Data.RequiredText | html %][% Data.Question | html %]:</label>
+[% RenderBlockStart("StatsDetailAnswer") %]
+                    <div class="Field [% Data.Class %]">
+                        [% Data.Answer %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("StatsDetailAnswer") %]
+                    <div class="Clear"></div>
+[% RenderBlockEnd("StatsDetailQuestion") %]
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="Footer">
+        <form action="[% Env("CGIHandle") %]" method="post">
+            <input type="hidden" name="Action" value="[% Env("Action") %]" />
+            <input type="hidden" name="SurveyID" value="[% Data.SurveyID | html %]" />
+            <button type="submit" class="Primary CallForAction" value="[% Translate("Go back") | html %]"><span><i class="fa fa-caret-left"></i> [% Translate("Go back") | html %]</span></button>
+        </form>
+    </div>
+</div>
+[% RenderBlockEnd("StatsDetail") %]

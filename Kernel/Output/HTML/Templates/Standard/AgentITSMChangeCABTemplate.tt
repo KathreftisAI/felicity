@@ -1,0 +1,58 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<form action="[% Env("CGIHandle") %]" method="post" name="compose" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action"       value="[% Env("Action") %]" />
+    <input type="hidden" name="Subaction"    value="AddTemplate" />
+    <input type="hidden" name="ChangeID"     value="[% Data.ChangeID | html %]" />
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1 title="[% Translate("Save Change CAB as template") | html %] : [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber %] [% Data.ChangeTitle | html %]">
+                [% Translate("Save Change CAB as template") | html %] : [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber %] [% Data.ChangeTitle | html %]
+            </h1>
+            <p>
+                <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+                [% Translate("or") | html %]
+                <a href="[% Env("Baselink") %]Action=AgentITSMChangeInvolvedPersons;ChangeID=[% Data.ChangeID | uri %]">
+                    [% Translate("go to involved persons screen") | html %]
+                </a>
+            </p>
+        </div>
+        <div class="Content SpacingBottom">
+            <fieldset class="TableLike FixedLabel">
+                <label class="Mandatory" for="TemplateName"><span class="Marker">*</span> [% Translate("Template Name") | html %]: </label>
+                <div class="Field">
+                    <input id="TemplateName" type="text" name="TemplateName" value="[% Data.TemplateName | html %]" class="W75pc Validate_Required [% Data.TemplateNameServerError %]"/>
+                </div>
+
+                <div id="TemplateNameError" class="TooltipErrorMessage">
+                    <p>[% Translate("This field is required") | html %]</p>
+                </div>
+                <div id="TemplateNameServerError" class="TooltipErrorMessage">
+                    <p>[% Translate("Invalid Name") | html %]</p>
+                </div>
+
+                <label for="Comment"> [% Translate("Comment") | html %]: </label>
+                <div class="Field">
+                    <input id="Comment" type="text" name="Comment" value="[% Data.Comment | html %]" class="W75pc"/>
+                </div>
+
+                <label for="ValidID"> [% Translate("Validity") | html %]: </label>
+                <div class="Field">
+                    [% Data.ValidSelectionString %]
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="Footer">
+            <button class="Primary" type="submit" id="SubmitAddTemplate" name="AddTemplate" value="[% Translate("Add") | html %]">[% Translate("Save") | html %]</button>
+        </div>
+    </div>
+</form>

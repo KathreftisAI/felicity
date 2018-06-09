@@ -1,0 +1,72 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<style>
+.MainBox > h1, .OverviewBox > h1
+{
+float:left;
+width:auto;
+margin:0px !important;
+padding:5px 0px !important;
+}
+</style>
+<div class="btn-tkt-div">
+<div class="spacer10"></div>
+	<ul class="btn-box">
+	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Request"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png" title="Add New Incident"> </a></li>
+	</ul> 
+</div>
+
+<div class="spacer10"></div>
+
+<div class="WidgetSimple QueueOverview">
+    <div class="Content">
+
+<!--         [% Data.MainContent %]
+   -->      <label>Queue:</label>
+ 			[% Data.DropdownQueueList %]
+
+ 			<button id="Reset" class="btn btn-sm btn-primary">Reset</button>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+<div class="QueueOverviewSeparator"></div>
+
+<script type="text/javascript">
+$(function(){
+	//If any seleted from Queue dropdown then load page with that queue
+	$('#DropdownQueueID').on('change',function(event){
+		window.location.href = $(this).val();		
+	});
+	//if Reset button clicked than reload page to display all Queues
+	$('#Reset').on('click',function(){
+		window.location.href ="[% Env('Baselink') %]Action=AgentRequest";
+	});
+
+	//To change My Queue name to All Queues in Small
+	if ($('.OverviewBox.ARIARoleMain.Small h1').text() == 'QueueView: My Queues') {
+		$('.OverviewBox.ARIARoleMain.Small h1').empty()
+											   .text('QueueView: All Queues');	   
+	}
+
+	//To change My Queue name to All Queues in Medium
+	if ($('.OverviewBox.ARIARoleMain.Medium h1').text() == 'QueueView: My Queues') {
+		$('.OverviewBox.ARIARoleMain.Medium h1').empty()
+											   .text('QueueView: All Queues');	   
+	}
+
+	//To change My Queue name to All Queues in Preview
+	if ($('.OverviewBox.ARIARoleMain.Preview h1').text() == 'QueueView: My Queues') {
+		$('.OverviewBox.ARIARoleMain.Preview h1').empty()
+											   .text('QueueView: All Queues');	   
+	}
+
+});
+</script>

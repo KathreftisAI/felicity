@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>First level solution rate for all tickets ever created per Ticket-Type and Priority.
+
+X-Axis: Ticket-Type
+Y-Axis: Priority
+
+Restrictions:
+    -for Type "Incident"
+    -closed with first customer contact</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMTicketFirstLevelSolutionRate</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMTicketFirstLevelSolutionRate</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>First level solution rate for all tickets ever created per Ticket-Type and Priority.</Title>
+<UseAsRestriction Element="StateIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+<SelectedValues>10</SelectedValues>
+</UseAsRestriction>
+<UseAsValueSeries Element="PriorityIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="TypeIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+<SelectedValues>4</SelectedValues>
+<SelectedValues>3</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

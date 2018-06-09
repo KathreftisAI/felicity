@@ -1,0 +1,187 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+$('#User').bind('focus', function( Event ) {
+    Core.Config.Set('UserAutocomplete.Groups', 'itsm-change');
+});
+
+$('#User').bind('click', function( Event ) {
+    $('#User').val('');
+});
+
+//]]></script>
+<script type="text/javascript">//<![CDATA[
+ITSM.Agent.UserSearch.Init( $("#User")  );
+//]]></script>
+[% END %]
+
+
+
+<div class="LayoutPopup ARIARoleMain">
+
+    <div class="Header">
+        <h1>[% Translate("Add Workorder to") | html %] [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber | html %] &ndash; [% Data.ChangeTitle | html %]</h1>
+        <p>
+            <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+
+    <div class="Content">
+
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Workorder") | html %]</h2>
+            </div>
+
+            <div class="Content">
+                <form action="[% Env("CGIHandle") %]" method="post" name="compose" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action"    value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="Save"/>
+                    <input type="hidden" name="ChangeID"  value="[% Data.ChangeID | html %]"/>
+                    <input type="hidden" name="FormID"    value="[% Data.FormID | html %]"/>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+
+                        <label class="Mandatory" for="WorkOrderTitle"><span class="Marker">* </span>[% Translate("Title") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="WorkOrderTitle" id="WorkOrderTitle" value="[% Data.WorkOrderTitle | html %]" class="W75pc Validate_Required [% Data.WorkOrderTitleServerError | html %]" maxlength="250"/>
+                            <div id="WorkOrderTitleError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="WorkOrderTitleServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        [% RenderBlockStart("RichText") %]
+                        [% InsertTemplate("RichTextEditor.tt") %]
+                        [% RenderBlockEnd("RichText") %]
+                        <label class="Mandatory" for="RichText"><span class="Marker">*</span> [% Translate("Instruction") | html %]:</label>
+                        <div class="RichTextField">
+                            <textarea id="RichText" class="RichText Validate_Required [% Data.InstructionInvalid %]" name="Instruction" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Instruction | html %]</textarea>
+                            <div id="RichTextError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                            <div id="RichTextServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label for="WorkOrderTypeID">[% Translate("WorkOrderType") | html %]:</label>
+                        <div class="Field">
+                            [% Data.WorkOrderTypeStrg %]
+                        </div>
+                        <div id="WorkOrderTypeIDServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid workorder type.") | html %]</p></div>
+                        <div class="Clear"></div>
+
+                        [% RenderBlockStart("DynamicField") %]
+                        <div class="Row Row_DynamicField_[% Data.Name | html %]">
+                            [% Data.Label %]
+                            <div class="Field">
+                                [% Data.Field %]
+                            </div>
+                            <div class="Clear"></div>
+                        </div>
+                        [% RenderBlockEnd("DynamicField") %]
+                        <label class="Mandatory" for="User"> <span class="Marker">* </span>[% Translate("WorkOrderAgent") | html %]: </label>
+                        <div class="Field">
+                            <input id="User" type="text" name="User" value="[% Data.User | html %]" class="W75pc Validate_Required [% Data.UserServerError %]"/>
+                            <input id="UserSelected" type="hidden" name="UserSelected" value="[% Data.UserID | html %]" />
+                            <div id="UserSelectedServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+
+                        <div id="UserServerError" class="TooltipErrorMessage">
+                            <p>[% Translate("Invalid User") | html %]</p>
+                        </div>
+<div class="spacer"></div>
+                        <label>[% Translate("PlannedStartTime") | html %]:</label>
+                        <div class="Field">
+                            [% Data.PlannedStartTimeSelectionString %]
+                            <div id="PlannedStartTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="PlannedStartTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            [% RenderBlockStart("PlannedStartTimeGenericServerError") %]
+                            <div id="PlannedStartTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="PlannedStartTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            [% RenderBlockEnd("PlannedStartTimeGenericServerError") %]
+                            [% RenderBlockStart("PlannedStartTimeBeforeThanEndTimeServerError") %]
+                            <div id="PlannedStartTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("The planned start time must be before the planned end time!") | html %]</p></div>
+                            <div id="PlannedStartTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("The planned start time must be before the planned end time!") | html %]</p></div>
+                            [% RenderBlockEnd("PlannedStartTimeBeforeThanEndTimeServerError") %]
+                        </div>
+                        <div class="Clear"></div>
+<div class="spacer"></div>
+                        <label>[% Translate("PlannedEndTime") | html %]:</label>
+                        <div class="Field">
+                            [% Data.PlannedEndTimeSelectionString %]
+                            <div id="PlannedEndTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="PlannedEndTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            [% RenderBlockStart("PlannedEndTimeGenericServerError") %]
+                            <div id="PlannedEndTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            <div id="PlannedEndTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                            [% RenderBlockEnd("PlannedEndTimeGenericServerError") %]
+                            [% RenderBlockStart("PlannedEndTimeBeforeThanEndTimeServerError") %]
+                            <div id="PlannedEndTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("The planned start time must be before the planned end time!") | html %]</p></div>
+                            <div id="PlannedEndTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("The planned start time must be before the planned end time!") | html %]</p></div>
+                            [% RenderBlockEnd("PlannedEndTimeBeforeThanEndTimeServerError") %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        [% RenderBlockStart("ShowPlannedEffort") %]
+                        <label for="PlannedEffort">[% Translate("PlannedEffort") | html %]:</label>
+                        <div class="Field">
+                            <input type="text" name="PlannedEffort" id="PlannedEffort" value="[% Data.PlannedEffort | html %]" class="W10pc Validate [% Data.PlannedEffortInvalid | html %]" maxlength="10"/>
+                            <div id="PlannedEffortError" class="TooltipErrorMessage"><p>[% Translate("Invalid format.") | html %]</p></div>
+                            <div id="PlannedEffortServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid format.") | html %]</p></div>
+                        </div>
+                        <div class="Clear"></div>
+                        [% RenderBlockEnd("ShowPlannedEffort") %]
+
+                        [% RenderBlockStart("AttachmentUpload") %]
+                        <label>[% Translate("Attachment") | html %]:</label>
+                        <div class="Field">
+                            <ul>
+                                [% RenderBlockStart("Attachment") %]
+                                <li>
+                                    [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                    <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+                                    [% WRAPPER JSOnDocumentComplete %]
+                                        <script type="text/javascript">//<![CDATA[
+                                        $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+                                            Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+                                        });
+                                        //]]></script>
+                                    [% END %]
+                                </li>
+                                [% RenderBlockEnd("Attachment") %]
+                                <li>
+                                    <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                                    <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="Clear"></div>
+
+                        [% WRAPPER JSOnDocumentComplete %]
+                            <script type="text/javascript">//<![CDATA[
+                            $('#FileUpload').bind('change', function (Event) {
+                                var $Form = $('#FileUpload').closest('form');
+                                Core.Form.Validate.DisableValidation($Form);
+                                $Form.find('#AttachmentUpload').val('1').end().submit();
+                            });
+                            //]]></script>
+                        [% END %]
+
+                        [% RenderBlockEnd("AttachmentUpload") %]
+
+                        <div class="Field SpacingTop">
+                            <button class="btn btn-sm btn-primary" id="SubmitWorkOrderAdd" name="WorkOrderAdd" title="[% Translate("Create") | html %]" type="submit" value="[% Translate("Create") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Create") | html %]</span></button>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

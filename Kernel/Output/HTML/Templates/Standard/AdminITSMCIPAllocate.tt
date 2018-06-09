@@ -1,0 +1,76 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1 class="Header">[% Translate("Criticality <-> Impact <-> Priority") | html %]</h1>
+
+    <div class="SidebarColumn">
+        <div class="WidgetSimple">
+            <div class="Header"><h2>[% Translate("Note") | html %]</h2></div>
+            <div class="Content">
+                <p class="FieldExplanation">
+                    [% Translate("Manage the priority result of combinating Criticality <-> Impact.") | html %]
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Priority allocation") | html %]</h2>
+            </div>
+
+            <div class="Content">
+                <form action="[% Env("CGIHandle") %]" method="post">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="CIPAllocate"/>
+                    <table class="DataTable DataTableNoHighlight">
+                        <thead>
+                            <tr>
+[% RenderBlockStart("HeaderColumnDescription") %]
+                                <th>
+                                    [% Translate(Data.ObjectType) | html %]
+                                </th>
+[% RenderBlockEnd("HeaderColumnDescription") %]
+[% RenderBlockStart("HeaderCell") %]
+                                <th>
+                                    [% Translate(Data.ObjectOption) | html %]
+                                </th>
+[% RenderBlockEnd("HeaderCell") %]
+                            </tr>
+                        </thead>
+                        <tbody>
+
+[% RenderBlockStart("Row") %]
+                            <tr>
+[% RenderBlockStart("DescriptionCell") %]
+                                <td>
+                                    [% Translate(Data.ObjectOption) | html %]
+                                </td>
+[% RenderBlockEnd("DescriptionCell") %]
+[% RenderBlockStart("ContentCell") %]
+                                <td>
+                                    [% Data.OptionStrg %]
+                                </td>
+[% RenderBlockEnd("ContentCell") %]
+                            </tr>
+[% RenderBlockEnd("Row") %]
+                        </tbody>
+                    </table>
+                    <div class="SpacingTop">
+                        <button type="submit" class="Primary">[% Translate("Submit") | html %]</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,174 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Config Item Management") | html %]</h1>
+
+    <div class="SidebarColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class='Content'>
+                <ul class="ActionList">
+                    <li>
+                        <form action="[% Env("CGIHandle") %]" method="get">
+                            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                            <input type="hidden" name="Subaction" value="DefinitionChange"/>
+
+                            <div>[% Data.ClassOptionStrg %]</div>
+                            <button class="CallForAction Fullsize Center" type="submit" value="[% Translate("Add") | html %]">
+                                <span>[% Translate("Change class definition") | html %]</span>
+                            </button>
+                        </form>
+                    </li>
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+[% RenderBlockStart("OverviewList") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Config Item Class") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("OverviewListRow") %]
+                        <tr>
+                            <td>
+                                <a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DefinitionList;ClassID=[% Data.ClassID | uri %]">[% Data.Name | html %]</a>
+                            </td>
+                        </tr>
+[% RenderBlockEnd("OverviewListRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewList") %]
+[% RenderBlockStart("DefinitionList") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th class="W50pc">[% Translate("Config Item Class") | html %]</th>
+                            <th>[% Translate("Version") | html %]</th>
+                            <th>[% Translate("Created by") | html %]</th>
+                            <th>[% Translate("Created") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("DefinitionListRow") %]
+                        <tr>
+                            <td>
+                                <a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DefinitionView;DefinitionID=[% Data.DefinitionID | uri %]">[% Data.Class | html %]</a>
+                            </td>
+                            <td>[% Data.Version | html %]</td>
+                            <td>[% Data.CreateByUser | html %]</td>
+                            <td>[% Data.CreateTime | Localize("TimeLong") %]</td>
+                        </tr>
+[% RenderBlockEnd("DefinitionListRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("DefinitionList") %]
+[% RenderBlockStart("DefinitionView") %]
+            <div class="Header">
+                <h2>[% Translate("View") | html %]: </h2>
+            </div>
+            <div class="Content">
+                <fieldset class="TableLike">
+
+                    <label>[% Translate("Config Item Class") | html %]: </label>
+                    <div class="Field">
+                        [% Data.Class | html %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label>[% Translate("Version") | html %]: </label>
+                    <div class="Field">
+                        [% Data.Version | html %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label>[% Translate("Created by") | html %]: </label>
+                    <div class="Field">
+                        [% Data.CreateByUser | html %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label>[% Translate("Created") | html %]: </label>
+                    <div class="Field">
+                        [% Data.CreateTime | Localize("TimeLong") %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label>[% Translate("Definition") | html %]: </label>
+                    <div class="Field">
+                        [% Data.DefinitionString %]
+                    </div>
+                    <div class="Clear"></div>
+
+                </fieldset>
+            </div>
+[% RenderBlockEnd("DefinitionView") %]
+[% RenderBlockStart("DefinitionChange") %]
+            <div class="Header">
+                <h2>[% Translate("Change") | html %]: </h2>
+            </div>
+            <div class="Content">
+                <form action="[% Env("CGIHandle") %]" method="post">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="DefinitionSave"/>
+                    <input type="hidden" name="ClassID" value="[% Data.ClassID | html %]"/>
+                    <fieldset class="TableLike">
+
+
+                        <label>[% Translate("Config Item Class") | html %]: </label>
+                        <div class="Field">
+                            [% Data.Class | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label for="Definition">[% Translate("Definition") | html %]: </label>
+                        <div class="Field">
+                            <textarea name="Definition" id="Definition" rows="[% Data.Rows | html %]" cols="80" wrap="off">[% Data.Definition | html %]</textarea>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" type="submit" id="Submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("DefinitionChange") %]
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("Overview") %]

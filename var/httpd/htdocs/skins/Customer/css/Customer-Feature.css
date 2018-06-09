@@ -1,0 +1,17 @@
+/****css for Customer ticket message page ****/
+.RichTextHolder .cke_chrome{
+	      display: inline-block !important;
+}
+
+.userDetails{
+	padding:20px !important;
+	border: 2px solid #ddd!important;
+	margin:10px ;
+	 height: 400px;
+}
+.col-md-2 {
+    width: 18%!important;
+    float: left!important;
+    margin: 10px 10px!important;
+   
+}

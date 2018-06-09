@@ -1,0 +1,159 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Process ticket
+ */
+
+@media screen,projection,tv,handheld {
+
+
+/**
+ * @subsection  Ticket Process
+ */
+
+.TicketProcess .Content {
+    margin: 0;
+    padding: 0px;
+}
+
+.TicketProcess > .Content {
+    padding: 10px;
+}
+
+.TicketProcess fieldset{
+    margin: 8px 0 13px;
+    padding-bottom: 5px;
+    min-width: 500px;
+}
+
+.Center {
+    text-align: center;
+}
+
+/**
+ * @subsection  Extensions for popup dialog
+ */
+
+.FieldSetSeparator {
+    float: none;
+    clear: both;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 7px;
+    font-size: 12px;
+}
+
+.FieldContainer + .FieldSetSeparator {
+    padding-top: 10px;
+}
+
+.FieldSeparator {
+    border-top: 1px dotted #ccc;
+    margin: 5px 0px;
+}
+
+.PopupHeader {
+    background: #eceeee;
+    background: -moz-linear-gradient(top,  #f9f9f9 0%, #eceeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#eceeee));
+    background: -webkit-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: -o-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: -ms-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: linear-gradient(to bottom,  #f9f9f9 0%,#eceeee 100%);
+    border: 1px solid #B8BBBB;
+    padding: 9px 9px 0px;
+}
+
+.PopupHeader > p > a {
+    color: #777777;
+    font-size: 11px;
+    outline: medium none;
+    padding: 5px 11px;
+    text-shadow: 0 1px 0 #EAEEEE;
+}
+.PopupHeader > p > a:hover {
+    color: #444444;
+}
+
+fieldset.TableLike > .Field, 
+fieldset.TableLike > .Row > .Field {
+    line-height: 1.2em;
+    min-height: 16px;
+    padding: 3px 0px;
+}
+
+.FieldExplanation {
+    color: #888888;
+    margin-left: 236px;
+}
+
+.PopupFooter {
+    background: #eceeee;
+    background: -moz-linear-gradient(top,  #f9f9f9 0%, #eceeee 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#eceeee));
+    background: -webkit-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: -o-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: -ms-linear-gradient(top,  #f9f9f9 0%,#eceeee 100%);
+    background: linear-gradient(to bottom,  #f9f9f9 0%,#eceeee 100%);
+    border: 1px solid #B8BBBB;
+    padding: 5px 9px;
+}
+
+.AdviceText {
+    padding-left: 13px;
+}
+
+.FieldHelpContainer {
+    position: relative;
+}
+
+.FieldHelpContainer:hover > span {
+    display: block;
+}
+
+.FieldHelpContainer .FieldHelpTrigger {
+    cursor: default;
+    z-index: 1;
+    color: #bbb;
+}
+
+.FieldHelpContainer > span {
+    background: #444444;
+    color: #fff;
+    font-size: 12px;
+    left: 15px;
+    line-height: 110%;
+    padding: 10px;
+    position: absolute;
+    z-index: 2;
+    text-align: left;
+    text-shadow: 1px 1px 1px #000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    top: 5px;
+    width: 200px;
+    display: none;
+    -webkit-opacity: 0.8;
+    -moz-opacity: 0.8;
+    -ms-opacity: 0.8;
+    -o-opacity: 0.8;
+    opacity: 0.8;
+}
+
+fieldset label {
+    width: 220px;
+    margin-top: 3px;
+}
+
+#NewProcessTicket fieldset label {
+    margin: -1px 6px 0 0 !important;
+}
+
+} /* end @media */

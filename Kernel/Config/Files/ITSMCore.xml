@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Config">
+    <ConfigItem Name="Frontend::Module###AdminITSMCIPAllocate" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.</Description>
+        <Group>ITSM Core</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description Translatable="1">Manage priority matrix.</Description>
+                <Title Translatable="1">Criticality &lt;-&gt; Impact &lt;-&gt; Priority</Title>
+                <NavBarName>Admin</NavBarName>
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">Criticality &lt;-&gt; Impact &lt;-&gt; Priority</Name>
+                    <Block>System</Block>
+                    <Prio>430</Prio>
+                </NavBarModule>
+                <Loader>
+                    <CSS>ITSM.Table.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSM::Core::IncidentLinkTypeDirection" Required="1" Valid="1">
+        <Description Translatable="1">Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE SCRIPT bin/otrs.ITSMConfigItemIncidentStateRecalculate.pl SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!</Description>
+        <Group>ITSM Core</Group>
+        <SubGroup>Core::ITSMCore</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="DependsOn" Translatable="1">Both</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::Type###AlternativeTo" Required="1" Valid="1">
+        <Description Translatable="1">This setting defines the link type 'AlternativeTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="SourceName" Translatable="1">Alternative to</Item>
+                <Item Key="TargetName" Translatable="1">Alternative to</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::Type###ConnectedTo" Required="1" Valid="1">
+        <Description Translatable="1">This setting defines the link type 'ConnectedTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="SourceName" Translatable="1">Connected to</Item>
+                <Item Key="TargetName" Translatable="1">Connected to</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::Type###DependsOn" Required="1" Valid="1">
+        <Description Translatable="1">This setting defines the link type 'DependsOn'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="SourceName" Translatable="1">Depends on</Item>
+                <Item Key="TargetName" Translatable="1">Required for</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::Type###Includes" Required="1" Valid="1">
+        <Description Translatable="1">This setting defines the link type 'Includes'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="SourceName" Translatable="1">Includes</Item>
+                <Item Key="TargetName" Translatable="1">Part of</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::Type###RelevantTo" Required="1" Valid="1">
+        <Description Translatable="1">This setting defines the link type 'RelevantTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="SourceName" Translatable="1">Relevant to</Item>
+                <Item Key="TargetName" Translatable="1">Relevant to</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3200" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'AlternativeTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">AlternativeTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3201" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'ConnectedTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">ConnectedTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3202" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'DependsOn' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">DependsOn</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3203" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'Includes' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">Includes</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3204" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'RelevantTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">RelevantTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3220" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'AlternativeTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Ticket</Item>
+                <Item Key="Type">AlternativeTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3221" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'DependsOn' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Ticket</Item>
+                <Item Key="Type">DependsOn</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3222" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'RelevantTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Ticket</Item>
+                <Item Key="Type">RelevantTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3240" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'AlternativeTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Service</Item>
+                <Item Key="Type">AlternativeTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3241" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'DependsOn' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Service</Item>
+                <Item Key="Type">DependsOn</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3242" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'RelevantTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">Service</Item>
+                <Item Key="Type">RelevantTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3260" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3261" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'ParentChild' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">ParentChild</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3262" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'RelevantTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMConfigItem</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">RelevantTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3280" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">Service</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3281" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'ParentChild' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">Service</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">ParentChild</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3282" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'RelevantTo' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">Service</Item>
+                <Item Key="Object2">FAQ</Item>
+                <Item Key="Type">RelevantTo</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="LinkObject::PossibleLink###3400" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMWorkOrder</Item>
+                <Item Key="Object2">Service</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3401" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'DependsOn' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMWorkOrder</Item>
+                <Item Key="Object2">Service</Item>
+                <Item Key="Type">DependsOn</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3410" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMWorkOrder</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3411" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'DependsOn' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMWorkOrder</Item>
+                <Item Key="Object2">ITSMConfigItem</Item>
+                <Item Key="Type">DependsOn</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3412" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMWorkOrder' object can be linked with 'Ticket' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMWorkOrder</Item>
+                <Item Key="Object2">Ticket</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="LinkObject::PossibleLink###3420" Required="0" Valid="1">
+        <Description Translatable="1">This setting defines that a 'ITSMChange' object can be linked with 'Ticket' objects using the 'Normal' link type.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::LinkObject</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Object1">ITSMChange</Item>
+                <Item Key="Object2">Ticket</Item>
+                <Item Key="Type">Normal</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSM::Frontend::TextArea" Required="1" Valid="1">
+        <Description Translatable="1">Width of ITSM textareas.</Description>
+        <Group>ITSM Core</Group>
+        <SubGroup>Frontend::Agent</SubGroup>
+        <Setting>
+            <String Regex="^[0-9]{1,3}$">78</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###IncidentStates" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the incident states in the preference view.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Class">ITSM::Core::IncidentState</Item>
+                <Item Key="Label" Translatable="1">Incident State Type</Item>
+                <Item Key="Desc" Translatable="1">Incident State Type.</Item>
+                <Item Key="Data">
+                    <Hash>
+                        <Item Key="warning" Translatable="1">Warning</Item>
+                        <Item Key="operational" Translatable="1">Operational</Item>
+                        <Item Key="incident" Translatable="1">Incident</Item>
+                    </Hash>
+                </Item>
+                <Item Key="PrefKey">Functionality</Item>
+                <Item Key="Block">Option</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Loader::Agent::CommonCSS###100-ITSM" Required="1" Valid="1">
+        <Description Translatable="1">List of CSS files to always be loaded for the agent interface.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Web</SubGroup>
+        <Setting>
+            <Array>
+                <Item>ITSM.Agent.Default.css</Item>
+                <Item>ITSM.Agent.Search.css</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Loader::Agent::CommonJS###100-ITSM" Required="1" Valid="1">
+        <Description Translatable="1">List of JS files to always be loaded for the agent interface.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Web</SubGroup>
+        <Setting>
+            <Array>
+                <Item>ITSM.Agent.CustomerSearch.js</Item>
+                <Item>ITSM.Agent.IncidentState.js</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

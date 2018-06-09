@@ -1,0 +1,199 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<fieldset class="TableLike">
+    <label>[% Translate("Object") | html %]:</label>
+    <div class="Value">[% Translate(Data.ObjectName) | html %]</div>
+    <div class="Clear"></div>
+
+    <label>[% Translate("Description") | html %]:</label>
+    <div class="Value">[% Data.Description | html %]</div>
+    <div class="Clear"></div>
+
+[% RenderBlockStart("Format") %]
+    <label for="Format">[% Translate("Format") | html %]:</label>
+    <div class="Value">[% Data.SelectFormat %]</div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("Format") %]
+[% RenderBlockStart("FormatFixed") %]
+    <input type="hidden" id="Format" name="Format" value="[% Data.FormatKey | html %]"/>
+    <label>[% Translate("Format") | html %]:</label>
+    <div class="Value">[% Translate(Data.Format) | html %]</div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("FormatFixed") %]
+
+[% RenderBlockStart("TimeZone") %]
+    <label for="TimeZone">[% Translate("Time Zone") | html %]:</label>
+    <div class="Value">
+        [% Data.SelectTimeZone %]
+        <p class="FieldExplanation">
+            [% Translate('The selected time periods in the statistic are time zone neutral.') | html %]
+        </p>
+    </div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("TimeZone") %]
+
+[% RenderBlockStart("ExchangeAxis") %]
+    <label>[% Translate("Exchange Axis") | html %]:</label>
+    <div class="Value">[% Data.ExchangeAxis %]</div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("ExchangeAxis") %]
+</fieldset>
+
+[% RenderBlockStart("Static") %]
+<h2>
+        [% Translate("Configurable params of static stat") | html %]
+</h2>
+<fieldset class="TableLike">
+[% RenderBlockStart("ItemParam") %]
+    <label for="[% Data.Name | html %]">[% Translate(Data.Param) | html %]:</label>
+    <div class="Value">[% Data.Field %]</div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("ItemParam") %]
+</fieldset>
+[% RenderBlockEnd("Static") %]
+
+
+[% RenderBlockStart("Dynamic") %]
+<fieldset class="TableLike">
+    <legend><span>[% Translate(Data.Name) | html %]</span></legend>
+[% RenderBlockStart("NoElement") %]
+    <div class="Value">
+        <p class="FieldExplanation">[% Translate("No element selected.") | html %]</p>
+    </div>
+[% RenderBlockEnd("NoElement") %]
+[% RenderBlockStart("Element") %]
+    <label>[% Translate(Data.Name) | html %]:</label>
+    <div class="Value">
+[% RenderBlockStart("TimePeriodFixed") %]
+        [% Translate("Between") | html %] [% Data.TimeStart %] [% Translate("and") | html %] [% Data.TimeStop %]<br/>
+[% RenderBlockEnd("TimePeriodFixed") %]
+[% RenderBlockStart("TimeRelativeFixed") %]
+        [% Translate("The past complete %s and the current+upcoming complete %s %s", Data.TimeRelativeCount, Data.TimeRelativeUpcomingCount, Data.TimeRelativeUnit) %]<br/>
+[% RenderBlockEnd("TimeRelativeFixed") %]
+[% RenderBlockStart("TimeScaleFixed") %]
+        [% Translate("Scale") | html %]: [% Data.Count %] [% Translate(Data.Scale) | html %]
+[% RenderBlockEnd("TimeScaleFixed") %]
+[% RenderBlockStart("Fixed") %]
+        <div title="[% Data.Value | html %]">
+                <span class="DataTruncated">[% Data.Value | truncate(120) | html %]</span>
+            [% IF Data.Value.length > 120 %]
+                <span class="DataFull Hidden">[% Data.Value | html %]</span>
+                <a href="#" class="DataShowMore">
+                    <span class="More"><i class="fa fa-long-arrow-right"></i> [% Translate("show more") | html %]</span>
+                    <span class="Less Hidden"><i class="fa fa-long-arrow-left"></i> [% Translate("show less") | html %]</span>
+                </a>
+            [% END %]
+        </div>
+[% RenderBlockEnd("Fixed") %]
+[% RenderBlockStart("MultiSelectField") %]
+        [% Data.SelectField %]
+[% RenderBlockEnd("MultiSelectField") %]
+[% RenderBlockStart("SelectField") %]
+        [% Data.SelectField %]
+[% RenderBlockEnd("SelectField") %]
+[% RenderBlockStart("InputField") %]
+        <input type="text" name="[% Data.Key | html %]" value="[% Data.Value | html %]" class="W25pc"/>
+[% RenderBlockEnd("InputField") %]
+    </div>
+    <div class="Clear"></div>
+
+[% RenderBlockStart("TimePeriod") %]
+    <label><em>[% Translate("Absolute period") | html %]</em>:</label>
+    <div class="Value">
+        <p>
+            [% Translate('Between') | html %] [% Data.TimeStart %] [% Translate("and") | html %] [% Data.TimeStop %]<br/>
+        </p>
+    </div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("TimePeriod") %]
+
+[% RenderBlockStart("TimeScale") %]
+    <label><em>[% Translate("Scale") | html %]</em>:</label>
+    <div class="Value">
+    [% IF Data.TimeScaleCount %]
+        [% Data.TimeScaleCount %]
+    [% END %]
+        [% Data.TimeScaleUnit %]
+    </div>
+    <div class="Clear"></div>
+[% IF Data.Use == 'UseAsValueSeries' %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#[% Data.XAxisTimeScaleElementID %]').on('change', function() {
+        var TimeScaleYAxis = [% JSON(Data.TimeScaleYAxis) %],
+        $TimeScaleElement = $('#[% Data.TimeScaleElementID %]'),
+        XAxisTimeScaleValue = $(this).val();
+
+        // reset the current time scale dropdown for the y axis
+        $TimeScaleElement.empty();
+
+        if ( XAxisTimeScaleValue in TimeScaleYAxis ) {
+            $.each(TimeScaleYAxis[XAxisTimeScaleValue], function (Index, Item) {
+                var TimeScaleOption = new Option(Item.Value, Item.Key);
+
+                // Overwrite option text, because of wrong html quoting of text content.
+                // (This is needed for IE.)
+                TimeScaleOption.innerHTML = Item.Value;
+                $TimeScaleElement.append(TimeScaleOption);
+            });
+        }
+    });
+//]]></script>
+[% END %]
+[% END %]
+[% RenderBlockEnd("TimeScale") %]
+
+[% RenderBlockStart("TimePeriodRelative") %]
+    <label><em>[% Translate("Relative period") | html %]</em>:</label>
+    <div class="Value">
+        [% Translate("The past complete %s and the current+upcoming complete %s %s", Data.TimeRelativeCount, Data.TimeRelativeUpcomingCount, Data.TimeRelativeUnit) %]
+    </div>
+    <div class="Clear"></div>
+[% RenderBlockEnd("TimePeriodRelative") %]
+
+[% RenderBlockEnd("Element") %]
+</fieldset>
+[% RenderBlockEnd("Dynamic") %]
+[% IF Data.AJAX %]
+<script type="text/javascript">//<![CDATA[
+Core.UI.InputFields.Activate();
+//]]></script>
+[% END %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+$('.DataShowMore').on('click', function() {
+    if ($(this).find('.More').is(':visible')) {
+        $(this)
+            .find('.More')
+            .hide()
+            .next('.Less')
+            .show()
+            .parent()
+            .prev('.DataFull')
+            .show()
+            .prev('.DataTruncated')
+            .hide()
+    }
+    else {
+        $(this)
+            .find('.More')
+            .show()
+            .next('.Less')
+            .hide()
+            .parent()
+            .prev('.DataFull')
+            .hide()
+            .prev('.DataTruncated')
+            .show()
+    }
+    return false;
+});
+//]]></script>
+[% END %]

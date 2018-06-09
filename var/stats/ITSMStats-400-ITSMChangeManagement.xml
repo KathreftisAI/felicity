@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Count all changes for the selected change state in the selected time period.</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMChangeManagement</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMChangeManagement</ObjectModule>
+<ObjectName>ITSMChangeManagement</ObjectName>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>ITSMChange Count Changes</Title>
+<UseAsValueSeries Element="StateIDs">
+<SelectedValues>approved</SelectedValues>
+<SelectedValues>canceled</SelectedValues>
+<SelectedValues>failed</SelectedValues>
+<SelectedValues>in progress</SelectedValues>
+<SelectedValues>pending approval</SelectedValues>
+<SelectedValues>rejected</SelectedValues>
+<SelectedValues>requested</SelectedValues>
+<SelectedValues>retracted</SelectedValues>
+<SelectedValues>successful</SelectedValues>
+</UseAsValueSeries>
+<UseAsXvalue Element="TimePeriod" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

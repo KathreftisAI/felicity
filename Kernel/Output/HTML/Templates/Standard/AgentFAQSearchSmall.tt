@@ -1,0 +1,198 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Search") %]
+<div class="MainBox ARIARoleMain">
+    <h1>[% Translate("FAQ Search") | html %]</h1>
+    <div class="WidgetSimple Collapsed">
+        <div class="Header">
+            <div class="WidgetAction Toggle">
+                <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+            </div>
+            <h2>[% Translate("Profile Selection") | html %]</h2>
+        </div>
+        <div class="Content">
+            <ul class="ActionList">
+                <li>
+                    <form action="[% Env("CGIHandle") %]" method="post" name="compose">
+                        <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                        <input type="hidden" name="Subaction" value="LoadProfile"/>
+                        <input type="hidden" name="Nav" value="[% Data.Nav | html %]"/>
+                        <label for="Profile">[% Translate("Search template") | html %]</label>
+                        [% Data.ProfilesStrg %]
+                        <button class="CallForAction SpacingTop" name="SelectTemplate" type="submit" value="[% Translate("Select") | html %]">
+                            <span><i class="fa fa-check"></i> [% Translate("Select") | html %]</span>
+                        </button>
+                        <button class="CallForAction SpacingTop" name="EraseTemplate" type="submit" value="[% Translate("Delete") | html %]">
+                            <span><i class="fa fa-trash-o"></i> [% Translate("Delete") | html %]</span>
+                        </button>
+                        <button class="CallForAction SpacingTop" name="SearchTemplate" type="submit" value="[% Translate("Search") | html %]">
+                            <span><i class="fa fa-search"></i> [% Translate("Search") | html %]</span>
+                        </button>
+                        <div class="Clear"></div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="ContentColumn">
+        <form action="[% Env("CGIHandle") %]" method="post" name="compose">
+            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+            <input type="hidden" name="Subaction" value="Search"/>
+            <input type="hidden" name="Nav" value="[% Data.Nav | html %]"/>
+            <fieldset class="TableLike TableSmall">
+                <label for="Fulltext" id="LabelFulltext">[% Translate("Fulltext") | html %]:</label>
+                <div class="Field">
+                    <input type="text" name="Fulltext" value="[% Data.Fulltext | html %]" class="W50pc" />
+                </div>
+
+                <div class="Clear"></div>
+                <label for="Number">[% Config("FAQ::FAQHook") %]</label>
+                <div class="Field">
+                    <input title="[% Config("FAQ::FAQHook") %]" type="text" name="Number" id="Number" class="W50pc" value="[% Data.Number | html %]"/>
+                    <p class="FieldExplanation">[% Translate("e. g. 10*5155 or 105658*") | html %]</p>
+                </div>
+
+                <div class="Clear"></div>
+                <label for="Title">[% Translate("Title") | html %]</label>
+                <div class="Field">
+                    <input title="[% Translate("Title") | html %]" type="text" id="Title" name="Title" value="[% Data.Title | html %]" class="W50pc" />
+                </div>
+
+                <div class="Clear"></div>
+                <label for="Keyword">[% Translate("Keyword") | html %]</label>
+                <div class="Field">
+                    <input title="[% Translate("Keyword") | html %]" type="text" id="Keyword" name="Keyword" value="[% Data.Keyword | html %]" class="W50pc" />
+                </div>
+
+[% RenderBlockStart("Language") %]
+                <div class='Clear'></div>
+                <label for="LanguageIDs">[% Translate("Language") | html %]</label>
+                <div class="Field">
+                    [% Data.LanguagesSelectionStrg %]
+                </div>
+[% RenderBlockEnd("Language") %]
+
+                <div class='Clear'></div>
+                <label for="CategoryIDs">[% Translate("Category") | html %]:</label>
+                <div class="Field">
+                    [% Data.CategoriesSelectionStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="ValidIDs">[% Translate("Validity") | html %]:</label>
+                <div class="Field">
+                    [% Data.ValidSelectionStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="StateIDs">[% Translate("State") | html %]:</label>
+                <div class="Field">
+                    [% Data.StateSelectionStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="ApprovedSearch" >[% Translate("Approved") | html %]:</label>
+                <div class="Field">
+                    [% Data.ApprovedStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="NoVoteSet">[% Translate("Vote") | html %]:</label>
+                <div class="Field">
+                    <input title="[% Translate("No vote settings") | html %]" type="radio"  id="NoVoteSet" name="VoteSearchOption" value="" [% Data.item("VoteSearchOption::None") %] />
+                    [% Translate("All") | html %]
+                </div>
+                <div class="Field">
+                    <input title=[% Translate("Specific votes") | html %] type="radio" id="VotePoint" name="VoteSearchOption"  value="VotePoint" [% Data.item("VoteSearchOption::VotePoint") %] />
+                    [% Data.VoteSearchTypeSelectionStrg %]
+                    <input type="text" name="VoteSearch" value="[% Data.VoteSearch | html %]" class="W25pc"/>
+                    <p class="FieldExplanation">[% Translate("e. g. Equals 10 or GreaterThan 60") | html %]</p>
+                </div>
+
+                <div class='Clear'></div>
+                <label for="NoRateSet">[% Translate("Rate") | html %]:</label>
+                <div class="Field">
+                    <input title="[% Translate("No rate settings") | html %]" type="radio"  id="NoRateSet" name="RateSearchOption" value="" [% Data.item("RateSearchOption::None") %] />
+                    [% Translate("All") | html %]
+                </div>
+                <div class="Field">
+                    <input title=[% Translate("Specific rate") | html %] type="radio" id="RatePoint" name="RateSearchOption"  value="RatePoint" [% Data.item("RateSearchOption::VotePoint") %] />
+                    [% Data.RateSearchTypeSelectionStrg %]
+                    [% Data.RateSearchSelectionStrg %]
+                    <p class="FieldExplanation">[% Translate("e. g. Equals 25% or GreaterThan 75%") | html %]</p>
+                </div>
+
+                <div class='Clear'></div>
+                <label for="CreatedUserIDs">[% Translate("Created by") | html %] [% Translate("Agent") | html %]:</label>
+                <div class="Field">
+                    [% Data.CreatedUserStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="LastChangedUserIDs">[% Translate("Last changed by") | html %] [% Translate("Agent") | html %]:</label>
+                <div class="Field">
+                    [% Data.LastChangedUserStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="TimeSearchType">[% Translate("FAQ Article Create Time") | html %]:</label>
+                <div class="Field">
+                    <input title="[% Translate("No time settings") | html %]" type="radio" id="NoTimeSet" name="TimeSearchType" value="" [% Data.item("TimeSearchType::None") %] />
+                    [% Translate("All") | html %]
+                </div>
+                <div class="Field">
+                    <input title="[% Translate("Specific date") | html %]" type="radio" id="DatePoint" name="TimeSearchType"  value="TimePoint" [% Data.item("TimeSearchType::TimePoint") %] />
+                    [% Data.ItemCreateTimePointStartStrg %] [% Data.ItemCreateTimePointStrg %] [% Data.ItemCreateTimePointFormatStrg %]
+                </div>
+                <div class="Field">
+                    <input title="[% Translate("Date range") | html %]" type="radio" id="DateRange" name="TimeSearchType" value="TimeSlot" [% Data.item("TimeSearchType::TimeSlot") %] />
+                    [% Data.ItemCreateTimeStartStrg %] [% Translate("and") | html %] [% Data.ItemCreateTimeStopStrg %]
+                </div>
+
+                <div class='Clear'></div>
+                <label for="ChangeTimeSearchType">[% Translate("FAQ Article Change Time") | html %]:</label>
+                <div class="Field">
+                    <input title="[% Translate("No time settings") | html %]" type="radio" id="NoChangeTimeSet" name="ChangeTimeSearchType" value="" [% Data.item("ChangeTimeSearchType::None") %] />
+                    [% Translate("All") | html %]
+                </div>
+                <div class="Field">
+                    <input title="[% Translate("Specific date") | html %]" type="radio" id="ChangeDatePoint" name="ChangeTimeSearchType" value="TimePoint" [% Data.item("ChangeTimeSearchType::TimePoint") %] />
+                    [% Data.ItemChangeTimePointStartStrg %] [% Data.ItemChangeTimePointStrg %] [% Data.ItemChangeTimePointFormatStrg %]
+                </div>
+                <div class="Field">
+                    <input title="[% Translate("Date range") | html %]" type="radio" id="ChangeDateRange" name="ChangeTimeSearchType" value="TimeSlot" [% Data.item("ChangeTimeSearchType::TimeSlot") %] />
+                    [% Data.ItemChangeTimeStartStrg %] [% Translate("and") | html %] [% Data.ItemChangeTimeStopStrg %]
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockStart("DynamicField") %]
+                [% Data.Label %]
+                <div class="Field">
+                    [% Data.Field %]
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+            </fieldset>
+            <fieldset class="TableLike TableSmall">
+                <div class="W75pc SpacingTop FAQDivider"></div>
+                <label for="SaveProfile">[% Translate("Save as Template?") | html %]</label>
+                <div class="Field">
+                    <input title="Save as Template" type="checkbox" id="SaveProfile" name="SaveProfile" />
+                </div>
+                <label for="Profile">[% Translate("Template Name") | html %]</label>
+                <div class="Field">
+                    <input title="Pick a profile name" type="text" id="Profile" name="Profile" value="[% Data.Profile | html %]" />
+                </div>
+            </fieldset>
+            <div id="BottomActionRow" class="Center SpacingTop">
+                <button id="Submit" type="submit" class="Primary CallForAction" value="[% Translate("Search") | html %]"><span><i class="fa fa-search"></i> [% Translate("Search") | html %]</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+[% RenderBlockEnd("Search") %]

@@ -1,0 +1,61 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="LayoutPopup ARIARoleMain">
+
+    <div class="Header">
+        <h1>
+            [% Translate("History of") | html %] [% Config("ITSMChange::Hook") %] [% Data.ChangeNumber | html %]: [% Data.ChangeTitle | truncate(60) | html %]
+        </h1>
+        <p>
+            <a href="[% Env("Baselink") %]Action=AgentITSMChangeHistory;ChangeID=[% Data.ChangeID | uri %]">[% Translate("Back") | html %]</a>
+            [% Translate("or") | html %]
+            <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+    <div class="Content">
+
+        <h2>[% Translate("Detailed history information of") | html %] [% Data.HistoryType %]</h2>
+
+        <fieldset class="TableLike FixedLabel">
+
+            <label>[% Translate("Modified") | html %]:</label>
+            <div class="Field">
+                [% Data.Fieldname | html %]
+            </div>
+            <div class="Clear"></div>
+
+            <label>[% Translate("Old Value") | html %]:</label>
+            <div class="Field">
+                [% Data.ContentOld %]
+            </div>
+            <div class="Clear"></div>
+
+            <label>[% Translate("New Value") | html %]:</label>
+            <div class="Field">
+                [% Data.ContentNew %]
+            </div>
+            <div class="Clear"></div>
+
+            <label>[% Translate("Changed") | html %]:</label>
+            <div class="Field">
+                [% Data.ChangeTime | Localize("TimeLong") %]
+            </div>
+            <div class="Clear"></div>
+
+            <label>[% Translate("Changed by") | html %]:</label>
+            <div class="Field" title="[% Data.UserLogin | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])">
+                [% Data.UserLogin | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])
+            </div>
+            <div class="Clear"></div>
+
+        </fieldset>
+    </div>
+    <div class="Footer">
+    </div>
+</div>

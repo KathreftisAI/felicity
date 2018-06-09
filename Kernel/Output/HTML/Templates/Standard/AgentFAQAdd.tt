@@ -1,0 +1,188 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain FormScreen NoSidebar">
+
+    <h1>[% Translate("Add FAQ Article") | html %]</h1>
+    <p class="AsteriskExplanation">[% Translate("All fields marked with an asterisk (*) are mandatory.") | html %]</p>
+
+    <div class="ContentColumn">
+
+[% RenderBlockStart("FAQAdd") %]
+        <div class="Content">
+
+            <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                <input type="hidden" name="Subaction" value="Save"/>
+                <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+
+                <fieldset class="TableLike">
+
+                    <label class="Mandatory" for="Title"><span class="Marker">* </span>[% Translate("Title") | html %]:</label>
+                    <div class="Field">
+                        <input type="text" name="Title" id="Title" value="[% Data.Title | html %]" class="W50pc Validate_Required [% Data.TitleServerError | html %]" maxlength="200"/>
+                        <div id="TitleError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        <div id="TitleServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label for="Keywords">[% Translate("Keywords") | html %]:</label>
+                    <div class="Field">
+                        <input type="text" name="Keywords" id="Keywords" value="[% Data.Keywords | html %]" class="W50pc" maxlength="200"/>
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label class="Mandatory" for="CategoryID"><span class="Marker">* </span>[% Translate("Category") | html %]:</label>
+                    <div class="Field">
+                        [% Data.CategoryOption %]
+                        <div id="CategoryIDError" class="TooltipErrorMessage">
+                            <p>[% Translate("A category is required.") | html %]</p>
+                        </div>
+                        <div id="CategoryIDServerError" class="TooltipErrorMessage">
+                            <p>[% Translate("A category is required.") | html %]</p>
+                        </div>
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label for="StateID">[% Translate("State") | html %]:</label>
+                    <div class="Field">
+                        [% Data.StateOption %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label for="ValidID">[% Translate("Validity") | html %]:</label>
+                    <div class="Field">
+                        [% Data.ValidOption %]
+                    </div>
+                    <div class="Clear"></div>
+
+[% RenderBlockStart("Language") %]
+                    <label for="LanguageID">[% Translate("Language") | html %]:</label>
+                    <div class="Field">
+                        [% Data.LanguageOption %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("Language") %]
+
+[% RenderBlockStart("NoLanguage") %]
+                    <input type="hidden" name="LanguageID" value="[% Data.LanguageID | html %]"/>
+[% RenderBlockEnd("NoLanguage") %]
+
+
+[% RenderBlockStart("Approval") %]
+                    <label for="Approved">[% Translate("Approval") | html %]:</label>
+                    <div class="Field">
+                        [% Data.ApprovalOption %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("Approval") %]
+
+[% RenderBlockStart("DynamicField") %]
+                    [% Data.Label %]
+                    <div class="Field">
+                        [% Data.Field %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("DynamicField_Field1") %]
+#                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                    [% Data.Label %]
+#                    <div class="Field">
+#                        [% Data.Field %]
+#                    </div>
+#                    <div class="Clear"></div>
+#                </div>
+#[% RenderBlockEnd("DynamicField_Field1") %]
+#[% RenderBlockStart("DynamicField_Field2") %]
+#                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                    [% Data.Label %]
+#                    <div class="Field">
+#                        [% Data.Field %]
+#                    </div>
+#                    <div class="Clear"></div>
+#                </div>
+#[% RenderBlockEnd("DynamicField_Field2") %]
+
+[% RenderBlockStart("AttachmentUpload") %]
+                    <label>[% Translate("Attachment") | html %]:</label>
+                    <div class="Field">
+                        <ul>
+[% RenderBlockStart("Attachment") %]
+                            <li>
+                                [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+        Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+    });
+//]]></script>
+[% END %]
+                            </li>
+[% RenderBlockEnd("Attachment") %]
+                            <li>
+                                <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                                <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="Clear"></div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function (Event) {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("AttachmentUpload") %]
+
+[% RenderBlockStart("RichText") %]
+[% InsertTemplate("RichTextEditor.tt") %]
+[% RenderBlockEnd("RichText") %]
+
+[% RenderBlockStart("FAQContent") %]
+                    <label for="[% Data.Field | html %]">[% Translate(Data.Caption) | html %]:<br/><span class="FAQStateName">([% Translate(Data.StateName) | html %])</span></label>
+                    <div class="RichTextField">
+                        <textarea id="[% Data.Field | html %]" class="RichText" name="[% Data.Field | html %]" rows="15" cols="70">[% Data.Content | html %]</textarea>
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("FAQContent") %]
+
+                    <div class="Field SpacingTop">
+                        <button class="Primary CallForAction" id="FAQSubmit" type="button" value="[% Translate("Create") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Create") | html %]</span></button>
+                        [% Translate("or") | html %]
+                        <a href="[% Env("Baselink") %]Action=AgentFAQExplorer;CategoryID=[% Data.CategoryID | uri %]">[% Translate("Cancel") | html %]</a>
+                    </div>
+                    <div class="Clear"></div>
+                </fieldset>
+
+            </form>
+        </div>
+[% RenderBlockEnd("FAQAdd") %]
+    </div>
+    <div class="Clear"></div>
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+$('#FAQSubmit').bind('click', function (Event) {
+    // prevent too fast submitions that could lead into no changes sent to server, due to RTE to
+    // textarea data transfer
+    window.setTimeout(function () {
+        $('#FAQSubmit').closest('form').submit();
+    }, 250);
+});
+//]]></script>
+[% END %]

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+
+    <ConfigItem Name="CustomerFrontend::Module###CustomerChat" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the Customer interface.</Description>
+        <Group>FAQ</Group>
+        <SubGroup>Frontend::Customer::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Customer Chat.</Description>
+             
+                <Title Translatable="1"></Title>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+</otrs_config>

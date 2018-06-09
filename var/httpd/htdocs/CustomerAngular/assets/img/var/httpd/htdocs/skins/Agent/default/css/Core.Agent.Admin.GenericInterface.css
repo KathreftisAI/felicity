@@ -1,0 +1,94 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Application
+ * @subsection  GenericInterface
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsubsection     AdminGenericInterfaceDebugger
+ */
+.AdminGenericInterfaceDebugger .Loading h2 {
+    background: url("../img/loader.gif") no-repeat right center;
+}
+
+#DeleteDialog {
+    min-width: 420px;
+}
+
+/**
+ * @note    Highlight error entries
+ */
+
+.AdminGenericInterfaceDebugger .DebugLevel_error {
+    color: #ff505e;
+}
+
+/**
+ * @subsubsection     AdminGenericInterfaceWebservice
+ */
+
+span.WarningDialog {
+    display: block;
+    width: 22px;
+    height: 35px;
+    float: left;
+}
+
+.GenericInterfaceSpacing {
+    margin-left: 13px;
+}
+
+ /**
+ * @subsubsection     AdminGenericInterfaceMapping
+ */
+.KeyTemplateHeader input{
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+.ValueTemplateRow input{
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+.ValueDefault{
+    margin-left: 13px;
+    margin-right: 13px;
+}
+
+/**
+ * @subsubsection     General
+ */
+
+.GenericInterfaceDialog {
+
+/**
+ * under certain circumstances "min-width" does not work on opera 11
+ * as a workaround "width" is used, this workaround also works on IE7
+ */
+    width: 420px;
+}
+
+.ListContainer {
+    max-height: 120px;
+    overflow-y: auto !important;
+}
+
+.ConfigCode {
+    padding: 10px;
+}
+
+.SpacingTopMini {
+    margin-top: 5px;
+}
+
+
+}/* end @media */

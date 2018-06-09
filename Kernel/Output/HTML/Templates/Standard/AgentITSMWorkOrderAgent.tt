@@ -1,0 +1,61 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% InsertTemplate("AgentITSMUserSearch.tt") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+    <script type="text/javascript">//<![CDATA[
+
+        $('#User').bind('focus', function( Event ) {
+            Core.Config.Set('UserAutocomplete.Groups', 'itsm-change');
+        });
+
+        $('#User').bind('click', function( Event ) {
+            $('#User').val('');
+        });
+
+    //]]></script>
+[% END %]
+
+<form action="[% Env("CGIHandle") %]" method="post" name="compose" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action"    value="[% Env("Action") %]" />
+    <input type="hidden" name="Subaction" value="Save" />
+    <input type="hidden" name="WorkOrderID" value="[% Data.WorkOrderID | html %]" />
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1 title="[% Translate("Edit") | html %] [% Translate("WorkOrderAgent") | html %] [% Translate("of") | html %] [% Config("ITSMWorkOrder::Hook") %] [% Data.ChangeNumber | html %] &ndash; [% Data.WorkOrderNumber | html %]: [% Data.WorkOrderTitle | html %]">
+                [% Translate("Edit") | html %] [% Translate("WorkOrderAgent") | html %] [% Translate("of") | html %] [% Config("ITSMWorkOrder::Hook") %] [% Data.ChangeNumber | html %] &ndash; [% Data.WorkOrderNumber | html %]: [% Data.WorkOrderTitle | truncate(70) | html %]
+            </h1>
+            <p>
+                <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+
+        <div class="Content SpacingBottom">
+            <fieldset class="TableLike FixedLabel">
+
+                <label for="User"> [% Translate("WorkOrderAgent") | html %]: </label>
+                <div class="Field">
+                    <input id="User" type="text" name="User" value="[% Data.User | html %]" class="W75pc [% Data.UserServerError %]"/>
+                    <input id="UserSelected" type="hidden" name="UserSelected" value="[% Data.UserID | html %]" />
+                </div>
+
+                <div id="UserServerError" class="TooltipErrorMessage">
+                    <p>[% Translate("Invalid User") | html %]</p>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="Footer">
+            <button class="Primary CallForAction" accesskey="g" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]">
+                <span><i class="fa fa-check-square-o"></i> [% Translate("Submit") | html %]</span>
+            </button>
+        </div>
+    </div>
+</form>

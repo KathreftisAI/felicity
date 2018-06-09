@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Total number of all tickets ever created per Ticket-Type and Service.
+
+X-Axis: Ticket-Type
+Y-Axis: Service
+
+Restrictions:
+    -none</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<GraphSize></GraphSize>
+<Object>Ticket</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::Ticket</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>Total number of all tickets ever created per Ticket-Type and Service.</Title>
+<UseAsValueSeries Element="ServiceIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="TypeIDs" Fixed="1">
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

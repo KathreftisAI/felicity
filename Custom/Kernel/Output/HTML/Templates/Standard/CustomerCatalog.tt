@@ -1,0 +1,275 @@
+<script type="text/javascript" src="[% Config("Frontend::WebPath") %]js/thirdparty/jquery-2.1.4/jquery.js"></script>
+
+<script type="text/javascript">
+//loading data variable
+var CatalogCategoryItemDetails=[% JSON(Data.CatalogCategoryItemDetails) %]    
+var CatalogCategoryItemList=[% JSON(Data.CatalogCategoryItemList)  %];    
+var CategoryList=[% JSON(Data.CategoryList) %]; 
+var CatalogList=[% JSON(Data.CatalogList) %];
+var ColorsArray=['Brown','Blue','Green'];
+var CatalogData=[% JSON(Data.CatalogData) %];
+var CategoryData=[% JSON(Data.CategoryData) %];
+var ItemData=[% JSON(Data.ItemData) %];
+
+$(document).ready(function() {
+
+    //To display request form on click of request button
+    $('#raise-btn').on('click',function(){
+        $('#raise-btn').attr('style','display:none');
+        $('#raise-req-form').attr('style','display:block');
+    });
+
+    //on Request submit
+    $('#RequestSubmit').on('click',function(){
+        $(this).attr('disabled','disabled');
+         if (!$('#TicketBody').val()) {
+            $('#TicketBody').val('-')
+        }
+        //create Ticket Url with param 
+        var url="[% Env('Baselink') %]Action=CustomerCatalog;Subaction=Request&ItemName="+CatalogCategoryItemDetails[0].Name+"&Body="+$('#TicketBody').val()+"&ItemID="+CatalogCategoryItemDetails[0].id;
+        window.location.href=url;
+    });
+
+        //show breadcrumb in all page except catalog
+    if (!CatalogList) {
+        $('.breadcrumb').attr('style','display:block');
+    }
+
+    //To display no data found message
+    if ($.isEmptyObject(CatalogList) && $.isEmptyObject(CategoryList) && $.isEmptyObject(CatalogCategoryItemList) && $.isEmptyObject(CatalogCategoryItemDetails)) {
+        $('#NoDataFound').attr('style','display:block');
+    }
+
+
+    //To display catalog list
+    if (CatalogList) {    
+        $.each(CatalogList,function(index,value){
+			var longDescription;
+			if(value.description.length > 120){
+				longDescription = value.description.substring(0,120)+'...';
+				
+			}
+			else{
+				longDescription = value.description;
+			}
+            //to change colour sequentially
+            var ContainerColor=ColorsArray.shift();
+            ColorsArray.push(ContainerColor);
+            //To display catalog box
+            $('#CatalogLists').append("\
+                <a href='[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategory&Catalog="+value.id+"'>\
+				<div class='col-md-4 col-sm-6 col-xs-12'>\
+				<div class='panel panel-default'>"+
+				"<div class='panel-heading'>"+value.title+"</div>\
+				<div class='panel-body cat-con'>"+
+                        "<div class='col-md-4 col-sm-4 col-xs-4 npm'>\
+                            <img class='catalogImage' src='"+value.filepath+"'></div>"+                            
+                            "<div  class='description text-left col-md-8 col-sm-8 col-xs-8'>"+longDescription+"</div>\
+							<div class='clearfix'></div>\
+							</div>"+
+							"</div>\
+                </div></a>");
+        });
+    }
+
+	
+	
+    if(CategoryList){
+        //add previous, Catalog breadcrumb
+        $('.breadcrumb').append("\
+            <li><a href='javascript:history.back(-1);''><i class='fa fa-angle-left' aria-hidden='true'></i></a>\
+            </li>\
+            <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;>Catalog</a></li>");
+
+
+        $.each(CategoryList,function(index,value){
+            //to change colour sequentially
+            var ContainerColor=ColorsArray.shift();
+            ColorsArray.push(ContainerColor);
+            //to display Category box
+            $('#CategoryLists').append("\
+                <a href='[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategoryItem&Catalog="+value.catalog_id+"&CatalogCategory="+value.id+"'>\
+				<div class='col-md-3 col-sm-6 col-xs-12'>\
+				<div class='panel panel-default'>\
+				<div class='panel-heading'>"+value.title+"</div>\
+				<div class='panel-body cat-con'>"+
+				"<div class='col-md-4 col-sm-4 col-xs-4 npm'><div class='catalogImage'>\
+                            <img class='catalogImage' src='"+value.filepath+"'></div>\
+							</div>\
+						<div class='col-md-8 col-sm-8 col-xs-8 description text-left' >"+value.description+"\
+                            </div>\
+							<div class='clearfix'></div>\
+							</div>\
+							</div>\
+					</div></a>");
+        });
+    }
+
+    if(CatalogCategoryItemList){
+
+    //To display previous, Catalog and Category breadcrumb
+    $('.breadcrumb').append("\
+        <li><a href='javascript:history.back(-1);''><i class='fa fa-angle-left' aria-hidden='true'></i></a>\
+        </li>\
+        <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;>Catalog</a></li>\
+        <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategory&Catalog="+CatalogData.Id+">"+CatalogData.Title+"</a>\
+        </li>");
+    //to display category name      
+    $('#ItemList').attr('style','display:block');
+    $('#CategoryItemList').empty();
+    $('#CategoryName').text(CategoryData.Title);   
+
+        $.each(CatalogCategoryItemList,function(index,value){
+           //to display catalogcategoryitem list 
+            $('#CategoryItemList').append("\
+                <a href='[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategoryItemDetails&CatalogCategoryItem="+value.id+"&CatalogCategory="+value.category_id+"&Catalog="+value.catalog_id+"'><li>\
+                    <i class='la la-check-circle cat-icon'></i>\
+                    <h6 class='cat-head'>"+value.CatalogCategoryItem_name+"</h6>\
+                    <p class='cat-txt'>"+value.short_description+"</p>\
+                    <div class='clearfix'></div>\
+                </li></a>");
+            
+        });
+    }
+
+    if (CatalogCategoryItemDetails) {
+
+                 //To display previous, Catalog, Category and item breadcrumb
+        $('.breadcrumb').append("\
+            <li><a href='javascript:history.back(-1);''><i class='fa fa-angle-left' aria-hidden='true'></i></a>\
+            </li>\
+            <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;>Catalog</a></li>\
+            <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategory&Catalog="+CatalogData.Id+">"+CatalogData.Title+"</a>\
+            </li>\
+             <li><a href=[% Env('Baselink') %]Action=CustomerCatalog;Subaction=CatalogCategoryItem&Catalog="+CatalogData.Id+"&CatalogCategory="+CategoryData.Id+">"+CategoryData.Title+"</a>\
+            </li>");
+
+        //display catalog name, short and long description
+        $('#CatalogCategoryItemDetails').attr('style','display:block');
+        $('#CatalogViewName').text(CatalogCategoryItemDetails[0]['Name']);
+        $('#ShortDescription').text(CatalogCategoryItemDetails[0].short_description);
+        if (CatalogCategoryItemDetails[0].faq_id) {      
+        $('#FAQLink').append("For more details <a href=[% Env('Baselink') %]Action=CustomerFAQZoom;ItemID="+CatalogCategoryItemDetails[0].faq_id+" class='btn-link'>Click here</a>");      
+        }
+        $('#LongDescription').text(CatalogCategoryItemDetails[0].description);
+         //adding image     
+        $('#ItemImage').append("<img src="+CatalogCategoryItemDetails.ImagePath+" >");
+
+        //CatalogCategoryItemDetails to show
+        var CatalogCategoryItemDetailsArray=['Catalog Name','Category Name','Recurring Price','Name','Recurring Price Frequency','Price'];
+
+        $.each(CatalogCategoryItemDetailsArray,function(index,value){
+            //if item detail exist then display
+            if (CatalogCategoryItemDetails[0][value]) {
+                $('#CatalogDetailView').append("\
+                    <div class='form-inline' >\
+                        <div class='catalog-details-label col-md-6 npm'>\
+                            <label class='catalog-details-label'>"+value+"</label>\
+                        </div>\
+                        <div class='col-md-6'>\
+                         "+CatalogCategoryItemDetails[0][value]+"\
+                        </div>\
+                        <div class='spacer10'></div>\
+                    </div>");
+            }
+        });
+
+    }
+
+});
+
+
+
+
+</script>
+
+
+<ul style="display: none;" class="breadcrumb">
+
+</ul>
+
+
+<div  id="CatalogLists">
+    <div class="spacer10"></div>
+</div>
+
+<div  id="CategoryLists">
+</div>
+
+
+
+<!-- CatalogCategoryItem -->
+<section id="ItemList" style="display:none;" class="con-sec">
+    
+ <h5 id="CategoryName" class="heading"></h5>
+     
+    <div class="col-md-12">      
+        <ul id="CategoryItemList" class="category-list">
+             
+        </ul> 
+    </div>
+    
+</section>
+
+<div class="clearfix"></div>
+
+<!-- CatalogCategoryItemDetails -->
+
+
+<section id="CatalogCategoryItemDetails" style="display: none;" class="con-sec">
+    <div class="spacer10"></div>
+    <div class="row col-md-12">   
+        <div class="col-md-9 panel-left">
+            <div class="panel-group serv-cat-det-con">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5 id="CatalogViewName"></h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="serv-cat-det-img" id="ItemImage">
+                        </div>
+                        <div id="ShortDescription"></div>
+                        <div class="clearfix">
+                        </div> 
+                        <div id="FAQLink" class="text-right">     
+                        </div>                     
+                        <hr>
+                        <div class="long-des">                      
+                            <h5 id="LongDescription"></h5> 
+                        </div>            
+                    </div>
+                </div>        
+            </div>         
+            <div class="spacer10"></div>
+        </div>
+            
+        <div class="col-md-3 article-sidebar">        
+            <div class="form-group">
+                <div class="accordion_panel move-10-left">
+                    <h4 class="heading"><span class="arrow"></span><span>Catalog Details</span></h4>
+                    <div class="slide_con">
+                        <div id="CatalogDetailView" >
+                    
+                        </div>
+                        <button class="btn btn-primary btn-sm full-width text-uppercase" id="raise-btn"><i class="fa fa-plus-circle"></i> Raise Request</button>
+
+                        <div class="panel panel-default"  id="raise-req-form" style="display: none;">
+                            <div class="panel-body"><textarea id="TicketBody" style="border: 0px;"></textarea>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <button id="RequestSubmit" class="btn btn-sm btn-primary">Submit Request</button>
+                            </div>
+                        </div>
+
+                        <div class="spacer10"></div>
+                    </div>
+                </div>
+            </div>            
+        </div>      
+    </div>
+    
+</section>
+
+<p class="text-center" style="display: none;" id="NoDataFound"> No Data Found </p>
+
+<div class="clearfix"></div>

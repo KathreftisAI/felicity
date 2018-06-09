@@ -1,0 +1,190 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("SearchAJAX") %]
+<div class="InnerContent">
+    <fieldset class="TableLike">
+        <div class="Clear"></div>
+        <label for="Class">[% Translate("Class") | html %]</label>
+        <div class="Field" id='DivClassID'>
+            [% Data.ClassOptionStrg %]
+        </div>
+    </fieldset>
+</div>
+
+<div class="InnerContent" id="AJAXUpdate">
+
+    <form action="[% Env("CGIHandle") %]" method="post" id="SearchForm">
+        <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+        <input type="hidden" name="Subaction" value="Search"/>
+
+        <fieldset class="TableLike Hidden" id='ITSMSearchProfile'>
+            <div class="Clear"></div>
+            <legend><span>[% Translate("Templates") | html %]</span></legend>
+            <label>[% Translate("Search template") | html %]</label>
+            <div class="Field">
+                <input type="hidden" id="SearchProfile" name="SearchProfile" value="[% Data.Profile | html %]"/>
+
+                <button id="SearchProfileNew" value="[% Translate("Create New") | html %]">[% Translate("Create New") | html %]</button>
+
+                <button id="SearchProfileDelete" class="Hidden" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+
+                <div id="SearchProfileAddBlock">
+                    <input type="text" name="ProfileName" id="SearchProfileAddName"/>
+                    <button type="submit" title="[% Translate("Create Template") | html %]" id="SearchProfileAddAction">[% Translate("Create New Template") | html %]</button>
+                    <input type="hidden" name="SaveProfile" value="1"/>
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+
+<div class="ContentFooter Center">
+    <button id="SearchFormSubmit" class="CallForAction Primary Hidden" value="Run Search"><span><i class="fa fa-search"></i>[% Translate("Run Search") | html %]</span></button>
+</div>
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    window.setTimeout(function (){
+        $('#SearchClassID').bind('change', function(){
+            if ( $('#SearchClassID').val() !== "" ){
+                ITSM.Agent.ConfigItem.Search.LoadProfile( $('#SearchProfile').val() );
+            }
+            else {
+                $('#SearchProfile').attr("id", "SearchProfileOld");
+            }
+        });
+    }, 150);
+//]]></script>
+[% RenderBlockEnd("SearchAJAX") %]
+
+[% RenderBlockStart("SearchAJAXSetClass") %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    window.setTimeout(function (){
+            ITSM.Agent.ConfigItem.Search.LoadProfile( "[% Data.Profile | html %]" );
+    }, 150);
+//]]></script>
+[% RenderBlockEnd("SearchAJAXSetClass") %]
+
+[% RenderBlockStart("Search") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfigItem.Search.OpenSearchDialog( '[% Env("Action") %]', "[% Data.Profile | html %]", "[% Data.ClassID | html %]" );
+//]]></script>
+[% END %]
+[% RenderBlockEnd("Search") %]
+
+
+[% RenderBlockStart("AJAXContent") %]
+<form action="[% Env("CGIHandle") %]" method="post" id="SearchForm">
+    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+    <input type="hidden" name="Subaction" value="Search"/>
+    <input type="hidden" name="ClassID" value="[% Data.ClassID | html %]">
+    <input type="hidden" name="SearchDialog" value='1'>
+    <input type="hidden" name="EmptySearch" value="[% Data.EmptySearch | html %]" id="EmptySearch"/>
+    <fieldset class="TableLike Hidden" id='ITSMSearchProfile'>
+        <div class="Clear"></div>
+        <legend><span>[% Translate("Templates") | html %]</span></legend>
+        <label>[% Translate("Search template") | html %]:</label>
+        <div class="Field">
+            [% Data.ProfilesStrg %]
+
+            <button id="SearchProfileNew" value="[% Translate("Create New") | html %]">[% Translate("Create New") | html %]</button>
+
+            <button id="SearchProfileDelete" class="Hidden" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+
+            <div id="SearchProfileAddBlock">
+                <input type="text" name="ProfileName" id="SearchProfileAddName"/>
+                <button type="submit" title="[% Translate("Create Template") | html %]" id="SearchProfileAddAction">[% Translate("Create New Template") | html %]</button>
+            </div>
+        </div>
+        <div class="Clear"></div>
+        <label>[% Translate("Save changes in template") | html %]:</label>
+        <div class="Field">
+            <input type="checkbox" name="SaveProfile" id="SaveProfile" value="1"/>
+        </div>
+    </fieldset>
+    <fieldset class="TableLike Hidden" id='ITSMSearchFields'>
+        <fieldset class="TableLike" id="SearchInsert">
+            <legend><span>[% Translate("Filters in use") | html %]</span></legend>
+        </fieldset>
+        <fieldset class="TableLike">
+            <legend><span>[% Translate("Additional filters") | html %]</span></legend>
+            <label>[% Translate("Add another attribute") | html %]:</label>
+            <div class="Field">
+                [% Data.AttributesStrg %]
+                <a class="AddButton" href="#" title="[% Translate("Add entry") | html %]"><i class="fa fa-plus-square-o"></i><span class="InvisibleText">[% Translate("Add") | html %]</span></a>
+            </div>
+
+            <div class="Clear"></div>
+            <label for="PreviousVersionSearch">[% Translate("Also search in previous versions?") | html %]</label>
+            <div class="Field">
+                [% Data.PreviousVersionOptionStrg %]
+            </div>
+
+            <div class="Clear"></div>
+            <label>[% Translate("Output") | html %]:</label>
+            <div class="Field">
+                [% Data.ResultFormStrg %]
+            </div>
+        </fieldset>
+    </fieldset>
+</form>
+<fieldset class="TableLike Hidden" id="SearchAttributesHidden">
+    <div class="Clear"></div>
+    <label for="Number" id="LabelNumber">[% Translate("Number") | html %] [% Translate("(e. g. 10*5155 or 105658*)") | html %]:</label>
+    <div class="Field">
+        <input type="text" name="Number" value="[% Data.Number | html %]" class="W50pc" />
+        <a class="RemoveButton" href="#" title="[% Translate("Remove this entry") | html %]"><i class="fa fa-minus-square-o"></i><span class="InvisibleText">[% Translate("Remove") | html %]</span></a>
+    </div>
+
+    <div class="Clear"></div>
+    <label for="Name" id="LabelName">[% Translate("Name") | html %]:</label>
+    <div class="Field">
+        <input type="text" name="Name" value="[% Data.Name | html %]" class="W50pc" />
+        <a class="RemoveButton" href="#" title="[% Translate("Remove this entry") | html %]"><i class="fa fa-minus-square-o"></i><span class="InvisibleText">[% Translate("Remove") | html %]</span></a>
+    </div>
+
+    <div class="Clear"></div>
+    <label for="DeplStateIDs" id="LabelDeplStateIDs">[% Translate("Deployment State") | html %]:</label>
+    <div class="Field">
+        [% Data.CurDeplStateOptionStrg %]
+        <a class="RemoveButton" href="#" title="[% Translate("Remove this entry") | html %]"><i class="fa fa-minus-square-o"></i><span class="InvisibleText">[% Translate("Remove") | html %]</span></a>
+    </div>
+
+    <div class="Clear"></div>
+    <label for="InciStateIDs" id="LabelInciStateIDs">[% Translate("Incident State") | html %]:</label>
+    <div class="Field">
+        [% Data.CurInciStateOptionStrg %]
+        <a class="RemoveButton" href="#" title="[% Translate("Remove this entry") | html %]"><i class="fa fa-minus-square-o"></i><span class="InvisibleText">[% Translate("Remove") | html %]</span></a>
+    </div>
+
+[% RenderBlockStart("AttributeRow") %]
+    <div class="Clear"></div>
+    <label for="[% Translate(Data.Key) | html %]" id="Label[% Data.Key %]" title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]:</label>
+    <div class="Field">
+        [% Data.InputString %]
+        <a class="RemoveButton" href="#" title="[% Translate("Remove this entry") | html %]"><i class="fa fa-minus-square-o"></i><span class="InvisibleText">[% Translate("Remove") | html %]</span></a>
+    </div>
+[% RenderBlockEnd("AttributeRow") %]
+    <div class="Clear"></div>
+    [% Data.AttributesOrigStrg %]
+</fieldset>
+
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    window.setTimeout(function (){
+[% RenderBlockStart("SearchAJAXShow") %]
+        ITSM.Agent.ConfigItem.Search.SearchAttributeAdd('[% Data.Attribute | html %]');
+        ITSM.Agent.ConfigItem.Search.AdditionalAttributeSelectionRebuild();
+[% RenderBlockEnd("SearchAJAXShow") %]
+    }, 0);
+//]]></script>
+[% RenderBlockEnd("AJAXContent") %]

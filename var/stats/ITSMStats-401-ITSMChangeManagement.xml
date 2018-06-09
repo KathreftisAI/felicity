@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>This report counts the changes in the selected category for a selected time period.</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMChangeManagement</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMChangeManagement</ObjectModule>
+<ObjectName>ITSMChangeManagement</ObjectName>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>ITSMChange Changes per Category</Title>
+<UseAsValueSeries Element="CategoryIDs">
+<SelectedValues>1 very low</SelectedValues>
+<SelectedValues>2 low</SelectedValues>
+<SelectedValues>3 normal</SelectedValues>
+<SelectedValues>4 high</SelectedValues>
+<SelectedValues>5 very high</SelectedValues>
+</UseAsValueSeries>
+<UseAsXvalue Element="TimePeriod" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

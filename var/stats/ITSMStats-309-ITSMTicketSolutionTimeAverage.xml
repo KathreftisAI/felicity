@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Average solution time of tickets created in the last month per Ticket-Type and Service.
+
+X-Axis: Ticket-Type
+Y-Axis: Service
+
+Restrictions:
+    -created in the past month
+    -a closed state</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMTicketSolutionTimeAverage</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMTicketSolutionTimeAverage</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>Average solution time of tickets created in the last month per Ticket-Type and Service.</Title>
+<UseAsRestriction Element="StateIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+<SelectedValues>10</SelectedValues>
+</UseAsRestriction>
+<UseAsRestriction Element="CreateTime" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsRestriction>
+<UseAsValueSeries Element="ServiceIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="TypeIDs" Fixed="1">
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

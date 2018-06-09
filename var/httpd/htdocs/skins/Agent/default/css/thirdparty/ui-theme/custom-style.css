@@ -1,0 +1,634 @@
+@charset "utf-8";
+/* CSS Document */
+@import url("animate.css");
+@font-face {
+    font-family: 'montserratlight';
+    src: url('fonts/montserrat-light-webfont.woff2') format('woff2'),
+         url('fonts/montserrat-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+	font-family: 'Montserrat', sans-serif !important;
+	color: #202020!important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	background:#f0efef !important;
+	padding-bottom:0px!important;
+	max-padding-bottom:350px!important;
+	overflow-x:hidden;
+}
+
+#Header {
+    height: 85px!important;
+    padding: 10px 0 12px;
+    background: #223652 !important;
+    color: #FFF;
+    position: relative;
+    z-index: 10;
+}
+
+#Header #Logo {
+    background-image: url(../../../img/logo.png)!important;
+    top: 4px !important;
+	left: 10px !important;
+    /* right: 38px; */
+    width: 150px !important;
+    height: 42px !important;
+    float: left;
+    position: relative !important;
+}
+#Header #ClientLogo {
+    background-image: url(../../../img/client-logo.png)!important;
+    top: 4px !important;
+	left: 10px !important;
+    /* right: 38px; */
+    width: 150px !important;
+    height: 42px !important;
+    float: left;
+    position: relative !important;
+	background: #FFF;
+    margin-left: 10px;
+}
+
+h1{margin-left:0px !important;}
+
+/* Navigation Section */
+#ToolBar {
+    left: auto!important;
+    top: 10px;
+    position: absolute;
+    z-index: 20;
+    right: 15px!important;
+}
+#ToolBar li a  i{color: #FFF !important; font-size:22px !important;}
+#ToolBar li a  i.fa-star{color: #ffb400!important;}
+#NavigationContainer {top: 74px!important;}
+#nav-search #GlobalSearchNavResponsive{display:none !important; color:transparent !important;}
+#Navigation > li{background: none !important;border-bottom: none !important;}
+#Navigation > li > a {
+    height: 21px !important;
+    padding: 13px 15px 0px 15px!important;
+    font-size: 15px!important;
+    line-height: 12px;
+    color: #727f90 !important;
+    text-transform: uppercase!important;
+	display:inline-block!important;
+}
+#Navigation > li > a:hover{color:#FFF !important;}
+#Navigation > .Selected {
+    border-color: transparent !important;
+    z-index: 90;
+	background-color:#EEE !important;
+	color:#727f90;
+}
+#Navigation > .Selected a:hover{color:#727f90!important;}
+#Navigation li li{ background:#223652 !important; font-size:14px!important; border-bottom:1px solid #5e718c !important;}
+#Navigation li li a{color:#CCC !important; padding:8px 8px !important;}
+#Navigation li li a:hover{color:#FFF !important;}
+#Navigation > .Active > ul > li > a:hover{color:#FFF !important;}
+#NavigationContainer > a{height: 24px!important;width:24px!important; top:5px !important; background:#223652 !important;}
+#NavigationContainer > a:hover{height: 24px!important;width:24px!important; padding:0px !important; background:#5e718c !important;}
+#NavigationContainer > a i{margin-top: 7px!important;}
+
+
+
+#ToolBar a span.Counter {
+    bottom: -14px!important;
+    color: #FFFFFF!important;
+    display: block!important;
+    font-size: 11px!important;
+    left: 0!important;
+    margin-left: -7px!important;
+    position: absolute!important;
+    text-align: center!important;
+    text-indent: 0 !important;
+    width: 20px!important;
+    height: 20px!important;
+    line-height: 20px!important;
+    vertical-align: middle!important;
+    /* padding: 3px; */
+    background: #5e718c!important;
+    border-radius: 50%!important;
+}
+#Footer
+{
+	background: #e5e2e2 !important;
+    text-align: right!important;
+    color: #717171!important;
+    font-size: 11px!important;
+    font-weight: 300!important;
+    position: relative!important;
+	width:100%;
+	bottom:0;
+	z-index:99;
+	clear:both !important;	
+}
+#Footer a{color: #717171!important;margin: 0px 8px 0px 0px!important;}
+#Footer a:hover{text-decoration:none !important;}
+.MainBox {
+    position: relative;
+    padding: 4px 16px 8px 16px!important;
+	min-height:490px;
+}
+div.Headline .Flag{top:0px !important;}
+h1{font-weight:500!important;}
+div.Headline .Flag + h1{margin-left: 40px !important;}
+div.Headline h1{ font-family: 'montserratlight' !important;font-size:22px!important; font-weight:500!important;}
+.Flag span {background-image: url(/otrs-web/skins/Agent/default/img/ticket.png)!important; background-repeat:no-repeat; background-position:center;padding: 3px 5px;width: 16px;height: 16px;}
+#TicketSideBar .SidebarColumn{width: 100%!important;float: left;margin-left: 0px !important;background: #FFF;margin-bottom: 15px;    box-shadow: 0 10px 10px -10px #ccc;}
+#TicketSideBar .SidebarColumn .WidgetSimple {width:32% !important; float:left !important;padding: 0px 0px!important; margin-bottom:0px !important; background-color:#FFF !important; }
+#TicketSideBar .SidebarColumn .WidgetSimple div.Content{height:200px;max-height:200px;overflow:hidden; overflow-y:scroll !important;}
+#TicketSideBar .ContentColumn {width:100% !important; clear:both; background:#FFF;}
+.clearfix{width:100%; clear:both;}
+#TicketSideBar .ContentColumn div#ArticleTree{width:45% !important; float:left !important; border-right:1px solid #d4d7da; background-color:#FFF;}
+#TicketSideBar .ContentColumn div#ArticleTree .TicketList div.Scroller{height:400px !important; border:none !important;}
+#TicketSideBar .ContentColumn div#ArticleTree .WidgetSimple > .Content{padding:0px !important;}
+#TicketSideBar .ContentColumn div#ArticleTree .Handle {display:none !important;}
+#TicketSideBar .ContentColumn div#ArticleItems{width: 54.8% !important;float: left !important;height: 445px;overflow-y: scroll;}
+#TicketSideBar .WidgetSimple > .Content {background:#FFF !important;padding:0px !important;}
+#TicketSideBar .TicketList .Scroller table#ArticleTable td{/*background:#FFF !important;*/ border:none !important; color:#999 !important; padding:6px 6px !important;}
+#TicketSideBar .TicketList .Scroller table#ArticleTable td a{color:#999 !important;} 
+#TicketSideBar .TicketList .Scroller table#ArticleTable td i {color:#1083e5 !important;}
+#TicketSideBar .ArticleItems .WidgetSimple > .Content {background:#FFF !important; height:400px!important; overflow-y:scroll!important; }
+#TicketSideBar table#ArticleTable tr.Active td:last-child {border-right: 3px solid #1083e5!important;}
+#TicketSideBar .AdditionalInformation .ArticleView {display:none !important;}
+#TicketSideBar .TicketList .Scroller table#ArticleTable tr:nth-child(even) td {background:#FFF !important;}
+#TicketSideBar .TicketList .Scroller table#ArticleTable tr:nth-child(odd) td {background:#f5f5f5 !important;}
+#TicketSideBar table#ArticleTable tr.Active td {background:#e0f0fe!important;}
+#TicketSideBar table#ArticleTable thead th{padding:8px 8px !important; text-transform:capitalize !important;}
+/*#TicketSideBar .ContentColumn div#ArticleTree .WidgetSimple .Header{padding: 6px 5px 6px 5px !important; position: relative;background-color: #c5cdd8 !important;border-top:1px solid #CCC;}
+#TicketSideBar .ContentColumn div#ArticleItems .WidgetSimple .Header {padding: 6px 5px 6px 5px !important; position: relative;background-color: #c5cdd8 !important;border-top:1px solid #CCC;}
+#TicketSideBar .ContentColumn div#ArticleTree .WidgetSimple .Header h2, #TicketSideBar .ContentColumn div#ArticleItems .WidgetSimple .Header h2{color:#333 !important;}
+#TicketSideBar .ContentColumn div#ArticleTree .WidgetSimple .Header .WidgetAction.Toggle i, #TicketSideBar .ContentColumn div#ArticleItems .WidgetSimple .Header .WidgetAction.Toggle i{top: 7px !important;}*/	
+#TicketSideBar .SidebarColumn .Header .WidgetAction.Toggle i{top: 7px !important;}
+#TicketSideBar .WidgetSimple .Header {padding: 6px 5px 6px 5px !important; position: relative;background-color: #c5cdd8 !important; clear:both}
+#TicketSideBar .WidgetSimple .Header h2{font-size:18px !important;color:#333 !important;}
+#TicketSideBar .ContentColumn .Header .WidgetAction.Toggle i{top: 7px !important;}
+.Flag.Small{height:auto !important;}
+#TicketSideBar #ArticleItems .WidgetSimple .Header h2 {max-width:60% !important;}
+#CustomerInfo .Header {padding: 6px 5px 6px 5px !important;background-color: #c5cdd8 !important;}
+#CustomerInfo .Header h2{font-size: 16px!important;}
+
+table.DataTable  tr:nth-child(even) td {background:#FFF !important;}
+table.DataTable  tr:nth-child(odd) td {background:#f5f5f5 !important;}
+table.DataTable  tr.Active td {background:#e0f0fe!important;}
+table.DataTable  tr td {padding: 6px 6px !important; border:none !important;}
+table.DataTable  tr td a{color:#0088bb !important;}
+table.DataTable  tr td a:hover{color:#000 !important;}
+table.DataTable  tr:hover { background-color:#EEE !important;}
+table.DataTable  thead th{padding:8px 8px !important; text-transform:capitalize !important;}
+table.TableSmall thead th.OverviewHeader{padding:4px 20px 4px 8px !important; text-transform:capitalize !important;}
+table.TableSmall thead th.OverviewHeader a{text-transform:capitalize !important;}
+table.DataTable .Flag span{height:16px !important;}
+table.DataTable tbody tr:hover td, .TableSmall tbody tr:hover td, .DataTable tbody tr:active td.Clickable, 
+.TableSmall tbody tr:active td.Clickable{background:#f0f8ff !important;}
+table.DataTable thead th.DashboardHeader .ColumnSettingsTrigger{margin:0px !important;}
+table.TableSmall th span{text-transform: capitalize !important;line-height: 28px!important; height: auto!important;color: #4A4A4A!important;}
+
+.tkt-info{background: #e0f0fe;padding: 20px 10px!important;position: relative;font-size: 12px !important;width:32%; float:left;min-height: 200px;}
+#TicketSideBar .tkt-info .WidgetSimple,#TicketSideBar .tkt-info .WidgetSimple .Content{width:100% !important; background:none!important;} 
+#TicketSideBar .tkt-info .WidgetSimple h2{ font-size:20px;}
+#TicketSideBar .tkt-info .WidgetSimple label{color:#667d9f !important; text-shadow:none !important; text-align:left !important;}
+
+.cust-info{background: #FFF;padding: 20px 10px!important;position: relative;font-size: 12px !important;width:32%; float:left;min-height: 200px; border-right:1px solid #CCC;}
+#TicketSideBar .cust-info .WidgetSimple h2{ font-size:20px;}
+#TicketSideBar .cust-info .WidgetSimple label{color:#999797 !important; text-shadow:none !important; text-align:left !important;}
+#TicketSideBar .cust-info .WidgetSimple,#TicketSideBar .cust-info .WidgetSimple .Content{width:100% !important; background:none!important;} 
+
+
+.oth-info{background: #FFF;padding: 20px 10px!important;position: relative;font-size: 12px !important;width:30%; float:right;min-height: 200px;}
+#TicketSideBar .oth-info .WidgetSimple h2{ font-size:20px;}
+#TicketSideBar .oth-info .WidgetSimple label{color:#999797 !important; text-shadow:none !important; text-align:left !important;}
+#TicketSideBar .oth-info .WidgetSimple,#TicketSideBar .oth-info .WidgetSimple .Content{width:100% !important; background:none!important;} 
+
+#TicketSideBar .ContentColumn #ArticleTree .ControlRow .Icons a {width: 36px!important; height: 36px!important;background: #5e718c!important; color: #FFF !important;}
+#TicketSideBar .ContentColumn #ArticleTree .ControlRow .Icons a i{color: #fff !important;margin-top: 10px !important;}
+#TicketSideBar .oth-info .Actions li a:hover{border-color:#1083e5 !important;}
+
+
+#action-menu{background:#FFF;border:1px solid #EEE; margin-bottom:0px; margin-top:10px !important; }
+#action-menu .WidgetSimple{margin:0px !important;}
+#action-menu .Actions li,#action-menu .Actions li a {font-size:12px !important;}
+#action-menu .Actions li:first-child {margin-left: 10px!important;padding-left: 0px!important; width:auto !important; background: #5e718c;
+    }
+#action-menu .Actions li:first-child a{color: #FFF !important; border:none !important;}
+#action-menu .Actions li:after{display:none !important;}
+#action-menu .Actions li a:hover, #action-menu .Actions li span:hover, #action-menu .OverviewZoom a:hover{border-color:#1083e5 !important; 
+}
+#action-menu .WidgetSimple > .Content{ padding:0px !important;}
+#action-menu .Actions li a {padding:8px 10px !important;}
+#action-menu .Actions li span {padding:8px 10px !important;}
+#action-menu .Actions li li a{padding:5px 10px !important; border:none !important; color:#000 !important;}
+#action-menu .Actions li li a:hover{border:none !important; border:none !important;}
+#action-menu .Actions li li:first-child {padding:0px 0px !important; margin:0px !important; background:none!important; }
+#action-menu .Actions li li:first-child a{color:#000 !important;}
+#action-menu .Actions li select{display: block;
+	width: 100%;
+	height: 34px;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;}
+.ticket-btn-con{width:auto; float:right;}
+
+
+/*Login Page*/
+.logform-con {
+  position: relative;
+  background:#223652!important;
+  max-width: 320px;
+  width: 100%;
+  border-top: 5px solid #33b5e5;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  margin: 80px auto;
+  
+
+}
+
+.logform-con .form {
+  padding: 40px;
+}
+
+.logform-con .form #Header {
+    height: 52px!important;
+    padding: 0px!important;
+    background: none !important;
+	margin-bottom: 8px;
+}
+.logform-con .form #Header  #Logo {float:none !important; margin:0 auto!important;}
+.logform-con h2 {
+  margin: 15px 0px;
+  color: #33b5e5;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+.logform-con input {
+  outline: none!important;
+  display: block;
+  width: 100% !important;
+  border: 1px solid #d9d9d9;
+  margin: 0 0 5px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  font-wieght: 400;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  
+}
+.logform-con fieldset.TableLike > label {width: 100% !important;text-shadow:none !important; color:#CCC!important; text-align:left!important; font-size:12px !important; text-transform:uppercase!important;}
+.logform-con p.Error{color:#F92!important;}
+.logform-con fieldset.TableLike > label span.Marker {color:#db0000 !important;} 
+.logform-con fieldset.TableLike > label.LabelError {color:#db0000 !important;} 
+.logform-con input:focus {
+  border: 1px solid #d9d9d9;
+  color: #333333;
+}
+.logform-con button,.logform-con input[type="submit"],.logform-con input[type="button"] {
+  cursor: pointer;
+  background: #33b5e5;
+  width: 100%;
+  border: 0;
+  padding: 10px 15px;
+  color: #ffffff;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  margin:10px 0px;
+  text-transform:uppercase !important;
+}
+.logform-con button:hover .logform-con input[type="submit"]:hover,.logform-con input[type="button"]:hover{
+  background: #178ab4 !important;
+}
+
+/*Overview Tab Style*/
+.OverviewBox>.OverviewControl{background:none !important;}
+.OverviewBox>.OverviewControl div.ControlRow ul.Tabs{background:none !important;}	
+.OverviewBox>.OverviewControl div.ControlRow{background:#FFF !important;border-bottom: 1px solid #DDD;}
+.OverviewBox>.OverviewControl div.ControlRow li > a {padding: 11px 12px 11px 11px !important; color:#797979 !important;font-size:12px !important;}
+.OverviewBox>.OverviewControl div.ControlRow li.Active {background:#FFF !important;}
+.OverviewBox>.OverviewControl div.ControlRow li.Active{border-bottom:2px solid #143d79;}
+.OverviewBox>.OverviewControl div.ControlRow li.Active a{color:#143d79 !important;}
+.OverviewBox>.OverviewControl div.ControlRow li:hover{border-bottom:2px solid #DDD;background:#FFF !important; color:#1f56a7 !important;}
+.OverviewBox>.OverviewControl div.ControlRow li:hover a{color:#143d79 !important;}	
+.OverviewBox>.OverviewControl div.ControlRow ul.ContextFunctions li.ContextSettings a {
+    padding: 6px !important;
+    background: #223652;
+    color: #FFF !important;
+}
+ul.ContextFunctions li.ContextSettings .fa{padding: 5px 0px 5px 5px!important;}
+
+.OverviewBox>.QueueOverview {background:#FFF !important; padding:0px !important;}
+.OverviewBox>.QueueOverview ul.QueueOverviewList.Level_{overflow:auto !important;}
+.OverviewBox>.QueueOverview > .Content{padding:0px !important;}
+.OverviewBox>.QueueOverview ul.QueueOverviewList li{padding: 8px 5px!important;}
+.OverviewBox>.QueueOverview ul.QueueOverviewList li a{color:#6989b7 !important;}
+.OverviewBox>.QueueOverview .Active {padding: 8px 5px!important; background: #FFF!important;  }
+.OverviewBox>.QueueOverview a.Active{font-weight:normal !important;color:#1085e6 !important;border-bottom: 1px solid #223652}
+.OverviewBox>.QueueOverview ul.QueueOverviewList.Level_1{ margin: 0px !important;padding: 2px 0px !important;overflow: auto;background: #f0f8ff;}
+.OverviewBox>.QueueOverview .Oldest a {
+color: red !important;
+animation: blinking 1s steps(10,start) infinite!important;
+-webkit-animation: blinking 1s steps(10,start) infinite!important;
+}
+
+
+.OverviewBox>.QueueOverview ul.ServiceOverviewList.Level_{overflow:auto !important;}
+.OverviewBox>.QueueOverview ul.ServiceOverviewList li{padding: 8px 5px!important;float: left;}
+.OverviewBox>.QueueOverview ul.ServiceOverviewList li a{color:#6989b7 !important;}
+.OverviewBox>.QueueOverview .Active {padding: 8px 5px!important; background: #FFF!important;  }
+.OverviewBox>.QueueOverview ul.ServiceOverviewList.Level_1{ margin: 0px !important;padding: 2px 0px !important;overflow: auto;background: #FFF;}
+.OverviewBox>.QueueOverview ul.ServiceOverviewList.Level_2{ margin: 0px !important;padding: 2px 0px !important;overflow: auto;background: #f0f8ff;}
+
+
+
+
+/*Modal Dialog Box Style*/
+.Dialog > .Header{background: #122137!important;border-bottom: 1px solid #111b29!important;padding: 8px 6px!important;}
+.Dialog > .Header h1{color:#AAA !important;}
+.Dialog > .Header i {color:#AAA !important;top: 5px; position: relative;}
+.Dialog input[type="button"],.Dialog button[type="button"]{padding: 5px 10px!important;font-size: 12px!important;line-height: 1.5;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;
+ border:1px solid #2e6da4!important;font-weight: 400!important; box-shadow:none !important;}
+.Dialog .CallForAction span{border:none!important;padding:0px!important;color:#FFF !important;text-shadow:none!important;}
+.Dialog .CallForAction {padding: 3px 7px 6px !important;border:none!important;font-size: 12px!important;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;}
+
+.Dialog #JSTree{height:65% !important;}
+.Dialog  div.InputField_Selection div.Text{background: #d1eaff!important;}
+.Dialog  div.InputField_Selection div.Remove {background: #223652!important;}
+.Dialog select,.Dialog input[type="text"]{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px; max-width:90%!important;}
+
+/*Window Dialog Box */
+body.RealPopup .LayoutPopup > .Header{background: #122137!important;}
+body.RealPopup .LayoutPopup > .Header h1{color:#AAA !important;}
+body.RealPopup p a.CancelClosePopup,body.RealPopup p a.UndoClosePopup {position:absolute !important;right:10px; top:10px;width:22px; height:22px; background:url(/otrs-web/skins/Agent/default/img/close-btn.png) no-repeat!important; color:transparent !important; overflow:hidden !important;text-indent: -99px;}
+body.RealPopup p a#LinkAddCloseLink,body.RealPopup p a#LinkDeleteCloseLink {position:absolute !important;right:10px; top:10px;width:22px; height:22px; background:url(/otrs-web/skins/Agent/default/img/close-btn.png) no-repeat!important; color:transparent !important; overflow:hidden !important;text-indent: -99px;}
+body.RealPopup .WidgetSimple > .Header{background-color: #c5cdd8 !important;}
+body.RealPopup select,body.RealPopup input[type="text"]{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px; max-width:90%!important;}
+body.RealPopup  div.InputField_Selection div.Text{background: #d1eaff!important;}
+body.RealPopup  div.InputField_Selection div.Remove {background: #223652!important;}
+body.RealPopup .Footer .CallForAction span{border:none!important;padding:3px!important;color:#FFF !important;text-shadow:none!important;}
+body.RealPopup .Footer .CallForAction {padding: 3px 7px 6px !important;border:none!important;font-size: 12px!important;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;}
+.RealPopup #AppWrapper .MessageBox.Notice {margin: 0!important;z-index: 0!important;}
+
+/*Add New Ticket*/
+#New-Tkt-Con.FormScreen > h1,#New-Tkt-Con.FormScreen > .AsteriskExplanation{margin-left: 0 !important;}
+#New-Tkt-Con h1{padding:8px 11px 7px 0px !important; margin:10px 0px !important;}
+.MainBox > .AsteriskExplanation{padding-left:0px !important;}
+#New-Tkt-Con form#NewEmailTicket {
+    background: #FFF !important;
+    padding: 30px 10px !important;
+    border: 1px solid #DDD !important;
+    border-radius: 5px !important;
+}
+#New-Tkt-Con fieldset.TableLike > label,#New-Tkt-Con  fieldset.TableLike > .Row > label{width:180px !important;}
+#New-Tkt-Con fieldset.TableLike > .Field,#New-Tkt-Con fieldset.TableLike > .Row > .Field {margin-left: 180px!important;}
+#New-Tkt-Con input[type="text"],#New-Tkt-Con select{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;}
+#New-Tkt-Con fieldset.TableLike > label span.Marker {color:#db0000 !important;} 
+#New-Tkt-Con fieldset.TableLike > label.LabelError {color:#db0000 !important;} 
+#New-Tkt-Con div.InputField_Selection div.Text{background: #d1eaff!important;}
+#New-Tkt-Con div.InputField_Selection div.Remove {background: #223652!important;}
+
+/*Add New Phone Ticket*/
+
+#New-Pho-Tkt.FormScreen > h1,#New-Pho-Tkt.FormScreen > .AsteriskExplanation{margin-left: 0 !important;}
+#New-Pho-Tkt h1{padding:8px 11px 7px 0px !important; margin:10px 0px !important;}
+.MainBox > .AsteriskExplanation{padding-left:0px !important;}
+#New-Pho-Tkt form#NewPhoneTicket {
+    background: #FFF !important;
+    padding: 30px 10px !important;
+    border: 1px solid #DDD !important;
+    border-radius: 5px !important;
+}
+#New-Pho-Tkt fieldset.TableLike > label,#New-Pho-Tkt  fieldset.TableLike > .Row > label{width:180px !important;}
+#New-Pho-Tkt fieldset.TableLike > .Field,#New-Pho-Tkt fieldset.TableLike > .Row > .Field {margin-left: 180px!important;}
+#New-Pho-Tkt input[type="text"],#New-Pho-Tkt select{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;}
+#New-Pho-Tkt fieldset.TableLike > label span.Marker {color:#db0000 !important;} 
+#New-Pho-Tkt fieldset.TableLike > label.LabelError {color:#db0000 !important;} 
+#New-Pho-Tkt div.InputField_Selection div.Text{background: #d1eaff!important;}
+#New-Pho-Tkt div.InputField_Selection div.Remove {background: #223652!important;}
+#New-Pho-Tkt fieldset.TableLike #ServiceIncidentStateContainer.Value{margin-left: 186px !important;}
+#New-Pho-Tkt fieldset.TableLike #ServiceIncidentStateContainer .Flag{margin-top: 0px !important;}
+#New-Pho-Tkt fieldset.TableLike #ServiceIncidentStateContainer .Flag.Small{height:17px !important; margin-right:15px;}
+.LayoutPopup #ServiceIncidentStateContainer .Flag{margin-top:0px !important;margin-top: 0px !important;height: 15px !important;margin-right: 17px;}
+
+/*Agent Ticket Process*/
+
+#Agent-Tkt-Process.FormScreen > h1,#Agent-Tkt-Process.FormScreen > .AsteriskExplanation{margin-left: 0 !important;}
+#Agent-Tkt-Process h1{padding:8px 11px 7px 0px !important; margin:10px 0px !important;}
+.MainBox > .AsteriskExplanation{padding-left:0px !important;}
+#Agent-Tkt-Process fieldset.TableLike > label,#Agent-Tkt-Process  fieldset.TableLike > .Row > label{width:180px !important;}
+#Agent-Tkt-Process fieldset.TableLike > .Field,#Agent-Tkt-Process fieldset.TableLike > .Row > .Field {margin-left: 180px!important;}
+#Agent-Tkt-Process input[type="text"],#Agent-Tkt-Process select{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;}
+#Agent-Tkt-Process fieldset.TableLike > label span.Marker {color:#db0000 !important;} 
+#Agent-Tkt-Process fieldset.TableLike > label.LabelError {color:#db0000 !important;} 
+#Agent-Tkt-Process div.InputField_Selection div.Text{background: #d1eaff!important;}
+#Agent-Tkt-Process div.InputField_Selection div.Remove {background: #223652!important;}
+#Agent-Tkt-Process .SidebarColumn fieldset.TableLike > label,#Agent-Tkt-Process .SidebarColumn fieldset.TableLike > .Row > label{width:30% !important;}
+#Agent-Tkt-Process .CallForAction span{padding: 5px 10px!important;font-size: 12px!important;line-height: 1.5;border-radius: 3px!important;color: #fff!important;background-color: #337ab7!important;
+ border:1px solid #2e6da4!important;font-weight: 400!important; box-shadow:none !important;text-shadow:none !important}
+#Agent-Tkt-Process .CallForAction{border:none !important}
+#Agent-Tkt-Process .LayoutPopup .Centered{background: #fff !important;padding: 15px!important;text-align: left!important;padding-left: 210px!important;}
+
+/*Custom Scrollbar*/
+#TicketSideBar .tkt-info .Content::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(235,235,235,0.3);background-color: #FFF;}
+#TicketSideBar .tkt-info .Content::-webkit-scrollbar{width: 6px;background-color: #f5f5f5;}
+#TicketSideBar .tkt-info .Content::-webkit-scrollbar-thumb{background-color: #c7c7c7;}
+
+#TicketSideBar .cust-info .Content::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(235,235,235,0.3);background-color: #FFF;}
+#TicketSideBar .cust-info .Content::-webkit-scrollbar{width: 6px;background-color: #f5f5f5;}
+#TicketSideBar .cust-info .Content::-webkit-scrollbar-thumb{background-color: #c7c7c7;}
+
+#TicketSideBar .oth-info .Content::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(235,235,235,0.3);	background-color: #FFF;}
+#TicketSideBar .oth-info .Content::-webkit-scrollbar{width: 6px;background-color: #f5f5f5;}
+#TicketSideBar .oth-info .Content::-webkit-scrollbar-thumb{background-color: #c7c7c7;}
+
+#TicketSideBar .ContentColumn div#ArticleItems::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(235,235,235,0.3);	background-color: #FFF;}
+#TicketSideBar .ContentColumn div#ArticleItems::-webkit-scrollbar{width: 6px;background-color: #f5f5f5;}
+#TicketSideBar .ContentColumn div#ArticleItems::-webkit-scrollbar-thumb{background-color: #c7c7c7;}
+
+#TicketSideBar .ContentColumn div#ArticleTableBody .Scroller::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(235,235,235,0.3);	background-color: #FFF;}
+#TicketSideBar .ContentColumn div#ArticleTableBody .Scroller::-webkit-scrollbar{width: 6px;background-color: #f5f5f5;}
+#TicketSideBar .ContentColumn div#ArticleTableBody .Scroller::-webkit-scrollbar-thumb{background-color: #c7c7c7;}
+
+.btn-out-div{width: auto;position: relative;z-index: 99;text-align: right;top: 0px;right: 0;    margin: 3px; float:right;}
+.btn-tkt-div{width: auto;position: relative;z-index: 99;text-align: right;top: 0px;right: 0;    margin: 3px; float:right;}
+ul.btn-box{width:auto; margin:0px; padding:0px 20px; text-align:right; }
+ul.btn-box li{width:44px;height:44px;display:inline-block; float:right;margin-left: 5px;}
+ul.btn-box li img{max-width:100%;}
+
+/*Ticket Overview*/
+ul#TicketOverviewMedium li:hover div.Content{border-left-color:#223652 !important;}
+ul#TicketOverviewMedium li:hover{border-left-color:transparent !important;}
+ul#TicketOverviewLarge li:hover div.Content{border-left-color:#223652 !important;}
+ul#TicketOverviewLarge li:hover{border-left-color:transparent !important;}
+.OverviewMedium div.Flag,.OverviewLarge div.Flag {border:none !important;}
+.OverviewLarge > li ul.InlineActions,.OverviewMedium li ul.InlineActions{background-color: #708aa0!important;}
+.Actions li a:hover, .Actions li span:hover, .OverviewZoom a:hover{border-color: #223652!important;}
+.Warning {
+    color: #155bbd!important;
+}
+.Infos a,.Infos a:hover, .Infos a:focus{ color:#155bbd!important;}
+
+
+
+/*Side Bar Css*/
+.SidebarColumn #CustomerInfo fieldset.TableLike label
+{
+	width:auto !important;
+	text-align:left !important;
+	
+}
+.SidebarColumn #CustomerInfo ul.ItemRow
+{
+	margin-left:0px !important;
+}
+
+/*Changes - Add*/
+.panel-forms select,.panel-forms input[type="text"]{padding: 6px 12px;font-size: 14px;color: #555;background-color: #fff;background-image: none;border: 1px solid #ccc;border-radius: 4px;}
+.panel-forms span.Marker{color:red !important}
+.panel-forms input[type="text"]#ChangeTitle{max-width:600px !important;}
+.panel-forms div.InputField_Selection div.Text{background: #d1eaff!important;}
+.panel-forms div.InputField_Selection div.Remove {background: #223652!important;}
+.TableSmall td a {color: #0088bb !important;}
+div.WorkorderLabel a {color: #0088bb !important;line-height: 24px; position: relative;padding-left: 15px;}
+.SidebarColumn fieldset.TableLike div.Value div.Flag{margin-top: 3px !important;}
+.SidebarColumn fieldset.TableLike div.Value div.Flag span{width: 10px;height: 10px;position:relative; margin:0px !important;}
+#tkt-info-con fieldset.TableLike div.Value div.Flag{margin-top: 0px !important;}
+#tkt-info-con fieldset.TableLike div.Value div.Flag span{width: 10px;height: 10px;position:relative; margin:0px !important;}
+.WidgetBox fieldset.TableLike div.Value div.Flag span{width: 10px!important;height: 10px !important;position:relative; margin:0px !important;}
+.WidgetBox fieldset.TableLike a{color: #0088bb !important;}
+.Value a{color: #0088bb !important;}
+a.OpenTicket{color: #0088bb !important;}
+.cust-info fieldset.TableLike ul.ItemRow{margin-left:0px !important;}
+.cust-info fieldset.TableLike ul.ItemRow li {padding: 3px 0 5px 0px!important;}
+
+#EmptyMessageSmall,#EmptyMessageMedium,#EmptyMessageLarge{border:none !important; color:#f25c5c;}
+#UserTicketOverviewMediumPageShown,#UserTicketOverviewPreviewPageShown{width:100% !important; max-width:100% !important;}
+.TableSmall thead th.OverviewHeader .ColumnSettingsBox{background-color: #ffffff !important;}
+.TableSmall thead th.OverviewHeader .ColumnSettingsBox span.SelectedValue { background-color:#223652 !important; color:#FFF !important;}.TableSmall thead th.OverviewHeader .ColumnSettingsBox span.SelectedValue
+.DataTable thead th.DashboardHeader .ColumnSettingsBox span.SelectedValue a, .TableSmall thead th.OverviewHeader .ColumnSettingsBox span.SelectedValue a{background:none !important; float:right !important;top: 5px!important;right: 0px !important; left:auto !important;}
+.DataTable thead th.OverviewHeader .ColumnSettingsBox input[type="text"], .TableSmall thead th.OverviewHeader .ColumnSettingsBox input[type="text"]{width:94% !important;}
+
+span.Marker {color:#db0000 !important;}
+
+.OverviewBox > h1 {
+    margin: 10px 0px;
+    padding: 8px 11px 7px;
+    position: relative;
+	float:left;
+}
+.OverviewBox>.QueueOverview,.OverviewBox>.OverviewControl{clear:both;}
+.ControlRow{min-height: 36px!important;}
+
+.WorkorderGraphBox div.WorkorderLabel {
+    width: 240px;
+    overflow: hidden !important;
+    text-overflow: ellipsis!important;
+}
+.Admin .Size1of2 h4{color: #088fe0 !important;}
+
+.BreadCrumb{background: #ddd!important;}
+.BreadCrumb li {padding-left: 13px!important;}
+.BreadCrumb li:before{left: -2px!important;border-left-color: #ddd!important;}
+.BreadCrumb li:before, .BreadCrumb li:after{border-width: 5px!important;margin-top: -4px!important;}
+.BreadCrumb a:hover{text-decoration:none !important; color:#1083e5 !important; border:none !important;}
+
+.WidgetSimple .Content ul.Tablelike.FAQMiniList li a
+{
+	color:#1083e5 !important;
+}
+
+.WidgetSimple .Content ul.Tablelike li:hover{background: #f0f8ff !important;}
+.metro-nav-block {
+    color: white;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-weight: 300;
+    height:114px;
+    letter-spacing: 0.02em;
+    line-height: 20px;	
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    width:120px;
+    z-index: 1;
+	text-align:center;
+	margin-right:10px !important;
+}
+
+.nav-block-blue {
+    background: #4e638c;
+}
+.nav-block-blue:hover {
+    background: #23426d;
+}
+.metro-nav-block img {
+    height: 64px;
+    width: 64px;
+    display: inline-block;
+    margin-top: 11px;
+}
+
+
+.metro-nav-block h5,.metro-nav-block h5 b {
+   background-color: transparent;
+    bottom: 0px;
+    font-size: 12px;
+    min-height: 30px;
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    left: 0;
+    font-weight: normal;
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;	
+	color:#FFF !important;
+}
+.middle_box{min-height:470px;}
+.spacer{width:100%;clear:both;}
+
+#body.Visible-ScreenXL #AppWrapper{height:600px !important; overflow-y:scroll !important ;}
+
+.LayoutFixedSidebar.SidebarFirst > .SidebarColumn 
+	{
+	width: 100%!important;
+    float: none!important;
+    margin-left: 0!important;
+    margin-right: 10px!important;
+	}
+.col-md-6
+{
+  position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    float:left;
+    width: 47%;
+}
+
+.col-md-4 {
+  position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    float:left;
+    width: 30.33333333%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-danger {
+  color: red;
+}

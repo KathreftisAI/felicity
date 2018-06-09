@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+        <ConfigItem Name="Frontend::Module###AdminDynamicFieldExtend" Required="1" Valid="1">
+        <Description Translatable="1">FrontendModuleRegistration for Admin Dynamic Field Extension.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>Admin Dynamic Field Extend</Title>
+                <Group>admin</Group>
+                <Description>ADFE</Description>
+                <NavBarName>Admin</NavBarName>
+
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">Admin Dynamic Field Extension</Name>
+                    <Description Translatable="1">Create and manage the Visibility of Admin Dynamic Field Extension.</Description>
+                    <Block>Ticket</Block>
+                    <Prio>410</Prio>
+                </NavBarModule>
+
+
+
+
+                <Loader>
+                         <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                       <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	    
+</otrs_config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

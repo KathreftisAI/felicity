@@ -1,0 +1,172 @@
+# --
+# Copyright (C) 2001-2018 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("PublicSurvey") %]
+<div class="Content ARIARoleMain" id="MainBox">
+    <div class="Header">
+        <h2>[% Translate("Survey") | html %]: [% Data.Title | html %]</h2>
+    </div>
+
+[% RenderBlockStart("PublicTicket") %]
+    <div class="SurveyBlock">
+        <div class="SurveyBlockHeader">
+            [% Translate("Ticket") | html %]
+        </div>
+        <div class="Content">
+            [% Config("Ticket::Hook") | html %][% Config("Ticket::HookDivider") | html %][% Data.TicketNumber | html %] <span>&mdash;</span> [% Data.Title | truncate(100) %]
+        </div>
+    </div>
+
+    <div class="Clear"></div>
+[% RenderBlockEnd("PublicTicket") %]
+
+    <div class="SurveyBlock">
+        <div class="SurveyBlockHeader">
+            [% Translate("Introduction") | html %]
+        </div>
+        <div class="Content">
+            [% Data.Introduction %]
+        </div>
+    </div>
+
+    <div class="Clear"></div>
+
+    <form action="[% Env("CGIHandle") %]" method="post">
+        <input type="hidden" name="Action" value="[% Env("Action") %]" />
+        <input type="hidden" name="Subaction" value="PublicSurveyVote" />
+        <input type="hidden" name="PublicSurveyKey" value="[% Data.PublicSurveyKey | html %]" />
+        <fieldset class="Survey">
+            <div class="SurveyBlockHeader">
+                [% Translate("Please answer these questions") | html %]:
+            </div>
+
+[% RenderBlockStart("PublicQuestions") %]
+            <div class="QuestionContainer">
+[% RenderBlockStart("PublicAnswerYesNo") %]
+
+                <div class="Question [% Data.Class | html %]"> [% Data.RequiredText | html %][% Data.Question %] </div>
+                [% Data.ErrorText %]
+
+                <input type="radio" id="PublicSurveyVote1[% Data.QuestionID | html %]Yes" name="PublicSurveyVote1[[% Data.QuestionID | html %]]" value="Yes" [% Data.YesSelected | html %] />
+                <label class="Answer" for="PublicSurveyVote1[% Data.QuestionID | html %]Yes">[% Translate("Yes") | html %]</label>
+                <div class="Clear"></div>
+
+                <input type="radio" id="PublicSurveyVote1[% Data.QuestionID | html %]No" name="PublicSurveyVote1[[% Data.QuestionID | html %]]" value="No"  [% Data.NoSelected | html %] />
+                <label class="Answer" for="PublicSurveyVote1[% Data.QuestionID | html %]No">[% Translate("No") | html %]</label>
+                <div class="Clear"></div>
+[% RenderBlockEnd("PublicAnswerYesNo") %]
+
+[% RenderBlockStart("PublicAnswerRadio") %]
+                <div class="Question [% Data.Class | html %]"> [% Data.RequiredText | html %][% Data.Question %] </div>
+                [% Data.ErrorText %]
+[% RenderBlockStart("PublicAnswerRadiob") %]
+                <input type="radio" id="PublicSurveyVote2[% Data.QuestionID | html %][% Data.AnswerID | html %]" name="PublicSurveyVote2[[% Data.QuestionID | html %]]" value="[% Data.AnswerID | html %]" [% Data.AnswerSelected | html %]/>
+                <label class="Answer" for="PublicSurveyVote2[% Data.QuestionID | html %][% Data.AnswerID | html %]">[% Data.Answer | html %]</label>
+                <div class="Clear"></div>
+[% RenderBlockEnd("PublicAnswerRadiob") %]
+[% RenderBlockEnd("PublicAnswerRadio") %]
+
+[% RenderBlockStart("PublicAnswerCheckbox") %]
+                <div class="Question [% Data.Class | html %]"> [% Data.RequiredText | html %][% Data.Question %] </div>
+                [% Data.ErrorText %]
+[% RenderBlockStart("PublicAnswerCheckboxb") %]
+                <input type="checkbox" id="PublicSurveyVote3[% Data.AnswerID | html %]" name="PublicSurveyVote3[[% Data.AnswerID | html %]]" value="Yes" [% Data.AnswerSelected | html %]/>
+                <label class="Answer" for="PublicSurveyVote3[% Data.AnswerID | html %]">[% Data.Answer | html %]</label>
+                <div class="Clear"></div>
+[% RenderBlockEnd("PublicAnswerCheckboxb") %]
+[% RenderBlockEnd("PublicAnswerCheckbox") %]
+
+[% RenderBlockStart("PublicAnswerTextarea") %]
+                <div class="Question [% Data.Class | html %]"> [% Data.RequiredText | html %][% Data.Question %] </div>
+                [% Data.ErrorText %]
+[% RenderBlockStart("RichText") %]
+                [% InsertTemplate("CustomerRichTextEditor.tt") %]
+[% RenderBlockEnd("RichText") %]
+                <div class="RichTextAnswer[% Data.AnswerID | html %]">
+                    <textarea title="[% Data.Question %]" id="RichText[% Data.QuestionID | html %]" name="PublicSurveyVote4[[% Data.QuestionID | html %]]" class="RichText DontPrint" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Value %]</textarea>
+                </div>
+[% RenderBlockEnd("PublicAnswerTextarea") %]
+            </div>
+[% RenderBlockEnd("PublicQuestions") %]
+        </fieldset>
+        <div class="ActionRow" id="BottomActionRow">
+            <button class="Primary" type="submit" value="[% Translate("Finish") | html %]"> [% Translate("Finish") | html %] </button>
+        </div>
+    </form>
+</div>
+[% RenderBlockEnd("PublicSurvey") %]
+
+[% RenderBlockStart("PublicSurveyMessage") %]
+<div id="MainBox" class="TicketCompose ARIARoleMain">
+    <div class="WidgetSimple">
+        <div class="Header">
+            <h2> [% Translate(Data.MessageType) | html %] </h2>
+        </div>
+        <div class="Content">
+            <h4> [% Translate(Data.MessageHeader) | html %] </h4>
+            <p class="SpacingTop">
+                [% Translate(Data.Message) | html %]
+            </p>
+            <div class="Clear"></div>
+[% RenderBlockStart("ShowAnswersButton") %]
+            <form action="[% Env("CGIHandle") %]" method="post">
+                <input type="hidden" name="Action" value="[% Env("Action") %]" />
+                <input type="hidden" name="Subaction" value="ShowVoteData" />
+                <input type="hidden" name="PublicSurveyKey" value="[% Data.PublicSurveyKey | html %]" />
+                <button type="submit" >[% Translate("Show my answers") | html %]</button>
+            </form>
+[% RenderBlockEnd("ShowAnswersButton") %]
+        </div>
+    </div>
+</div>
+[% RenderBlockEnd("PublicSurveyMessage") %]
+
+[% RenderBlockStart("PublicSurveyVoteData") %]
+<div class="Content ARIARoleMain" id="MainBox">
+    <div class="Header">
+        <h2>[% Translate("These are your answers") | html %]:</h2>
+    </div>
+    <div class="SurveyBlock">
+        <div class="SurveyBlockHeader">
+            [% Translate("Survey Title") | html %]
+        </div>
+        <div class="Content">
+            <h2>[% Translate("Survey") | html %]: [% Data.Title | html %]</h2>
+        </div>
+    </div>
+
+    <div class="SurveyBlock">
+        <div class="SurveyBlockHeader">
+            [% Translate("Introduction") | html %]
+        </div>
+        <div class="Content">
+            [% Data.Introduction %]
+        </div>
+    </div>
+
+    <div class="Clear"></div>
+    <fieldset class="Survey">
+        <div class="SurveyBlockHeader">
+            [% Translate("These are your answers") | html %]:
+        </div>
+
+[% RenderBlockStart("PublicSurveyVoteQuestion") %]
+        <div class="QuestionContainer">
+            <div class="Question [% Data.Class | html %]"> [% Data.RequiredText | html %][% Data.Question | html %]:</div>
+[% RenderBlockStart("PublicSurveyVoteAnswer") %]
+            <div class="Answer">
+                [% Data.Answer | html %]
+            </div>
+            <div class="Clear"></div>
+[% RenderBlockEnd("PublicSurveyVoteAnswer") %]
+            <div class="Clear"></div>
+        </div>
+[% RenderBlockEnd("PublicSurveyVoteQuestion") %]
+    </fieldset>
+</div>
+[% RenderBlockEnd("PublicSurveyVoteData") %]

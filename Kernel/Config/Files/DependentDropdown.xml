@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+        <ConfigItem Name="Frontend::Module###DependentDropdown" Required="1" Valid="1" >
+        <Description Translatable="1">FrontendModuleRegistration for Dependent Dropdown.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Title>Set Dependent Dropdown</Title>
+                <Group>admin</Group>
+                <Description>ADFE</Description>
+                <NavBarName>Admin</NavBarName>
+
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">Dependent Dropdown</Name>
+                    <Description Translatable="1">Set Dependent Query and SubQuery.</Description>
+                    <Block>Ticket</Block>
+                    <Prio>411</Prio>
+                </NavBarModule>
+
+
+                <Loader>
+                         <CSS>Core.AllocationList.css</CSS>
+                    <JavaScript>Core.UI.AllocationList.js</JavaScript>
+                       <JavaScript>Core.Agent.TableFilters.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+	    
+</otrs_config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

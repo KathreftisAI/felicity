@@ -1,0 +1,198 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("SurveyZoom") %]
+<div class="MainBox AriaRoleMain LayoutFixedSidebar SidebarFirst">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <h1>[% Translate(Config("Survey::Hook")) | html %][% Data.SurveyNumber | html %] - [% Data.Title | html %]</h1>
+    </div>
+
+    <div class="LayoutFixedSidebar SidebarLast">
+        <div class="SidebarColumn">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Survey Information") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall">
+
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value">[% Data.CreateTime | Localize("TimeShort") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created by") | html %]:</label>
+                        <p class="Value">[% Data.CreateUserFullname | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Changed") | html %]:</label>
+                        <p class="Value" >[% Data.ChangeTime | Localize("TimeShort") %]</p>
+
+                        <label>[% Translate("Changed by") | html %]:</label>
+                        <p class="Value">[% Data.ChangeUserFullname | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Status") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Status) | html %]</p>
+                        <div class="Clear"></div>
+                    </fieldset>
+
+                    <fieldset class="TableLike FixedLabelSmall">
+                        <label>[% Translate("Sent requests") | html %]:</label>
+                        <p class="Value">[% Data.SendRequest | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Received surveys") | html %]:</label>
+                        <p class="Value">[% Data.RequestComplete | html %]</p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="ContentColumn">
+            <div class="ControlRow">
+                <div class="AdditionalInformation">
+                </div>
+            </div>
+            <div class="ActionRow">
+                <ul class="Actions">
+[% RenderBlockStart("MenuItem") %]
+                    <li>
+                        <a href="[% Env("Baselink") %][% Data.Link | Interpolate %]" id="[% Data.MenuID | html %]" class="[% Data.Class | html %]" [% Data.LinkParam %] title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]</a>
+                    </li>
+[% RenderBlockEnd("MenuItem") %]
+[% RenderBlockStart("SurveyStatus") %]
+                    <li>
+                        <form action="[% Env("CGIHandle") %]" method="post" class="ActionForm">
+                            <input type="hidden" name="Action" value="[% Env("Action") %]" />
+                            <input type="hidden" name="Subaction" value="SurveyStatus" />
+                            <input type="hidden" name="SurveyID" value="[% Data.SurveyID | html %]" />
+                            [% Data.NewStatusStr %]
+                        </form>
+                    </li>
+[% RenderBlockEnd("SurveyStatus") %]
+                </ul>
+                <div class="Clear"></div>
+            </div>
+
+            <div class="WidgetSimple SpacingTop">
+                <div class="Header">
+                    <h2>[% Translate("Survey Details") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall">
+
+                        <label>[% Translate("Number") | html %]:</label>
+                        <div class="Field">[% Data.SurveyNumber | html %]</div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Title") | html %]:</label>
+                        <div class="Field">[% Data.Title | truncate(80) | html %]</div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Queues") | html %]:</label>
+                        <div class="Field" title="[% Data.QueueListString | html %]">[% Data.QueueListString | truncate(80) | html %] [% Data.NoQueueMessage | html %]</div>
+                        <div class="Clear"></div>
+
+[% RenderBlockStart("TicketTypes") %]
+                        <label>[% Translate("Ticket Types") | html %]:</label>
+                        <div class="Field" title="[% Data.TicketTypeListString | html %]">[% Data.TicketTypeListString | truncate(80) | html %]</div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("TicketTypes") %]
+
+[% RenderBlockStart("TicketServices") %]
+                        <label>[% Translate("Ticket Services") | html %]:</label>
+                        <div class="Field" title="[% Data.ServiceListString | html %]">[% Data.ServiceListString | truncate(80) | html %]</div>
+                        <div class="Clear"></div>
+[% RenderBlockEnd("TicketServices") %]
+
+                    </fieldset>
+                </div>
+            </div>
+
+[% RenderBlockStart("SurveyBlock") %]
+            <div class="WidgetSimple SpacingTop" id="[% Data.SurveyField %]Block">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="[% Env("Baselink") %]Action=AgentSurveyZoom;SurveyID=[% Data.SurveyID | uri %]" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate(Data.Title) | html %]</h2>
+                </div>
+                <div class="Content">
+[% RenderBlockStart("BodyHTML") %]
+                    <div>
+                        <iframe width="100%" frameborder="0" id="IframeSurvey[% Data.SurveyField | html %]" onload="Survey.Agent.SurveyZoom.IframeAutoHeight($('#IframeSurvey[% Data.SurveyField | html %]'));" src="[% Env("Baselink") %]Action=AgentSurveyZoom;Subaction=HTMLView;SurveyID=[% Data.SurveyID | html %];SurveyField=[% Data.SurveyField | html %];">
+                        </iframe>
+                    </div>
+[% RenderBlockEnd("BodyHTML") %]
+[% RenderBlockStart("BodyPlain") %]
+                    <fieldset>
+                        <label class="Textarea">[% Translate(Data.Label) | html %]:</label>
+                        <div class="Field Textarea">[% Data.Content | html %]</div>
+                        <div class="Clear"></div>
+                    </fieldset>
+[% RenderBlockEnd("BodyPlain") %]
+                </div>
+            </div>
+[% RenderBlockEnd("SurveyBlock") %]
+            <div class="WidgetSimple SpacingTop SpacingBottomMedium">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Survey Results Graph") | html %]</h2>
+                </div>
+                <div class="Content">
+
+[% RenderBlockStart("NoStatResults") %]
+                    [% Translate("No stat results.") | html %]
+[% RenderBlockEnd("NoStatResults") %]
+
+[% RenderBlockStart("SurveyEditStats") %]
+
+[% RenderBlockStart("SurveyEditStatsQuestion") %]
+                    <fieldset class="SpacingTop SurveyGraphs">
+                        <div class="Question" title="[% Data.Question %]" >[% Data.Question | truncate(100) | html %]: </div>
+[% RenderBlockStart("SurveyEditStatsAnswer") %]
+                        <div class="Answer">[% Translate(Data.Answer) | html %]</div>
+
+                        <div class="SurveyGraph">
+                            <div class="SurveyGraphContainer">
+                                <div class="SurveyGraphBar" style="width:[% Data.AnswerPercentTable | html %]%;"></div >
+                            </div>
+                        </div>
+                        <p class="SurveyGraphLeyend">[% Data.AnswerPercent | html %]%</p>
+[% RenderBlockEnd("SurveyEditStatsAnswer") %]
+                    </fieldset>
+[% RenderBlockEnd("SurveyEditStatsQuestion") %]
+
+[% RenderBlockEnd("SurveyEditStats") %]
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('ul.Actions a.AsPopup').bind('click', function (Event) {
+        Core.UI.Popup.OpenPopup ($(this).attr('href'), 'Action');
+        return false;
+    });
+
+    $('#NewStatus').bind('change', function (Event) {
+        $(this).closest('form').submit();
+    });
+
+    Core.Config.Set('Survey.HTMLRichTextHeightDefault', "[% Data.HTMLRichTextHeightDefault | html %]");
+    Core.Config.Set('Survey.HTMLRichTextHeightMax', "[% Data.HTMLRichTextHeightMax | html %]");
+
+//]]></script>
+[% END %]
+[% RenderBlockEnd("SurveyZoom") %]

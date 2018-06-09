@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="1.0" init="Application">
+    <ConfigItem Name="ITSMConfigItem::SetIncidentStateOnLink" Required="1" Valid="1">
+        <Description Translatable="1">Set the incident state of a CI automatically when a Ticket is Linked to a CI.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="0">No</Item>
+                <Item Key="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::EventModulePost###042-ITSMConfigItemTicketStatusLink" Required="1" Valid="1">
+        <Description Translatable="1">Event module to set configitem-status on ticket-configitem-link.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::Ticket::Event::TicketStatusLink</Item>
+                <Item Key="Event">(LinkAdd|LinkDelete)</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Ticket::EventModulePost###042-ITSMConfigItemTicketStatusLink" Required="1" Valid="1">
+        <Description Translatable="1">Event module to set configitem-status on ticket-configitem-link.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::Ticket::Event::TicketStatusLink</Item>
+                <Item Key="Event">(TicketStateUpdate|TicketTypeUpdate)</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::LinkStatus::TicketTypes" Required="0" Valid="0">
+        <Description Translatable="1">Defines which type of ticket can affect the status of a linked CI.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Incident</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::LinkStatus::DeploymentStates" Required="0" Valid="0">
+        <Description Translatable="1">Defines the relevant deployment states where linked tickets can affect the status of a CI.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Production</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::LinkStatus::IncidentStates" Required="1" Valid="1">
+        <Description Translatable="1">Defines the order of incident states from high (e.g. cricital) to low (e.g. functional).</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Array>
+                <Item>Incident</Item>
+                <Item>Warning</Item>
+                <Item>Operational</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="ITSMConfigItem::LinkStatus::LinkTypes" Required="1" Valid="1">
+        <Description Translatable="1">Defines which type of link (named from the ticket perspective) can affect the status of a linked CI.</Description>
+        <Group>ITSM Configuration Management</Group>
+        <SubGroup>Core::LinkStatus</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="RelevantTo">Incident</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

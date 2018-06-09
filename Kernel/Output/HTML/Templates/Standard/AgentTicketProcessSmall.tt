@@ -1,0 +1,54 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("RichText") %]
+<script src="[% Config("Frontend::RichTextPath") %]ckeditor.js" type="text/javascript"></script>
+[% RenderBlockEnd("RichText") %]
+
+<div class="LayoutPopup ARIARoleMain FormScreen">
+    <div class="Header">
+        <h1>[% Translate("Enroll Ticket into a Process") | html %]</h1>
+        <p class="AsteriskExplanation">[% Translate("All fields marked with an asterisk (*) are mandatory.") | html %]</p>
+        <p>
+            <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+    <div class="Content">
+        <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="compose" id="NewProcessTicket" class="Validate PreventMultipleSubmits">
+            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+            <input type="hidden" name="Subaction" value="DisplayActivityDialog"/>
+            <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+            <input type="hidden" name="IsProcessEnroll" id="IsProcessEnroll" value="[% Data.IsProcessEnroll | html %]"/>
+            <input type="hidden" name="TicketID" id="TicketID" value="[% Data.TicketID | html %]"/>
+            <fieldset class="TableLike">
+[% RenderBlockStart("ProcessList") %]
+                <label class="Mandatory" for="ProcessEntityID"><span class="Marker">*</span>[% Translate("Process") | html %]:</label>
+                <div class="Field">
+                    [% Data.ProcessList %]
+                    <div id="ProcessEntityIDError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    <div id="ProcessEntityIDServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                </div>
+                <div class="Spacing Clear"></div>
+[% RenderBlockEnd("ProcessList") %]
+            </fieldset>
+        </form>
+        <div id="AJAXLoader" class="Spacing Center Hidden">
+            <span class="AJAXLoader" title="[% Translate("Loading") | html %]"></span>
+        </div>
+        <div id="ActivityDialogContent"></div>
+    </div>
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.Agent.TicketProcess.Init();
+//]]></script>
+[% RenderBlockStart("PreSelectProcess") %]
+<script type="text/javascript">//<![CDATA[
+$('#ProcessEntityID').val('[% Data.ProcessID | html %]').trigger('change');
+//]]></script>
+[% RenderBlockEnd("PreSelectProcess") %]
+[% END %]

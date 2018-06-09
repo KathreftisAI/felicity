@@ -1,0 +1,28 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<div class="LayoutPopup ARIARoleMain">
+    <div class="Header">
+        <h1>[% Translate("S/MIME Certificate") | html %]: [% Data.Filename | html %]</h1>
+        <p>
+            <a class="CancelClosePopup" href="#">[% Translate("Close dialog") | html %]</a>
+        </p>
+    </div>
+    <div class="Content">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate('Certificate details') | html %]:</h2>
+            </div>
+            <div class="Content">
+                <code>[% Data.CertificateText %]</code>
+            </div>
+        </div>
+    </div>
+    <div class="Footer">
+        <button class="CancelClosePopup" value="Close" type="button" title="[% Translate("Close dialog") | html %]" id="Close">[% Translate("Close dialog") | html %]</button>
+    </div>
+</div>

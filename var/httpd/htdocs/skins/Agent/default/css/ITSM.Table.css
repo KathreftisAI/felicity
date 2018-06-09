@@ -1,0 +1,53 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Tables
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Overview Small View Table
+ */
+
+.TableSmall thead.ITSMHeader span {
+    color: #4A4A4A;
+}
+
+/**
+ * @subsection  table elements without highlight
+ */
+
+.DataTableNoHighlight tbody tr td {
+    height: 30px;
+}
+
+.DataTableNoHighlight tbody tr td input,
+.DataTableNoHighlight tbody tr td select{
+    width: 85%;
+}
+
+.DataTableNoHighlight tbody tr:hover td {
+    background: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.DataTableNoHighlight tr.Even:hover td,
+.DataTableNoHighlight tr.Even:hover.Last td {
+    background-color: #F5F5F5;
+}
+
+.DataTableNoHighlight tbody tr.Last:hover td {
+    background: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+}

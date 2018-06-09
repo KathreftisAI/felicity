@@ -1,0 +1,1 @@
+<iframe src="[% Config('RocketChatIP') %]/home" height="500" width="100%"></iframe>

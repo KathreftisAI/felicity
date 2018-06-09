@@ -1,0 +1,232 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Dialogs
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Overlay
+ */
+#Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+    z-index: 3500;
+}
+
+/**
+ * @subsection  Dialog
+ */
+.Dialog {
+    position: absolute;
+    z-index: 3501;
+    min-width: 150px;
+    background: #FFF;
+}
+
+.Dialog.Fullsize {
+    width: 100%;
+    height: 100%;
+    left: 0px !important;
+}
+
+.Dialog > .Header {
+    cursor: move;
+    display: block;
+    position: relative;
+    height: 25px;
+    background: #eee;
+    border-bottom: 1px solid #CCC;
+}
+
+.Dialog > .Header .Close {
+    display: block;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    right: 8px;
+    top: 7px;
+    color: #000;
+}
+
+.Dialog > .Header .Close:hover i {
+    color: #E57633;
+}
+
+.Dialog > .Header h1 {
+    padding: 5px 10px;
+    font-weight: normal;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+.Dialog > .Content {
+    position: relative;
+    overflow: hidden;
+}
+
+.Dialog > .Content > .InnerContent {
+    padding: 10px 25px 10px 10px;
+    background: #FFF;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 200px;
+    position: relative;
+}
+
+.RTL .Dialog > .Content > .InnerContent {
+    padding: 10px 10px 10px 25px;
+}
+
+.Dialog > .Content > .ContentFooter {
+    padding: 6px 0 5px;
+    background: #e5e5e5;
+    min-height: 20px;
+    border-top: 1px solid #CCC;
+}
+
+.Dialog > .Footer {
+    padding: 6px 0 5px;
+    display: block;
+    position: relative;
+    background: #eee;
+    border-top: 1px solid #CCC;
+}
+
+.Dialog > .Footer.ContentFooter {
+    display: none;
+}
+
+/**
+ * subsection       Alert
+ */
+
+.Dialog.Alert .InnerContent .fa {
+    display: block;
+    font-size: 25px;
+    text-align: center;
+    color: #ff505e;
+    margin-bottom: 10px;
+}
+
+.Dialog.Alert h2,
+.Dialog.Alert p {
+    text-align: center;
+}
+
+.Dialog.Alert {
+    width: 450px;
+    top: 100px;
+    left: 300px;
+}
+
+/**
+ * subsection   Settings
+ */
+
+.Dialog fieldset {
+    margin-bottom: 15px;
+}
+
+.Dialog .WidgetSettingsForm fieldset {
+    margin-bottom: 0px;
+}
+
+.Dialog .Field.LayoutGrid {
+    padding-top: 7px;
+}
+
+.Dialog .Field.LayoutGrid .Tablelike {
+    width: 98%;
+}
+
+.Dialog .Buttons {
+    background: #ddd;
+    border-top: 1px solid #ccc;
+    margin: 15px -8px -8px;
+    padding: 10px 10px 9px 10px;
+    text-align: center;
+}
+
+.Dialog .Field.LayoutGrid .AllocationList {
+    max-height: 192px;
+    overflow: auto;
+}
+
+.Field.LayoutGrid .AllocationList.AvailableFields {
+    max-height: 155px;
+}
+
+.Dialog .Field.LayoutGrid .AllocationList.OrderNumbers {
+    list-style: decimal inside;
+}
+
+.FilterInputContainer {
+    width: 98%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: #eee;
+}
+
+.FilterInputContainer input {
+    width: 95%;
+    display: block;
+    margin: 7px auto;
+}
+
+#ContextSettingsDialogOverviewSmall {
+    width: 950px;
+    max-height: 600px;
+}
+
+/* Pure continuous text dialogs */
+
+.TextDialog {
+    padding: 15px;
+    line-height: 150%;
+    width: 550px;
+    font-size: 13px;
+    max-height: 450px;
+    overflow: scroll;
+}
+
+.TextDialog p,
+.TextDialog li,
+.TextDialog a {
+    font-size: 12px;
+}
+
+.TextDialog ul {
+    list-style-type: square;
+    margin: 0px 0px 7px 20px;
+}
+
+.TextDialog ul li {
+    margin-bottom: 5px;
+    line-height: 130%;
+}
+
+.TextDialog h1 {
+    margin-bottom: 4px;
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.TextDialog > p {
+    margin-bottom: 12px;
+    margin-left: 8px;
+}
+
+} /* end @media */

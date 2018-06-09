@@ -1,0 +1,18 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Title") | html %]:</label>
+    <p class="Value">
+        [% Data.ChangeTitle | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+<p class="SpacingTop Center">
+    [% Translate("Do you really want to reset this change?") | html %]
+</p>

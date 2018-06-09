@@ -1,0 +1,182 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<div class="MainBox ARIARoleMain">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <h1>[% Translate("SLA") | html %]: [% Data.Name | html %]</h1>
+    </div>
+
+    <div class="LayoutFixedSidebar SidebarLast">
+        <div class="SidebarColumn">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("SLA Information") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall Tight">
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value">[% Data.CreateTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created by") | html %]:</label>
+                        <p class="Value">
+                            [% Data.CreateByName | html %]
+                        </p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed") | html %]:</label>
+                        <p class="Value">
+                            [% Data.ChangeTime | Localize("TimeLong") %]
+                        </p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed by") | html %]:</label>
+                        <p class="Value">
+                            [% Data.ChangeByName | html %]
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ContentColumn">
+            <div class="ControlRow">
+            </div>
+            <div class="ActionRow">
+                <ul class="Actions">
+[% RenderBlockStart("MenuItem") %]
+                    <li>
+                        <a href="[% Env("Baselink") %][% Data.Link | Interpolate %]" class="[% Data.MenuClass | html %]" title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]</a>
+                    </li>
+[% RenderBlockEnd("MenuItem") %]
+                </ul>
+            </div>
+
+            <div class="WidgetBox SpacingTop Expanded">
+                <div class="LightRow Header">
+                    <div class="WidgetAction Toggle"><a href="#" title="[% Translate("Show or hide the content.") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+                    <h2>[% Translate("SLA") | html %]: [% Data.Name | html %]</h2>
+                </div>
+                <div class="Content AutoHeight">
+                    <fieldset class="TableLike FixedLabel">
+                        <label>[% Translate("Type") | html %]: </label>
+                        <div class="Field">
+                            [% Translate(Data.Type) | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Calendar") | html %]: </label>
+                        <div class="Field">
+                            [% Data.CalendarName | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("First Response Time") | html %]: </label>
+                        <div class="Field">
+                            [% Data.FirstResponseTime | html %] [% Translate("minutes") | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Update Time") | html %]: </label>
+                        <div class="Field">
+                            [% Data.UpdateTime | html %] [% Translate("minutes") | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Solution Time") | html %]: </label>
+                        <div class="Field">
+                            [% Data.SolutionTime | html %] [% Translate("minutes") | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Minimum Time Between Incidents") | html %]: </label>
+                        <div class="Field">
+                            [% Data.MinTimeBetweenIncidents | html %] [% Translate("minutes") | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Comment") | html %]: </label>
+                        <div class="Field">
+                            [% Data.Comment | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+[% RenderBlockStart("Service") %]
+            <div class="WidgetSimple SpacingTop SpacingBottomMedium">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Associated Services") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <table class="DataTable">
+                        <thead>
+                            <tr>
+                                <th>[% Translate("State") | html %]</th>
+                                <th>[% Translate("Service") | html %]</th>
+                                <th>[% Translate("Comment") | html %]</th>
+                                <th>[% Translate("Type") | html %]</th>
+                                <th>[% Translate("Criticality") | html %]</th>
+                                <th>[% Translate("Changed") | html %]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+[% RenderBlockStart("ServiceRow") %]
+                            <tr>
+                                <td>
+                                    <div class="Flag Small">
+                                        <span class="[% Data.CurInciSignal | html %]" title="[% Translate(Data.CurInciState) | html %]"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="[% Env("Baselink") %]Action=AgentITSMServiceZoom;ServiceID=[% Data.ServiceID | uri %]">
+                                        [% Data.Name | html %]
+                                    </a>
+                                </td>
+                                <td title="[% Data.Comment | html %]">[% Data.Comment | truncate(100) | html %]</td>
+                                <td>[% Translate(Data.Type) | html %]</td>
+                                <td>[% Translate(Data.Criticality) | html %]</td>
+                                <td>[% Data.ChangeTime | Localize("TimeLong") %]</td>
+                            </tr>
+[% RenderBlockEnd("ServiceRow") %]
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+[% RenderBlockEnd("Service") %]
+
+        </div>
+    </div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+    $('ul.Actions a.AsPopup').bind('click', function (Event) {
+        Core.UI.Popup.OpenPopup($(this).attr('href'), 'Action');
+        return false;
+    });
+
+    $('ul.Actions a.HistoryBack').bind('click', function (Event) {
+        history.back();
+        return false;
+    });
+//]]></script>
+[% END %]

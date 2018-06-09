@@ -1,0 +1,173 @@
+# --
+# Copyright (C) 2001-2018 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.UI.ActionRow.Init();
+//]]></script>
+[% END %]
+
+<div id="OverviewBody" class="Overview TicketList">
+[% RenderBlockStart("NoDataFoundMsg") %]
+    <div id="EmptyMessageSmall">
+        [% Translate("No data found.") | html %]
+    </div>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+
+    <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="matrix">
+        <table class="TableSmall">
+            <thead>
+                <tr>
+[% RenderBlockStart("RecordNumberHeader") %]
+                    <th class="Number [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=Number;OrderBy=[% Data.OrderBy | uri %]">[% Translate(Config("Survey::Hook")) | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordNumberHeader") %]
+[% RenderBlockStart("RecordTitleHeader") %]
+                    <th class="Title [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=Title;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Title") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordTitleHeader") %]
+[% RenderBlockStart("RecordIntroductionHeader") %]
+                    <th class="Introduction [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=Introduction;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Introduction") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordIntroductionHeader") %]
+[% RenderBlockStart("RecordDescriptionHeader") %]
+                    <th class="Description [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=Description;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Description") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordDescriptionHeader") %]
+[% RenderBlockStart("RecordNotificationSenderHeader") %]
+                    <th class="NotificationSender [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=NotificationSender;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Notification Sender") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordNotificationSenderHeader") %]
+[% RenderBlockStart("RecordNotificationSubjectHeader") %]
+                    <th class="NotificationSubject [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=NotificationSubject;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Notification Subject") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordNotificationSubjectHeader") %]
+[% RenderBlockStart("RecordNotificationBodyHeader") %]
+                    <th class="NotificationBody [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=NotificationBody;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Notification Body") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordNotificationBodyHeader") %]
+[% RenderBlockStart("RecordStatusHeader") %]
+                    <th class="Status [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=Status;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Status") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordStatusHeader") %]
+[% RenderBlockStart("RecordCreateTimeHeader") %]
+                    <th class="CreateTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=CreateTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Created") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordCreateTimeHeader") %]
+[% RenderBlockStart("RecordCreateByHeader") %]
+                    <th class="CreateBy [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=CreateBy;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Created by") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordCreateByHeader") %]
+[% RenderBlockStart("RecordChangeTimeHeader") %]
+                    <th class="ChangeTime [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=ChangeTime;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Changed") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeTimeHeader") %]
+[% RenderBlockStart("RecordChangeByHeader") %]
+                    <th class="ChangeBy [% Data.CSS | html %]">
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];SortBy=ChangeBy;OrderBy=[% Data.OrderBy | uri %]">[% Translate("Changed By") | html %]</a>
+                    </th>
+[% RenderBlockEnd("RecordChangeByHeader") %]
+                </tr>
+            </thead>
+            <tbody>
+[% RenderBlockStart("Record") %]
+                <tr class="MasterAction [% IF Data.Status == 'Invalid' %]Invalid[% END %]">
+[% RenderBlockStart("RecordNumber") %]
+                    <td>
+[% RenderBlockStart("RecordNumberLinkStart") %]
+                        <a href="[% Env("Baselink") %]Action=AgentSurveyZoom;SurveyID=[% Data.SurveyID | uri %]" title="[% Data.SurveyNumber | uri %]" class="MasterActionLink">
+[% RenderBlockEnd("RecordNumberLinkStart") %]
+                            [% Data.SurveyNumber | html %]
+[% RenderBlockStart("RecordNumberLinkEnd") %]
+                        </a>
+[% RenderBlockEnd("RecordNumberLinkEnd") %]
+                    </td>
+[% RenderBlockEnd("RecordNumber") %]
+[% RenderBlockStart("RecordTitle") %]
+                    <td>
+                        <div title="[% Data.Title | html %]">[% Data.Title | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordTitle") %]
+[% RenderBlockStart("RecordIntroduction") %]
+                    <td>
+                        <div title="[% Data.Introduction | html %]">[% Data.Introduction | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordIntroduction") %]
+[% RenderBlockStart("RecordDescription") %]
+                    <td>
+                        <div title="[% Data.Description | html %]">[% Data.Description | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordDescription") %]
+[% RenderBlockStart("RecordNotificationSender") %]
+                    <td>
+                        <div>[% Data.NotificationSender | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordNotificationSender") %]
+[% RenderBlockStart("RecordNotificationSubject") %]
+                    <td>
+                        <div title="[% Data.NotificationSubject | html %]">[% Data.NotificationSubject | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordNotificationSubject") %]
+[% RenderBlockStart("RecordNotificationBody") %]
+                    <td>
+                        <div title="[% Data.NotificationBody | html %]">[% Data.NotificationBody | truncate(40) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordNotificationBody") %]
+[% RenderBlockStart("RecordStatus") %]
+                    <td>
+                        <div>[% Translate(Data.Status) | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordStatus") %]
+[% RenderBlockStart("RecordCreateTime") %]
+                    <td>
+                        <div>[% Data.CreateTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordCreateTime") %]
+[% RenderBlockStart("RecordCreateBy") %]
+                    <td>
+                        <div>[% Data.CreateUserFullname | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordCreateBy") %]
+[% RenderBlockStart("RecordChangeTime") %]
+                    <td>
+                        <div>[% Data.ChangeTime | Localize("TimeLong") %]</div>
+                    </td>
+[% RenderBlockEnd("RecordChangeTime") %]
+[% RenderBlockStart("RecordChangeBy") %]
+                    <td>
+                        <div>[% Data.ChangeUserFullname | html %]</div>
+                    </td>
+[% RenderBlockEnd("RecordChangeBy") %]
+                </tr>
+[% RenderBlockEnd("Record") %]
+            </tbody>
+        </table>
+    </form>
+</div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+ $('.MasterAction').bind('click', function (Event) {
+     var $MasterActionLink = $(this).find('.MasterActionLink');
+    // only act if the link was not clicked directly
+    if (Event.target !== $MasterActionLink.get(0)) {
+        window.location = $MasterActionLink.attr('href');
+        return false;
+    }
+});
+//]]></script>
+[% END %]

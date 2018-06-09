@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Framework">
+    <ConfigItem Name="Frontend::Module###AdminGeneralCatalog" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the AdminGeneralCatalog configuration in the admin area.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Frontend::Admin::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Group>admin</Group>
+                <Description Translatable="1">Admin.</Description>
+                <Title Translatable="1">General Catalog</Title>
+                <NavBarName>Admin</NavBarName>
+                <NavBarModule>
+                    <Module>Kernel::Output::HTML::NavBar::ModuleAdmin</Module>
+                    <Name Translatable="1">General Catalog</Name>
+                    <Description Translatable="1">Create and manage the General Catalog.</Description>
+                    <Block>Ticket</Block>
+                    <Prio>410</Prio>
+                </NavBarModule>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###Comment2" Required="0" Valid="0">
+        <Description Translatable="1">Parameters for the example comment 2 of the general catalog attributes.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Label">Comment2</Item>
+                <Item Key="Desc">Define the general catalog comment 2.</Item>
+                <Item Key="Block">TextArea</Item>
+                <Item Key="Cols">50</Item>
+                <Item Key="Rows">5</Item>
+                <Item Key="PrefKey">Comment2</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="GeneralCatalogPreferences###Permissions" Required="0" Valid="0">
+        <Description Translatable="1">Parameters for the example permission groups of the general catalog attributes.</Description>
+        <Group>GeneralCatalog</Group>
+        <SubGroup>GeneralCatalog::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::GeneralCatalogPreferences::Generic</Item>
+                <Item Key="Label">Permissions</Item>
+                <Item Key="Desc">Define the group with permissions.</Item>
+                <Item Key="Block">Permission</Item>
+                <Item Key="Class">ITSM::ConfigItem::Class</Item>
+                <Item Key="PrefKey">Permissions</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Loader::Agent::CommonJS###100-GeneralCatalog" Required="1" Valid="1">
+        <Description Translatable="1">List of JS files to always be loaded for the agent interface.</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Web</SubGroup>
+        <Setting>
+            <Array>
+                <Item>thirdparty/jscolor_1.4.1/jscolor.js</Item>
+            </Array>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

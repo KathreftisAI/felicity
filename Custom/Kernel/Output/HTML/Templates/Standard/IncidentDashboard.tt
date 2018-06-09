@@ -1,0 +1,413 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/highcharts.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/exporting.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/export-data.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/highcharts-3d.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/heatmap.js"></script>
+<script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/drilldown.js"></script>
+
+
+<div class="spacer20"></div>
+	<div class="col-md-4 text-center">
+		<div class="info-box">
+		<h4>Critical Open In</h4>
+		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;">[% Data.critical_incident %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Unassigned Incidents</h4>
+		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterLock=1;Filter=All;">[% Data.Unassigned_Incidents %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Overdue Incidents</h4>
+		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentNewEscalation;">[% Data.Overdue_Incidents %]</a></h1>
+		</div>
+	</div>
+
+	<div class="clearfix" style="height: 20px;"></div>
+
+	<div class="col-md-4 text-center">
+		<div class="info-box">
+		<h4>Open Incidents</h4>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterState=4;Filter=All;">[% Data.Open_incident %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Incidents not Updated for 7 days</h4>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;">[% Data.sevenday_incidentticket %]</a></h1>
+		</div>
+	</div>
+	<div class="col-md-4 text-center">
+	<div class="info-box">
+		<h4>Open Incidents Older Than 30 days</h4>
+		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;Filter=All;">[% Data.ThirtyDays_incidentticket %]</a></h1>
+		</div>
+	</div>
+
+	<div class="clearfix" style="height: 20px;"></div>
+
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+	        <div class="panel-body" id="statePieDiv" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+			<div class="panel-body " id="openIncident" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+	        <div class="panel-body " id="OpenCloseStateDiv" style="height:400px;"></div>
+	    </div>
+	</div>
+
+	<div class="col-md-6">
+	    <div class="panel panel-default">
+	       <div class="panel-body " id="matrix" style="height:400px;"></div>
+	    </div>
+	</div>
+
+
+
+	<div class="clearfix"></div>
+
+<script type="text/javascript">
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/******************code for ticket state count**************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	var ticketStateList=[% JSON(Data.ticket_state_list) %];
+	var ticketState = [% JSON(Data.ticket_state) %];
+	var convertedStateArray = ticketState.map(function(stateValues) {
+	   	return { name : stateValues.name,y: Number(stateValues.y) };
+	});
+
+	Highcharts.chart('statePieDiv', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Ticket State Count'
+	    },
+	    xAxis: {
+	        type: 'category',
+	        labels: {
+	            rotation: -45,
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Count'
+	        }
+	    },
+	    legend: {
+	        enabled: false
+	    },
+	    // tooltip: {
+	    //     pointFormat: 'Count: <b>{point.y:.1f}</b>'
+	    // },
+
+	    credits: {
+	        enabled: false
+	    },
+
+	    series: [{
+	        name: 'Ticket',
+	        data:convertedStateArray,
+	        dataLabels: {
+	            enabled: false,
+	            rotation: -90,
+	            color: '#FFFFFF',
+	            align: 'right',
+	            format: '{point.y:.1f}', /* one decimal*/
+	            y: 10, /* 10 pixels down from the top*/
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        },
+	        point:{
+	           events:{
+	               click: function (event) {
+	                   window.location.href ="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterState="+ticketStateList[event.point.options.name];
+
+	               }
+	           }
+	        }
+	    }]
+	});
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/***********code for openincident dashboard**************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	openincidentGroup=[% JSON(Data.open_incidentGroup) %];
+	var ticketOpenIncidentList=[% JSON(Data.ticket_openincident_list) %];
+	var OpenIncidentArray = openincidentGroup.map(function(Incidentprioritylist) {
+	    	return Incidentprioritylist.name;
+	    	
+	    });
+	var OpenIncidentConvertArray = openincidentGroup.map(function(OpenIncidentConvertVal) {
+	    	return Number(OpenIncidentConvertVal.data[0]);  	
+	    });
+
+	Highcharts.chart('openIncident', {
+	    chart: {
+	        type: 'bar'
+	    },
+	    title: {
+	        text: 'Open Incidents-Grouped'
+	    },
+
+	    xAxis: {
+	        categories: OpenIncidentArray,
+	        title: {
+	            text: null
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            text: 'Counts',
+	            //align: 'center'
+	        },
+	        labels: {
+	            overflow: 'justify'
+	        }
+	    },
+	    tooltip: {
+	        // valueSuffix: ' millions'
+	    },
+	    plotOptions: {
+	        bar: {
+	            dataLabels: {
+	                enabled: false
+	            }
+	        }
+	    },
+	    
+	    credits: {
+	        enabled: false
+	    },
+	    series: [{
+	    	name: 'Open',
+	    	data:OpenIncidentConvertArray,
+	    	point:{
+	           events:{
+	               	click: function (event) {
+	               		var priorityID = event.point.category.split('')
+	                   	window.location.href ="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterState=4;ColumnFilterPriority="+priorityID[1];
+
+	               }
+	           }
+	        }
+	    }]
+	});
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/*************To create array of last 7 days**************************************************************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	WeekDay="[% Data.WeekDay %]";
+	WeekDayArray=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+	yaxis=[];
+	/************To arrange last WeekDays****************/ 
+	for (var i = 0; i < 7; i++) {
+		if (WeekDay != WeekDayArray[0] ) {
+			var Day=WeekDayArray.shift();
+			WeekDayArray.push(Day);          
+		}
+	}
+	/**********Count of Created and Closed Tickets*********************************************************/
+	var OpenStatsData =[% JSON(Data.ticket_OpenStatsData) %];
+	var closeStatsData=[% JSON(Data.ticket_CloseStatsData) %];
+	var OpenStatsArray=[];
+	var CloseStatsArray=[];
+	$.each(WeekDayArray, function(key,value){
+		/*********if count exist of ticket created particular WeekDay then fill else zero****/
+		if (OpenStatsData[value]) {
+			OpenStatsArray.push(parseInt(OpenStatsData[value]));
+		} else {
+			OpenStatsArray.push(0);
+		}
+
+		/*********if count exist of ticket closed particular WeekDay then fill else zero*****/
+		if (closeStatsData[value]) {
+			CloseStatsArray.push(parseInt(closeStatsData[value]));
+		} else {
+			CloseStatsArray.push(0);
+		}
+
+	});
+
+
+	Highcharts.chart('OpenCloseStateDiv', {
+	  chart: {
+	    type: 'area',
+	    inverted: false
+	  },
+	  title: {
+	    text: 'Tickets Created-Closed in Last 7 Days'
+	  },
+	  subtitle: {
+	    style: {
+	      position: 'absolute',
+	      right: '0px',
+	      bottom: '10px'
+	    }
+	  },
+	  legend: {
+	    floating: false,
+	  },
+	  xAxis: {
+	    categories: WeekDayArray
+	  },
+	  yAxis: {
+	    title: {
+	      text: 'Counts'
+	    },
+	    allowDecimals: false,
+	    min: 0
+	  },
+	  plotOptions: {
+	    area: {
+	      fillOpacity: 0.5
+	    }
+	  },
+
+	  credits: {
+	    	enabled: false
+	   	},
+
+	  series: [{
+	    name: 'Created',
+	    data: OpenStatsArray,
+	    point:{
+	           events:{
+	               click: function (event) {
+	                   window.location.href ="[% Env('Baselink') %]Action=AgentTicketStatusView;Filter=Open;ColumnFilterType=2";
+
+	               }
+	           }
+	        }
+	  }, {
+	    name: 'Closed',
+	    data: CloseStatsArray,
+	    point:{
+	           events:{
+	               click: function (event) {
+	                   window.location.href ="[% Env('Baselink') %]Action=AgentTicketStatusView;Filter=Closed;ColumnFilterType=2";
+
+	               }
+	           }
+	        }
+	  }]
+	});
+
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/**********code for matrix dashboard*****************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+	PrioritysMatrixList=[% JSON(Data.PrioritysMatrixList) %];
+	StatesMatrixList=[% JSON(Data.StatesMatrixList) %];
+	TicketMatrix=[% JSON(Data.ticket_matrix) %];
+
+	var TicketMatrixArray = TicketMatrix.map(function(ticketListVal) {
+		return [Number(ticketListVal[0]), Number(ticketListVal[1]),Number(ticketListVal[2])];
+	});
+
+	Highcharts.chart('matrix', {
+
+	    chart: {
+	        type: 'heatmap',
+	        marginTop: 40,
+	        marginBottom: 80,
+	        plotBorderWidth: 1
+	    },
+
+
+	    title: {
+	        text: 'Incidents by Priority and State'
+	    },
+
+	    xAxis: {
+	        categories: PrioritysMatrixList,
+	    },
+
+	    yAxis: {
+	        categories: StatesMatrixList,
+	        title: null
+	    },
+
+	    colorAxis: {
+	        min: 0,
+	        minColor: '#FFFFFF',
+	        maxColor: Highcharts.getOptions().colors[0]
+	    },
+
+	    legend: {
+	        align: 'right',
+	        layout: 'vertical',
+	        margin: 0,
+	        verticalAlign: 'top',
+	        y: 25,
+	        symbolHeight: 280
+	    },
+
+	    tooltip: {
+	        formatter: function () {
+	            return '<b>' + this.series.xAxis.categories[this.point.x] + '</b>  <br><b>' +
+	                this.point.value + '</b><br><b>' + this.series.yAxis.categories[this.point.y] + '</b>';
+	        }
+	    },
+
+	    credits: {
+	        enabled: false
+	    },
+
+	    series: [{
+	        name: 'Count',
+	        borderWidth: 1,
+	        data: TicketMatrixArray,
+	        dataLabels: {
+	            enabled: true,
+	            color: '#000000'
+	        },
+	    }]
+
+	});
+/*-----------------------------------------------------------------------------------------------------------------*/
+	/******************function for refresh the page*************/
+/*-----------------------------------------------------------------------------------------------------------------*/
+	setTimeout(function(){
+        window.location.reload(1);
+    }, 30000);
+	/**************end function for refresh the page***************/
+</script>
+
+<style type="text/css">	
+	.text-danger {
+	  color: red;
+	}
+</style>

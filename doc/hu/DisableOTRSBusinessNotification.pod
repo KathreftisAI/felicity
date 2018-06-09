@@ -1,0 +1,47 @@
+=encoding utf-8
+
+=head1 NÉV
+
+DisableOTRSBusinessNotification - az OTRS Business értesítések letiltása.
+
+=head1 LEÍRÁS
+
+Az OTRS 4-től kezdve a felhasználók egy értesítést fognak látni az 
+adminisztrációs területen, amely az új OTRS Business Solution (TM) * moduljait 
+javasolja. És ez az adminisztrációs terület minden egyes oldalán meg fog 
+jelenni.
+
+Ezt az értesítést nem lehet letiltani a rendszerbeállításokon keresztül, ezért 
+ez a csomag tiltja le az értesítést. Az okok, amiért érdemes lehet kikapcsolni 
+az értesítést:
+
+=over 4
+
+=item * Nem érdekelnek azok a kiegészítő szolgáltatások
+
+=item * Az elérhetőségről, a frissítésekről, a szerződés állapotáról szóló 
+információk beszerzéséhez időnként HTTP-kérések kerülnek elküldésre a 
+cloud.otrs.com címre. Erre nincs szükség…
+
+=item * Szükség van arra a helyre, amelyet az értesítés elfoglal
+
+=back
+
+* Az OTRS Business Solution az OTRS Inc bejegyzett védjegye.
+
+=head1 TÁROLÓ ÉS HIBÁK
+
+Ennek a kiegészítőnek a kódja és a hibakövető ezen a címen található: 
+L<http://github.com/reneeb/otrs-DisableOTRSBusinessNotification>.
+
+=head1 SZERZŐ ÉS LICENC
+
+Ez a modul az AGPL 3.0 szerint licencelt.
+
+Szerző: Renee Bäcker, Perl-Services.de, C<< <otrs@perl-services.de> >>
+
+=head1 MAGYAR FORDÍTÁS
+
+A magyar fordítást az OTRS-megoldások csapata készítette.
+Copyright (C) 2016 Úr Balázs, L<http://otrs-megoldasok.hu>
+

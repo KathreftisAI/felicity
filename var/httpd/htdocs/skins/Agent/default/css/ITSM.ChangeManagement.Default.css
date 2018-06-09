@@ -1,0 +1,79 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     ITSM default
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Standard Widths
+ */
+
+.W300px {
+    width: 300px;
+}
+
+.SpacingBottomSmall {
+    margin-bottom: 5px;
+}
+
+/**
+ * @subsection  Layout fix
+ */
+/**
+ * @note     Because of some overflow hidden, workorder tooltips are not always
+ *           completely visible.
+ *           The overflow hidden is necessary in the layout and can't be changed.
+ *           This is a workaround to fully show the workorder tooltip.
+ */
+.LayoutFixedSidebar > .ContentColumn {
+    min-height: 450px;
+}
+
+.FixedLabelSmall iframe.Field {
+    width: 80%;
+}
+
+.ITSMMessageBrowser {
+    margin-bottom: 10px;
+    padding: 0px;
+    border-radius: 2px;
+    position: relative;
+}
+
+.ITSMMessageBrowser p {
+     padding: 5px;
+     background-color: #E8E8E8;
+     font-size: 11px;
+     text-align: center;
+}
+
+.ITSMMessageBrowser a.Close {
+    display: block;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    color: #5D5D5D;
+}
+
+.ITSMMessageBrowser a.Close:hover {
+    color: #000;
+}
+
+/**
+ * @subsection  TableSmall
+ */
+
+.TableSmall tbody tr.Invalid {
+    color: #CCC;
+}
+
+} /* end @media */

@@ -1,0 +1,55 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - CSS for the related faq articles modules
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+@media screen,projection,tv,handheld {
+
+#FAQRelatedArticles.Hidden {
+    display: none !important;
+}
+
+#FAQRelatedArticles {
+    display: inline-block;
+    margin-left: 4px;
+    width: 300px;
+    padding: 0;
+}
+
+#FAQRelatedArticles .WidgetSimple {
+    padding-top: 0px;
+    border-top: none;
+    border: 1px solid #CCCCCC;
+}
+
+#FAQRelatedArticles .WidgetSimple .Header h3 {
+    height: 16px;
+}
+
+#FAQRelatedArticles .WidgetSimple .Content {
+    padding: 0;
+}
+
+#FAQRelatedArticles .WidgetSimple .Hint {
+    padding: 8px;
+    color: #666666;
+}
+
+#FAQRelatedArticles ul.FAQMiniList li {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 5px 8px;
+}
+
+#FAQRelatedArticles ul.FAQMiniList li:last-child {
+    margin-bottom: 0px;
+    border-bottom: 0px;
+    padding-bottom: 5px;
+}
+
+#FAQRelatedArticles ul.FAQMiniList span {
+    display: inline-block;
+}
+
+} /* end @media */

@@ -1,0 +1,33 @@
+=head1 NAME
+
+DisableOTRSBusinessNotification
+
+=head1 DESCRIPTION
+
+Starting with OTRS4 users will see a notification in the admin area with a hint for the new
+OTRS Business Solution (TM) *. And this will show up on every single page in the admin area.
+
+This notification cannot be disabled via SysConfig, so this package disables the notification.
+Reasons I want to switch the notification off:
+
+=over 4
+
+=item * I'm not interested in those extra features
+
+=item * To get information about availability, upgrades, contract status HTTP requests to cloud.otrs.com are sent occasionally. I don't want that...
+
+=item * I need the space the notification takes
+
+=back
+
+* OTRS Business Solution is a trademark of OTRS Inc.
+
+=head1 REPOSITORY & BUGS
+
+The code for this addon and a bugtracker can be found at L<http://github.com/reneeb/otrs-DisableOTRSBusinessNotification>.
+
+=head1 AUTHOR
+
+This module is licensed under the terms of AGPL 3.0.
+
+Author: Renee Baecker, Perl-Services.de, C<< <otrs@perl-services.de> >>

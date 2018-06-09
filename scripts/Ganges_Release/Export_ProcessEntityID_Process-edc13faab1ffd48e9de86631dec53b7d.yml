@@ -1,0 +1,586 @@
+---
+Activities:
+  Activity-152459b18172e7dc85c9c1296b45417f:
+    ActivityDialogs:
+    - ActivityDialog-532f73c81aa56e70f677304aee0b4901
+    ChangeTime: 2018-05-07 06:26:50
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-532f73c81aa56e70f677304aee0b4901
+    CreateTime: 2018-05-07 05:44:38
+    EntityID: Activity-152459b18172e7dc85c9c1296b45417f
+    ID: '141'
+    Name: Problem Logging
+  Activity-46532ac6a13f15313455ef12c1f8a158:
+    ActivityDialogs: []
+    ChangeTime: 2018-05-09 04:59:44
+    Config: {}
+    CreateTime: 2018-05-09 04:59:44
+    EntityID: Activity-46532ac6a13f15313455ef12c1f8a158
+    ID: '149'
+    Name: Problem Ticket Closed
+  Activity-bbd2b5a3ca7b66a2356a9d14ebe99407:
+    ActivityDialogs:
+    - ActivityDialog-eaab57c7ae42e7167462256a23f5e664
+    - ActivityDialog-f2085f77b19223579fb2775337f5529a
+    ChangeTime: 2018-05-07 05:51:22
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-eaab57c7ae42e7167462256a23f5e664
+        '2': ActivityDialog-f2085f77b19223579fb2775337f5529a
+    CreateTime: 2018-05-07 05:44:50
+    EntityID: Activity-bbd2b5a3ca7b66a2356a9d14ebe99407
+    ID: '142'
+    Name: Problem Verification
+  Activity-d9f3f9e654d30bb2a203f965c0e60e9c:
+    ActivityDialogs:
+    - ActivityDialog-3f8f42301dba09e2dc47795b97353425
+    ChangeTime: 2018-05-08 14:33:54
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-3f8f42301dba09e2dc47795b97353425
+    CreateTime: 2018-05-07 11:32:05
+    EntityID: Activity-d9f3f9e654d30bb2a203f965c0e60e9c
+    ID: '144'
+    Name: Work Arround
+  Activity-efd9ac3241e9d63056c18201897b1994:
+    ActivityDialogs:
+    - ActivityDialog-a7d189035de3c8ea0550fef809919ded
+    ChangeTime: 2018-05-07 11:10:21
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-a7d189035de3c8ea0550fef809919ded
+    CreateTime: 2018-05-07 07:15:12
+    EntityID: Activity-efd9ac3241e9d63056c18201897b1994
+    ID: '143'
+    Name: Investigation and Diagnosis
+  Activity-f1d2de97f7bb9e1f92c7902c569aabe0:
+    ActivityDialogs:
+    - ActivityDialog-205d8905192a9f7d1b658a3b5652ebe2
+    - ActivityDialog-9a6fec69533796daf60ccb1a0403a971
+    ChangeTime: 2018-05-14 06:50:17
+    Config:
+      ActivityDialog:
+        '1': ActivityDialog-205d8905192a9f7d1b658a3b5652ebe2
+        '2': ActivityDialog-9a6fec69533796daf60ccb1a0403a971
+    CreateTime: 2018-05-09 04:47:40
+    EntityID: Activity-f1d2de97f7bb9e1f92c7902c569aabe0
+    ID: '147'
+    Name: Verify Problem Resolution
+ActivityDialogs:
+  ActivityDialog-205d8905192a9f7d1b658a3b5652ebe2:
+    ChangeTime: 2018-05-30 11:53:43
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Problem ticket resolved
+      FieldOrder:
+      - DynamicField_TicketClosureRemark
+      - DynamicField_ProblemResolved
+      Fields:
+        DynamicField_ProblemResolved:
+          DefaultValue: Yes
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+        DynamicField_TicketClosureRemark:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-14 06:48:59
+    EntityID: ActivityDialog-205d8905192a9f7d1b658a3b5652ebe2
+    ID: '138'
+    Name: Problem Resolved
+  ActivityDialog-3f8f42301dba09e2dc47795b97353425:
+    ChangeTime: 2018-05-11 07:31:22
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Work Arround
+      FieldOrder:
+      - DynamicField_WorkArround
+      - DynamicField_IncidentsWorkArround
+      - DynamicField_FAQTitle
+      - DynamicField_FAQKeywords
+      - DynamicField_FAQSymptom
+      - DynamicField_FAQProblem
+      - DynamicField_FAQSolution
+      - DynamicField_FAQComment
+      Fields:
+        DynamicField_FAQComment:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_FAQKeywords:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_FAQProblem:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_FAQSolution:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_FAQSymptom:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_FAQTitle:
+          Display: '1'
+        DynamicField_IncidentsWorkArround:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_WorkArround:
+          DefaultValue: Yes
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-07 11:59:34
+    EntityID: ActivityDialog-3f8f42301dba09e2dc47795b97353425
+    ID: '136'
+    Name: Work Arround
+  ActivityDialog-532f73c81aa56e70f677304aee0b4901:
+    ChangeTime: 2018-05-09 12:09:28
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Problem Ticket Creation
+      FieldOrder:
+      - Type
+      - CustomerID
+      - Queue
+      - Owner
+      - Priority
+      - DynamicField_Severity
+      - Article
+      Fields:
+        Article:
+          Config:
+            ArticleType: note-internal
+            TimeUnits: '0'
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        CustomerID:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        DynamicField_Severity:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        Owner:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        Priority:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        Queue:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        Type:
+          DefaultValue: Problem
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-07 06:26:13
+    EntityID: ActivityDialog-532f73c81aa56e70f677304aee0b4901
+    ID: '135'
+    Name: Problem Ticket Creation
+  ActivityDialog-9a6fec69533796daf60ccb1a0403a971:
+    ChangeTime: 2018-05-14 06:53:19
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Problem ticket not resolved
+      FieldOrder:
+      - DynamicField_CustomerReview
+      - DynamicField_ProblemResolved
+      Fields:
+        DynamicField_CustomerReview:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '2'
+        DynamicField_ProblemResolved:
+          DefaultValue: No
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-14 06:50:04
+    EntityID: ActivityDialog-9a6fec69533796daf60ccb1a0403a971
+    ID: '139'
+    Name: Problem not Resolved
+  ActivityDialog-a7d189035de3c8ea0550fef809919ded:
+    ChangeTime: 2018-04-27 14:18:12
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Initial Diagnosis completed
+      FieldOrder:
+      - DynamicField_DiagnosisRemark
+      - DynamicField_InitialDiagnosisCompleted
+      Fields:
+        DynamicField_DiagnosisRemark:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: Remark from issue diagnosis
+          Display: '2'
+        DynamicField_InitialDiagnosisCompleted:
+          DefaultValue: Yes
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: '0'
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-04-27 05:31:59
+    EntityID: ActivityDialog-a7d189035de3c8ea0550fef809919ded
+    ID: '124'
+    Name: Initial Diagnosis completed
+  ActivityDialog-eaab57c7ae42e7167462256a23f5e664:
+    ChangeTime: 2018-05-11 06:40:07
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Repeated Problem
+      FieldOrder:
+      - DynamicField_RepeatedProblemIssue
+      - DynamicField_ResolutionPriority
+      - DynamicField_MajorPriorityDescription
+      Fields:
+        DynamicField_MajorPriorityDescription:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_RepeatedProblemIssue:
+          DefaultValue: Yes
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+        DynamicField_ResolutionPriority:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-07 05:45:52
+    EntityID: ActivityDialog-eaab57c7ae42e7167462256a23f5e664
+    ID: '133'
+    Name: Repeated Problem
+  ActivityDialog-f2085f77b19223579fb2775337f5529a:
+    ChangeTime: 2018-05-11 06:40:35
+    Config:
+      DescriptionLong: ''
+      DescriptionShort: Not Repeated Problem
+      FieldOrder:
+      - DynamicField_RepeatedProblemIssue
+      - DynamicField_ResolutionPriority
+      - DynamicField_MajorPriorityDescription
+      Fields:
+        DynamicField_MajorPriorityDescription:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+        DynamicField_RepeatedProblemIssue:
+          DefaultValue: No
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '0'
+        DynamicField_ResolutionPriority:
+          DefaultValue: ''
+          DescriptionLong: ''
+          DescriptionShort: ''
+          Display: '1'
+      Interface:
+      - AgentInterface
+      Permission: ''
+      RequiredLock: 0
+      SubmitAdviceText: ''
+      SubmitButtonText: ''
+    CreateTime: 2018-05-07 05:46:08
+    EntityID: ActivityDialog-f2085f77b19223579fb2775337f5529a
+    ID: '134'
+    Name: Not Repeated Problem
+Process:
+  Activities:
+  - Activity-152459b18172e7dc85c9c1296b45417f
+  - Activity-46532ac6a13f15313455ef12c1f8a158
+  - Activity-bbd2b5a3ca7b66a2356a9d14ebe99407
+  - Activity-d9f3f9e654d30bb2a203f965c0e60e9c
+  - Activity-efd9ac3241e9d63056c18201897b1994
+  - Activity-f1d2de97f7bb9e1f92c7902c569aabe0
+  ChangeTime: 2018-05-11 12:47:39
+  Config:
+    Description: Problem Management Workflow
+    Path:
+      Activity-152459b18172e7dc85c9c1296b45417f:
+        Transition-325559a30e45a668d8caf5a23afae2b8:
+          ActivityEntityID: Activity-bbd2b5a3ca7b66a2356a9d14ebe99407
+          TransitionAction: []
+      Activity-46532ac6a13f15313455ef12c1f8a158: {}
+      Activity-bbd2b5a3ca7b66a2356a9d14ebe99407:
+        Transition-38c395ed037ff130558269a512ae3441:
+          ActivityEntityID: Activity-efd9ac3241e9d63056c18201897b1994
+          TransitionAction:
+          - TransitionAction-24d2582099b83b0d47d6e45b426b20ed
+          - TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b
+        Transition-8ff2fc3efdcdcfa09138a4c314ac542e:
+          ActivityEntityID: Activity-efd9ac3241e9d63056c18201897b1994
+          TransitionAction:
+          - TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b
+      Activity-d9f3f9e654d30bb2a203f965c0e60e9c:
+        Transition-ba8f338dab9907a720d9e4fe19618abe:
+          ActivityEntityID: Activity-f1d2de97f7bb9e1f92c7902c569aabe0
+          TransitionAction: []
+      Activity-efd9ac3241e9d63056c18201897b1994:
+        Transition-f4cecc273c1715e6138f4afb13551e87:
+          ActivityEntityID: Activity-d9f3f9e654d30bb2a203f965c0e60e9c
+          TransitionAction: []
+      Activity-f1d2de97f7bb9e1f92c7902c569aabe0:
+        Transition-4614724fd80f82470c9f4d85536dc1cd:
+          ActivityEntityID: Activity-46532ac6a13f15313455ef12c1f8a158
+          TransitionAction:
+          - TransitionAction-c746cc29ec21d3c41f07ffffb97ce042
+        Transition-a8aeb16824d76b8c4e6efe2fcd1c4ba7:
+          ActivityEntityID: Activity-efd9ac3241e9d63056c18201897b1994
+          TransitionAction:
+          - TransitionAction-699887c4b6dfa91e8e3a47452ed23b19
+    StartActivity: Activity-152459b18172e7dc85c9c1296b45417f
+    StartActivityDialog: ActivityDialog-532f73c81aa56e70f677304aee0b4901
+  CreateTime: 2018-05-07 05:43:35
+  EntityID: Process-edc13faab1ffd48e9de86631dec53b7d
+  ID: '15'
+  Layout:
+    Activity-152459b18172e7dc85c9c1296b45417f:
+      left: '133'
+      top: '57'
+    Activity-46532ac6a13f15313455ef12c1f8a158:
+      left: '40'
+      top: '167'
+    Activity-bbd2b5a3ca7b66a2356a9d14ebe99407:
+      left: '387'
+      top: '2'
+    Activity-d9f3f9e654d30bb2a203f965c0e60e9c:
+      left: '794'
+      top: '418'
+    Activity-efd9ac3241e9d63056c18201897b1994:
+      left: '794'
+      top: '128'
+    Activity-f1d2de97f7bb9e1f92c7902c569aabe0:
+      left: '178'
+      top: '355'
+  Name: Problem Management
+  State: Active
+  StateEntityID: S1
+  TransitionActions:
+  - TransitionAction-24d2582099b83b0d47d6e45b426b20ed
+  - TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b
+  - TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b
+  - TransitionAction-c746cc29ec21d3c41f07ffffb97ce042
+  - TransitionAction-699887c4b6dfa91e8e3a47452ed23b19
+  Transitions:
+  - Transition-325559a30e45a668d8caf5a23afae2b8
+  - Transition-38c395ed037ff130558269a512ae3441
+  - Transition-8ff2fc3efdcdcfa09138a4c314ac542e
+  - Transition-ba8f338dab9907a720d9e4fe19618abe
+  - Transition-f4cecc273c1715e6138f4afb13551e87
+  - Transition-4614724fd80f82470c9f4d85536dc1cd
+  - Transition-a8aeb16824d76b8c4e6efe2fcd1c4ba7
+TransitionActions:
+  TransitionAction-24d2582099b83b0d47d6e45b426b20ed:
+    ChangeTime: 2018-05-03 05:17:23
+    Config:
+      Config:
+        MajorIncidentNotification: '1'
+      Module: Kernel::System::ProcessManagement::TransitionAction::DynamicFieldSet
+    CreateTime: 2018-05-03 05:10:29
+    EntityID: TransitionAction-24d2582099b83b0d47d6e45b426b20ed
+    ID: '199'
+    Name: incident major notification set value to 1
+  TransitionAction-699887c4b6dfa91e8e3a47452ed23b19:
+    ChangeTime: 2018-05-11 12:43:56
+    Config:
+      Config:
+        State: ReOpen
+      Module: Kernel::System::ProcessManagement::TransitionAction::TicketStateSet
+    CreateTime: 2018-05-11 12:43:56
+    EntityID: TransitionAction-699887c4b6dfa91e8e3a47452ed23b19
+    ID: '204'
+    Name: Problem state 'Reopen' after verification
+  TransitionAction-c746cc29ec21d3c41f07ffffb97ce042:
+    ChangeTime: 2018-05-09 05:07:56
+    Config:
+      Config:
+        State: closed
+      Module: Kernel::System::ProcessManagement::TransitionAction::TicketStateSet
+    CreateTime: 2018-05-09 05:07:56
+    EntityID: TransitionAction-c746cc29ec21d3c41f07ffffb97ce042
+    ID: '201'
+    Name: Problem state change to 'close' after verification from customer
+  TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b:
+    ChangeTime: 2018-05-11 06:09:56
+    Config:
+      Config:
+        State: open
+      Module: Kernel::System::ProcessManagement::TransitionAction::TicketStateSet
+    CreateTime: 2018-05-11 06:09:56
+    EntityID: TransitionAction-f5c9fec658e8708ce7d320c9cfc0ae0b
+    ID: '203'
+    Name: Problem state change to 'Open' after update
+Transitions:
+  Transition-325559a30e45a668d8caf5a23afae2b8:
+    ChangeTime: 2018-05-07 10:10:30
+    Config:
+      Condition:
+        '2':
+          Fields:
+            DynamicField_Severity:
+              Match: S*
+              Type: Regexp
+            Priority:
+              Match: P*
+              Type: Regexp
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-07 05:47:21
+    EntityID: Transition-325559a30e45a668d8caf5a23afae2b8
+    ID: '143'
+    Name: Transition-P1
+  Transition-38c395ed037ff130558269a512ae3441:
+    ChangeTime: 2018-05-07 11:03:30
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_ResolutionPriority:
+              Match: Major
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-07 07:05:21
+    EntityID: Transition-38c395ed037ff130558269a512ae3441
+    ID: '144'
+    Name: Major Problem
+  Transition-4614724fd80f82470c9f4d85536dc1cd:
+    ChangeTime: 2018-05-11 12:44:40
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_ProblemResolved:
+              Match: Yes
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-09 04:58:28
+    EntityID: Transition-4614724fd80f82470c9f4d85536dc1cd
+    ID: '150'
+    Name: Transition-P5
+  Transition-8ff2fc3efdcdcfa09138a4c314ac542e:
+    ChangeTime: 2018-05-07 11:03:45
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_ResolutionPriority:
+              Match: Normal
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-07 07:05:55
+    EntityID: Transition-8ff2fc3efdcdcfa09138a4c314ac542e
+    ID: '145'
+    Name: Normal Problem
+  Transition-a8aeb16824d76b8c4e6efe2fcd1c4ba7:
+    ChangeTime: 2018-05-11 12:42:34
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_ProblemResolved:
+              Match: No
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-08 14:45:25
+    EntityID: Transition-a8aeb16824d76b8c4e6efe2fcd1c4ba7
+    ID: '148'
+    Name: Transition-P4
+  Transition-ba8f338dab9907a720d9e4fe19618abe:
+    ChangeTime: 2018-05-09 04:38:14
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_InitialDiagnosisCompleted:
+              Match: Yes
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-09 04:38:14
+    EntityID: Transition-ba8f338dab9907a720d9e4fe19618abe
+    ID: '149'
+    Name: Transition-P3
+  Transition-f4cecc273c1715e6138f4afb13551e87:
+    ChangeTime: 2018-05-08 15:14:42
+    Config:
+      Condition:
+        '1':
+          Fields:
+            DynamicField_InitialDiagnosisCompleted:
+              Match: Yes
+              Type: String
+          Type: and
+      ConditionLinking: and
+    CreateTime: 2018-05-07 11:36:15
+    EntityID: Transition-f4cecc273c1715e6138f4afb13551e87
+    ID: '146'
+    Name: Transition-P2

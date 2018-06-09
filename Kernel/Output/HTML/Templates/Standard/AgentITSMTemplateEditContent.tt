@@ -1,0 +1,47 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("EditContentDialog") %]
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Name") | html %]:</label>
+    <p class="Value">
+        [% Data.Name | html %]
+    </p>
+    <div class="Clear"></div>
+
+    <label>[% Translate("Type") | html %]:</label>
+    <p class="Value">
+        [% Translate(Data.Type) | html %]
+    </p>
+    <div class="Clear"></div>
+
+    <label>[% Translate("Comment") | html %]:</label>
+    <p class="Value">
+        [% Data.Comment | truncate(40) | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+
+[% RenderBlockStart("ChangeTemplate") %]
+<p class="SpacingTop">
+    [% Translate("This will create a new change from this template, so you can edit and save it.") | html %]<br/>
+    [% Translate("The new change will be deleted automatically after it has been saved as template.") | html %]
+</p>
+[% RenderBlockEnd("ChangeTemplate") %]
+[% RenderBlockStart("WorkOrderTemplate") %]
+<p class="SpacingTop">
+    [% Translate("This will create a new workorder from this template, so you can edit and save it.") | html %]<br/>
+    [% Translate("A temporary change will be created which contains the workorder.") | html %]<br/>
+    [% Translate("The temporary change and new workorder will be deleted automatically after the workorder has been saved as template.") | html %]<br/>
+</p>
+[% RenderBlockEnd("WorkOrderTemplate") %]
+
+<p class="SpacingTop Center">
+    [% Translate("Do you want to proceed?") | html %]
+</p>
+[% RenderBlockEnd("EditContentDialog") %]

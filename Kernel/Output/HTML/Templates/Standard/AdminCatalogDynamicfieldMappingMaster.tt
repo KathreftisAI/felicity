@@ -1,0 +1,165 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Catalog Dynamic Field Mapping Master") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add Catalog Dynamic Field") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                        <th>[% Translate("Dynamic Field") | html %]</th>
+                            <th>[% Translate("Content") | html %]</th>
+			                <th>[% Translate("Validity") | html %]</th>
+			                <th>[% Translate("Changed") | html %]</th>
+                            <th>[% Translate("Created") | html %]</th>
+                           </tr>
+                    </thead>
+                    <tbody>
+
+# No data found message block
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="5">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+
+# Overview Result Row
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+
+           <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.DynamicField %]</a></td>
+                <td>[% Translate(Data.Content) | html %]</td>
+			    <td>[% Translate(Data.Valid) | html %]</td>
+			    <td>[% Translate(Data.ChangeTime) | Localize("TimeShort") %]</td>
+			    <td>[% Translate(Data.CreateTime) | Localize("TimeShort") %]</td>
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Catalog Dynamic Field") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Catalog Dynamic Field") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+
+                <form action="[% Env("CGIHandle") %]" method="post" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+		    [% RenderBlockStart("ExistIDServerError") %]
+                          <label class="LabelError">[% Translate("A record with these values already exists!") | html %] </label>
+                    [% RenderBlockEnd("ExistIDServerError") %]
+                    <fieldset class="TableLike">
+
+
+ <label class="Mandatory" for="DynamicField"><span class="Marker">*</span> [% Translate("Dynamic Field") | html %]:</label>
+                    <div class="Field">
+                    [% Data.DynamicField %]
+             
+                         <div id="DynamicFieldError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="DynamicFieldError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+<label class="Mandatory" for="Content"><span class="Marker">*</span> [% Translate("Content") | html %]:</label>
+                    <div class="Field">
+                    <input type="text" name="Content" id="Content" value="[% Data.Content | html %]" class="W50pc Validate_Number  [% Data.Content | html %]" maxlength="1" />
+                      <div id="ContentTooltip">
+                             <p style="color:grey">Note: Possible settings: 0 = Disabled, 1 = Enabled, 2 = Enabled and required.</p>
+                         </div>
+                         <div id="ContentError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="ContentServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+ <label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                            <div id="ValidIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ValidIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field">
+                            <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+[% RenderBlockEnd("Overview") %]

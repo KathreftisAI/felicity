@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>This report calculates the changes done for config items of a specific config item class.</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMChangeManagementChangesPerCIClasses</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMChangeManagementChangesPerCIClasses</ObjectModule>
+<ObjectName>ITSMChangeManagementChangesPerCIClasses</ObjectName>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>Changes per config item class</Title>
+<UseAsRestriction Element="CIStateIDs" Fixed="0">
+<SelectedValues>Incident</SelectedValues>
+<SelectedValues>Operational</SelectedValues>
+<SelectedValues>Warning</SelectedValues>
+</UseAsRestriction>
+<UseAsRestriction Element="TimePeriod" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsRestriction>
+<UseAsValueSeries Element="CIClassIDs">
+<SelectedValues>Computer</SelectedValues>
+<SelectedValues>Hardware</SelectedValues>
+<SelectedValues>Location</SelectedValues>
+<SelectedValues>Network</SelectedValues>
+<SelectedValues>Software</SelectedValues>
+</UseAsValueSeries>
+<UseAsXvalue Element="CategoryIDs">
+<SelectedValues>1 very low</SelectedValues>
+<SelectedValues>2 low</SelectedValues>
+<SelectedValues>3 normal</SelectedValues>
+<SelectedValues>4 high</SelectedValues>
+<SelectedValues>5 very high</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

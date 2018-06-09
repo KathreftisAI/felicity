@@ -1,0 +1,23 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Search
+ */
+
+@media screen,projection,tv,handheld {
+
+
+/**
+ * @subsection  AutoComplete
+ */
+
+.ui-autocomplete {
+    z-index: 100000 !important;
+}
+
+}

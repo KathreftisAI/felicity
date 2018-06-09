@@ -1,0 +1,207 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+
+    <h1>[% Translate("FAQ Language Management") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("Disabled") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Notice") | html %]</h2>
+            </div>
+            <div class="Content ActionList">
+                <form action="[% Env("CGIHandle") %]" method="post">
+                    <input type="hidden" name="Action" value="AdminSysConfig"/>
+                    <input type="hidden" name="Subaction" value="Edit"/>
+                    <input type="hidden" name="SysConfigGroup" value="FAQ"/>
+                    <input type="hidden" name="SysConfigSubGroup" value="Core"/>
+                    <h3>[% Translate("This feature is disabled!") | html %]</h3>
+                    <fieldset>
+                        <p class="FieldExplanation">
+                            [% Translate("Use this feature if you want to work with multiple languages.") | html %]
+                        </p>
+                        <div class="Field SpacingTop">
+                            <button class="CallForAction FullSize Center" type="submit" value="[% Translate("Enable it here!") | html %]">
+                                <span><i class="fa fa-unlock-alt"></i> [% Translate("Enable it here!") | html %]</span>
+                            </button>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+[% RenderBlockEnd("Disabled") %]
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-plus-square"></i>[% Translate("Add language") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+[% RenderBlockStart("OverviewResult") %]
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable VariableWidth" summary="FAQ languages">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Name") | html %]</th>
+                            <th>[% Translate("Delete") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="4">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr>
+                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;LanguageID=[% Data.LanguageID | uri %]">[% Data.Name | html %]</a></td>
+                            <td class="Center Last">
+                                <a href="#" id="DeleteLanguageID[% Data.LanguageID | html %]">
+                                    <i class="fa fa-trash-o"></i>
+                                    <span class="InvisibleText">[% Translate("Delete") | html %]: [% Data.Name | html %]</span>
+                                </a>
+                            </td>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global FAQ: true */
+    FAQ.Agent.ConfirmationDialog.BindConfirmationDialog({
+        ElementID:                  'DeleteLanguageID[% Data.LanguageID | html %]',
+        ElementSelector:            '#DeleteLanguageID[% Data.LanguageID | html %]',
+        DialogContentQueryString:   'Action=AgentFAQLanguage;Subaction=Delete;LanguageID=[% Data.LanguageID | uri %]',
+        ConfirmedActionQueryString: 'Action=AgentFAQLanguage;Subaction=DeleteAction;LanguageID=[% Data.LanguageID | uri %]',
+        DialogTitle:                [% Translate("Delete Language %s", Data.Name) | JSON %],
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %],
+            Ok:  [% Translate("Ok") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="ContentColumn">
+                <div class="WidgetSimple">
+                    <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                        <h2>[% Translate("Add Language") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                        <h2>[% Translate("Edit Language") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+                    </div>
+                    <div class="Content">
+                        <form action="[% Env("CGIHandle") %]" method="post" class="Validate">
+                            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                            <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                            <input type="hidden" name="LanguageID" value="[% Data.LanguageID | html %]"/>
+                            <fieldset class="TableLike">
+                                <label class="Mandatory" for="Name"><span class="Marker">*</span> [% Translate("Name") | html %]:</label>
+                                <div class="Field">
+                                    <input type="text" name="Name" id="Name" value="[% Data.Name | html %]" class="W50pc Validate_Required [% Data.NameServerError | html %]" maxlength="50"/>
+                                    <div id="NameError" class="TooltipErrorMessage">
+                                        <p>[% Translate("This field is required.") | html %]</p>
+                                    </div>
+                                    <div id="NameServerError" class="TooltipErrorMessage">
+                                        <p>[% Translate(Data.NameServerErrorMessage) | html %]</p>
+                                    </div>
+                                </div>
+
+                                <div class="Field SpacingTop">
+                                    <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                                    [% Translate("or") | html %]
+                                    <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                                </div>
+                                <div class="Clear"></div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("Overview") %]
+
+[% RenderBlockStart("Delete") %]
+[% RenderBlockStart("NoAffectedItems") %]
+<fieldset class="TableLike W300px">
+    <label>[% Translate("Language") | html %]:</label>
+    <p class="Value">
+        [% Data.Name | html %]
+    </p>
+    <div class="Clear"></div>
+</fieldset>
+<p class="SpacingTop Center">
+    [% Translate("Do you really want to delete this language?") | html %]
+</p>
+[% RenderBlockEnd("NoAffectedItems") %]
+
+[% RenderBlockStart("AffectedItems") %]
+<p>
+    [% Translate("You can not delete this language. It is used in at least one FAQ article!") | html %]
+</p>
+<p class="SpacingTop SpacingBottom">
+    [% Translate("This language is used in the following FAQ Article(s)") | html %]:
+</p>
+
+<ul>
+[% RenderBlockStart("AffectedItemsRow") %]
+    <li class="Indent SpacingBottomSmall">
+        <a href="[% Env("Baselink") %][% Data.Link %];Action=AgentFAQZoom;ItemID=[% Data.ItemID | uri %]">
+            [% Config("FAQ::FAQHook") %]:[% Data.Number | html %]<span>&nbsp;&mdash;</span> [% Data.Title | truncate(60) | html %]
+        </a>
+    </li>
+[% RenderBlockEnd("AffectedItemsRow") %]
+</ul>
+
+[% RenderBlockEnd("AffectedItems") %]
+[% RenderBlockEnd("Delete") %]

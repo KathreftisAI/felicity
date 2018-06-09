@@ -1,0 +1,438 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Catalog Category Item") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add Catalog Category Item") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                          <th>[% Translate("Name") | html %]</th>
+                          <th>[% Translate("Catalog") | html %]</th>
+                          <th>[% Translate("Category") | html %]</th>
+			             <th>[% Translate("Item Image ")  |html %]</th>
+                          <th>[% Translate("Workflow") | html %]</th>
+                          <th>[% Translate("Queue") | html %]</th>
+                          <th>[% Translate("RequestCatalogQueue") | html %]</th>  
+                          <th>[% Translate("RecurringPriceFrequency") | html %]</th>
+                          <th>[% Translate("ShortDescription") | html %]</th>
+                            <!--
+			                <th>[% Translate("Price") | html %]</th>
+                            <th>[% Translate("RecurringPrice") | html %]</th>
+                            <th>[% Translate("Description") | html %]</th>
+                            <th>[% Translate("Quantity") | html %]</th>
+                            <th>[% Translate("Search") | html %]</th>
+                            <th>[% Translate("ApprovedBy") | html %]</th>
+                            <th>[% Translate("AssociatedCategory") | html %]</th>
+                           -->
+                          <th>[% Translate("FAQ") | html %]</th>
+                          <th>[% Translate("Service") | html %]</th>
+			  <th>[% Translate("Validity") | html %]</th>
+			</tr>
+                    </thead>
+                    <tbody>
+# No data found message block
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="5">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+
+# Overview Result Row
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+                <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.Name %]</a></td>
+                <td>[% Translate(Data.Catalog) | html %]</td>
+                <td>[% Translate(Data.Category) | html %]</td>
+                <td>[% Data.ItemImage %]</td>
+                <td>[% Translate(Data.Workflow) | html %]</td>
+                <td>[% Translate(Data.Queue) | html %]</td>
+                 <td>[% Translate(Data.RequestCatalogQueue) | html %]</td>
+                <td>[% Translate(Data.RecurringPriceFrequency) | html %]</td>
+                <td>[% Translate(Data.ShortDescription) | html %]</td>
+                <!--
+                <td>[% Translate(Data.Price) | html %]</td>
+                <td>[% Translate(Data.RecurringPrice) | html %]</td>
+                <td>[% Translate(Data.Description) | html %]</td>
+                <td>[% Translate(Data.Quantity) | html %]</td>
+                <td>[% Translate(Data.Search) | html %]</td>
+                <td>[% Translate(Data.ApprovedBy) | html %]</td>
+                <td>[% Translate(Data.AssociatedCategory) | html %]</td>
+                -->
+                <td>[% Translate(Data.FAQ) | html %]</td> 
+                <td>[% Translate(Data.ServiceName) | html %]</td> 
+                <td>[% Translate(Data.Valid) | html %]</td>
+                	</tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Catalog Category Item") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Catalog Category Item") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+                <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+                     <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+                    <input type="hidden" name="ServiceID" value="[% Data.ServiceID | html %]"/>   
+                    <input type="hidden" name="ImageInvalid" value="[% Data.ImageInvalid | html %]"/> 
+
+		[% RenderBlockStart("ExistIDServerError") %]
+		    <label class="LabelError">[% Translate("A record with these values already exists!") | html %] </label>
+                [% RenderBlockEnd("ExistIDServerError") %]
+	    [% RenderBlockStart("ServiceIDExistsServerError") %]
+		    <label class="LabelError">[% Translate("A Service record with this name already exists!") | html %] </label>
+                [% RenderBlockEnd("ServiceIDExistsServerError") %]
+        [% RenderBlockStart("ExistImageInvalidServerError") %]
+            <label class="LabelError">[% Translate("Invalid Image!") | html %] </label>
+                [% RenderBlockEnd("ExistImageInvalidServerError") %]           
+        [% RenderBlockStart("ExistMoreImageInvalidServerError") %]
+                        <label class="LabelError">[% Translate("Please upload only one image") | html %] </label>
+                  [% RenderBlockEnd("ExistMoreImageInvalidServerError") %]          
+
+		     <fieldset class="TableLike">
+                 <label class="Mandatory" for="Name"><span class="Marker">*</span> [% Translate("Name") | html %]:</label>
+                   <div class="Field">
+                    <input type="text" name="Name" id="Name" value="[% Data.Name | html %]" class="W50pc Validate_Required  [% Data.Name | html %]" maxlength="250" />
+                         <div id="NameError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="NameServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="Catalog"><span class="Marker">*</span> [% Translate("Catalog") | html %]:</label>
+   		  <div class="Field">
+                     [% Data.Catalog %]
+                         <div id="CatalogError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="CatalogServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                  </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="Category"><span class="Marker">*</span> [% Translate("Category") | html %]:</label>
+		  <div class="Field">
+                <div id="CategoryList">
+                     [% Data.Category %]
+                </div>
+                         <div id="CategoryError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="CategoryServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                  </div>
+                <div class="Clear"></div>
+
+	    <label  for="Workflow">[% Translate("Workflow") | html %]:</label>
+        <div class="Field">[% Data.Workflow %]
+   		</div>   
+		<div class="Clear"></div>
+        <label class="Mandatory" for="RequestCatalogQueue"><span class="Marker">*</span>[% Translate("Request Catalog Queue") | html %]:</label>
+        <div class="Field">
+            [% Data.RequestCatalogQueue %]                
+        </div>
+        <div class="Clear"></div>
+        <label id="QueueLabel" class="Mandatory" for="Queue"><span class="Marker">*</span>[% Translate("Queue") | html %]:</label>
+        <div id="QueueField" class="Field">
+            [% Data.Queue %]
+        </div>
+        <div class="Clear"></div>
+		<label for="Price"><span class="Marker"></span> [% Translate("Price") | html %]:</label>
+                  <div class="Field">
+                    <input type="text" name="Price" id="Price" value="[% Data.Price | html %]" class="W50pc Validate_Number  [% Data.Price | html %]" maxlength="10" />
+		  <div id="PriceError" class="TooltipErrorMessage"><p>[% Translate("Please write only numbers!") | html %]</p></div>
+                  </div>
+                <div class="Clear"></div>
+
+		<label  for="RecurringPrice"><span class="Marker"></span> [% Translate("RecurringPrice") | html %]:</label>
+                  <div class="Field">
+                    <input type="text" name="RecurringPrice" id="RecurringPrice" value="[% Data.RecurringPrice | html %]" class="W50pc Validate_Number  [% Data.RecurringPrice | html %]" maxlength="10" />
+		    <div id="RecurringPriceError" class="TooltipErrorMessage"><p>[% Translate("Please write only numbers!") | html %]</p></div>
+                  </div>
+                <div class="Clear"></div>
+
+		<label for="RecurringPriceFrequency"><span class="Marker"></span>  [%Translate("RecurringPriceFrequency") | html %]:</label>
+            	  <div class="Field">
+		      [% Data.RecurringPriceFrequency %]
+		  </div>
+                <div class="Clear"></div>
+<!--
+		<label for="ItemImage"> [% Translate("Item Image") | html %]:</label>
+                 <div class="Field">
+			<ul><li><lable > [% Data.ItemImage %]</lable>
+                         [%IF Data.ItemImage !="" %]<input class="Checkbox" type="checkbox" name="DeleteItemImage" title="Delete Uploaded file" value="1" autocomplete="off"><b>Delete Uploaded File?</b> </input>[% END %]</li>
+                        </ul>
+                        <input name="ItemImageUpload" id="ItemImageUpload" type="file" size="40"/>
+             <div id="ContentTooltip">
+             <p style="color:red">Note: Please Upload Image File. Size : 24*24 </p>
+             </div>          
+                </div>
+                <div class="Clear"></div>
+
+        <label for="ItemHomeImage"> [% Translate("ItemHome Image") | html %]:</label>
+                 <div class="Field">
+			 <ul><li><lable > [% Data.ItemHomeImage %]</lable>
+                         [%IF Data.ItemHomeImage !="" %]<input class="Checkbox" type="checkbox" name="DeleteItemHomeImage" title="Delete Uploaded file" value="1" autocomplete="off"><b>Delete Uploaded File?</b> </input>[% END %]</li>
+                        </ul>
+                        <input name="ItemHomeImageUpload" id="ItemHomeImageUpload" type="file" size="40"/>
+                 <div id="ContentTooltip">
+                 <p style="color:red">Note: Please Upload Image File. Size : 65*65 </p>
+                 </div>            
+                </div>
+                <div class="Clear"></div>
+    -->
+    
+    <label>[% Translate("Item Image") | html %]:</label>
+                 <div class="Field">
+
+                    <div id="ContentTooltip">
+                         <lable > [% Data.ItemImage %]</lable>
+                         [%IF Data.ItemImage !="" %]<input class="Checkbox" type="checkbox" name="DeleteItemImage" title="Delete Uploaded file" value="1" autocomplete="off"><b>Delete Uploaded File?</b> </input>[% END %]
+                    </div>
+
+                        <ul>
+[% RenderBlockStart("Attachment") %]
+                            <li>
+                                [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                <button type="button" id="AttachmentDeleteButton[% Data.FileID | html %]" name="AttachmentDeleteButton[% Data.FileID | html %]" value="[% Translate("Delete") | html %]" class="SpacingLeft">[% Translate("Delete") | html %]</button>
+                                <input type="hidden" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" />
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDeleteButton[% Data.FileID | html %]').bind('click', function () {
+        var $Form = $('#AttachmentDeleteButton[% Data.FileID | html %]').closest('form');
+        $('#AttachmentDelete[% Data.FileID | html %]').val(1);
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.trigger('submit');
+    });
+//]]></script>
+[% END %]
+                            </li>
+[% RenderBlockEnd("Attachment") %]
+                            <li>
+                                <input id="FileUpload" name="FileUpload" type="file" size="40" />
+                                <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                            </li>
+                        </ul>
+                        <div id="ContentTooltip">
+             <p style="color:red">Note: Please Upload Image File. Size : 65*65 </p>
+                        </div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function () {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+                    </div>
+                    <div class="Clear"></div>
+
+		<label class="Mandatory" for="ShortDescription"><span class="Marker">*</span> [% Translate("ShortDescription") | html %]:</label>
+		  <div class="Field">
+		    <input type="text" name="ShortDescription" id="ShortDescription" value="[% Data.ShortDescription | html %]" class="W50pc Validate_Required   [% Data.Name | html %]" maxlength="250" />
+                         <div id="ShortDescriptionError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="ShortDescriptionServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                  </div>
+                <div class="Clear"></div>
+
+		<label for="Description"><span class="Marker"></span> [% Translate("Description") | html %]:</label>
+		 <div id="RichTextField" class="RichTextField">
+		    <textarea id="Description" class="Description" name="Description" title="[% Translate("Message body") | html %]" rows="5" cols="47" maxlength="250" >[% Data.Description | html %]</textarea>
+                  </div>
+                <div class="Clear"></div>
+
+		<label for="Quantity"><span class="Marker"></span> [% Translate("Quantity") | html %]:</label>
+		   <div class="Field">
+		        [% Data.Quantity %]
+		   </div>
+                <div class="Clear"></div>
+
+		<label for="Search"><span class="Marker"></span> [% Translate("Search") | html %]:</label>
+		   <div class="Field">
+		     [% Data.Search %] 
+		   </div>
+                <div class="Clear"></div>
+
+		<label for="ApprovedBy"><span class="Marker"></span> [% Translate("ApprovedBy") | html %]:</label>
+		   <div class="Field">
+		      [% Data.ApprovedBy %] 
+		   </div>
+                <div class="Clear"></div>
+
+		<label for="AssociatedCategory"><span class="Marker"></span> [% Translate("AssociatedCategory") | html %]:</label>
+		   <div class="Field">
+		      [% Data.AssociatedCategory %]
+		   </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+		   <div class="Field">
+             	      [% Data.ValidOption %]
+		        <div id="ValidIDError" class="TooltipErrorMessage">
+			   <p>[% Translate("This field is required.") | html %]</p>
+                        </div>
+		        <div id="ValidIDServerError" class="TooltipErrorMessage">
+		           <p>[% Translate("This field is required.") | html %]</p>
+		        </div>
+		  </div>
+	       <div class="Clear"></div>
+  
+	       <label for="FAQ"><span class="Marker"></span> [% Translate("Public FAQ") | html %]:</label>
+		 <div class="Field">
+			[% Data.FAQ %]
+		 </div>
+               <div class="Clear"></div>
+
+		[%IF Data.Action == 'Change' %]
+		<label  for="ServiceName"><span class="Marker"></span> [% Translate("ServiceName") | html %]:</label>
+	          <div class="Field">
+        	    [% Translate(Data.ServiceName) | html %]
+	          </div>
+		[% END %]
+                <div class="Clear"></div>
+
+		<div class="Field">
+		    <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                 </div>
+                 <div class="Clear"></div>
+                 </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+[% RenderBlockEnd("Overview") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">
+
+//if Request catalog queue is not from system queue than hide Queue field
+if ($("#RequestCatalogQueue").val() !== '1') {
+    $('#QueueLabel').attr('style','display:none');
+    $('#QueueField').attr('style','display:none');
+    $('#QueueLabel span').empty().removeClass('Marker');
+    $('#Queue').removeClass('Validate_Required').val('');
+}
+
+//disable Category option while loading subaction Add
+if ($(location).attr('href').search('Add') !== -1) {
+    $('#Category_Search').attr('readonly','readonly');    
+}
+
+//on the basis of catalog load category options
+$('#Catalog').on('change',function(){
+   getCategoryList();
+});
+
+//if request catalog queue changed to system queue than display queue field else hide
+$("#RequestCatalogQueue").on('change', function(){
+    if ($("#RequestCatalogQueue").val() == '1') {
+        //display queue field
+        $('#QueueLabel').removeAttr('style');
+        $('#QueueField').removeAttr('style');
+        $('#Queue').addClass('Validate_Required');
+        $('#QueueLabel span').addClass('Marker').text('*');
+    } else {
+        //hide queue field
+        $('#QueueLabel').attr('style','display:none');
+        $('#QueueField').attr('style','display:none');
+        $('#QueueLabel span').empty().removeClass('Marker');
+        $('#Queue').removeClass('Validate_Required').val('');
+    }
+});
+
+
+
+
+
+//To change category on the basis of catalog id
+function getCategoryList(){
+     $.ajax({
+        type: 'POST',
+        url: "[% Env('Baselink') %]Action=AdminCatalogCategoryItem;Subaction=GetCategoryValue",
+        datatype: 'json',
+        data:{CatalogID:$('#Catalog').val()},
+        success: function(res){
+            var CategoryOption='<option value=""></option>';
+            $.each(res,function(i,v){
+                CategoryOption += '<option value="'+i+'">'+v+'</option>';  
+            });
+            $('#CategoryList .InputField_Selection').empty();
+            $('#CategoryList select').empty().append(CategoryOption);
+            $('#Category_Search').removeAttr('readonly');
+        },
+        error:function(status,error,request){
+            console.log(error);
+        },
+    });
+}
+
+</script>
+[% END %]

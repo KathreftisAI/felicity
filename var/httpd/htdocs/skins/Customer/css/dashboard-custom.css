@@ -1,0 +1,113 @@
+#previewPage{
+	/*width:1100px !important;
+	 margin-left:-255px !important; */
+	 width:1115px !important;
+	 
+}
+
+.menuIndicaterText{
+font-size: 12px;
+color: rgb(119, 119, 119);
+
+ margin-right: 40px;
+}
+
+.menuIndicaterRect{
+width:10px;height:10px;display: inline-block;
+}
+.ciList{
+width:150px;
+height:30px;
+display:inline-block; 
+text-align: center;
+line-height: 30px!important;
+border:1px solid #d6d4d5!important;
+font: 10px sans-serif;
+}
+.operational{
+background-color: #8bef4d;
+}
+.incident{
+background-color: #ff505e;
+}
+
+.userDetails{
+	padding:20px !important;
+	border: 2px solid #ddd!important;
+	margin:10px ;
+}
+
+.breakLine{
+	/* width:100%; */
+	clear:both;
+	
+}
+header .nav li a:hover{
+	background: #223652!important;
+   color:#fff!important;
+	
+}
+ header .nav li.active a , header .nav li.active a:hover{
+        background: #ccc!important;
+    color: #727f90!important;
+}
+	<style>
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 4.5px;
+}
+rect[Attributes Style] {
+    width: 150;
+    height: 30;
+    stroke: white !important;
+    stroke-width: 1;
+}
+.node {
+  font: 10px sans-serif;
+  cursor: pointer;
+}
+svg{
+    overflow-x: scroll!important;
+    
+}
+svg:not(:root) {
+    overflow: scroll;
+    padding: 16px !important;
+}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.node:not(:hover) .nodetext {
+  display: none;
+}
+
+.stickynode {
+  font: 18px sans-serif;
+  cursor: move;
+}
+
+.stickynode circle {
+  cursor: move;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.stickynode:not(:hover) .stickynodetext {
+  /*display: none;*/
+  font: 12px sans-serif;
+}
+
+.stickynode.fixed circle{
+  fill: #ccc;
+}
+
+.stickynode.fixed .stickynodetext{
+  font: 18px sans-serif
+}
+.col-md-2{width:18%; float:left; margin:10px 10px;}
+.col-md-2 div.ciList{width:100% !important;}

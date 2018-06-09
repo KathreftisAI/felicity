@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Total number of all config items ever created per Class and State.
+
+X-Axis: Class
+Y-Axis: State
+
+Restrictions:
+    -none</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMConfigItem</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMConfigItem</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>Total number of all config items ever created per Class and State.</Title>
+<UseAsValueSeries Element="StateIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="ClassIDs" Fixed="1">
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

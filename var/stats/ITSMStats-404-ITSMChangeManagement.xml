@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>This report calculates all tickets of the chosen types and all changes in the system.</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>ITSMChangeManagementChangesIncidents</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::ITSMChangeManagementChangesIncidents</ObjectModule>
+<ObjectName>ITSMChangeManagementChangesIncidents</ObjectName>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>0</SumCol>
+<SumRow>0</SumRow>
+<Title>Relation Tickets (by types) &lt;-&gt; Changes</Title>
+<UseAsValueSeries Element="Object">
+<SelectedValues>Changes</SelectedValues>
+<SelectedValues>Incident</SelectedValues>
+<SelectedValues>Incident::Major</SelectedValues>
+<SelectedValues>Problem</SelectedValues>
+<SelectedValues>RfC</SelectedValues>
+<SelectedValues>ServiceRequest</SelectedValues>
+<SelectedValues>Unclassified</SelectedValues>
+</UseAsValueSeries>
+<UseAsXvalue Element="TimePeriod" TimeRelativeCount="1" TimeRelativeUnit="Month" TimeScaleCount="1">
+<SelectedValues>Day</SelectedValues>
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

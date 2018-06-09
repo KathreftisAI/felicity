@@ -1,0 +1,21 @@
+
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+<div style='width: 20%; margin-left: 1100px ! important;'>
+<a href="/otrs/index.pl?Action=AgentTicketPhone&type=Problem">Problem</a>
+</div>
+
+<div class="WidgetSimple QueueOverview">
+<h1>problem page   </h1>
+    <div class="Content">
+        [% Data.MainContent %]
+    </div>
+    <div class="Clear"></div>
+</div>
+<div class="QueueOverviewSeparator"></div>
+

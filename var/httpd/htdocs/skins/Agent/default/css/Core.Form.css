@@ -1,0 +1,749 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Agent Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Skin "Default"
+ * @section     Forms
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Input focus
+ * @note        Does not work in IE6, only partially in IE7 (no focus)
+ */
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea,
+select[multiple=multiple] {
+    border: 1px solid #C9C9C9;
+    border-top-color: #C0C0C0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* Opera 10.5 has per default a grey background */
+    background-color: #FFF;
+    -webkit-box-shadow: inset 1px 1px 3px #eee, inset -1px -1px 3px #eee;
+    box-shadow: inset 1px 1px 3px #eee, inset -1px -1px 3px #eee;
+}
+
+select[multiple=multiple] {
+    min-width: 300px;
+    padding: 3px;
+    box-shadow: inset 1px 1px 3px #eee, inset -1px -1px 3px #eee;
+}
+
+.DataTable select[multiple=multiple] {
+    min-width: 0px;
+}
+
+select[multiple=multiple] option {
+    padding: 2px;
+}
+
+select[multiple=multiple] option:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+input#Subject {
+    font-size: 13px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
+    padding: 3px;
+    font-size: 12px;
+    color: #333;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+textarea:focus {
+    border-color: #F92;
+}
+
+/**
+ * @subsection  Textarea
+ * @note        Fixed font needed in textareas because otherwise the line wrapping is incorrect.
+ */
+textarea {
+    font-family: monospace,fixed;
+}
+
+
+/**
+ * @subsection  Input Readonly
+ */
+input[type=text][readonly],
+input[type=password][readonly],
+input[type=email][readonly],
+textarea[readonly] {
+    background-color: #DDD;
+}
+
+/**
+ * @subsection  Buttons
+ */
+button.Primary {
+    font-weight: bold;
+}
+
+a.CertificateRelationAdd,
+button.CertificateRelationAdd,
+a.CertificateRead,
+button.Add,
+a.Add,
+button.Remove,
+a.Remove,
+button.TrashCan,
+a.TrashCan,
+button.Reset,
+a.Reset {
+    height: 16px;
+    width: 16px;
+    padding: 1px;
+    margin-top: 0;
+    margin-bottom: 1px;
+    border-style: none;
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative;
+}
+
+button.Add,
+a.Add {
+    background: url(../img/filter_add.png) no-repeat center;
+}
+
+button.Add:hover,
+button.Add:focus,
+a.Add:hover,
+a.Add:focus {
+    background: url(../img/filter_add_hover.png) no-repeat center;
+}
+
+button.CertificateRelationAdd,
+a.CertificateRelationAdd {
+    background: url(../img/icons/certificate-plus.png) no-repeat center;
+}
+
+a.CertificateRead {
+    background: url(../img/icons/certificate.png) no-repeat center;
+}
+
+button.Remove,
+a.Remove {
+    background: url(../img/filter_remove.png) no-repeat center;
+}
+
+button.Remove:hover,
+button.Remove:focus,
+a.Remove:hover,
+a.Remove:focus {
+    background: url(../img/filter_remove_hover.png) no-repeat center;
+}
+
+a.TrashCan i.fa-trash-o {
+    text-indent: 0px;
+    position: absolute;
+    left: 0px;
+    top: 4px;
+}
+
+button.Reset,
+a.Reset{
+    height: 22px;
+    width: 22px;
+    padding: 3px;
+}
+
+.AddButton,
+.RemoveButton {
+    color: #000;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/**
+ * @note    Push-lookalike for active state
+ */
+button.Add:active,
+a.Add:active,
+button.Remove:active,
+a.Remove:active,
+button.TrashCan:active,
+a.TrashCan:active,
+button.Reset:active {
+    margin-top: 1px;
+    margin-bottom: 0;
+}
+
+
+.GetAllAJAX {
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    display: inline-block;
+    color: #333;
+}
+
+.GetAllAJAX span {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+.RTL .GetAllAJAX {
+    margin: 0 3px 0 0;
+}
+
+
+/**
+ * @subsection    GenericAgent ClearSelect
+ */
+
+.GenericAgentClearSelect {
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    color: #333;
+}
+
+.GenericAgentClearSelect span {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+/**
+ * @subsection    Tree selection icon and overlay for select boxes
+ */
+
+.ShowTreeSelection {
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    display: none;
+    color: #333;
+}
+
+.ShowTreeSelection span {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+}
+
+.ShowTreeSelection:focus {
+    color: #f92;
+}
+
+.Field .ShowTreeSelection, .WidgetSettingsForm .ShowTreeSelection {
+    display: inline-block;
+}
+
+.WidgetSettingsForm .ShowTreeSelection {
+    position: relative;
+    top: -4px;
+}
+
+#TreeContainer #TreeSearch {
+    position: relative;
+}
+
+#TreeContainer #TreeSearch span {
+    color: #AAAAAA;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    height: 12px;
+    position: absolute;
+    right: 9px;
+    top: 4px;
+    width: 16px;
+}
+
+#TreeContainer #TreeSearch input {
+    display: block;
+    margin: 10px 12px 0px 12px;
+    width: 92%;
+}
+
+#JSTree {
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    height: 72%;
+    margin: 10px 12px;
+    -moz-box-shadow: inset 0px 0px 6px #ccc;
+    -webkit-box-shadow: inset 0px 0px 6px #ccc;
+    box-shadow: inset 0px 0px 6px #ccc;
+    overflow: auto;
+    padding: 0px 10px 10px 10px;
+}
+
+#JSTree.InOverlay {
+    margin: 5px 5px 5px 0px;
+    width: 85%;
+    float: left;
+}
+
+#JSTree .Disabled > a {
+    color: #aaa;
+    font-style: italic;
+}
+
+#JSTree .jstree-search {
+    color: #E07006;
+}
+
+#JSTree .jstree-search.jstree-clicked {
+    color: #000;
+}
+
+#JSTree .jstree-clicked {
+    background: #f3960d;
+    background: -moz-linear-gradient(top,  #ffe7bd 0%, #fbba49 20%, #f6ad3e 51%, #f3960d 51%, #e98207 95%, #e07006 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe7bd), color-stop(20%,#fbba49), color-stop(51%,#f6ad3e), color-stop(51%,#f3960d), color-stop(95%,#e98207), color-stop(100%,#e07006));
+    background: -webkit-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: -o-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: -ms-linear-gradient(top,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    background: linear-gradient(to bottom,  #ffe7bd 0%,#fbba49 20%,#f6ad3e 51%,#f3960d 51%,#e98207 95%,#e07006 100%);
+    border-color: #f3960d;
+    padding: 0px 3px;
+}
+
+#JSTree .jstree-hovered {
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+#JSTree a:focus {
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+#SubmitTree {
+    display: block;
+    width: 120px;
+    margin: 0px auto;
+}
+
+.RTL .ShowTreeSelection {
+    margin: 0 3px 0 0;
+}
+
+.OverlayTreeSelector {
+    width: 400px;
+    height: 300px;
+}
+
+/**
+ * @subsection  Form
+ */
+
+form fieldset {
+    display: block;
+    border: none;
+}
+
+fieldset > legend {
+    display: block;
+    width: 100%;
+}
+
+.WidgetSettingsForm fieldset legend {
+    padding-top: 10px;
+}
+
+fieldset > legend > span {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-weight: bold;
+    padding: 5px 0px 5px 30%;
+    text-indent: 8px;
+    margin-bottom: 5px;
+}
+
+form fieldset > p.NoValue {
+    padding: 5px 0px 5px 30%;
+    text-indent: 8px;
+}
+
+.FieldExplanation {
+    color: #888;
+    margin: 5px 0;
+}
+
+.SidebarColumn .FieldExplanation.Error {
+    border: 1px solid #F03432;
+    color: #F03432;
+    line-height: 150%;
+    margin: 7px 0px;
+    padding: 7px 10px;
+}
+
+form label.Mandatory {
+    color: black !important;
+}
+
+form label.Mandatory span.Marker {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    top: 0.35em;
+    line-height: 1px;
+    right: 2px;
+    left: auto;
+}
+
+.RTL form label.Mandatory span.Marker {
+    left: 2px;
+    right: auto;
+}
+
+form label.LabelError {
+    color: #ff505e !important;
+}
+
+.CustomerContainer,
+.CcCustomerContainer,
+.BccCustomerContainer {
+    background-color: #F2F2F2;
+    border: 1px solid #CCCCCC;
+    -moz-box-shadow: inset 1px 1px 5px #ccc;
+    -webkit-box-shadow: inset 1px 1px 5px #ccc;
+    box-shadow: inset 1px 1px 5px #ccc;
+    padding: 5px 7px 10px 6px;
+    width: 74%;
+    position: relative;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.CustomerContainer > div,
+.CcCustomerContainer > div,
+.BccCustomerContainer > div {
+    margin-top: 5px;
+}
+
+.CustomerContainer .CustomerTicketText,
+.CcCustomerContainer .CustomerTicketText,
+.BccCustomerContainer .CustomerTicketText  {
+    width: 89%;
+    margin-left: 7px;
+}
+
+.CustomerContainer .CustomerTicketText {
+    transition: background-color 1s ease, border 1s ease;
+}
+
+.CustomerContainer .CustomerTicketText.MainCustomer {
+    background-color: #F7ECC3;
+    border: 1px solid #E8CC8B;
+}
+
+.CustomerContainer .CustomerTicketText.Radio {
+    width: 84%;
+    margin-left: 0px;
+}
+
+.CustomerContainer .BoxLabel,
+.CcCustomerContainer .BoxLabel,
+.BccCustomerContainer .BoxLabel {
+    background-color: #CCCCCC;
+    font-size: 11px;
+    right: 100%;
+    top: 10px;
+    padding: 0 5px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 1px 1px 1px #FFFFFF;
+    min-width: 20px;
+    color: #555;
+}
+
+/**
+ * @note        Give the user a hint about linked label elements (they are clickable and
+ *                  give focus to the linked element.
+ */
+
+form label[for] {
+    cursor: pointer;
+}
+
+form input.Error,
+form textarea.Error {
+    border-color: #ff505e;
+}
+
+/*
+ * This will be displayed by Core.UI.Tooltips
+ */
+div.TooltipErrorMessage {
+    display: none;
+}
+
+/**
+ * @subsection  TableLike
+ * @description Provides a table-like, aligned label-value structure
+ */
+
+fieldset.TableLike > label,
+fieldset.TableLike > .Row > label {
+    display: block;
+    float: left;
+    line-height: 1.9em;
+    width: 30%;
+    text-align: right;
+    color: #929292;
+    min-height: 17px;
+    padding-top: 0.3em;
+    padding-bottom: 1px;
+    text-shadow: 0 1px 0 #FAFAFA;
+}
+
+.RTL fieldset.TableLike > label,
+.RTL fieldset.TableLike > .Row > label {
+    float: right;
+    text-align: left;
+}
+
+fieldset.TableLike > .Field,
+fieldset.TableLike > .Row > .Field {
+    line-height: 1.9em;
+    margin-left: 30%;
+    margin-right: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 0px;
+    min-height: 20px;
+}
+
+.RTL fieldset.TableLike > .Field,
+.RTL fieldset.TableLike > .Row > .Field {
+    margin-left: 0;
+    margin-right: 30%;
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+fieldset.TableLike select {
+    margin-top: 3px;
+}
+
+/**
+ * @note     Also make labels grey which occur inside of a field,
+ *          for example for complex input elements.
+ */
+fieldset.TableLike > .Field label,
+fieldset.TableLike > .Row > .Field label {
+    color: #929292;
+}
+
+fieldset.TableLike > .Field > select,
+fieldset.TableLike > .Row > .Field > select,
+fieldset.TableLike > .Field > input,
+fieldset.TableLike > .Row > .Field > input {
+    max-width: 100%;
+}
+
+/**
+ * @note    The RichText field needs to float, otherwise it breaks
+ *          in small screens.
+ *          Additionally we have a generic FloatingField class,
+ *          RichTextField is for backwards compatibility.
+ */
+fieldset.TableLike > .RichTextField,
+fieldset.TableLike > .Row > .RichTextField,
+fieldset.TableLike > .FloatingField,
+fieldset.TableLike > .Row > .FloatingField {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 0;
+    float: left;
+}
+
+body.Popup fieldset.TableLike > .RichTextField,
+body.Popup fieldset.TableLike > .Row > .RichTextField,
+body.Popup fieldset.TableLike > .FloatingField,
+body.Popup fieldset.TableLike > .Row > .FloatingField {
+    margin: 7px 7px 0px 7px;
+}
+
+.RTL fieldset.TableLike > .RichTextField,
+.RTL fieldset.TableLike > .Row > .RichTextField,
+.RTL fieldset.TableLike > .FloatingField,
+.RTL fieldset.TableLike > .Row > .FloatingField {
+    padding-left: 0;
+    padding-right: 10px;
+    float: right;
+}
+
+body.Popup .RTL fieldset.TableLike > .RichTextField,
+body.Popup .RTL fieldset.TableLike > .Row > .RichTextField,
+body.Popup .RTL fieldset.TableLike > .FloatingField,
+body.Popup .RTL fieldset.TableLike > .Row > .FloatingField {
+    margin: 7px 7px 0px 7px;
+}
+
+fieldset.TableLike > .Value,
+fieldset.TableLike > .Row > .Value {
+    margin-left: 30%;
+    padding: 5px 0 3px 8px;
+    line-height: 1.9em;
+}
+
+.RTL fieldset.TableLike > .Value,
+.RTL fieldset.TableLike > .Row > .Value {
+    margin: 0 30% 0 0;
+    padding: 5px 8px 3px 0;
+}
+
+fieldset.TableLike > .Value img,
+fieldset.TableLike > .Row > .Value img {
+    vertical-align: top;
+}
+
+/**
+ * @note        FixedLabel - this additional class for TableLike
+ *              makes the labels have a fixed size
+ */
+fieldset.TableLike.FixedLabel > label,
+fieldset.TableLike.FixedLabel > .Row > label {
+    width: 170px;
+}
+
+fieldset.TableLike.FixedLabel > .Field,
+fieldset.TableLike.FixedLabel > .Row > .Field,
+fieldset.TableLike.FixedLabel > .Value,
+fieldset.TableLike.FixedLabel > .Row > .Value {
+    margin-left: 170px;
+    margin-right: 0;
+    padding-left: 17px;
+    padding-right: 0;
+}
+
+.RTL fieldset.TableLike.FixedLabel > .Field,
+.RTL fieldset.TableLike.FixedLabel > .Row > .Field,
+.RTL fieldset.TableLike.FixedLabel > .Value,
+.RTL fieldset.TableLike.FixedLabel > .Row > .Value {
+    margin-left: 0;
+    margin-right: 170px;
+    padding-left: 0;
+    padding-right: 17px;
+}
+
+/**
+ * @note        FixedLabelSmall - this additional class for TableLike
+ *              makes the labels have a small fixed size
+ */
+fieldset.TableLike.FixedLabelSmall > label,
+fieldset.TableLike.FixedLabelSmall > .Row > label {
+    width: 100px;
+}
+
+fieldset.TableLike.FixedLabelSmall > .Field,
+fieldset.TableLike.FixedLabelSmall > .Row > .Field,
+fieldset.TableLike.FixedLabelSmall > .Value,
+fieldset.TableLike.FixedLabelSmall > .Row > .Value {
+    margin-left: 100px;
+    margin-right: 7px;
+    word-wrap: break-word;
+}
+
+.RTL fieldset.TableLike.FixedLabelSmall > .Field,
+.RTL fieldset.TableLike.FixedLabelSmall > .Row > .Field,
+.RTL fieldset.TableLike.FixedLabelSmall > .Value,
+.RTL fieldset.TableLike.FixedLabelSmall > .Row > .Value {
+    margin-left: 0;
+    margin-right: 100px;
+}
+
+fieldset.TableLike.FixedLabelSmall > .FixedValueSmall,
+fieldset.TableLike.FixedLabelSmall > .Row > .FixedValueSmall {
+    width: 143px;
+}
+fieldset.TableLike.FixedLabelSmall > p.FixedValueSmall > em.Error {
+    display: block;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+fieldset.TableLike.Narrow > label,
+fieldset.TableLike.Narrow > .Row > label,
+fieldset.TableLike.Narrow > .Value,
+fieldset.TableLike.Narrow > .Row > .Value {
+    line-height: 1.3em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+iframe.Signature {
+    border: 1px solid #888;
+}
+
+/**
+ * @subsection AJAX Loader
+ */
+
+.AJAXLoader {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 2px;
+    background: url("../img/loader.gif") no-repeat right center;
+    vertical-align: bottom;
+}
+
+/**
+ * @subsection freetext fields
+ */
+
+input[type=text].TicketFreeText,
+input[type=text].ArticleFreeText {
+    width: 75%;
+}
+
+input[type=text].TicketFreeKey,
+input[type=text].ArticleFreeKey {
+    width: 50%;
+}
+
+/**
+ * @subsection Chat
+ */
+
+.ArticleChat {
+    padding: 2px 5px;
+    font-size: 11px;
+    max-height: 100px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.ArticleMailContent .ArticleChat {
+    max-height: none;
+    font-size: 12px;
+    padding: 10px;
+}
+
+} /* end @media */

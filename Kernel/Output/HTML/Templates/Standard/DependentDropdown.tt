@@ -1,0 +1,263 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Dependent Dropdown") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add Dependency") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Dynamic Field") | html %]</th>
+			    <th>[% Translate("Dynamic Field Value") | html %]</th>
+			    <th>[% Translate("Sub Dynamic Field") | html %]</th>
+			    <th>[% Translate("Sub Dynamic Field Value") | html %]</th>
+#                            <th>[% Translate("Agent") | html %]</th>
+                           <th>[% Translate("Validity") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="5">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.Query | html %]</a></td>
+			    <td>[% Translate(Data.QueryValue) | html %]</td>
+			    <td>[% Translate(Data.SubQuery) | html %]</td>
+			    <td>[% Translate(Data.SubQueryValue) | html %]</td>
+                           <td>[% Translate(Data.Valid) | html %]</td>
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Dependent Dropdown") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Dependent Dropdown") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+
+                <form action="[% Env("CGIHandle") %]" method="post" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+		    [% RenderBlockStart("ExistIDServerError") %]
+                          <label class="LabelError">[% Translate("A record with these values already exists!") | html %] </label>
+                    [% RenderBlockEnd("ExistIDServerError") %]
+                    <fieldset class="TableLike">
+
+
+		<label class="Mandatory" for="Query"><span class="Marker">*</span> [% Translate("Dynamic Field") | html %]:</label>
+                    <div class="Field">
+                    [% Data.Query %]
+			 <div id="QueryTooltip">
+                             <p style="color:red">Note: Changes made here would be reflected on other pages as well.</p>
+                         </div>
+                         <div id="QueryError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="QueryServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+		<label class="Mandatory" for="QueryValue"><span class="Marker">*</span> [% Translate("Dynamic Field Value") | html %]:</label>
+                    <div class="Field">
+                    [% Data.QueryValue %]
+                         <div id="QueryValueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="QueryValueServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+		<label class="Mandatory" for="SubQuery"><span class="Marker">*</span> [% Translate("Dynamic Sub-Field") | html %]:</label>
+                    <div class="Field">
+                    [% Data.SubQuery %]
+                         <div id="SubQueryError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="SubQueryServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+		<label class="Mandatory" for="SubQueryValue"><span class="Marker">*</span> [% Translate("Dynamic Sub-Field Value") | html %]:</label>
+                    <div class="Field">
+                    [% Data.SubQueryValue %]
+                         <div id="SubQueryValueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="SubQueryServerValueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+
+                <label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                            <div id="ValidIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ValidIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field">
+                            <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+## OTRS built-in function
+function GetSessionInformation() {
+
+	var Data = {};
+        if (!Core.Config.Get('SessionIDCookie')) {
+            Data[Core.Config.Get('SessionName')] = Core.Config.Get('SessionID');
+            Data[Core.Config.Get('CustomerPanelSessionName')] = Core.Config.Get('SessionID');
+        }
+        Data.ChallengeToken = Core.Config.Get('ChallengeToken');
+        return Data;
+}
+
+## OTRS built-in function
+function SerializeData(Data) {
+    var QueryString = '';
+    $.each(Data, function (Key, Value) {
+        QueryString += ';' + encodeURIComponent(Key) + '=' + encodeURIComponent(Value);
+    });
+    return QueryString;
+}
+
+
+    $("#Query, #SubQuery").bind('change', function (Event) {
+
+        var passID = $(this).val();
+        var bindValue = '';
+
+	var url = Core.Config.Get('Baselink') + 'Action=DependentDropdown';
+	url += SerializeData(GetSessionInformation());
+
+	var elementID = $(this).attr('id');
+
+	if(elementID == 'Query'){
+	    url += '&Subaction=GetQueryValue&QueryID=' + passID;
+	}
+	else if(elementID == 'SubQuery'){
+	    url += '&Subaction=GetSubQueryValue&SubQueryID=' + passID;
+	}
+        $.ajax({
+
+            url: url,
+#            data: ,
+#            type: 'post',
+            datatype: 'json',
+            success: function(response){
+
+                $.each(response, function(key,value){
+                    bindValue += '<option value="'+key+'">'+value+'</option>';
+                });
+                $("#"+elementID+"Value").empty();
+                $("#"+elementID+"Value").append(bindValue);
+                $("#"+elementID+"Value_Search").attr("readonly", false);
+                $("#"+elementID+"Value_Search").closest('div').find('div').html('');
+
+		if(elementID == 'Query'){
+
+		    var selectedID = $('#Query').val();
+		    $("#SubQuery").children('option').attr('disabled', false);
+		    $("#SubQuery [value='"+selectedID+"']").attr('disabled', true);
+		}
+		else if(elementID == 'SubQuery'){
+
+                    var selectedID = $('#SubQuery').val();
+                    $("#Query").children('option').attr('disabled', false);
+                    $("#Query [value='"+selectedID+"']").attr('disabled', true);
+                }
+            }
+        });
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("Overview") %]

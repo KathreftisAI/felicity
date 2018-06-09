@@ -1,0 +1,202 @@
+<body onload="window.print()">
+<!--<button type="button"  onclick="demoFromHTML()">Print PDF</button>-->
+<style>
+.important{
+   background-color: #dddddd;
+} 
+
+@media all {
+.page-break { display: none; }
+}
+
+@media print {
+.page-break { display: block; page-break-before: always; }
+
+.page-break:after {
+    counter-increment: page;
+    content: counter(page);
+}
+
+}
+</style>
+<div id="testcase">
+[% RenderBlockStart("TicketData") %]
+ <p ><div align="right"><font size="3";>Ticket#[%Data.TicketNumber%]</font></div></p>
+<hr>
+<p><font size="4";>[%Data.Title%]</font></p>
+<p>[%Data.PrintedBy%]</p>
+
+<div >
+<table align="left" width="50%">
+	<tr>
+		<td class="important">
+			<p><b>State:</b> [%Data.State %]</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Queue:</b> [%Data.Queue %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>Lock:</b> [%Data.Lock %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>CustomerID:</b> [%Data.CustomerID %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>Owner:</b> [%Data.Owner %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Responsible:</b> [%Data.Responsible %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>Type:</b> [%Data.Type %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Service:</b> [%Data.Service %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>SLA:</b> [%Data.SLA %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Criticality:</b> [%Data.Criticality %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>Impact:</b> [%Data.Impact %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Priority:</b> [%Data.Priority %]</br></p>
+		</td>
+	</tr>
+
+
+
+</table>
+
+<table align="center" width="50%">
+
+	<tr>
+		<td class="important">
+			<p><b>Age:</b> [%Data.Age %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Created:</b> [%Data.Created %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p><b>Created by:</b> [%Data.item('Created by')%]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p><b>Accounted time:</b> [%Data.item('Accounted time') %]</br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p></br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p></br></p>
+		</td>
+	</tr>
+	<tr>
+		<td class="important">
+			<p></br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p></br></p>
+		</td>
+	</tr>
+		<tr>
+		<td class="important">
+			<p></br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p></br></p>
+		</td>
+	</tr>
+		<tr>
+		<td class="important">
+			<p></br></p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p></br></p>
+		</td>
+	</tr>
+</table>
+</div>
+</br></br>
+<!-- [% RenderBlockStart("LinkType") %]
+[% IF Data.Namee %]
+<hr>
+<font size="4";>Linked Objects</font> </br></br>
+<b>[%Data.Namee%]:</b>
+[% RenderBlockStart("LinkedObject") %]
+[%Data.Title%]</br>
+[% RenderBlockEnd("LinkedObject") %]
+[% END %]
+[% RenderBlockEnd("LinkType") %] -->
+</br></br><hr>
+	<font size="4";>Customer Information</font>
+	 </br></br>
+	<b>Firstname:</b>  [%Data.UserFirstname%] </br>
+	<b>Lastname:</b>  [%Data.UserLastname%] </br>
+	<b>Username:</b> - [%Data.UserLogin%] </br>
+	<b>Email:</b> - [%Data.UserEmail%]</br>
+	<b>Customer:</b> - [%Data.CustomerCompanyName%] </br>
+
+[% RenderBlockStart("ArticleItem") %]
+</br></br>	<font size="4";>Article #[%Data.ArticleNo%]</font> 
+<hr></br></br>
+	<b>From:</b> - [%Data.From%] </br>
+	<b>To:</b> - [%Data.To%] </br>
+	<b>Subject:</b> - [%Data.Subject%] </br>
+	<b>Created:</b> - [%Data.Created%] by [%Data.SenderType%] </br>
+	<b>Type:</b> - [%Data.ArticleType%] </br>
+	[%Data.Body%] </br>
+[% RenderBlockEnd("ArticleItem") %]
+<div class="page-break">
+	<script type="text/javascript">
+		pageCount=$('.page-break::after').css('content');
+		console.log(pageCount);
+	</script>
+</div>
+[% RenderBlockEnd("TicketData") %]
+</div>
+</body>
+<script type="text/javascript">
+	$('header').empty();
+	$('link').remove();
+</script>

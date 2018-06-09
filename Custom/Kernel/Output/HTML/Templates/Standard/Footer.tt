@@ -1,0 +1,28 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+
+<div id="Footer" class="ARIARoleContentinfo">
+[% IF !Config("Secure::DisableBanner") %]
+    <a href="[% IF !Data.IsLoginPage %]https://www.otrs.com[% ELSE %]https://www.otrs.com/otrs-business-solution-managed/[% END %]" title="[% Config("Product") | html %][% IF !Data.IsLoginPage %] [% Config("Version") | html %][% END %]" target="_blank">
+        <span></span>
+        [% IF Data.OTRSSTORMIsInstalled %]
+            [% Translate("%s powered by %s", "OTRS  Supercharged by Unotech") | html %]
+        [% ELSIF Data.OTRSBusinessIsInstalled %]
+            [% Translate("Powered by %s", "OTRS  Supercharged by Unotech") | html %]
+        [% ELSE %]
+            [% Translate("Powered by %s", "OTRS  Supercharged by Unotech") | html %]
+        [% END %]
+    </a>
+[% END %]
+</div>
+<a href="#" class="scroll-to-top"></a>
+[% InsertTemplate("FooterJS.tt") %]
+
+</body>
+</html>

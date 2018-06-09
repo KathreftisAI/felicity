@@ -1,0 +1,195 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="LayoutPopup ARIARoleMain">
+
+    <div class="Header">
+        <h1>[% Translate("Edit") | html %] [% Config("ITSMChange::Hook") %]: [% Data.ChangeNumber | html %] &ndash; [% Data.ChangeTitle | html %]</h1>
+        <p>
+            <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+        </p>
+    </div>
+
+    <div class="Content">
+
+        <div class="Content">
+            <form action="[% Env("CGIHandle") %]" method="post" name="compose" id="ChangeEditForm" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+                <input type="hidden" name="Action"    value="[% Env("Action") %]"/>
+                <input type="hidden" name="Subaction" value="Save"/>
+                <input type="hidden" name="ChangeID"  value="[% Data.ChangeID | html %]"/>
+                <input type="hidden" name="FormID"    value="[% Data.FormID | html %]"/>
+
+                <fieldset class="TableLike FixedLabelSmall">
+
+                    <label class="Mandatory" for="ChangeTitle"><span class="Marker">* </span>[% Translate("Title") | html %]:</label>
+                    <div class="Field">
+                        <input type="text" name="ChangeTitle" id="ChangeTitle" value="[% Data.ChangeTitle | html %]" class="W75pc Validate_Required [% Data.ChangeTitleTitleServerError | html %]" maxlength="250"/>
+                        <div id="ChangeTitleError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        <div id="ChangeTitleServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    </div>
+                    <div class="Clear"></div>
+
+[% RenderBlockStart("RichText") %]
+[% InsertTemplate("RichTextEditor.tt") %]
+[% RenderBlockEnd("RichText") %]
+                    <label class="Mandatory" for="RichText1"><span class="Marker">*</span> [% Translate("Description") | html %]:</label>
+                    <div class="RichTextField">
+                        <textarea id="RichText1" class="RichText Validate_Required [% Data.DescriptionInvalid %]" name="Description" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Description | html %]</textarea>
+                        <div id="RichText1Error" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        <div id="RichText1ServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label class="Mandatory" for="RichText2"><span class="Marker">*</span> [% Translate("Justification") | html %]:</label>
+                    <div class="RichTextField">
+                        <textarea id="RichText2" class="RichText Validate_Required [% Data.JustificationInvalid %]" name="Justification" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Justification | html %]</textarea>
+                        <div id="RichText2Error" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        <div id="RichText2ServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label for="CategoryID">[% Translate("Category") | html %]:</label>
+                    <div class="Field">
+                        [% Data.CategorySelectionString %]
+                    </div>
+                    <div id="CategoryIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                    <div class="Clear"></div>
+
+                    <label for="ImpactID">[% Translate("Impact") | html %]:</label>
+                    <div class="Field">
+                        [% Data.ImpactSelectionString %]
+                    </div>
+                    <div id="ImpactIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                    <div class="Clear"></div>
+
+                    <label for="PriorityID">[% Translate("Priority") | html %]:</label>
+                    <div class="Field">
+                        [% Data.PrioritySelectionString %]
+                    </div>
+                    <div id="PriorityIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                    <div class="Clear"></div>
+
+                    <label class="Mandatory" for="ITSMChangeGroupID"><span class="Marker">*</span>[% Translate("ITSM Change Group") | html %]:</label>
+                    <div class="Field">
+                    [% Data.ITSMChangeGroupIDSelectionString %]
+                    </div>
+                    <div id="ITSMChangeGroupIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                    <div class="Clear"></div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#CategoryID').bind('change', function (Event) {
+        Core.AJAX.FormUpdate($('#ChangeEditForm'), 'AJAXUpdate', 'CategoryID', ['ImpactID', 'PriorityID']);
+    });
+    $('#ImpactID').bind('change', function (Event) {
+        Core.AJAX.FormUpdate($('#ChangeEditForm'), 'AJAXUpdate', 'ImpactID', ['PriorityID']);
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockStart("DynamicField") %]
+                    <div class="Row Row_DynamicField_[% Data.Name | html %]">
+                        [% Data.Label %]
+                        <div class="Field">
+                            [% Data.Field %]
+                        </div>
+                        <div class="Clear"></div>
+                    </div>
+[% RenderBlockEnd("DynamicField") %]
+
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("DynamicField_Field1") %]
+#                    <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                        [% Data.Label %]
+#                        <div class="Field">
+#                            [% Data.Field %]
+#                        </div>
+#                        <div class="Clear"></div>
+#                    </div>
+#[% RenderBlockEnd("DynamicField_Field1") %]
+#[% RenderBlockStart("DynamicField_Field2") %]
+#                    <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                        [% Data.Label %]
+#                        <div class="Field">
+#                            [% Data.Field %]
+#                        </div>
+#                        <div class="Clear"></div>
+#                    </div>
+#[% RenderBlockEnd("DynamicField_Field2") %]
+
+[% RenderBlockStart("ChangeState") %]
+                    <label for="ChangeStateID">[% Translate("State") | html %]:</label>
+                    <div class="Field">
+                        [% Data.StateSelectionString %]
+                    </div>
+                    <div id="ChangeStateIDServerError" class="TooltipErrorMessage"><p>[% Translate("Input invalid.") | html %]</p></div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("ChangeState") %]
+
+[% RenderBlockStart("RequestedTime") %]
+                    <label>[% Translate("Requested Date") | html %]:</label>
+                    <div class="Field">
+                        [% Data.RequestedTimeString %]
+                        <div id="RequestedTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                        <div id="RequestedTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockStart("RequestedTimeGenericServerError") %]
+                        <div id="RequestedTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                        <div id="RequestedTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockEnd("RequestedTimeGenericServerError") %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("RequestedTime") %]
+
+[% RenderBlockStart("AttachmentUpload") %]
+                    <label>[% Translate("Attachment") | html %]:</label>
+                    <div class="Field">
+                        <ul>
+[% RenderBlockStart("Attachment") %]
+                            <li>
+                                [% Data.Filename | html %] ([% Data.Filesize | html %])
+                                <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+        Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+    });
+//]]></script>
+[% END %]
+                            </li>
+[% RenderBlockEnd("Attachment") %]
+                            <li>
+                                <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                                <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="Clear"></div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function (Event) {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("AttachmentUpload") %]
+
+                    <div class="Field SpacingTop">
+                        <button class="Primary CallForAction" id="SubmitChangeEdit" accesskey="g" name="ChangeEdit" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]"><span><i class="fa fa-check-square-o"></i> [% Translate("Submit") | html %]</span></button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

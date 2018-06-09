@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Application">
+    <ConfigItem Name="Frontend::Module###AgentSurveyOverview" Required="0" Valid="1">
+        <Description Translatable="1">All parameters for the Survey object in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">A Survey Module.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Title Translatable="1">Survey</Title>
+                <NavBar>
+                    <Description Translatable="1">A Survey Module.</Description>
+                    <Name Translatable="1">Survey</Name>
+                    <Type>Menu</Type>
+                    <Block>ItemArea</Block>
+                    <Link>Action=AgentSurveyOverview</Link>
+                    <NavBar>Survey</NavBar>
+                    <AccessKey>u</AccessKey>
+                    <Prio>8000</Prio>
+                </NavBar>
+                <NavBar>
+                    <Description Translatable="1">Overview</Description>
+                    <Name Translatable="1">Overview</Name>
+                    <Link>Action=AgentSurveyOverview</Link>
+                    <Type></Type>
+                    <Block></Block>
+                    <NavBar>Survey</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>100</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentSurveyAdd" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for survey add in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Survey Add Module.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Title Translatable="1">Survey</Title>
+                <NavBar>
+                    <Description Translatable="1">New</Description>
+                    <Name Translatable="1">New</Name>
+                    <Link>Action=AgentSurveyAdd</Link>
+                    <Type></Type>
+                    <Block></Block>
+                    <NavBar>Survey</NavBar>
+                    <AccessKey></AccessKey>
+                    <Prio>200</Prio>
+                </NavBar>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentSurveyEdit" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for survey edit in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Survey Edit Module.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentSurveyStats" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for survey stats in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Survey Stats Module.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+
+    <ConfigItem Name="Frontend::Module###AgentSurveyZoom" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for survey zoom in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Survey Zoom Module.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                    <JavaScript>Survey.Agent.SurveyZoom.js</JavaScript>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Frontend::Module###AgentSurveyEditQuestions" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for survey zoom in the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">A module to edit survey questions.</Description>
+                <Loader>
+                    <CSS>Survey.Agent.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="PublicFrontend::Module###PublicSurvey" Required="0" Valid="1">
+        <Description Translatable="1">Frontend module registration for the PublicSurvey object in the public Survey area.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Public::ModuleRegistration</SubGroup>
+        <Setting>
+            <FrontendModuleReg>
+                <Description Translatable="1">Public Survey.</Description>
+                <NavBarName>Survey</NavBarName>
+                <Title Translatable="1">Survey</Title>
+                <Loader>
+                    <CSS>Survey.Customer.Default.css</CSS>
+                </Loader>
+            </FrontendModuleReg>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::ShowVoteData" Required="0" Valid="0">
+        <Description Translatable="1">Enable or disable the ShowVoteData screen in the public interface to show data of a specific survey result when the customer tries to answer a survey the second time.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::SendPeriod" Required="0" Valid="1">
+        <Description Translatable="1">Amount of days after sending a survey mail in which no new survey requests are sent to the same customer. Selecting 0 will always send the survey mail.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="">300</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::CheckSendConditionTicketType" Required="0" Valid="1">
+        <Description Translatable="1">Enable or disable the send condition check for the ticket type.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::CheckSendConditionService" Required="0" Valid="1">
+        <Description Translatable="1">Enable or disable the send condition check for the service.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <Option SelectedID="0">
+                <Item Key="0" Translatable="1">No</Item>
+                <Item Key="1" Translatable="1">Yes</Item>
+            </Option>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::NotificationSender" Required="1" Valid="1">
+        <Description Translatable="1">Default sender for the notification email to customers about new survey.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="">quality@example.com</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::NotificationRecipientBlacklist" Required="0" Valid="1">
+        <Description Translatable="1">Surveys will not be sent to the configured email addresses.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core</SubGroup>
+        <Setting>
+            <Array></Array>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::NotificationSubject" Required="1" Valid="1">
+        <Description Translatable="1">Default subject for the notification email to customers about new survey.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="">Help us with your feedback!</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::NotificationBody" Required="1" Valid="1">
+        <Description Translatable="1">Default body for the notification email to customers about new survey.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <TextArea>Dear Customer,
+
+Thanks for using our service. Help us to improve us and our services.
+
+Please give us feedback on how to improve our services:
+
+&lt;OTRS_CONFIG_HttpType&gt;://&lt;OTRS_CONFIG_FQDN&gt;/&lt;OTRS_CONFIG_ScriptAlias&gt;public.pl?Action=PublicSurvey;PublicSurveyKey=&lt;OTRS_PublicSurveyKey&gt;
+
+Thanks for your help!
+
+Your OTRS-Team
+            </TextArea>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::SendNoSurveyRegExp" Required="0" Valid="1">
+        <Description Translatable="1">If this regex matches, no customer survey will be sent.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="">(MAILER-DAEMON|postmaster|abuse)@.+?\..+?</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Ticket::EventModulePost###99-SurveySendRequest" Required="0" Valid="1">
+        <Description Translatable="1">Ticket event module to send automatically survey email requests to customers if a ticket is closed.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::System::Ticket::Event::SurveySendRequest</Item>
+                <Item Key="Event">(ArticleCreate|TicketStateUpdate)</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::Overview###Small" Required="0" Valid="1">
+        <Description Translatable="1">Defines an overview module to show the small view of a survey list.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::SurveyOverview</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::SurveyOverview::Small</Item>
+                <Item Key="Name">Small</Item>
+                <Item Key="NameShort">S</Item>
+                <Item Key="PageShown">25</Item>
+                <Item Key="Image">overviewsmall.png</Item>
+                <Item Key="ImageSelected">overviewsmall-selected.png</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::AgentSurveyOverview###ShowColumns" Required="1" Valid="1">
+        <Description Translatable="1">Defines the shown columns in the survey overview. This option has no effect on the position of the columns.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::ViewSurveyOverview</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Number">1</Item>
+                <Item Key="Title">1</Item>
+                <Item Key="Introduction">0</Item>
+                <Item Key="Description">0</Item>
+                <Item Key="NotificationSender">0</Item>
+                <Item Key="NotificationSubject">0</Item>
+                <Item Key="NotificationBody">0</Item>
+                <Item Key="Status">1</Item>
+                <Item Key="CreateTime">1</Item>
+                <Item Key="CreateBy">0</Item>
+                <Item Key="ChangeTime">0</Item>
+                <Item Key="ChangeBy">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::HTMLRichTextHeightDefault" Required="1" Valid="1">
+        <Description Translatable="1">Defines the default height for Richtext views for SurveyZoom elements.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::SurveyZoom</SubGroup>
+        <Setting>
+            <String Regex="^[0-9]{1,4}$">80</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::HTMLRichTextHeightMax" Required="1" Valid="1">
+        <Description Translatable="1">Defines the maximum height for Richtext views for SurveyZoom elements.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::SurveyZoom</SubGroup>
+        <Setting>
+            <String Regex="^[0-9]{1,4}$">2500</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::SendInHoursAfterClose" Required="1" Valid="1">
+        <Description Translatable="1">Defines the amount in hours a ticket has to be closed to trigger the sending of a survey, ( 0 means send immediately after close ). Note: delayed survey sending is done by the OTRS Daemon, prior activation of 'Daemon::SchedulerCronTaskManager::Task###SurveyRequestsSend' setting.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="^[0-9]{1,5}$">0</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::AmountOfSurveysPer30Days" Required="0" Valid="1">
+        <Description Translatable="1">Defines maximum amount of surveys that get sent to a customer per 30 days. ( 0 means no maximum, all survey requests will be sent).</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="^[0-9]{1,4}$">0</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Hook" Required="1" Valid="1">
+        <Description Translatable="1">The identifier for a survey, e.g. Survey#, MySurvey#. The default is Survey#.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Core::Survey</SubGroup>
+        <Setting>
+            <String Regex="">Survey#</String>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="PreferencesGroups###SurveyOverviewSmallPageShown" Required="0" Valid="1">
+        <Description Translatable="1">Parameters for the pages (in which the surveys are shown) of the small survey overview.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::Preferences</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
+                <Item Key="Column">Other Settings</Item>
+                <Item Key="Label" Translatable="1">Survey Overview "Small" Limit</Item>
+                <Item Key="Key" Translatable="1">Survey limit per page for Survey Overview "Small".</Item>
+                <Item Key="Data">
+                    <Hash>
+                        <Item Key="10">10</Item>
+                        <Item Key="15">15</Item>
+                        <Item Key="20">20</Item>
+                        <Item Key="25">25</Item>
+                        <Item Key="30">30</Item>
+                        <Item Key="35">35</Item>
+                    </Hash>
+                </Item>
+                <Item Key="DataSelected">25</Item>
+                <Item Key="PrefKey">UserSurveyOverviewSmallPageShown</Item>
+                <Item Key="Prio">8000</Item>
+                <Item Key="Active">0</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::MenuModule###000-Back" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to go back in the survey zoom view of the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::Survey::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::SurveyMenu::Generic</Item>
+                <Item Key="Name" Translatable="1">Back</Item>
+                <Item Key="Description" Translatable="1">Back</Item>
+                <Item Key="Action"></Item>
+                <Item Key="Link">[% Env("LastScreenOverview") | html %]</Item>
+                <Item Key="Target">Back</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::MenuModule###010-EditGeneralInfo" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to edit a survey in its zoom view of the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::Survey::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::SurveyMenu::Generic</Item>
+                <Item Key="Name" Translatable="1">Edit General Info</Item>
+                <Item Key="Description" Translatable="1">Edit survey general information.</Item>
+                <Item Key="Action">AgentSurveyEdit</Item>
+                <Item Key="Link">Action=AgentSurveyEdit;SurveyID=[% Data.SurveyID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::MenuModule###020-EditQuestions" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to edit survey questions in its zoom view of the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::Survey::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::SurveyMenu::Generic</Item>
+                <Item Key="Name" Translatable="1">Edit Questions</Item>
+                <Item Key="Description" Translatable="1">Edit survey questions.</Item>
+                <Item Key="Action">AgentSurveyEditQuestions</Item>
+                <Item Key="Link">Action=AgentSurveyEditQuestions;SurveyID=[% Data.SurveyID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Survey::Frontend::MenuModule###030-StatsDetails" Required="0" Valid="1">
+        <Description Translatable="1">Shows a link in the menu to zoom into the survey statistics details in its zoom view of the agent interface.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Frontend::Agent::Survey::MenuModule</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::SurveyMenu::Generic</Item>
+                <Item Key="Name" Translatable="1">Stats Details</Item>
+                <Item Key="Description" Translatable="1">Zoom into statistics details.</Item>
+                <Item Key="Action">AgentSurveyStats</Item>
+                <Item Key="Link">Action=AgentSurveyStats;SurveyID=[% Data.SurveyID | html %]</Item>
+                <Item Key="Target">PopUp</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+    <ConfigItem Name="Daemon::SchedulerCronTaskManager::Task###SurveyRequestsSend" Required="0" Valid="0">
+        <Description Translatable="1">Trigger sending delayed survey requests.</Description>
+        <Group>Survey</Group>
+        <SubGroup>Daemon::SchedulerCronTaskManager::Task</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="TaskName">SurveyRequestsSend</Item>
+                <Item Key="Schedule">*/20 * * * *</Item> <!-- default: every 20 min -->
+                <Item Key="Module">Kernel::System::Console::Command::Maint::Survey::RequestsSend</Item>
+                <Item Key="Function">Execute</Item>
+                <Item Key="MaximumParallelInstances">1</Item>
+                <Item Key="Params">
+                    <Array>
+                        <Item>--force</Item>
+                    </Array>
+                </Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

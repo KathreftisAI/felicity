@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<otrs_stats>
+<Cache>0</Cache>
+<Description>Number of currently open tickets per Ticket-Type and Priority.
+
+X-Axis: Ticket-Type
+Y-Axis: Priority
+
+Restrictions:
+    -currently with open as state</Description>
+<File></File>
+<Format>CSV</Format>
+<Format>Excel</Format>
+<Format>Print</Format>
+<Format>D3::BarChart</Format>
+<Format>D3::LineChart</Format>
+<Format>D3::StackedAreaChart</Format>
+<Object>Ticket</Object>
+<ObjectModule>Kernel::System::Stats::Dynamic::Ticket</ObjectModule>
+<Permission>stats</Permission>
+<StatType>dynamic</StatType>
+<SumCol>1</SumCol>
+<SumRow>1</SumRow>
+<Title>Number of currently open tickets per Ticket-Type and Priority.</Title>
+<UseAsRestriction Element="StateTypeIDs" Fixed="1">
+<SelectedValues>2</SelectedValues>
+</UseAsRestriction>
+<UseAsValueSeries Element="PriorityIDs" Fixed="1">
+</UseAsValueSeries>
+<UseAsXvalue Element="TypeIDs" Fixed="1">
+</UseAsXvalue>
+<Valid>1</Valid>
+</otrs_stats>

@@ -1,0 +1,69 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("BulkAction") %]
+<form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="compose" class="Validate">
+    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+    <input type="hidden" name="Subaction" value="Do"/>
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>[% Translate("ITSM ConfigItem Bulk Action") | html %]</h1>
+            <p>
+                <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+
+            <div class="Content">
+[% RenderBlockStart("UsedConfigItemID") %]
+                <input type="hidden" name="ConfigItemID" value="[% Data.ConfigItemID | html %]" />
+[% RenderBlockEnd("UsedConfigItemID") %]
+
+                <fieldset class="TableLike FixedLabel">
+
+[% RenderBlockStart("DeplState") %]
+                    <label for="DeplStateID">[% Translate("Deployment state") | html %]:</label>
+                    <div class="Field">
+                        [% Data.DeplStateStrg %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("DeplState") %]
+[% RenderBlockStart("InciState") %]
+                    <label for="InciStateID">[% Translate("Incident state") | html %]:</label>
+                    <div class="Field">
+                        [% Data.InciStateStrg %]
+                    </div>
+                    <div class="Clear"></div>
+[% RenderBlockEnd("InciState") %]
+
+                    <div class="SpacingTop"></div>
+                    <label for="LinkTogether">[% Translate("Link together") | html %]:</label>
+                    <div class="Field">
+                        [% Data.LinkTogetherYesNoOption %]
+                        [% Data.LinkTogetherLinkTypeStrg %]
+                    </div>
+                    <div class="Clear"></div>
+
+                    <label for="LinkTogetherAnother">[% Translate("Link to another") | html %]:</label>
+                    <div class="Field">
+                        <input type="text" class="[% Data.LinkTogetherAnotherInvalid | html %] W25pc" id="LinkTogetherAnother" name="LinkTogetherAnother" value="[% Data.LinkTogetherAnother | html %]"/>
+                        <div id="LinkTogetherAnotherServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid Configuration Item number!") | html %]</p></div>
+                        [% Data.LinkTypeStrg %]
+                        <p class="FieldExplanation">[% Translate("The number of another Configuration Item to link with.") | html %]</p>
+                    </div>
+                    <div class="Clear"></div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="Footer">
+            <button class="Primary CallForAction" id="submitRichText" accesskey="g" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+        </div>
+    </div>
+</form>
+[% RenderBlockEnd("BulkAction") %]

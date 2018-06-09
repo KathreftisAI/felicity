@@ -1,0 +1,136 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("CommonJS") %]
+    <script type="text/javascript" src="[% Config("Frontend::JavaScriptPath") %][% Data.JSDirectory | html %][% Data.Filename | html %]"></script>
+[% RenderBlockEnd("CommonJS") %]
+
+[% RenderBlockStart("ModuleJS") %]
+    <script type="text/javascript" src="[% Config("Frontend::JavaScriptPath") %][% Data.JSDirectory | html %][% Data.Filename | html %]"></script>
+[% RenderBlockEnd("ModuleJS") %]
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+
+Core.Customer.Enhance();
+
+Core.App.Ready(function() {
+
+    Core.Config.AddConfig({
+        // config
+        Baselink: '[% Env("Baselink") %]',
+        CGIHandle: '[% Env("CGIHandle") %]',
+        WebPath: '[% Config("Frontend::WebPath") %]',
+        Action: '[% Env("Action") | html %]',
+        SessionIDCookie: '[% Env("SessionIDCookie") | html %]',
+        SessionName: '[% Config("SessionName") %]',
+        SessionID: '[% Env("SessionID") | html %]',
+        ChallengeToken: '[% Env("UserChallengeToken") | html %]',
+        CustomerPanelSessionName: '[% Config("CustomerPanelSessionName") %]',
+        Images: '[% Config("Frontend::ImagePath") %]',
+        UserLanguage: '[% Env("UserLanguage") | html %]',
+        CheckEmailAddresses: parseInt('[% Config("CheckEmailAddresses") %]', 10),
+        AnimationEnabled: parseInt('[% Config("Frontend::AnimationEnabled") %]', 10),
+[% RenderBlockStart("AutoCompleteConfig") %]
+        Autocomplete: Core.JSON.Parse('[% Data.AutocompleteConfig %]'),
+[% RenderBlockEnd("AutoCompleteConfig") %]
+        // translation
+        ValidateServerErrorTitle: [% Translate("Error") | JSON %],
+        ValidateServerErrorMsg: [% Translate("One or more errors occurred!") | JSON %],
+        DialogCloseMsg: [% Translate("Close this dialog") | JSON %],
+        PopupBlockerMsg: [% Translate("Could not open popup window. Please disable any popup blockers for this application.") | JSON %],
+        PopupLeaveParentWindowMsg: [% Translate("If you now leave this page, all open popup windows will be closed, too!") | JSON %],
+        PopupAlreadyOpenMsg: [% Translate("A popup of this screen is already open. Do you want to close it and load this one instead?") | JSON %],
+        SearchMsg: [% Translate("Search") | JSON %],
+        ApplyButtonText: [% Translate("Apply") | JSON %],
+        NoElementsToSelectFromMsg: [% Translate("There are currently no elements available to select from.") | JSON %],
+        TurnOffCompatibilityModeMsg: [% Translate("Please turn off Compatibility Mode in Internet Explorer!") | JSON %],
+        BrowserTooOldMsg: [% Translate("The browser you are using is too old.") | JSON %],
+        BrowserListMsg: [% Translate("OTRS runs with a huge lists of browsers, please upgrade to one of these.") | JSON %],
+        BrowserDocumentationMsg: [% Translate("Please see the documentation or ask your admin for further information.") | JSON %],
+        ViewModeSwitchMobile:  [% Translate("Switch to mobile mode") | JSON %],
+        ViewModeSwitchDesktop: [% Translate("Switch to desktop mode") | JSON %],
+        InputFieldsActivated: parseInt('[% Config("ModernizeCustomerFormFields") %]', 10),
+        InputFieldsNotAvailable: [% Translate("Not available") | JSON %],
+        InputFieldsNoMatchMsg: [% Translate("No matches found.") | JSON %],
+        InputFieldsSelectAll: [% Translate("Select all") | JSON %],
+        InputFieldsClearAll: [% Translate("Clear all") | JSON %],
+        InputFieldsClearSearch: [% Translate("Clear search") | JSON %],
+        InputFieldsRemoveSelection: [% Translate("Remove selection") | JSON %],
+        InputFieldsSelection: [% Translate("%s selection(s)...") | JSON %],
+        InputFieldsMore: [% Translate("and %s more...") | JSON %],
+        InputFieldsFilters: [% Translate("Filters") | JSON %],
+        InputFieldsConfirm: [% Translate("Confirm") | JSON %],
+        VideoChatEnabled: parseInt([% ( Data.VideoChatEnabled || 0 )| JSON %], 10),
+        VideoChatUnansweredRequests: [% Translate("You have unanswered chat requests") | JSON %],
+        VideoChatClose: [% Translate("Close") | JSON %],
+        VideoChatVideoCall: [% Translate("Video call") | JSON %],
+        VideoChatAudioCall: [% Translate("Audio call") | JSON %],
+        VideoChatInviteAccept: [% Translate("Accept") | JSON %],
+        VideoChatInviteDecline: [% Translate("Decline") | JSON %],
+        VideoChatInternalError: [% Translate("An internal error occurred.") | JSON %],
+        ConnectionErrorTitle: [% Translate('Connection error') | JSON %],
+        ConnectionErrorReloadButton: [% Translate('Reload page') | JSON %]
+    });
+
+    Core.Customer.Init();
+
+[% InsertTemplate("Datepicker.tt") %]
+
+});
+//]]></script>
+
+<script type="text/javascript">//<![CDATA[
+"use strict";
+Core.App.Ready(function() {
+
+    [% PROCESS JSOnDocumentCompleteInsert %]
+
+    // responsive initialization must run as late as possible to include all event subscriptions
+    // at the initialization process
+    Core.App.Responsive.Init();
+});
+//]]></script>
+
+# Finally, unblock click events on the page again after all JavaScript was loaded and
+# executed. Put in an own block to make sure it is always run.
+<script type="text/javascript">//<![CDATA[
+"use strict";
+Core.App.Ready(function () {
+    Core.App.UnblockEvents();
+});
+//]]></script>
+
+<div id="AjaxErrorDialog">
+    <div id="AjaxErrorDialogInner">
+        <div class="NoConnection">
+            <span class="Icon">
+                <i class="fa fa-bolt"></i>
+            </span>
+            <p>
+                [% Translate("Your browser was not able to communicate with OTRS properly, there seems to be something wrong with your network connection. You could either try reloading this page manually or wait until your browser has re-established the connection on its own.") %]
+            </p>
+        </div>
+        <div class="ConnectionReEstablished" style="display:none;">
+            <span class="Icon">
+                <i class="fa fa-check"></i>
+            </span>
+            <p>
+                [% Translate("The connection has been re-established after a temporary connection loss. Due to this, elements on this page could have stopped to work correctly. In order to be able to use all elements correctly again, it is strongly recommended to reload this page.") %]
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="ResponsiveFooter">
+    <div class="Visible-ScreenXL"></div>
+    <div class="Visible-ScreenL"></div>
+    <div class="Visible-ScreenM"></div>
+    <div class="Visible-ScreenS"></div>
+    <div class="Visible-ScreenXS"></div>
+</div>

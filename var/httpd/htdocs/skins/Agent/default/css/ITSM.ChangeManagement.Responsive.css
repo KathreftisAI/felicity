@@ -1,0 +1,37 @@
+/*  All devices capable of OTRS minimum solution. Used to hide elements for mobile devices. */
+@media only screen and (min-width: 1025px) {
+
+}
+
+/*  All devices with a smaller resolution than the current OTRS minimum solution */
+@media only screen and (min-width: 0px) and (max-width: 1024px) {
+
+    .WorkorderDetails {
+        display: none !important;
+    }
+}
+
+/*  ~ Tablet landscape */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+/*  All devices smaller than tablet landscape */
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+
+}
+
+/*  ~ Tablet portrait */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+}
+
+/*  ~ Smartphone landscape */
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+
+}
+
+/*  ~ Smartphone portrait */
+@media only screen and (max-width: 319px) {
+
+}

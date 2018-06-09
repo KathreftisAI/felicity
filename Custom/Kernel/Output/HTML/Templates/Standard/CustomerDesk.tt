@@ -1,0 +1,125 @@
+<!--Scripts--> 
+
+<script src="[% Config('Frontend::WebPath') %]js/thirdparty/jquery-Select2/dist/js/select2.full.min.js"></script> 
+<link href="[% Config('Frontend::WebPath') %]js/thirdparty/jquery-Select2/dist/css/select2.min.css" rel="stylesheet" /> 
+  
+<section>
+  <div class="banner-sec">
+    <div class="banner-con">
+      <div class="search-box">
+        <h1>HOW CAN WE HELP YOU ?</h1>
+        <small>Small Description will come here</small>
+        <div class="spacer30"></div>
+        <div class="input-group input-group-lg">
+          <select id="DeskSearch" type="text" class="form-control">
+          </select>
+          <span class="input-group-btn">
+          <button id="DeskSearchButton" class="btn btn-primary" type="button" ><i class="fa fa-search"></i></button>
+          </span> </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+  
+<section>
+  <div class="container home-content-sec">
+    <div class="col-md-3 col-sm-6">
+    <a href="[% Env("Baselink") %]Action=CustomerCatalog">
+      <div class="link-box">
+        <div class="img-con"> <img src="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/felicity_customer/images/req-btn.png"> </div>
+      <div class="spacer10"></div>
+      <h4>Request From Catalog</h4>
+      <small>Small Description</small>
+      </div>
+      </a> 
+  </div>
+  
+  <div class="col-md-3 col-sm-6">
+    <a href="[% Env("Baselink") %]Action=CustomerFAQExplorer">
+      <div class="link-box">
+        <div class="img-con"> <img src="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/felicity_customer/images/knldge-btn.png"> </div>
+      <div class="spacer10"></div>
+      <h4>Knowledge Base</h4>
+      <small>Small Description</small>
+      </div>
+      </a> 
+  </div>
+    
+  <div class="col-md-3 col-sm-6">
+    <a href="[% Env("Baselink") %]Action=CustomerTicketMessage">
+      <div class="link-box">
+        <div class="img-con"> <img src="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/felicity_customer/images/help-btn.png"> </div>
+      <div class="spacer10"></div>
+      <h4>Get Help</h4>
+      <small>Small Description</small>
+      </div>
+      </a> 
+  </div>
+    
+  <div class="col-md-3 col-sm-6">
+    <a href="[% Env("Baselink") %]Action=CustomerTicketOverview">
+      <div class="link-box">
+        <div class="img-con"> <img src="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/felicity_customer/images/inbox-btn.png"> </div>
+      <div class="spacer10"></div>
+      <h4>Ticket Inbox</h4>
+      <small>Small Description</small>
+      </div>
+      </a> 
+  </div>
+    
+  <div class="spacer30"></div>
+
+</section>
+
+
+<script type="text/javascript">
+
+  
+$('#DeskSearchButton').on('click',function(){
+  if ($('#DeskSearch').val()) {
+    window.location.href =  "[% Env("Baselink") %]Action=CustomerFAQZoom;ItemID="+$('#DeskSearch').val();
+  }else{
+     window.location.href =  "[% Env("Baselink") %]Action=CustomerFAQSearch;Subaction=Search";
+  }
+
+  
+
+});
+
+$('#DeskSearch').select2(linkSelect("[% Env('Baselink') %]Action=AgentFAQSearchName")).on("select2:select", function (e) {
+});
+
+
+//add select2 dropdown
+function linkSelect(url) {
+    return {
+      minimumInputLength: 2,
+      multiple: false,
+      placeholder : 'Search for ...',
+      ajax: {
+        url: url,
+        dataType: "json",
+        data: function(params) {
+          var query = {
+            Title: params.term
+          };
+          return query;
+        },
+
+        processResults: function(data) {          
+          return {
+            results: $.map(data.List, function(item) {
+              return {
+                text: item.name,
+                id: item.id
+              };
+            })
+          };
+        }
+      }
+    };
+  }
+
+  
+</script>

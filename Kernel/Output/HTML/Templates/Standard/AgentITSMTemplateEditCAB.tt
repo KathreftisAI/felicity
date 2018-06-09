@@ -1,0 +1,122 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% InsertTemplate("AgentITSMCABMemberSearch.tt") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AddCABMember').bind('click', function (Event) {
+        var $Form = $('#AddCABMember').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+    });
+//]]></script>
+[% END %]
+
+<form action="[% Env("CGIHandle") %]" method="post" name="compose" class="Validate">
+    <input type="hidden" name="Action"            value="[% Env("Action") %]" />
+    <input type="hidden" name="Subaction"         value="Save" />
+    <input type="hidden" name="TemplateID"        value="[% Data.TemplateID | html %]" />
+    <input type="hidden" name="TemplateContent"   value="[% Data.TemplateContent | html %]" />
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1 title="[% Translate("Edit CAB Template") | html %] - [% Data.Name | html %]">
+                [% Translate("Edit CAB Template") | html %] - [% Data.Name | html %]
+            </h1>
+
+            <p>
+                <a href="#" class="CancelClosePopup">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+
+        <div class="Content SpacingBottom">
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Change Advisory Board") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabel">
+
+                        <label for="NewCABMember"> [% Translate("Add to CAB") | html %]: </label>
+                        <div class="Field">
+                            <input id="NewCABMember" name="NewCABMember" type="text" value="[% Data.NewCABMember | html %]" class="W75pc [% Data.NewCABMemberError %]" />
+                            <input id="NewCABMemberSelected" name="NewCABMemberSelected" type="hidden" value="[% Data.NewCABMemberID | html %]" />
+                            <input id="NewCABMemberType" name="NewCABMemberType" type="hidden" value="[% Data.CABMemberType | html %]" />
+
+                            <div id="NewCABMemberServerError" class="TooltipErrorMessage"><p>[% Translate("User invalid.") | html %]</p></div>
+
+                            <button type="submit" id="AddCABMember" name="AddCABMember" value="[% Translate("Add") | html %]">[% Translate("Add") | html %]</button>
+                        </div>
+
+                        <div id="UserServerError" class="TooltipErrorMessage">
+                            <p>[% Translate("Invalid User") | html %]</p>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <h2>[% Translate("Current CAB") | html %]:</h2>
+                </div>
+                <div class="Content">
+[% RenderBlockStart("CABMemberTable") %]
+                    <table class="DataTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    [% Translate("Type") | html %]
+                                </th>
+                                <th>
+                                    [% Translate("Login") | html %]
+                                </th>
+                                <th>
+                                    [% Translate("Delete") | html %]
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+[% RenderBlockStart("CABMemberRow") %]
+                            <tr>
+                                <td>
+                                    [% Translate(Data.UserType) | html %]
+                                </td>
+                                <td title="[% Data.UserLogin | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])">
+                                    [% Data.UserLogin | truncate(25) | html %] ([% Data.UserFirstname | html %] [% Data.UserLastname | html %])
+                                </td>
+                                <td class="Center Last">
+                                    <a href="#" id="[% Data.InternalUserType %][% Data.UserID | html %]" title="[% Translate("Delete") | html %]" class="TrashCan">
+                                        <i class="fa fa-trash-o">
+                                            <span class="InvisibleText">[% Translate("Delete") | html %]</span>
+                                        </i>
+                                    </a>
+                                </td>
+                            </tr>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+$('#[% Data.InternalUserType %][% Data.UserID | html %]').bind('click', function(){
+    $(this).closest('form').append("<input name=\"Delete[% Data.InternalUserType %][% Data.UserID | html %]\" type=\"hidden\" value=\"1\"/>").end().submit();
+});
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("CABMemberRow") %]
+                        </tbody>
+                    </table>
+[% RenderBlockEnd("CABMemberTable") %]
+                </div>
+                <div class="Field SpacingTop SpacingBottom SpacingLeft">
+                    <button class="Primary" type="submit" Name="Submit" value="[% Translate("Save") | html %]">[% Translate("Save") | html %]</button>
+                </div>
+            </div>
+        </div>
+        <div class="Footer"></div>
+    </div>
+</form>

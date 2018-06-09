@@ -1,0 +1,18 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("CustomerSearchInit") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+
+    // escape possible colons (:) in element id because jQuery can not handle it in id attribute selectors
+    ITSM.Agent.CustomerSearch.Init( $("#" + Core.App.EscapeSelector("[% Data.ItemID | html %]") ) );
+//]]></script>
+[% END %]
+[% RenderBlockEnd("CustomerSearchInit") %]

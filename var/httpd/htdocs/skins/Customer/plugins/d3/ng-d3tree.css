@@ -1,0 +1,49 @@
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 10px sans-serif;
+  cursor: pointer;
+}
+svg:not(:root) {
+    overflow: hidden;
+    padding: 16px !important;
+}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.node:not(:hover) .nodetext {
+  display: none;
+}
+
+.stickynode {
+  font: 18px sans-serif;
+  cursor: move;
+}
+
+.stickynode circle {
+  cursor: move;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
+
+.stickynode:not(:hover) .stickynodetext {
+  /*display: none;*/
+  font: 12px sans-serif;
+}
+
+.stickynode.fixed circle{
+  fill: #ccc;
+}
+
+.stickynode.fixed .stickynodetext{
+  font: 18px sans-serif;
+}

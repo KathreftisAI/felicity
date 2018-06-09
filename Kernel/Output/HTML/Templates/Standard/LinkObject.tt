@@ -1,0 +1,242 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Plain") %]
+[% Data.Content %]
+[% RenderBlockEnd("Plain") %]
+
+[% RenderBlockStart("Text") %]
+<span title="[% Data.Content | html %]">[% Data.Content | truncate(Data.MaxLength) | html %]</span>
+[% RenderBlockEnd("Text") %]
+
+[% RenderBlockStart("TextTranslate") %]
+<span title="[% Translate(Data.Content) | html %]">[% Data.Content | Translate | truncate(Data.MaxLength) | html %]</span>
+[% RenderBlockEnd("TextTranslate") %]
+
+[% RenderBlockStart("Link") %]
+<a class="AsBlock LinkObjectLink" href="[% Data.Link %]" title="[% Data.Title | html %]" >[% Data.Content | truncate(Data.MaxLength) | html %]</a>
+[% RenderBlockEnd("Link") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+// Make sure that (only!) from a popup window, links are always opened in a new tab of the main window.
+if (Core.UI.Popup.CurrentIsPopupWindow()) {
+    $('a.LinkObjectLink').attr('target', '_blank');
+}
+//]]></script>
+[% END %]
+
+
+[% RenderBlockStart("TimeLong") %]
+[% Data.Content | Localize("TimeLong") %]
+[% RenderBlockEnd("TimeLong") %]
+
+[% RenderBlockStart("Date") %]
+[% Data.Content | Localize("Date") %]
+[% RenderBlockEnd("Date") %]
+
+[% RenderBlockStart("Checkbox") %]
+<input type="checkbox" id="[% Data.Name | html %]" name="[% Data.Name | html %]" value="[% Data.Content | html %]" alt="[% Data.Title | html %]"
+    title="[% Data.Title | html %]"
+[% IF Data.Checked %]
+    checked="checked"
+[% END %]
+    />
+&nbsp;<br/>
+[% RenderBlockEnd("Checkbox") %]
+
+[% RenderBlockStart("InputText") %]
+<input type="text" id="[% Data.Key | html %]" name="[% Data.Key | html %]" class="W50pc" value="[% Data.Value | html %]" />
+[% RenderBlockEnd("InputText") %]
+
+[% RenderBlockStart("TableSimpleNone") %]
+[% Translate("none") | html %]
+[% RenderBlockEnd("TableSimpleNone") %]
+
+[% RenderBlockStart("TableSimple") %]
+[% RenderBlockStart("TableSimpleType") %]
+<h3 class="SpacingTopSmall">
+    [% Translate(Data.LinkTypeName) | html %]
+</h3>
+<ul class="Tablelike SpacingTopSmall">
+    <li class="Header">[% Translate("Object#") | html %]</li>
+[% RenderBlockStart("TableSimpleTypeRow") %]
+    <li class="[% Data.CssClass | html %]">[% Data.Content %]</li>
+[% RenderBlockEnd("TableSimpleTypeRow") %]
+</ul>
+[% RenderBlockEnd("TableSimpleType") %]
+[% RenderBlockEnd("TableSimple") %]
+
+[% RenderBlockStart("TableComplex") %]
+[% RenderBlockStart("TableComplexBlock") %]
+[% IF !Data.AJAX.defined %]
+<div class="WidgetSimple SpacingTop Expanded" id="Widget[% Data.Name | html %]">
+[% END %]
+    <div class="Header">
+        <div class="WidgetAction Toggle"><a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+        <div class="ActionMenu">
+[% RenderBlockStart("ContentLargePreferences") %]
+                <div class="WidgetAction Settings">
+                    <a href="#" id="linkobject-[% Data.Name | html %]-toggle" title="[% Translate("Settings") | html %]">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                </div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+// register click on settings button
+Core.UI.RegisterToggleTwoContainer($('#linkobject-' + Core.App.EscapeSelector('[% Data.Name | html %]') + '-toggle'),
+    $('#linkobject-' + Core.App.EscapeSelector('[% Data.Name | html %]') + '-setting'),
+    $('#' + Core.App.EscapeSelector('[% Data.Name | html %]')));
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ContentLargePreferences") %]
+            <div class="Clear"></div>
+        </div>
+        <h2>[% Translate(Data.BlockDescription) | html %]: [% Translate(Data.Blockname) | html %]</h2>
+    </div>
+[% RenderBlockStart("TableComplexBlockActionRow") %]
+    <div class="LightRow Bottom">
+        <ul class="Actions">
+[% RenderBlockStart("TableComplexBlockActionRowBulk") %]
+            <li class="Bulk">
+                <span>
+                    <input type="checkbox" class="SelectAll" title="[% Translate("Select all") | html %]" id="SelectAllLinks[% Translate(Data.TableNumber) | html %]" autocomplete="off" />
+                    <label class="InvisibleText" for="SelectAllLinks[% Translate(Data.TableNumber) | html %]">[% Translate("Select all") | html %]</label>
+                </span>
+            </li>
+[% RenderBlockEnd("TableComplexBlockActionRowBulk") %]
+        </ul>
+        <div class="ClearLeft"></div>
+    </div>
+[% RenderBlockEnd("TableComplexBlockActionRow") %]
+    <div class="Content AutoHeight ">
+[% RenderBlockStart("ContentLargePreferencesForm") %]
+        <div id="linkobject-[% Data.Name | html %]-setting" class="Hidden">
+            <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="linkobject-[% Data.NameForm | html %]_setting_form"
+                id="linkobject-[% Data.NameForm | html %]_setting_form" class="WidgetSettingsForm">
+
+                <input type="hidden" name="Action" value="AgentLinkObject"/>
+                <fieldset class="TableLike FixedLabelSmall DontPrint">
+
+[% RenderBlockStart("ContentLargePreferencesItemAllocationList") %]
+                    <input type="hidden" name="OriginalAction" value="[% Data.OriginalAction | html %]"/>
+                    <input type="hidden" name="Subaction" value="UpdateComplextTablePreferences"/>
+                    [% Data.SourceObjectData %]
+                    <input type="hidden" name="SourceObject" value="[% Data.SourceObject | html %]"/>
+                    <input type="hidden" name="DestinationObject" value="[% Data.DestinationObject | html %]"/>
+                    <input type="hidden" name="[% Data.NamePref | html %]" class="ColumnsJSON" value="[% Data.Columns | html %]" />
+                    <input type="hidden" class="ColumnsEnabledJSON" value="[% Data.ColumnsEnabled | html %]" />
+                    <input type="hidden" class="ColumnsAvailableJSON" value="[% Data.ColumnsAvailable | html %]" />
+                    <label class="DontPrint">[% Translate(Data.Desc) | html %]:</label>
+                    <div class="Field DontPrint LayoutGrid AllocationListContainer">
+                        <div class="Size1of2">
+                            <ul class="Tablelike">
+                                <li class="Header">[% Translate("Available Columns") | html %]</li>
+                            </ul>
+                            <div class="FilterInputContainer">
+                                <input type="text" class="FilterAvailableFields" name="FilterAvailableFields" value=""
+                                    title="[% Translate("Filter available fields") | html %]" placeholder="[% Translate("Filter available fields") | html %]..." />
+                            </div>
+                            <ul class="AllocationList Tablelike AvailableFields" id="AvailableField-linkobject-[% Data.Name | html %]"></ul>
+                        </div>
+                        <div class="Size1of2">
+                            <ul class="Tablelike">
+                                <li class="Header">[% Translate("Visible Columns (order by drag & drop)") | html %]</li>
+                            </ul>
+                            <ul class="AllocationList Tablelike AssignedFields OrderNumbers" id="AssignedFields-linkobject-[% Data.Name | html %]"></ul>
+                        </div>
+                    </div>
+                    <div class="Clear"></div>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+// Update preferences and load linked table via AJAX
+Core.Agent.LinkObject.RegisterUpdatePreferences($('#linkobject-' + Core.App.EscapeSelector('[% Data.Name | html %]') + '_submit'),
+    "Widget" + Core.App.EscapeSelector('[% Data.Name | html %]'),
+    $('#linkobject-' + Core.App.EscapeSelector('[% Data.NameForm | html %]') + '_setting_form'));
+
+// toggle two containers when user press Cancel
+Core.UI.RegisterToggleTwoContainer($('#linkobject-' + Core.App.EscapeSelector('[% Data.Name | html %]') + '_cancel'),
+    $('#linkobject-' + Core.App.EscapeSelector('[% Data.Name | html %]') + '-setting'),
+    $('#' + Core.App.EscapeSelector('[% Data.Name | html %]')));
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("ContentLargePreferencesItemAllocationList") %]
+[% RenderBlockStart("ContentLargePreferencesItemRawHTML") %]
+                    [% Data.HTML %]
+[% RenderBlockEnd("ContentLargePreferencesItemRawHTML") %]
+                    <div class="Buttons">
+                        <button id="linkobject-[% Data.Name | html %]_submit" class="CallForAction DontPrint" type="button" value="[% Translate("Submit") | html %]">
+                            <span>[% Translate("Save Changes") | html %]</span>
+                        </button>
+                        &nbsp;[% Translate("or") | html %]&nbsp;
+                        <button id="linkobject-[% Data.Name | html %]_cancel" class="CallForAction DontPrint" type="button" value="[% Translate("Cancel") | html %]">
+                            <span>[% Translate("Cancel") | html %]</span>
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+[% RenderBlockEnd("ContentLargePreferencesForm") %]
+        <div id="[% Data.Name | html %]">
+            <table class="DataTable">
+                <thead>
+                    <tr>
+[% RenderBlockStart("TableComplexBlockColumn") %]
+                        <th> [% Translate(Data.Content) | html %] </th>
+[% RenderBlockEnd("TableComplexBlockColumn") %]
+                    </tr>
+                </thead>
+                <tbody>
+[% RenderBlockStart("TableComplexBlockRow") %]
+                    <tr>
+[% RenderBlockStart("TableComplexBlockRowColumn") %]
+                        <td class="[% Data.CssClass | html %]">
+                            [% Data.Content %]
+                        </td>
+[% RenderBlockEnd("TableComplexBlockRowColumn") %]
+                    </tr>
+[% RenderBlockEnd("TableComplexBlockRow") %]
+                </tbody>
+            </table>
+        </div>
+
+[% RenderBlockStart("TableComplexBlockFooterNormal") %]
+[% RenderBlockEnd("TableComplexBlockFooterNormal") %]
+
+[% RenderBlockStart("TableComplexBlockFooterAdd") %]
+        <div class="SpacingTopSmall">
+            [% Data.LinkTypeStrg %]
+            <button class="Primary CallForAction Inline" id="AddLinks" name="AddLinks" type="submit" title="[% Translate("Add links") | html %]"><span>[% Translate("Add links") | html %]</span></button>
+        </div>
+        <input type="hidden" name="SubmitLink" value="[% Translate("Link") | html %]" />
+[% RenderBlockEnd("TableComplexBlockFooterAdd") %]
+
+[% RenderBlockStart("TableComplexBlockFooterDelete") %]
+        <div class="SpacingTopSmall">
+            <button class="Primary CallForAction" type="submit" title="[% Translate("Delete links") | html %]"><span>[% Translate("Delete links") | html %]</span></button>
+        </div>
+        <input type="hidden" name="SubmitDelete" value="[% Translate("Delete") | html %]" />
+[% RenderBlockEnd("TableComplexBlockFooterDelete") %]
+
+    </div>
+[% IF !Data.AJAX.defined %]
+</div>
+[% END %]
+[% RenderBlockEnd("TableComplexBlock") %]
+
+[% RenderBlockEnd("TableComplex") %]
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('.SelectAll').bind('click', function () {
+        var Status = $(this).prop('checked');
+        $(this).closest('.WidgetSimple').find('table input[type=checkbox]').prop('checked', Status);
+    });
+//]]></script>
+[% END %]

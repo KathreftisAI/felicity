@@ -1,0 +1,52 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="compose" id="MoveTimeSlotForm" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action"    value="[% Env("Action") %]" />
+    <input type="hidden" name="Subaction" value="MoveTimeSlot" />
+    <input type="hidden" name="ChangeID"  value="[% Data.ChangeID | html %]" />
+
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>[% Translate("Move Time Slot") | html %] [% Config("ITSMChange::Hook") %] [% Data.ChangeNumber %]</h1>
+            <p>
+                <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+            <fieldset class="TableLike FixedLabel">
+                <label for="MoveTimeType">[% Translate("Time type") | html %]:</label>
+                <div class="Field">
+                    [% Data.MoveTimeTypeSelectionString %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#MoveTimeType').bind('change', function (Event) {
+        Core.AJAX.FormUpdate($('#MoveTimeSlotForm'), 'AJAXUpdate', 'MoveTimeType', ['MoveTimeMinute', 'MoveTimeHour', 'MoveTimeDay', 'MoveTimeMonth', 'MoveTimeYear']);
+        $('#AJAXLoaderMoveTimeDay, #AJAXLoaderMoveTimeMonth, #AJAXLoaderMoveTimeYear, #AJAXLoaderMoveTimeHour').removeClass('AJAXLoader');
+    });
+//]]></script>
+[% END %]
+                </div>
+                <div class="Clear"></div>
+
+                <label>[% Translate("New time") | html %]:</label>
+                <div class="Field">
+                    [% Data.MoveTimeSelectionString %]
+                    <div id="MoveTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                    <div id="MoveTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                </div>
+                <div class="Clear"></div>
+            </fieldset>
+        </div>
+        <div class="Footer">
+            <button class="Primary CallForAction" id="SubmitMoveTimeSlot" accesskey="g" title="[% Translate("Move") | html %] (g)" type="submit" value="[% Translate("Move") | html %]">
+                <span><i class="fa fa-check-square-o"></i> [% Translate("Move") | html %]</span>
+            </button>
+        </div>
+    </div>
+</form>

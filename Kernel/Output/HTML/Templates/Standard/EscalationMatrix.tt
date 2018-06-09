@@ -1,0 +1,281 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[% RenderBlockStart("Overview") %]
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1>[% Translate("Escalation Matrix") | html %]</h1>
+
+    <div class="SidebarColumn">
+
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionOverview") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center"><span><i class="fa fa-caret-left"></i>[% Translate("Go to overview") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionOverview") %]
+
+[% RenderBlockStart("ActionAdd") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Add" class="CallForAction Fullsize Center"><span><i class="fa fa-plus-square"></i>[% Translate("Add Escalation Matrix") | html %]</span></a>
+                    </li>
+[% RenderBlockEnd("ActionAdd") %]
+
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+    </div>
+
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+
+[% RenderBlockStart("OverviewResult") %]
+            <div class="Header">
+                <h2>[% Translate("List") | html %]</h2>
+            </div>
+            <div class="Content">
+
+                <table class="DataTable">
+                    <thead>
+                        <tr>
+                            <th>[% Translate("Queue") | html %]</th>
+                            <th>[% Translate("Time") | html %]</th>
+			    <th>[% Translate("Type") | html %]</th>
+			    <th>[% Translate("Type Value") | html %]</th>
+#			    <th>[% Translate("Email") | html %]</th>
+#			    <th>[% Translate("ValidID") | html %]</th>
+#                            <th>[% Translate("Agent") | html %]</th>
+			    <th>[% Translate("Validity") | html %]</th>
+#                            <th>[% Translate("Change") | html %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+# No data found message block
+[% RenderBlockStart("NoDataFoundMsg") %]
+                        <tr>
+                            <td colspan="5">
+                                [% Translate("No data found.") | html %]
+                            </td>
+                        </tr>
+[% RenderBlockEnd("NoDataFoundMsg") %]
+
+# Overview Result Row
+[% RenderBlockStart("OverviewResultRow") %]
+                        <tr [%IF Data.ValidID != 1%]class="Invalid"[% END %]>
+#			    <td>[% Translate(Data.Queue) | html %]</td>
+                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">[% Data.Queue %]</a></td>
+			    <td>[% Translate(Data.Time) | html %]</td>
+			    <td>[% Translate(Data.Type) | html %]</td>
+			    <td>[% Translate(Data.TypeValue) | html %]</td>
+#			    <td>[% Translate(Data.TypeValueEmail) | html %]</td>
+			    <td>[% Translate(Data.Valid) | html %]</td>
+#                            <td><a class="AsBlock" href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Change;ID=[% Data.ID | uri %]">Change</a></td>
+                        </tr>
+[% RenderBlockEnd("OverviewResultRow") %]
+
+                    </tbody>
+                </table>
+            </div>
+[% RenderBlockEnd("OverviewResult") %]
+
+[% RenderBlockStart("OverviewUpdate") %]
+            <div class="Header">
+[% RenderBlockStart("HeaderAdd") %]
+                <h2>[% Translate("Add Escalation Matrix") | html %]</h2>
+[% RenderBlockEnd("HeaderAdd") %]
+[% RenderBlockStart("HeaderEdit") %]
+                <h2>[% Translate("Edit Escalation Matrix") | html %]</h2>
+[% RenderBlockEnd("HeaderEdit") %]
+<div></div>
+            </div>
+            <div class="Content">
+
+                <form action="[% Env("CGIHandle") %]" method="post" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="[% Data.Action | uri %]Action"/>
+                    <input type="hidden" name="ID" value="[% Data.ID | html %]"/>
+		    [% RenderBlockStart("ExistIDServerError") %]
+                          <label class="LabelError">[% Translate("A record with these values already exists!") | html %] </label>
+                    [% RenderBlockEnd("ExistIDServerError") %]
+                    <fieldset class="TableLike">
+
+
+		<label class="Mandatory" for="Time"><span class="Marker">*</span> [% Translate("Time") | html %]:</label>
+                    <div class="Field">
+		    <input type="text" name="Time" id="Time" value="[% Data.Time | html %]" class="W50pc Validate_Required [% Data.TimeInvalid | html %]" maxlength="200" placeholder="Enter in seconds" />
+                         <div id="TimeError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="TimeServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="Queue"><span class="Marker">*</span> [% Translate("Queue") | html %]:</label>
+                    <div class="Field">
+                    [% Data.Queue %]
+#		    <input type="text" name="Queue" id="Queue" value="[% Data.Queue | html %]" class="W50pc Validate_Required [% Data.QueueInvalid | html %]" maxlength="200" placeholder="Start typing a queue name.." />
+                         <div id="QueueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="QueueServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="Type"><span class="Marker">*</span> [% Translate("Type") | html %]:</label>
+                    <div class="Field col-md-6">
+                    [% Data.Type %]
+                         <div id="TypeError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="TypeServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+		<label class="Mandatory" for="TypeValue"><span class="Marker">*</span> [% Translate("Type Value") | html %]:</label>
+                    <div class="Field">
+                    [% Data.TypeValue %]
+                         <div id="TypeValueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                         <div id="TypeValueError" class="TooltipErrorMessage">
+                             <p>[% Translate("This field is required.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+		<label class="Mandatory" for="TypeValueEmail"><span class="Marker"></span> [% Translate("Email") | html %]:</label>
+                    <div class="Field">
+#                    <input type="text" name="TypeValueEmail" readonly="readonly" id="TypeValueEmail" value="[% Data.TypeValueEmail | html %]" class="W50pc Validate_Email [% Data.TypeValueEmailInvalid | html %]" maxlength="200"/>
+                    <input type="text" name="TypeValueEmail" readonly="readonly" id="TypeValueEmail" value="[% Data.TypeValueEmail | html %]" maxlength="200"/>
+#                    [% Data.TypeValue %]
+                         <div id="TypeValueEmailError" class="TooltipErrorMessage">
+                             <p>[% Translate("Invalid Email Address.") | html %]</p>
+                         </div>
+			<div id="TypeValueEmailServerError" class="TooltipErrorMessage">
+                             <p>[% Translate("Invalid Email Address.") | html %]</p>
+                         </div>
+                    </div>
+                <div class="Clear"></div>
+
+
+                <label class="Mandatory" for="ValidID"><span class="Marker">*</span> [% Translate("Validity") | html %]:</label>
+                        <div class="Field">
+                            [% Data.ValidOption %]
+                            <div id="ValidIDError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                            <div id="ValidIDServerError" class="TooltipErrorMessage">
+                                <p>[% Translate("This field is required.") | html %]</p>
+                            </div>
+                        </div>
+                        <div class="Clear"></div>
+
+                        <div class="Field">
+                            <button class="Primary CallForAction" type="submit" value="[% Translate("Submit") | html %]"><span>[% Translate("Submit") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]">[% Translate("Cancel") | html %]</a>
+                        </div>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+[% RenderBlockEnd("OverviewUpdate") %]
+
+        </div>
+    </div>
+    <div class="Clear"></div>
+</div>
+
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+
+## OTRS built-in function
+function GetSessionInformation() {
+
+	var Data = {};
+        if (!Core.Config.Get('SessionIDCookie')) {
+            Data[Core.Config.Get('SessionName')] = Core.Config.Get('SessionID');
+            Data[Core.Config.Get('CustomerPanelSessionName')] = Core.Config.Get('SessionID');
+        }
+        Data.ChallengeToken = Core.Config.Get('ChallengeToken');
+        return Data;
+}
+
+## OTRS built-in function
+function SerializeData(Data) {
+    var QueryString = '';
+    $.each(Data, function (Key, Value) {
+        QueryString += ';' + encodeURIComponent(Key) + '=' + encodeURIComponent(Value);
+    });
+    return QueryString;
+}
+
+    if($("#Type").val() == 4){
+
+#	$("#TypeValueEmail").attr("type", "hidden");
+	$("#TypeValueEmail").attr("readonly", false);
+    }
+
+    $('#Type').bind('change', function(Event){
+
+	$("#TypeValueEmail").attr("readonly", true);
+	$("#TypeValueEmail").val('');
+	var type = $(this).val();
+	var bindValue = '';
+	var url = Core.Config.Get('Baselink') + 'Action=EscalationMatrix';
+	url += '&Subaction=GetTypeValue&TypeID=' + type;
+	url += SerializeData(GetSessionInformation());
+	
+	if( type != '4' ){
+	    $.ajax({
+
+		url: url,
+		datatype: 'json',
+		success: function(response){
+
+		    $.each(response, function(key,value){
+                    	bindValue += '<option value="'+key+'">'+value+'</option>';
+                    });
+
+                    $("#TypeValue").empty();
+                    $("#TypeValue").append(bindValue);
+                    $("#TypeValue_Search").attr("readonly", false);
+                    $("#TypeValue_Search").closest('div').find('div').html('');
+		},
+		error: function(){
+			alert("There was an error");
+		}
+	    });
+	}
+	else{
+
+	    $("#TypeValueEmail").attr("readonly", false);
+            $("#TypeValue").empty();
+            $("#TypeValue_Search").closest('div').find('div').html('');
+            $("#TypeValue_Search").attr("readonly", true);
+	}
+    });
+
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("Overview") %]

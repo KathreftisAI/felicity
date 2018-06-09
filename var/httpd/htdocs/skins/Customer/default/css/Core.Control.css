@@ -1,0 +1,346 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Customer Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     OTRS Framework - Skin "Default"
+ * @section     Customer
+ */
+
+@media screen,projection,tv,handheld {
+
+/**
+ * @subsection  Navigation
+ */
+#Navigation {
+    height: 25px;
+    width: 100%;
+    position: relative;
+    background: #ddd;
+    clear: both;
+}
+
+#Navigation > ul {
+    float: left;
+}
+
+.RTL #Navigation > ul {
+    float: right;
+}
+
+#Navigation > ul > li > ul {
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    display: none;
+    border-top: 0px;
+}
+
+.RTL #Navigation > ul > li > ul {
+    right: 1px;
+}
+
+#Navigation > ul > li:hover ul,
+#Navigation > ul > li a:focus + ul,
+#Navigation > ul > li ul.Expanded {
+    display: block;
+    z-index: 1000;
+}
+
+#Navigation .Individual {
+    float: right;
+}
+
+.RTL #Navigation .Individual {
+    float: left;
+}
+
+#Navigation > ul > li {
+    float: left;
+    position: relative;
+    border-right: 1px solid #bbb;
+}
+
+#Navigation > ul > li:last-child {
+    border-right: 0px;
+}
+
+.RTL #Navigation > ul > li {
+    float: right;
+    margin: -1px -2px 0 0;
+}
+
+#Navigation > ul > li > a {
+    color: #111;
+    font-size: 11px;
+    display: block;
+    outline: none;
+    padding: 6px 10px 5px 11px;
+}
+
+#Navigation > ul > li.Selected > a:after {
+    content: "";
+}
+
+#Navigation > ul > li:last-child > a:after {
+    display: none;
+}
+
+#Navigation > ul > li > ul a {
+    color: #222;
+    font-size: 11px;
+    padding: 4px 15px 4px 6px;
+    white-space: nowrap;
+    display: block;
+    background-color: #C4C6C6;
+    border-top: 1px solid #aaa;
+}
+
+#Navigation > ul > li > ul li:last-child {
+    border-bottom: 1px solid #aaa;
+}
+
+#Navigation > ul > li > ul a:hover,
+#Navigation > ul > li > ul a:focus,
+#Navigation > ul > li > ul a.SubSelected {
+    background-color: #ddd;
+}
+
+.RTL #Navigation li:first-child a,
+#Navigation li::last-child a {
+    background-image: none;
+}
+
+.RTL #Navigation > ul > li > ul {
+    min-width: 120px;
+}
+
+.RTL #Navigation > ul > li > ul a {
+    padding: 4px 6px 4px 15px;
+    white-space: normal;
+}
+
+#Navigation li:active {
+    background: #949494;
+}
+
+#Navigation .Selected + li {
+    margin-left: -1px;
+}
+
+#Navigation .Selected + li a {
+    padding-left: 10px;
+}
+
+#Navigation .Selected,
+#Navigation .Selected:active,
+#Navigation > ul > li:hover {
+    background: #343435;
+}
+
+#Navigation .Selected > a,
+#Navigation > ul > li:hover > a {
+    color: #FFF;
+    background: none;
+}
+
+/**
+ * @subsection  Action Row / MessageBox (Notification)
+ */
+
+.MessageBox,
+.ActionRow {
+    font-size: 11px;
+    background: #ddd;
+    border-top: 1px solid #F0F2F2;
+    border-bottom: 1px solid #B8BBBB;
+    overflow: hidden;
+    text-shadow: 0 1px 0 #F6F9F9;
+    clear: both;
+}
+
+#MainBox.TicketView .ActionRow {
+    border-top: 0px;
+}
+
+.Content .MessageBox {
+    border: 1px solid #ddd;
+}
+
+.MessageBox.Notice {
+    background: #F7AE40;
+    border: 0px;
+}
+
+.MessageBox.Error {
+    background: #F25C5C;
+}
+
+.MessageBox.Success {
+    background: #95C47D;
+}
+
+.RTL .MessageBox p {
+    padding: 1px 20px 1px 0;
+}
+
+.MessageBox p {
+    text-shadow: none;
+    color: #000;
+    margin: 5px 7px;
+    padding: 1px 0 1px 5px;
+}
+
+.MessageBox a {
+    display: none;
+}
+
+#BottomActionRow {
+    padding: 5px 9px 6px 9px;
+    background: #eee;
+    border: 0px;
+}
+
+.TicketView #BottomActionRow,
+.RTL .TicketView #BottomActionRow {
+    padding: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+}
+
+#BottomActionRow span {
+    padding: 0 5px;
+}
+
+.RTL #BottomActionRow span {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.Filter {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.Filter a {
+    padding: 5px;
+    text-shadow: 0 1px 0 #ECF0F0;
+    display: block;
+}
+
+.Filter a:after {
+    content: "|";
+    display: inline-block;
+    font-weight: normal;
+    color: #777;
+    padding-left: 5px;
+    margin-right: -3px;
+}
+
+.Filter li:last-child a:after {
+    display: none;
+}
+
+.RTL .Filter a {
+    background-position: left;
+}
+
+.Tabs {
+    padding: 5px 9px;
+    float: left;
+}
+
+.RTL .Tabs {
+    float: right;
+}
+
+.Tabs li {
+    float: left;
+}
+
+.RTL .Tabs li {
+    float: right;
+}
+
+.Tabs a {
+    color: #777;
+}
+
+.Tabs a:hover {
+    color: #444;
+}
+
+.Tabs .Selected {
+    font-weight: bold;
+    color: #444;
+}
+
+.Pagination {
+    float: right;
+}
+
+.RTL .Pagination {
+    float: left;
+}
+
+.Pagination a {
+    padding-left: 3px;
+    background: none;
+    text-shadow: none;
+}
+
+.ActionRow li:last-child a,
+.Filter li:last-child a {
+    background: none;
+}
+
+.RTL .ActionRow li:last-child a {
+    padding-right: 3px;
+    padding-left: 0;
+}
+
+.Sortable .ActionRow {
+    border-bottom: none;
+}
+
+.Sortable #BottomActionRow {
+    padding-bottom: 0;
+    border-bottom: 1px solid #B8BBBB;
+}
+
+/**
+ * @subsection  SerachTerms
+ */
+
+.SearchTerms {
+    padding: 4px 7px;
+}
+
+.SearchTerms h2 {
+    margin: 0;
+    color: #222;
+    font-size: 15px;
+    display: inline;
+    text-shadow: 0 1px 0 #EEE;
+}
+
+.SearchTerms span {
+    padding: 1px 8px 0;
+    margin: 0 3px;
+    color: #666;
+    background: #FFF;
+    border: 1px solid #BBB;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 1px 2px #DDD inset, 0 1px 0 #E8E8E8;
+    box-shadow: 0 1px 2px #DDD inset, 0 1px 0 #E8E8E8;
+}
+
+.SearchTerms span a {
+    font-size: 13px;
+    vertical-align: bottom;
+}
+
+} /* end @media */

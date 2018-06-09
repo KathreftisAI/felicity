@@ -1,0 +1,297 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div class="MainBox ARIARoleMain">
+    <div class="ClearLeft"></div>
+    <div class="Headline">
+        <div class="Flag" title="[% Translate(Data.CurInciState) | html %]">
+            <span class="[% Data.CurInciSignal | html %]"></span>
+        </div>
+        <h1 title="[% Translate("Configuration Item") | html %]: [% Data.Number | html %] &ndash; [% Data.Name | truncate(40) | html %]">
+            [% Translate("Configuration Item") | html %]: [% Data.Number | html %] <span>&mdash;</span> [% Data.Name | truncate(60) | html %]
+        </h1>
+    </div>
+    <div class="LayoutFixedSidebar SidebarLast">
+
+        [% Data.StyleClasses %]
+
+        <div class="SidebarColumn">
+[% RenderBlockStart("Meta") %]
+            <div class="WidgetSimple">
+                <div class="Header">
+                    <div class="WidgetAction Toggle">
+                        <a href="#" title="[% Translate("Show or hide the content") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <h2>[% Translate("Configuration Item Information") | html %]</h2>
+                </div>
+                <div class="Content">
+                    <fieldset class="TableLike FixedLabelSmall Tight">
+
+                        <label>[% Translate("Class") | html %]:</label>
+                        <p class="Value">[% Translate(Data.Class) | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Name") | html %]:</label>
+                        <p class="Value">[% Data.Name | truncate(25) | html %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Current Deployment State") | html %]:</label>
+                        <div class="Value" title="[% Translate(Data.CurDeplState) | html %]">
+                            <div class="Flag Small">
+                                <span class="[% Data.CurDeplSignal | html %]"></span>
+                            </div>
+                            [% Translate(Data.CurDeplState) | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Current Incident State") | html %]:</label>
+                        <div class="Value" title="[% Translate(Data.CurInciState) | html %]">
+                            <div class="Flag Small">
+                                <span class="[% Data.CurInciSignal | html %]"></span>
+                            </div>
+                            [% Translate(Data.CurInciState) | html %]
+                        </div>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created") | html %]:</label>
+                        <p class="Value">[% Data.CreateTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Created by") | html %]:</label>
+                        <p class="Value">
+                            [% Data.CreateByUserFullName | html %]
+                        </p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed") | html %]:</label>
+                        <p class="Value">[% Data.ChangeTime | Localize("TimeLong") %]</p>
+                        <div class="Clear"></div>
+
+                        <label>[% Translate("Last changed by") | html %]:</label>
+                        <p class="Value">
+                            [% Data.ChangeByUserFullName | html %]
+                        </p>
+                        <div class="Clear"></div>
+                    </fieldset>
+                </div>
+            </div>
+[% RenderBlockEnd("Meta") %]
+[% RenderBlockStart("LinkTableSimple") %]
+            <div class="WidgetSimple DontPrint">
+                <div class="Header">
+                    <h2>[% Translate("Linked Objects") | html %]</h2>
+                </div>
+                <div class="Content">
+                    [% Data.LinkTableStrg %]
+                </div>
+            </div>
+[% RenderBlockEnd("LinkTableSimple") %]
+        </div>
+        <div class="ContentColumn">
+            <div class="ControlRow">
+                <h2></h2>
+            </div>
+            <div class="ActionRow">
+                <ul class="Actions">
+[% RenderBlockStart("Menu") %]
+[% RenderBlockStart("MenuItem") %]
+                    <li>
+                        <a href="[% Env("Baselink") %][% Data.Link | Interpolate %]" id="Menu[% Data.MenuID | html %]" class="[% Data.MenuClass | html %]" title="[% Translate(Data.Description) | html %]">[% Translate(Data.Name) | html %]</a>
+                    </li>
+[% RenderBlockStart("ShowConfirmDialog") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.ConfirmDialog.BindConfirmDialog({
+        ElementID:                  'Menu[% Data.MenuID %]',
+        ElementSelector:            '[% Data.ElementSelector | Interpolate %]',
+        DialogContentQueryString:   '[% Data.DialogContentQueryString | Interpolate %]',
+        ConfirmedActionQueryString: '[% Data.ConfirmedActionQueryString | Interpolate %]',
+        DialogTitle:                '[% Data.DialogTitle | Interpolate %]',
+        TranslatedText:             {
+            Yes: [% Translate("Yes") | JSON %],
+            No:  [% Translate("No") | JSON %],
+            Ok:  [% Translate("Ok") | JSON %]
+        }
+    });
+//]]></script>
+[% END %]
+[% RenderBlockEnd("ShowConfirmDialog") %]
+[% RenderBlockEnd("MenuItem") %]
+[% RenderBlockEnd("Menu") %]
+                </ul>
+            </div>
+            <div id="ITSMTree">
+[% RenderBlockStart("Tree") %]
+                <div id="ITSMTable"  class="TicketList">
+                    <div class="ControlRow">
+                        <div class="ITSMItemView Icons">
+[% RenderBlockStart("Expand") %]
+                            <a class="OneITSMItem Active" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %];ShowVersions=0" title="[% Translate("Show one version") | html %]">
+                                <i class="fa fa-minus"></i>
+                                <span>[% Translate("Show one version") | html %]</span>
+                            </a>
+                            <a class="AllITSMItems" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %];ShowVersions=1" title="[% Translate("Show all versions") | html %]">
+                                <i class="fa fa-reorder"></i>
+                                <span>[% Translate("Show all versions") | html %]</span>
+                            </a>
+[% RenderBlockEnd("Expand") %]
+[% RenderBlockStart("Collapse") %]
+                            <a class="OneITSMItem" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %];ShowVersions=0" title="[% Translate("Show one version") | html %]">
+                                <i class="fa fa-minus"></i>
+                                <span>[% Translate("Show one version") | html %]</span>
+                            </a>
+                            <a class="AllITSMItems Active" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %];ShowVersions=1" title="[% Translate("Show all versions") | html %]">
+                                <i class="fa fa-reorder"></i>
+                                <span>[% Translate("Show all versions") | html %]</span>
+                            </a>
+[% RenderBlockEnd("Collapse") %]
+                        </div>
+                    </div>
+                    <div id="ITSMTableBody" class="ActionRow">
+                        <div class="Scroller">
+                            <table class="TableSmall">
+                                <thead>
+                                    <tr>
+                                        <th><span>[% Translate("Version Incident State") | html %]</span></th>
+                                        <th><span>[% Translate("Version Deployment State") | html %]</span></th>
+                                        <th><span>[% Translate("Version Number") | html %]</span></th>
+                                        <th><span>[% Translate("Name") | html %]</span></th>
+                                        <th><span>[% Translate("Created by") | html %]</span></th>
+                                        <th><span>[% Translate("Changed") | html %]</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+[% RenderBlockStart("TreeItem") %]
+                                    <tr class="[% Data.Active | html %] MasterAction">
+                                        <td title="[% Translate(Data.InciState) | html %]">
+                                            <div class="Flag Small">
+                                                <span class="[% Data.InciSignal | html %]">[% Data.InciState | html %]</span>
+                                            </div>
+                                        </td>
+                                        <td title="[% Translate(Data.DeplState) | html %]">
+                                            <div class="Flag Small">
+                                                <span class="[% Data.DeplSignal | html %]">[% Data.DeplState | html %]</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            [% Data.Count | html %].
+                                        </td>
+                                        <td>
+                                            <a class="AsBlock MasterActionLink" href="[% Env("Baselink") %]Action=AgentITSMConfigItemZoom;ConfigItemID=[% Data.ConfigItemID | uri %];VersionID=[% Data.VersionID | uri %];ShowVersions=[% Data.ShowVersions | uri %]">
+                                                [% Data.Name | html %] ([% Translate(Data.DeplState) | html %])
+                                            </a>
+                                        </td>
+                                        <td>
+                                            [% Data.CreateByUserFullName | html %]
+                                        </td>
+                                        <td>
+                                            [% Data.CreateTime | Localize("TimeLong") %]
+                                        </td>
+                                    </tr>
+[% RenderBlockEnd("TreeItem") %]
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="Handle ui-resizable-handle ui-resizable-s">
+                            <a href="#">[% Translate("Resize") | html %]</a>
+                        </div>
+                    </div>
+                </div>
+[% RenderBlockEnd("Tree") %]
+            </div>
+            <div id="ITSMItems">
+                <div class="WidgetBox SpacingTop Expanded">
+                    <div class="LightRow Header">
+                        <div class="WidgetAction Toggle"><a href="#" title="[% Translate("Show or hide the content.") | html %]"><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></a></div>
+                        <h2>[% Translate("Configuration Item Version Details") | html %]</h2>
+                    </div>
+                    <div class="WithPadding Content NoDoubleBorders">
+                        <table class="DataTable">
+                            <thead>
+                                <tr>
+                                    <th>[% Translate("Property") | html %]</th>
+                                    <th>[% Translate("Value") | html %]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+[% RenderBlockStart("Data") %]
+                                <tr>
+                                    <td class="W25pc" style="padding-left: [% Translate(Data.Indentation) | html %]px;" title="[% Translate(Data.Description) | html %]">
+                                        [% Translate(Data.Name) | html %]:
+                                    </td>
+                                    <td style="padding-left: [% Translate(Data.Indentation) | html %]px;">
+                                        [% Data.Value %]
+                                    </td>
+                                </tr>
+[% RenderBlockEnd("Data") %]
+[% RenderBlockStart("Attachments") %]
+                                <tr>
+                                    <td class="W25pc" title="[% Translate("Attachments") | html %]">
+                                        [% Translate("Attachments") | html %]
+                                    </td>
+                                    <td>
+                                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;Filename=[% Data.Filename | uri %];ConfigItemID=[% Data.ConfigItemID | uri %]">
+                                            [% Data.Filename | html %]
+                                        </a>
+                                        ([% Data.Filesize | html %])
+                                    </td>
+                                </tr>
+[% RenderBlockEnd("Attachments") %]
+[% RenderBlockStart("AttachmentRow") %]
+                                <tr>
+                                    <td class="W25pc">
+                                    </td>
+                                    <td>
+                                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;Filename=[% Data.Filename | uri %];ConfigItemID=[% Data.ConfigItemID | uri %]">
+                                            [% Data.Filename | html %]
+                                        </a>
+                                        ([% Data.Filesize | html %])
+                                    </td>
+                                </tr>
+[% RenderBlockEnd("AttachmentRow") %]
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+[% RenderBlockStart("LinkTableComplex") %]
+            <div class="Content">
+                [% Data.LinkTableStrg %]
+            </div>
+[% RenderBlockEnd("LinkTableComplex") %]
+        </div>
+        <div class="Clear"></div>
+    </div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.Zoom.Init([% Env("UserConfigItemZoomTableHeight") %]);
+
+    $('ul.Actions a.AsPopup').bind('click', function (Event) {
+        Core.UI.Popup.OpenPopup($(this).attr('href'), 'Action');
+        return false;
+    });
+
+    $('ul.Actions a.HistoryBack').bind('click', function (Event) {
+        history.back();
+        return false;
+    });
+
+    $('.MasterAction').bind('click', function (Event) {
+        var $MasterActionLink = $(this).find('.MasterActionLink');
+        // only act if the link was not clicked directly
+        if (Event.target !== $MasterActionLink.get(0)) {
+            window.location = $MasterActionLink.attr('href');
+            return false;
+        }
+    });
+//]]></script>
+[% END %]

@@ -1,0 +1,126 @@
+/**
+ * @project     OTRS (http://www.otrs.org) - Customer Frontend
+ * @copyright   OTRS AG
+ * @license     AGPL (http://www.gnu.org/licenses/agpl.txt)
+ */
+
+/**
+ * @package     Survey - Skin "Default"
+ * @section     Customer
+ */
+
+@media screen,projection,tv,handheld {
+
+div.SurveyBlock {
+    margin: 8px 0 13px;
+    padding-bottom: 5px;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #F8F9F9 100%) repeat scroll 0 0 transparent;
+    border: 1px solid #EAEEEE;
+    border-radius: 5px;
+    width: 738px;
+}
+
+.SurveyBlock div.Content {
+    border: 0px;
+}
+
+.SurveyBlockHeader {
+    border-bottom: 1px solid #E8E9E9;
+    border-radius: 5px 5px 0 0;
+    border-top: 1px solid #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 8px 4px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+fieldset.Survey {
+    width: 738px;
+}
+
+div.ActionRow {
+    width: 720px;
+}
+
+div.Intro .Content{
+    border-top: 0;
+}
+
+div.Question{
+    border-bottom: 1px solid #C9C9C9;
+    color: #929292;
+    font-size: 12px;
+    margin-left: 40px;
+    margin-top: 15px;
+    width: 520px;
+    padding: 4px 9px 3px 9px;
+    text-shadow: 0 1px 0 #ECEEEE;
+    font-weight: bold;
+    display: block;
+}
+
+div.Mandatory {
+    color: black;
+}
+
+div.Error {
+    color: #ff505e !important;
+}
+
+div.TooltipError{
+    margin: -10px 0 0px 75px;
+}
+div.TooltipError div:first-child {
+    border-top: 0px !important;
+}
+div.Tongue {
+    border: 0px;
+    padding: 0px !important;
+}
+
+label.Answer {
+    background:none;
+    border: none;
+    width: 365px;
+    margin-left: 8px;
+    margin-top: 3px;
+    text-align:left;
+}
+
+fieldset input,
+div.Answer {
+    float:left;
+}
+
+fieldset input,
+fieldset textarea,
+div.Answer {
+    margin: 7px 0 7px 75px;
+}
+
+.RichTextAnswer {
+    margin: 7px 0 7px 75px;
+}
+
+div.Answer {
+    padding:0px;
+}
+
+.SurveyButton {
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    -moz-box-shadow:0 0 3px #F6F9F9;
+    border-color:-moz-use-text-color #D6D6D6 #D6D6D6;
+    border-right:1px solid #D6D6D6;
+    border-style:none solid solid;
+    border-width:medium 1px 1px;
+    bottom:-22px;
+    color:#999999;
+    display:none;
+    height:10px;
+    margin:0 13px;
+    padding:4px 8px 7px 24px;
+    position:absolute;
+}
+}

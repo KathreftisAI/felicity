@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrs_config version="1.0" init="Application">
+	<ConfigItem Name="IncidentToProblem::Config::TicketSearch" Required="0" Valid="1">
+		<Description Translatable="1">
+			Basic search configuration for IncidentToProblem.
+		</Description>
+		<Group>IncidentToProblem</Group>
+		<SubGroup>Core::TicketSearch</SubGroup>
+		<Setting>
+			<Hash>                
+                <Item Key="SubjectContains">DOWN</Item>
+                <Item Key="TicketCreatedWithInMinutes">7200</Item>
+                <Item Key="TitleRegExp">\bAlert:\s+(\w+)</Item>
+			</Hash>
+		</Setting>
+	</ConfigItem>
+    <ConfigItem Name="IncidentToProblem::Config::TicketCreate" Required="0" Valid="1">
+		<Description Translatable="1">
+			Problem Ticket Create configuration for IncidentToProblem.
+		</Description>
+		<Group>IncidentToProblem</Group>
+		<SubGroup>Core::TicketCreate</SubGroup>
+		<Setting>
+			<Hash>
+                <Item Key="NoofTickets">5</Item>
+			</Hash>
+		</Setting>
+	</ConfigItem>
+</otrs_config>

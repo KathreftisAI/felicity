@@ -1,0 +1,43 @@
+{
+  "name": "angular-loading-spinner",
+  "main": "angular-loading-spinner.js",
+  "version": "0.0.3",
+  "homepage": "https://github.com/adonespitogo/angular-loading-spinner",
+  "authors": [
+    "Adones Pitogo <pitogo.adones@gmail.com>"
+  ],
+  "description": "AngularJS directive ajax loading indicator.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angularjs",
+    "loading",
+    "angular",
+    "ajax",
+    "loading",
+    "angular",
+    "loading",
+    "spinner"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-spinner": "~0.6.1"
+  },
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.3",
+    "commit": "8956427c6fdaf18bfbf6717d7dfa9e494b7a0b58"
+  },
+  "_source": "git://github.com/adonespitogo/angular-loading-spinner.git",
+  "_target": "~0.0.3",
+  "_originalSource": "angular-loading-spinner"
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otrs_config version="1.0" init="Changes">
+    <ConfigItem Name="Package::RepositoryList" Required="0" Valid="1" ConfigLevel="200">
+        <Description Translatable="1">Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otrs/public.pl?Action=PublicRepository;File=" and Content="Some Name".</Description>
+        <Group>Framework</Group>
+        <SubGroup>Core::Package</SubGroup>
+        <Setting>
+            <Hash>
+                <Item Key="http://ftp.otrs.org/pub/otrs/itsm/bundle5/">OTRS::ITSM 5 Bundle Master</Item>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+</otrs_config>

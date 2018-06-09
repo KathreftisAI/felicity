@@ -1,0 +1,111 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<!-- start Notifications -->
+[% Data.Notification %]
+<!-- end Notifications -->
+<!-- start NavigationBar -->
+<div id="Navigation">
+    <ul>
+[% RenderBlockStart("Item") %]
+        <li class="[% Data.Class | html %]">
+            <a href="[% Env("Baselink") %][% Data.Link %]" accesskey="[% Data.AccessKey | html %]" title="[% Translate(Data.Description || Data.Name) | html %] ([% Data.AccessKey | html %])" [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a>
+[% RenderBlockStart("ItemAreaSub") %]
+            <ul>
+[% RenderBlockStart("ItemAreaSubItem") %]
+                <li><a class="[% Data.Class | html %]" href="[% Env("Baselink") %][% Data.Link %]" accesskey="[% Data.AccessKey | html %]" title="[% Translate(Data.Description || Data.Name) | html %] ([% Data.AccessKey | html %])"  [% Data.LinkOption %]>[% Translate(Data.Name) | html %]</a></li>
+[% RenderBlockEnd("ItemAreaSubItem") %]
+            </ul>
+[% RenderBlockEnd("ItemAreaSub") %]
+        </li>
+[% RenderBlockEnd("Item") %]
+    </ul>
+    <ul class="Individual">
+[% RenderBlockStart("ChatRequests") %]
+        <li class="ChatRequests [% Data.Class | html %]">
+            <a href="[% Env("Baselink") %]Action=CustomerChat;Subaction=ChatOverview;Filter=IncomingChatRequests;" title="[% Translate("Incoming Chat Requests") %]">
+			<i class="fa fa-comments-o"></i> (<span class="Counter">[% Data.Count | html %]</span>)</a>
+        </li>
+[% RenderBlockEnd("ChatRequests") %]
+
+<li>
+	<!-- id 'ticketnew' added by ~GS -->
+	<button id="ticketnew" class="bdrbtn" onclick="window.location.href='[% Env("Baselink") %]Action=CustomerTicketMessageNew'"> <i class="fa fa-plus"></i><a href="[% Env("Baselink") %]Action=CustomerTicketMessageNew" title="[% Translate("Add New Ticket") | html %]">  Add New Ticket </a></button>
+</li>
+
+<li>
+	<div class="search-con">
+<!-- Added code for text search -->
+		<form action="[% Env("CGIHandle") %]" method="post" name="globalsearch">
+                 <input type="hidden" name="Action" value="CustomerTicketSearch"/>
+                 <input type="hidden" name="Subaction" value="Search"/>
+		 <input  title="Text" type="search" class="search-tb" placeholder="Search Ticket Body" id="Body" name="Body" value="">
+		 <button><i class="fa fa-search"></i></button>
+		</form>
+	</div>
+</li>
+
+<li>
+<button class="bdrbtn" onclick="window.location.href='[% Env("Baselink") %]Action=CustomerTicketSearch'"> <i class="fa fa-search"></i> <a href="[% Env("Baselink") %]Action=CustomerTicketSearch" title="[% Translate("Advance Search") | html %]"> Advance Search </a></button>
+</li>
+
+
+
+
+[% RenderBlockStart("Preferences") %]
+        <li class="[% Data.Class | html %]">
+		<a href="[% Env("Baselink") %]Action=CustomerPreferences" title="[% Translate("Edit personal preferences") | html %]">
+		<!--[% Translate("Preferences") | html %]-->
+		<i class="fa fa-cog"></i>
+		</a></li>
+[% RenderBlockEnd("Preferences") %]
+
+
+
+
+
+[% RenderBlockStart("Logout") %]
+        <li class="Last">
+		<a id="LogoutButton" href="[% Env("Baselink") %]Action=Logout" title="[% Translate("Logout") | html %] ([% Translate("You are logged in as") | html %] [% Env("UserFirstname") | html %][% Env("UserLastname") | html %])">
+		<!--[% Translate("Logout %s %s", Env("UserFirstname"), Env("UserLastname")) | html %]-->
+		<i class="fa fa-power-off">
+					
+					</i>
+		</a></li>
+[% RenderBlockEnd("Logout") %]
+    </ul>
+</div>
+<!-- end NavigationBar -->
+<script type="text/javascript">
+
+<!-- Block of code added by Geeta Suryawanshi ~GS -->
+
+var Action = getUrlVars()["Action"];
+var val = Action.split(';');
+
+if(val[0] == 'CustomerTicketMessageNew')
+{
+document.getElementById("ticketnew").style.visibility = "hidden"; 
+}
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+<!-- End of block ~GS -->
+ 
+</script>

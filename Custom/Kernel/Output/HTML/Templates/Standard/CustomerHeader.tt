@@ -1,0 +1,84 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+[%- INCLUDE "HTTPHeaders.tt" -%]
+
+<!DOCTYPE html>
+
+<span us-spinner="{radius:15, width:4, length: 10}"></span>
+<html ng-app="CustomerAppnew">
+[% InsertTemplate("Copyright.tt") %]
+[% InsertTemplate("CustomerHTMLHead.tt") %]
+<!--
+Disable the below line for disable mobile mode from customer side 
+<body class="NoJavaScript [% Data.BodyClass | html %]">
+-->
+<body>
+<!--
+    <div id="Header">
+[% RenderBlockStart("HeaderLogo") %]
+        <div id="Logo"></div>
+[% RenderBlockEnd("HeaderLogo") %]
+
+[% RenderBlockStart("DebugRTLButton") %]
+        <button onclick="Core.Debug.SimulateRTLPage();" type="button">Simulate RTL</button>
+[% RenderBlockEnd("DebugRTLButton") %]
+    </div>
+-->
+
+<header class="navbar fl_navbar">
+  <div class="col-md-12">
+    <div class="navbar-header">
+      <button type="button" id="top_nav_btn" class=" btn btn-sm btn-primary navbar-toggle collapsed" data-toggle="collapse" data-target="#top_nav" aria-expanded="false" aria-controls="navbar"> <i class="fa fa-bars"></i> </button>
+        <div class="fl-logo">
+        <a href="customer.pl?Action=CustomerDesk">
+      <img src="[% Config("Frontend::WebPath") %]skins/Customer/default/css/thirdparty/felicity_customer/images/fel-logo.png"></a>
+        </div>
+        
+  <div id="top_nav" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+    
+        
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell"></i> Notifications<span class="drop-icon"></span></a>
+          <ul class="dropdown-menu scroll-box">
+
+            <li> <a href="customer.pl?Action=CustomerITSMChangeMyWorkOrders">
+              <div class="notify_txt">My Task </div>
+
+              <div class="notify_icons"> </i> <i class="fa fa-retweet"></i> <span class="badge badge-danger"></span> </div>
+              <div class="clearfix"></div>
+              </a> </li>
+            <!-- <li> <a href="#">
+              <div class="notify_txt">Locked Tickets New </div>
+              <div class="notify_icons"> <i class="fa fa-lock"></i> <span class="badge badge-danger">384</span> </div>
+              <div class="clearfix"></div>
+              </a> </li>
+            <li> <a href="#">
+              <div class="notify_txt">Locked Tickets Total </div>
+              <div class="notify_icons"> <i class="fa fa-lock"></i> <span class="badge badge-danger">446</span> </div>
+              <div class="clearfix"></div>
+              </a> </li> -->
+          </ul>
+        </li>
+        <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>
+[% Env("UserFirstname") | html %]
+    <span class="drop-icon"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="[% Env("Baselink") %]Action=CustomerPreferences" title="Edit personal preferences"> <i class="fa fa-cog"></i>Personal preferences </a> </li>
+            <li><a href="[% Env("Baselink") %]Action=Logout"  > <i class="fa fa-power-off"></i>Logout </a> </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  
+  <div id="res_navbar" >
+    <button id="side-bar-btn" class="btn btn-sm btn-primary"><i class="fa fa-ellipsis-h"></i></button>
+  </div>
+  
+    </div>
+    </div>
+</header>

@@ -1,0 +1,23 @@
+{
+	"UserDetails":{
+		"FirstName":"Abhishek",
+		"LastName":"Kulkarni",
+		"CustomerID":"abhik"
+	},
+	"ServiceList":[
+		{
+			"ServiceID":"2",
+			"ServiceName":"VPN Request",
+			"QueueName":"VPN Request",
+			"ImageLink":"/felicity/images/vpn.png",
+			"ServiceDescription":"Request Access to VPN Service"
+		},
+		{
+			"ServiceID":"3",
+			"ServiceName":"Password Reset",
+			"QueueName":"Password Reset",
+			"ImageLink":"/felicity/images/password.png",
+			"ServiceDescription":"Reset your Password"
+		}
+	]
+}

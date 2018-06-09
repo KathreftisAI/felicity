@@ -1,0 +1,170 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+# TODO. Add validation for the actual start and end times in the client side.
+<form action="[% Env("CGIHandle") %]" method="post" name="compose" enctype="multipart/form-data" class="Validate PreventMultipleSubmits">
+    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+    <input type="hidden" name="Subaction" value="Save"/>
+    <input type="hidden" name="WorkOrderID" value="[% Data.WorkOrderID | html %]"/>
+    <input type="hidden" name="FormID" value="[% Data.FormID | html %]"/>
+    [% IF(Data.WOStateID)%]
+    <input type="hidden" name="WorkOrderStateID" id="WorkOrderStateID" value="[% Data.WOStateID %]">
+    [%END%]
+    <div class="LayoutPopup ARIARoleMain">
+        <div class="Header">
+            <h1>[% Translate("Edit") | html %]: [% Translate("Report") | html %] [% Translate("of") | html %] [% Config("ITSMWorkOrder::Hook") %] [% Data.ChangeNumber | html %] - [% Data.WorkOrderNumber | html %]: [% Data.WorkOrderTitle | truncate(60) | html %]</h1>
+            <p>
+                <a class="CancelClosePopup" href="#">[% Translate("Cancel & close") | html %]</a>
+            </p>
+        </div>
+        <div class="Content">
+            <fieldset class="TableLike FixedLabel">
+                <label class="Mandatory" for="RichText"><span class="Marker">*</span> [% Translate("Report") | html %]:</label>
+                <div class="RichTextField">
+
+[% RenderBlockStart("RichText") %]
+[% InsertTemplate("RichTextEditor.tt") %]
+[% RenderBlockEnd("RichText") %]
+
+                    <textarea id="RichText" class="RichText Validate_Required [% Data.ReportInvalid %]" name="Report" rows="15" cols="[% Config("Ticket::Frontend::TextAreaNote") %]">[% Data.Report | html %]</textarea>
+                    <div id="RichTextError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                    <div id="RichTextServerError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                </div>
+                <div class="Clear"></div>
+
+[% RenderBlockStart("State") %]
+                <label for="WorkOrderStateID">[% Translate("State") | html %]:</label>
+                <div class="Field">
+                    [% Data.StateSelect %]
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("State") %]
+
+[% RenderBlockStart("DynamicField") %]
+                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+                    [% Data.Label %]
+                    <div class="Field">
+                        [% Data.Field %]
+                    </div>
+                    <div class="Clear"></div>
+                </div>
+[% RenderBlockEnd("DynamicField") %]
+
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("DynamicField_Field1") %]
+#                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                    [% Data.Label %]
+#                    <div class="Field">
+#                        [% Data.Field %]
+#                    </div>
+#                    <div class="Clear"></div>
+#                </div>
+#[% RenderBlockEnd("DynamicField_Field1") %]
+#[% RenderBlockStart("DynamicField_Field2") %]
+#                <div class="Row Row_DynamicField_[% Data.Name | html %]">
+#                    [% Data.Label %]
+#                    <div class="Field">
+#                        [% Data.Field %]
+#                    </div>
+#                    <div class="Clear"></div>
+#                </div>
+#[% RenderBlockEnd("DynamicField_Field2") %]
+
+[% RenderBlockStart("ActualStartTime") %]
+                <label>[% Translate("ActualStartTime") | html %]:</label>
+                <div class="Field">
+                    [% Data.ActualStartTimeSelectionString %]
+                    <div id="ActualStartTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                    <div id="ActualStartTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockStart("ActualStartTimeGenericServerError") %]
+                    <div id="ActualStartTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+                    <div id="ActualStartTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid date!") | html %]</p></div>
+[% RenderBlockEnd("ActualStartTimeGenericServerError") %]
+[% RenderBlockStart("ActualStartTimeBeforeThanEndTimeServerError") %]
+                    <div id="ActualStartTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("The actual start time must be before the actual end time!") | html %]</p></div>
+                    <div id="ActualStartTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("The actual start time must be before the actual end time!") | html %]</p></div>
+[% RenderBlockEnd("ActualStartTimeBeforeThanEndTimeServerError") %]
+[% RenderBlockStart("ActualStartTimeSetServerError") %]
+                    <div id="ActualStartTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("The actual start time must be set, when the actual end time is set!") | html %]</p></div>
+                    <div id="ActualStartTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("The actual start time must be set, when the actual end time is set!") | html %]</p></div>
+[% RenderBlockEnd("ActualStartTimeSetServerError") %]
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("ActualStartTime") %]
+
+[% RenderBlockStart("ActualEndTime") %]
+                <label>[% Translate("ActualEndTime") | html %]:</label>
+                <div class="Field">
+                    [% Data.ActualEndTimeSelectionString %]
+                    <div id="ActualEndTimeDayError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                    <div id="ActualEndTimeHourError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                    <div id="ActualEndTimeDayServerError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                    <div id="ActualEndTimeHourServerError" class="TooltipErrorMessage"><p>[% Translate("Date invalid!") | html %]</p></div>
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("ActualEndTime") %]
+
+[% RenderBlockStart("ShowAccountedTime") %]
+                <label for="AccountedTime">[% Translate("AccountedTime") | html %]:</label>
+                <div class="Field">
+                    <input type="text" id="AccountedTime" name="AccountedTime" value="[% Data.AccountedTime | html %]" class="25pc Validate [% Data.AccountedTimeInvalid | html %]" maxlength="11"/>
+                    <div id="AccountedTimeError" class="TooltipErrorMessage" ><p>[% Translate("Invalid format.") | html %]</p></div>
+                    <div id="AccountedTimeServerError" class="TooltipErrorMessage"><p>[% Translate("Invalid format.") | html %]</p></div>
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("ShowAccountedTime") %]
+
+[% RenderBlockStart("AttachmentUpload") %]
+                <label>[% Translate("Attachment") | html %]:</label>
+                <div class="Field">
+                    <ul>
+[% RenderBlockStart("Attachment") %]
+                        <li>
+                                [% Data.Filename | html %] ([% Data.Filesize | html %])
+                            <button type="submit" id="AttachmentDelete[% Data.FileID | html %]" name="AttachmentDelete[% Data.FileID | html %]" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#AttachmentDelete[% Data.FileID | html %]').bind('click', function () {
+        Core.Form.Validate.DisableValidation($('#AttachmentDelete[% Data.FileID | html %]').closest('form'));
+    });
+//]]></script>
+[% END %]
+                        </li>
+[% RenderBlockEnd("Attachment") %]
+                        <li>
+                            <input name="FileUpload" id="FileUpload" type="file" size="40"/>
+                            <input type="hidden" id="AttachmentUpload" name="AttachmentUpload" value="0" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="Clear"></div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    $('#FileUpload').bind('change', function (Event) {
+        var $Form = $('#FileUpload').closest('form');
+        Core.Form.Validate.DisableValidation($Form);
+        $Form.find('#AttachmentUpload').val('1').end().submit();
+    });
+//]]></script>
+[% END %]
+
+[% RenderBlockEnd("AttachmentUpload") %]
+
+                <div class="Field SpacingTop">
+                    <button class="btn btn-sm btn-primary" id="SubmitWorkOrderEditReport" accesskey="g" name="WorkOrderEdit" title="[% Translate("Submit") | html %] (g)" type="submit" value="[% Translate("Submit") | html %]">
+                        <span><i class="fa fa-check-square-o"></i> [% Translate("Submit") | html %]</span>
+                    </button>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+</form>

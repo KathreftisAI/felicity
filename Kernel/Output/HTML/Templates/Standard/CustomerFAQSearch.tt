@@ -1,0 +1,143 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("Search") %]
+<div id="MainBox" class="Search ARIARoleMain">
+    <div class="Content">
+        <form action="[% Env("CGIHandle") %]" method="post" name="compose">
+            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+            <input type="hidden" name="Subaction" value="LoadProfile"/>
+            <fieldset>
+                <h2>[% Translate("Profile") | html %]</h2>
+                <div>
+                    <label for="Profile">[% Translate("Search template") | html %]</label>
+                    [% Data.ProfilesStrg %]
+                </div>
+            </fieldset>
+            <div class="Row">
+                <button name="SelectTemplate" type="submit" value="[% Translate("Select") | html %]">[% Translate("Select") | html %]</button>
+                <button name="EraseTemplate" type="submit" value="[% Translate("Delete") | html %]">[% Translate("Delete") | html %]</button>
+                <button name="SearchTemplate" type="submit" value="[% Translate("Search") | html %]">[% Translate("Search") | html %]</button>
+            </div>
+        </form>
+
+        <form action="[% Env("CGIHandle") %]" method="post" name="compose">
+            <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+            <input type="hidden" name="Subaction" value="Search"/>
+            <fieldset>
+                <h2>[% Config("FAQ::FAQHook") %]</h2>
+                <div>
+                    <label for="Number">[% Config("FAQ::FAQHook") %]</label>
+                    <input title="[% Config("FAQ::FAQHook") %]" type="text" name="Number" id="Number" size="30" value="[% Data.Number | html %]"/>
+                    <p>[% Translate("e. g. 10*5155 or 105658*") | html %]</p>
+                </div>
+            </fieldset>
+            <fieldset>
+                <h2>[% Translate("Fulltext search in FAQ articles (e. g. \"John*n\" or \"Will*\")") | html %]</h2>
+                <div>
+                    <label for="FullText">[% Translate("Fulltext") | html %]</label>
+                    <input title="[% Translate("Fulltext") | html %]" type="text" id="FullText" name="Fulltext" value="[% Data.Fulltext | html %]" size="20" />
+                </div>
+                <div>
+                    <label for="Title">[% Translate("Title") | html %]</label>
+                    <input title="[% Translate("Title") | html %]" type="text" id="Title" name="Title" value="[% Data.Title | html %]" size="20" />
+                </div>
+                <div>
+                    <label for="Keyword">[% Translate("Keyword") | html %]</label>
+                    <input title="[% Translate("Keyword") | html %]" type="text" id="Keyword" name="Keyword" value="[% Data.Keyword | html %]" size="20" />
+                </div>
+[% RenderBlockStart("DynamicField") %]
+                <div>
+                    [% Data.Label %]
+                    [% Data.Field %]
+                </div>
+                <div class="Clear"></div>
+[% RenderBlockEnd("DynamicField") %]
+            </fieldset>
+[% RenderBlockStart("Language") %]
+            <fieldset>
+                <h2>[% Translate("Language") | html %]:</h2>
+                <div>
+                    [% Data.LanguagesStrg %]
+                </div>
+            </fieldset>
+[% RenderBlockEnd("Language") %]
+            <fieldset>
+                <h2>[% Translate("Category") | html %]:</h2>
+                <div>
+                    [% Data.CategoriesStrg %]
+                </div>
+            </fieldset>
+            <fieldset class="TimeSearchType">
+                <h2>[% Translate("Vote restrictions") | html %]</h2>
+                <div>
+                    <input title="[% Translate("No vote settings") | html %]" type="radio"  id="NoVoteSet" name="VoteSearchOption" value="" [% Data.item("VoteSearchOption::None") %] />
+                    <label for="NoTVoteSet">[% Translate("All") | html %]</label>
+                </div>
+                <div>
+                    <input title=[% Translate("Specific votes") | html %] type="radio" id="VotePoint" name="VoteSearchOption"  value="VotePoint" [% Data.item("VoteSearchOption::VotePoint") %] />
+                    <label for="VotePoint">[% Translate("Only FAQ articles with votes...") | html %]</label>
+                    [% Data.VoteSearchTypeSelectionString %]
+                    <input type="text" name="VoteSearch" value="[% Data.VoteSearch | html %]" class="W25pc"/>
+                    <p>[% Translate("e. g. Equals 10 or GreaterThan 60") | html %]</p>
+                </div>
+            </fieldset>
+
+            <fieldset class="TimeSearchType">
+                <h2>[% Translate("Rate restrictions") | html %]</h2>
+                <div>
+                    <input title="[% Translate("No rate settings") | html %]" type="radio"  id="NoRateSet" name="RateSearchOption" value="" [% Data.item("RateSearchOption::None") %] />
+                    <label for="NoRateSet">[% Translate("All") | html %]</label>
+                </div>
+                <div>
+                    <input title=[% Translate("Specific rate") | html %] type="radio" id="RatePoint" name="RateSearchOption" value="RatePoint" [% Data.item("RateSearchOption::RatePoint") %] />
+                    <label for="RatePoint">[% Translate("Only FAQ articles with rate...") | html %]</label>
+                    [% Data.RateSearchTypeSelectionString %]
+                    [% Data.RateSearchSelectionString %]
+                    <p>[% Translate("e. g. Equals 25% or GreaterThan 75%") | html %]</p>
+                </div>
+            </fieldset>
+
+            <fieldset class="TimeSearchType">
+                <h2>[% Translate("Time restrictions") | html %]</h2>
+                <div>
+                    <input title="[% Translate("No time settings") | html %]" type="radio"  id="NoTimeSet" name="TimeSearchType" value="" [% Data.item("TimeSearchType::None") %] />
+                    <label for="NoTimeSet">[% Translate("All") | html %]</label>
+                </div>
+                <div>
+                    <input title="[% Translate("Specific date") | html %]" type="radio" id="Date" name="TimeSearchType" value="TimePoint" [% Data.item("TimeSearchType::TimePoint") %] />
+                    <label for="Date">[% Translate("Only FAQ articles created") | html %]</label>
+                    [% Data.ItemCreateTimePointStart %] [% Data.ItemCreateTimePoint %] [% Data.ItemCreateTimePointFormat %]
+                </div>
+                <div>
+                    <input title="$Test"{Date range"}" type="radio" id="DateRange" name="TimeSearchType" value="TimeSlot" [% Data.item("TimeSearchType::TimeSlot") %] />
+                    <label for="DateRange">[% Translate("Only FAQ articles created between") | html %]</label>
+                    [% Data.ItemCreateTimeStart %] [% Translate("and") | html %] [% Data.ItemCreateTimeStop %]
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h2>[% Translate("Search-Profile as Template?") | html %]</h2>
+                <div>
+                    <label for="SaveProfile">[% Translate("Save as Template?") | html %]</label>
+                    <input title="Save as Template" type="checkbox" id="SaveProfile" name="SaveProfile" />
+                </div>
+                <div>
+                    <label for="Profil">[% Translate("Template Name") | html %]</label>
+                    <input title="Pick a profil name" type="text" id="Profil" name="Profile" size="30" value="[% Data.Profile | html %]" />
+                </div>
+            </fieldset>
+            <div id="BottomActionRow" class="ActionRow">
+                <button id="Submit" type="submit" value="[% Translate("Search") | html %]">[% Translate("Search") | html %]</button>
+                <span>[% Translate("Output to") | html %]</span>
+                [% Data.ResultFormStrg %]
+            </div>
+        </form>
+    </div>
+</div>
+[% RenderBlockEnd("Search") %]

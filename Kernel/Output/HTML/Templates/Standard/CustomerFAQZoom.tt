@@ -1,0 +1,275 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+<div id="MainBox" class="TicketZoom ARIARoleMain">
+
+[% RenderBlockStart("Back") %]
+    <div class="ActionRow">
+        <ul class="Tabs">
+            <li><a href="[% Env("Baselink") %][% Env("LastScreenOverview") %]">&larr; [% Translate("Back") | html %]</a></li>
+        </ul>
+        <div class="Clear"></div>
+    </div>
+[% RenderBlockEnd("Back") %]
+
+    <div class="Content">
+        <div class="FAQHeader">
+            <h2 title="[% Data.Title | html %]">
+                [% Data.Title | html %]
+            </h2>
+            <ul id="FAQOptions">
+                <li>
+                    <a href="[% Env("Baselink") %]Action=CustomerFAQPrint;ItemID=[% Data.ItemID | uri %]" class="Print AsPopup" title="[% Translate("Print") | html %]">
+                        <i class="fa fa-print"></i>
+                        <span>[% Translate("Print") | html %]</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="Clear"></div>
+        </div>
+
+        <ul class="BreadCrumb">
+[% RenderBlockStart("FAQPathCategoryElement") %]
+            <li>
+                <a href="[% Env("Baselink") %]Action=CustomerFAQExplorer;CategoryID=[% Data.CategoryID | uri %]">
+                    [% Data.Name | html %]
+                </a>
+            </li>
+[% RenderBlockEnd("FAQPathCategoryElement") %]
+[% RenderBlockStart("FAQPathItemElement") %]
+            <li>[% Data.Title | html %]</li>
+[% RenderBlockEnd("FAQPathItemElement") %]
+        </ul>
+        <div class="Clear"></div>
+        <ul id="Messages">
+[% RenderBlockStart("AttachmentHeader") %]
+            <li class="Customer Visible">
+                <div class="MessageHeader">
+                    <h3>[% Translate("Attachments") | html %]:</h3>
+                    <div class="Clear"></div>
+                </div>
+                <div class="Attachments">
+                    <div class="Label">[% Translate("Attachment") | html %]:</div>
+                    <div>
+[% RenderBlockStart("AttachmentRow") %]
+                        <i class="fa fa-paperclip"></i>
+                        <span class="DownloadAttachment" title="[% Translate("Download Attachment") | html %]">
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DownloadAttachment;ItemID=[% Data.ItemID | uri %];FileID=[% Data.FileID | uri %]">
+                                [% Data.Filename | html %]
+                            </a>
+                            , [% Data.Filesize | html %]
+                        </span>
+                        <br/>
+[% RenderBlockEnd("AttachmentRow") %]
+                    </div>
+                </div>
+            </li>
+[% RenderBlockEnd("AttachmentHeader") %]
+
+[% RenderBlockStart("BrowserLinkMessage") %]
+# Show info, that links within the iframe must be clicked with strg/cmd/shift (depending on the used browser and os)
+# to open the links in a new window without the security permissions given to the iframe
+            <li>
+                <div class="FAQMessageBrowser">
+                    <p>
+        [% Translate("To open links in the following description blocks, you might need to press Ctrl or Cmd or Shift key while clicking the link (depending on your browser and OS).") | html %]
+                    </p>
+                    <a class="Close" title="[% Translate("Close this message") | html %]" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </li>
+[% RenderBlockEnd("BrowserLinkMessage") %]
+
+[% RenderBlockStart("FAQContent") %]
+            <li class="Customer Visible">
+                <div class="MessageHeader">
+                    <h3>[% Translate(Data.Caption) | html %]:</h3>
+                    <div class="Clear"></div>
+                </div>
+                <input type="hidden" value="true" name="FieldState">
+[% RenderBlockStart("FAQContentHTML") %]
+# execute IFrame JS asynchronously. Otherwise it could happen before our API was loaded
+# the following JS code must be within the template, otherwise it could happen, that also this code itself is not loaded yet
+<script>
+function CheckIFrameHeight(IFrameID) {
+    if (typeof FAQ === 'object' && typeof FAQ.Customer === 'object' && typeof FAQ.Customer.FAQZoom === 'object') {
+        FAQ.Customer.FAQZoom.IframeAutoHeight($('#' + IFrameID));
+    }
+    else {
+        window.setTimeout(function () {
+            CheckIFrameHeight(IFrameID);
+        }, 500);
+    }
+}
+</script>
+                <div class="MessageBody">
+# Use the HTML5 sandbox attribute to prevent plugins and scripts from being executed in the browser.
+# Append session info to URL because IE will not send cookies.
+# Set 'allow-popups' to allow IE10+ to open links. ref: http://www.w3.org/html/wg/wiki/ChangeProposals/sandbox_allow_popups
+                    <iframe sandbox="allow-same-origin allow-popups ms-allow-popups allow-popups-to-escape-sandbox" class="FAQField" id="IframeFAQ[% Data.Field | html %]" onload="window.setTimeout( function (){ CheckIFrameHeight('IframeFAQ[% Data.Field | html %]'); }, 500);" src="[% Env("Baselink") %]Action=CustomerFAQZoom;Subaction=HTMLView;ItemID=[% Data.ItemID | html %];Field=[% Data.Field | html %];[% Env("SessionName") | html %]=[% Env("SessionID") | html %]"></iframe>
+                </div>
+[% RenderBlockEnd("FAQContentHTML") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+    Core.Config.Set('FAQ::Frontend::CustomerHTMLFieldHeightDefault', parseInt("[% Config("FAQ::Frontend::CustomerHTMLFieldHeightDefault") %]" || 0, 10));
+    Core.Config.Set('FAQ::Frontend::CustomerHTMLFieldHeightMax', parseInt("[% Config("FAQ::Frontend::CustomerHTMLFieldHeightMax") %]" || 0, 10));
+//]]></script>
+[% END %]
+[% RenderBlockStart("FAQContentPlain") %]
+                <div class="ArticleFAQContent">
+                    <div class="message">
+                        [% Data.Content %]
+                    </div>
+                </div>
+[% RenderBlockEnd("FAQContentPlain") %]
+            </li>
+[% RenderBlockEnd("FAQContent") %]
+
+        </ul>
+        <div id="ZoomSidebar">
+            <ul id="Metadata">
+                <li class="Header">
+                    <div class="MessageHeader">
+                        <h3>[% Translate("FAQ Information") | html %]</h3>
+                        <div class="Clear"></div>
+                    </div>
+                </li>
+                <li><span class="Key">[% Translate("Article Number") | html %]:</span> <span>[% Data.Number | html %]</span></li>
+                <li><span class="Key">[% Translate("Category") | html %]:</span> <span title="[% Translate(Data.CategoryName) | html %]">[% Translate(Data.CategoryName) | html %]</span></li>
+
+                <li class="KeywordsContainer">
+                    <span class="Key">[% Translate("Keywords") | html %]:</span>
+[% RenderBlockStart("Keywords") %]
+                    <span class="Keyword" title="[% Translate("Search for articles with keyword") | html %]: [% Data.Keyword | html %]">
+                        <a href="[% Env("Baselink") %]Action=CustomerFAQSearch;Subaction=Search;Keyword=[% Data.Keyword | uri %]">[% Data.Keyword | html %]</a>
+                    </span>
+[% RenderBlockEnd("Keywords") %]
+                </li>
+                <li><span class="Key">[% Translate("State") | html %]:</span> <span title="[% Translate(Data.State) | html %]">[% Translate(Data.State) | html %]</span></li>
+[% RenderBlockStart("Language") %]
+                <li><span class="Key">[% Translate("Language") | html %]:</span> <span title="[% Translate(Data.Language) | html %]">[% Translate(Data.Language) | html %]</span></li>
+[% RenderBlockEnd("Language") %]
+
+# show faq dynamic fields
+[% RenderBlockStart("FAQDynamicField") %]
+                <li>
+                    <span class="Key">[% Translate(Data.Label) | html %]:</span>
+                    <span title="[% Data.Title | html %]">[% Data.Value %]</span>
+                </li>
+[% RenderBlockEnd("FAQDynamicField") %]
+# example of how to use fixed dynamic field blocks for customizations
+# Note: Field1 and Field2 are the names of the fields and had to be replaced with the actual
+# field names
+#[% RenderBlockStart("FAQDynamicField_Field1") %]
+#                <li>
+#                    <span class="Key">[% Translate(Data.Label) | html %]:</span>
+#                    <span title="[% Data.Title1 | html %]">[% Data.Value %]</span>
+#                </li>
+#[% RenderBlockEnd("FAQDynamicField_Field1") %]
+#[% RenderBlockStart("FAQDynamicField_Field2") %]
+#                <li>
+#                    <span class="Key">[% Translate(Data.Label) | html %]:</span>
+#                    <span title="[% Data.Title2 | html %]">[% Data.Value %]</span>
+#                </li>
+#[% RenderBlockEnd("FAQDynamicField_Field2") %]
+
+[% RenderBlockStart("ViewRating") %]
+                <li>
+                    <span class="Key RatingLabel">[% Translate("Rating") | html %]:</span>
+[% RenderBlockStart("RateStars") %]
+                    <span class="RateStar"><i class="fa fa-star"></i></span>
+[% RenderBlockEnd("RateStars") %]
+[% RenderBlockStart("RateStarsCount") %]
+                    <span class="RateStarText" title="[% Data.Stars | html %] [% Translate("out of 5") | html %]">
+                        [% Data.Stars | html %] [% Translate("out of 5") | html %]
+                    </span>
+[% RenderBlockEnd("RateStarsCount") %]
+                </li>
+[% RenderBlockEnd("ViewRating") %]
+
+[% RenderBlockStart("ViewVotes") %]
+                <li><span class="Key">[% Translate("Votes") | html %]:</span> <span title="[% Data.Votes | html %]">[% Data.Votes | html %]</span></li>
+[% RenderBlockEnd("ViewVotes") %]
+            </ul>
+        </div>
+
+[% RenderBlockStart("FAQVoting") %]
+        <form action="[% Env("CGIHandle") %]" method="post" enctype="multipart/form-data" name="FAQVote" class="PreventMultipleSubmits">
+            <div class="VotingContainer">
+                <div class="VotingBox Visible">
+                    <div id="FAQVoting" class="FAQVoting">
+                        <div class="MessageHeader">
+                            <h3>[% Translate("Rating") | html %]:</h3>
+                            <div class="Clear"></div>
+                        </div>
+                        <div id="Messenger">
+                            <div class="SpacingTop"></div>
+                            <span class="VotingQuestion">[% Translate("How helpful was this article? Please give us your rating and help to improve the FAQ Database. Thank You!") | html %]</span>
+                            <div class="SpacingTop"></div>
+                            <div>
+                                <span class="RateLabelBefore">[% Translate("not helpful") | html %]</span>
+                            </div>
+
+[% RenderBlockStart("FAQVotingRateRow") %]
+                            <div id="RateButton[% Data.Value %]">
+                                <span class="RateButton RateUnChecked">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star"></i>
+                                    [% Data.Title | html %]
+                                </span>
+                            </div>
+[% RenderBlockEnd("FAQVotingRateRow") %]
+
+                            <div>
+                                <span class="RateLabelAfter">[% Translate("very helpful") | html %]</span>
+                            </div>
+                            <input type="hidden" name="Action" value="CustomerFAQZoom"/>
+                            <input type="hidden" name="Subaction" value="Vote"/>
+                            <input type="hidden" name="CategoryID" value="[% Data.CategoryID | html %]"/>
+                            <input type="hidden" name="ItemID" value="[% Data.ItemID | html %]"/>
+                            <div class="ActionRow VotingActionRow">
+                                <button type="submit"  id="RateSubmitButton" class="Hidden" value="[% Translate("Submit") | html %]">[% Translate("Submit") | html %]</button>
+                                <input type="hidden" name="Rate" value="[% Data.SelectedRate | html %]"id="RateValue"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+[% RenderBlockEnd("FAQVoting") %]
+
+    </div>
+</div>
+
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">
+/*global FAQ: true */
+FAQ.Customer.FAQZoom.Init();
+
+$('a.AsPopup').bind('click', function (Event) {
+    Core.UI.Popup.OpenPopup($(this).attr('href'), 'TicketAction');
+    return false;
+});
+
+$('.RateButton').bind('click', function (Event) {
+    var RateNumber = parseInt($(this).closest('div').attr('id').replace(/RateButton/, ''), 10);
+    $('#RateValue').val(RateNumber);
+    $('#RateSubmitButton').fadeIn(250);
+    $('#FAQVoting').find('.RateButton').each(function() {
+        var ItemRateNumber = parseInt($(this).closest('div').attr('id').replace(/RateButton/, ''), 10);
+        if ( ItemRateNumber <= RateNumber ) {
+            $(this).addClass('RateChecked');
+            $(this).removeClass('RateUnChecked');
+        }
+        else {
+            $(this).addClass('RateUnChecked');
+            $(this).removeClass('RateChecked');
+        }
+    });
+});
+</script>
+[% END %]

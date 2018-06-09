@@ -1,0 +1,16 @@
+# --
+# Copyright (C) 2001-2017 OTRS AG, http://otrs.com/
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (AGPL). If you
+# did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
+# --
+
+[% RenderBlockStart("CABMemberSearchInit") %]
+[% WRAPPER JSOnDocumentComplete %]
+<script type="text/javascript">//<![CDATA[
+/*global ITSM: true */
+    ITSM.Agent.CABMemberSearch.Init( $("#" + Core.App.EscapeSelector("[% Data.ItemID | html %]") ) );
+//]]></script>
+[% END %]
+[% RenderBlockEnd("CABMemberSearchInit") %]
