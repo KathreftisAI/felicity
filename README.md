@@ -1,6 +1,6 @@
 # felicity
 
-We're really excited to announce felicity (based on [OTRS](https://github.com/OTRS/otrs)) to the community. Our first ever community release. We've had about 5 years of experience in development of ITSM products like OTRS and have garnered good enough of knowledge to try and make the system robust enough for the community to experience which has useful service desk features.
+We're really excited to announce felicity (based on [OTRS 5.0.18](https://github.com/OTRS/otrs/tree/rel-5_0_18)) to the community. Our first ever community release. We've had about 5 years of experience in development of ITSM products like OTRS and have garnered good enough of knowledge to try and make the system robust enough for the community to experience which has useful service desk features.
 
 # purpose
 Our purpose on releasing felicity to the community was to share our own experiences and the add on features we developed in tandem with our clients. We thought the community should have this useful open source tool at their convenience. 
@@ -202,11 +202,6 @@ All regular OTRS commandline operations happen via the otrs Console interface <c
 You can activate the bash autocompletion by installing the package bash-completion. It will automatically detect and load the file <code>/opt/felicity/.bash_completion</code> for the otrs user.
 
 After restarting your shell, you can just type bin/otrs.Console.pl followed by TAB, and it will list all available commands. If you type a few characters of the command name, TAB will show all matching commands. After typing a complete command, all possible options and arguments will be shown by pressing TAB.
-
-# getting started
-We have provided a basic ticket life cycle creation to issue closure functionality but feel free to explore.
-
--- Insert ticket creation and issue closure functionality here --
 
 # bug reporting
 We know that we are far from perfect but we'll want to know where we made mistakes and would like to fix those mistakes.
