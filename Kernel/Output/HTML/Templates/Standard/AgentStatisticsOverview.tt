@@ -24,7 +24,7 @@
                         <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=Import" class="CallForAction Fullsize Center"><span><i class="fa fa-upload"></i> [% Translate("Import") | html %]</span></a>
                     </li>
 		    <li>
-			<form target="_blank" id="spago" method="POST" action="http://13.126.160.78:8080/SpagoBI/servlet/AdapterHTTP?PAGE=LoginPage&NEW_SESSION=TRUE">
+			<form target="_blank" id="spago" method="POST" action="http://felicityanalytics.unotechsoft.com:8080/SpagoBI/servlet/AdapterHTTP?PAGE=LoginPage&NEW_SESSION=TRUE">
                     		<input type="hidden" name="userID" value="unotech" />
                     		<input type="hidden" name="password" value="unotech" />
                         	<a onclick="document.getElementById('spago').submit();" class="CallForAction Fullsize Center"><span><i class="fa fa-upload"></i> [% Translate("Analytic Reports") | html %]</span></a>
