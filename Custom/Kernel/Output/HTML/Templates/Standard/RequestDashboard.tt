@@ -13,26 +13,52 @@
 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/highcharts-3d.js"></script>
 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/heatmap.js"></script>
 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/drilldown.js"></script>
-
+<style type="text/css">
+div.location
+{
+	cursor:pointer;
+}
+</style>
 
 <div class="spacer20"></div>
 
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Critical Open In</strong></h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;">[% Data.critical_request %]</a></h1>
+			<div class="col-md-6">
+				<h4>Critical Open In</strong></h4>
+				<h1 class="text-danger">[% Data.critical_request %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;'">
+				<h4>Critical Open In</strong></h4>
+				<h1 class="text-danger">0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Unassigned Requests</h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;">[% Data.Unassigned_Request %]</a></h1>
+			<div class="col-md-6">
+				<h4>Unassigned Requests</h4>
+				<h1 class="text-danger">[% Data.Unassigned_Request %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;'">
+				<h4>Unassigned Requests</h4>
+				<h1 class="text-danger">0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Overdue Requests</h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=RequestEscalation;">[% Data.Overdue_Request %]</a></h1>
+			<div class="col-md-6">
+				<h4>Overdue Requests</h4>
+				<h1 class="text-danger">[% Data.Overdue_Request %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=RequestEscalation;'">
+				<h4>Overdue Request</h4>
+				<h1 class="text-danger">0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 
@@ -40,20 +66,41 @@
 
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Open Requests</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;">[% Data.Open_request %]</a></h1>
+			<div class="col-md-6">
+				<h4>Open Requests</h4>
+				<h1>[% Data.Open_request %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;'">
+				<h4>Open Requests</h4>
+				<h1>0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Requests not Updated for 7 days</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest">[% Data.sevenday_requestticket %]</a></h1>
+			<div class="col-md-6">
+				<h4>Requests not Updated for 7 days</h4>
+				<h1>[% Data.sevenday_requestticket %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest'">
+				<h4>Request not Updated for 7 days</h4>
+				<h1>0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
 		<div class="info-box">
-			<h4>Open Requests Older Than 30 days</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest;Filter=All;">[% Data.ThirtyDays_requestticket %]</a></h1>
+			<div class="col-md-6">
+				<h4>Open Requests Older Than 30 days</h4>
+				<h1>[% Data.ThirtyDays_requestticket %]</h1>
+			</div>
+			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;Filter=All;'">
+				<h4>Open Request Older Than 30 days</h4>
+				<h1>0</h1>
+			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
 
@@ -406,9 +453,9 @@
 	/******************function for refresh the page*************/
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-	setTimeout(function(){
-        window.location.reload(1);
-    }, 30000);
+	// setTimeout(function(){
+ //        window.location.reload(1);
+ //    }, 30000);
 	/**************end function for refresh the page***************/
 </script>
 
