@@ -84,7 +84,15 @@ sub Load {
     # data inserted by installer                           #
     # ---------------------------------------------------- #
     # $DIBI$
-
+    #
+    #------------------------------------------------------#
+    # Add felicity Analytics URL (This URL will 
+    # 			redirect to the analytics tool) 
+    #------------------------------------------------------#
+    # $Self->{AnalyticsURL} = 'http://felicityanalytics.unotechsoft.com:8080/SpagoBI/servlet/AdapterHTTP?PAGE=LoginPage&NEW_SESSION=TRUE';
+    # $Self->{AnalyticsUser} = 'unotech';
+    # $Self->{AnalyticsPass} = 'unotech';
+    #
     # ---------------------------------------------------- #
     # ---------------------------------------------------- #
     #                                                      #
