@@ -10,7 +10,6 @@ package Kernel::Modules::ChangesDashboard;
 
 use strict;
 use warnings;
-use Data::Dumper;
 use Kernel::Language qw(Translatable);
 use Kernel::System::VariableCheck qw(:all);
 

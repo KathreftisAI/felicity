@@ -10,7 +10,6 @@ package Kernel::Modules::IncidentDashboard;
 
 use strict;
 use warnings;
-use Data::Dumper;
 use Kernel::Language qw(Translatable);
 use Kernel::System::VariableCheck qw(:all);
 
@@ -192,6 +191,82 @@ sub Run {
     $Param{open_incidentGroup}  = \@PriorityData;
 
 
+#----------------------function show count of ticket for login user-----------------------#
+
+    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
+
+    # get time object
+    my $TimeObject = $Kernel::OM->Get('Kernel::System::Time');
+
+    my ( $Sec, $Min, $Hour, $Day, $Month, $Year ) = $TimeObject->SystemTime2Date(
+        SystemTime => $TimeObject->SystemTime(),
+    );
+    my $TimeStampToday = "$Year-$Month-$Day 23:59:59";
+
+    my %Filters=(
+            CriticalOpen => {
+                Result => 'COUNT',
+                Types   => ['Incident'],
+                States   => ['open'],
+                Priorities  => ['P1'],
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+            },
+            Open => {
+                Result => 'COUNT',
+                Types   => ['Service Request'],
+                States   => ['open'],
+                
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+            },
+
+            Unassigned => {
+                Result => 'COUNT',
+                Types   => ['Service Request'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                Locks         => ['unlock'],
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+            },
+            Overdue => {
+                Result => 'COUNT',
+                Types => ['Service Request'],
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+                TicketEscalationTimeOlderDate => $TimeStampToday,
+            },
+            SevenDayUpdate => {
+                Result => 'COUNT',
+                Types => ['Service Request'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                TicketLastChangeTimeOlderMinutes => 7*60*24,
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+            },
+            ThirtyDayUpdate => {
+                Result => 'COUNT',
+                Types => ['Service Request'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                TicketCreateTimeOlderMinutes => 30*24*60,
+                UserID     => $Self->{UserID},
+                Permission => 'ro',
+            }
+
+        );
+
+
+    my %TicketCounts;
+
+    for my $keys (qw(CriticalOpen Open Unassigned Overdue SevenDayUpdate ThirtyDayUpdate)) {
+        $TicketCounts{$keys} = $TicketObject->TicketSearch(
+           %{$Filters{$keys}}
+        );
+    }
+
+     $Param{TicketCounts} = \%TicketCounts;
+
+#----------------------------END----------------------------------------------------------#
 #-----------------------------------------------------------------------------------------#
     #query for number dashboard
 #-----------------------------------------------------------------------------------------#

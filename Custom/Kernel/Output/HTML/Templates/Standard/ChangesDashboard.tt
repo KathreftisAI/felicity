@@ -55,19 +55,19 @@
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body" id="stateBarChaneDiv" style="height:400px;"></div>
+	        <div id="stateBarChaneDiv" style="height:400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-			<div class="panel-body " id="openChangesDiv" style="height:400px;"></div>
+			<div id="openChangesDiv" style="height:400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body " id="PendingWorkordeDiv" style="height:400px;"></div>
+	        <div id="PendingWorkordeDiv" style="height:400px;"></div>
 	    </div>
 	</div>
 
