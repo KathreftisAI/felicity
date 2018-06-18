@@ -214,7 +214,7 @@ sub Run {
             },
             Open => {
                 Result => 'COUNT',
-                Types   => ['Service Request'],
+                Types   => ['Incident'],
                 States   => ['open'],
                 
                 UserID     => $Self->{UserID},
@@ -223,7 +223,7 @@ sub Run {
 
             Unassigned => {
                 Result => 'COUNT',
-                Types   => ['Service Request'],
+                Types   => ['Incident'],
                 States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
                 Locks         => ['unlock'],
                 UserID     => $Self->{UserID},
@@ -231,14 +231,14 @@ sub Run {
             },
             Overdue => {
                 Result => 'COUNT',
-                Types => ['Service Request'],
+                Types => ['Incident'],
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
                 TicketEscalationTimeOlderDate => $TimeStampToday,
             },
             SevenDayUpdate => {
                 Result => 'COUNT',
-                Types => ['Service Request'],
+                Types => ['Incident'],
                 States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
                 TicketLastChangeTimeOlderMinutes => 7*60*24,
                 UserID     => $Self->{UserID},
@@ -246,7 +246,7 @@ sub Run {
             },
             ThirtyDayUpdate => {
                 Result => 'COUNT',
-                Types => ['Service Request'],
+                Types => ['Incident'],
                 States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
                 TicketCreateTimeOlderMinutes => 30*24*60,
                 UserID     => $Self->{UserID},
@@ -300,10 +300,10 @@ sub Run {
    
     #Incidents not updated for 7 days
     return if !$DBObject->Prepare(
-        SQL  => "select  count(cast(a.change_time as date)) as count
+        SQL  => "select  count(a.id) as count 
         from ticket a , ticket_state b
-        where a.ticket_state_id = b.id and b.name !=  'closed' and a.type_id=2
-        and cast(a.change_time as date) >= (current_date - interval 7 day)",
+        where a.ticket_state_id = b.id and  b.name !=  'closed'  and a.type_id=2
+        and cast(a.change_time as date) <= (current_date - interval 7 day )",
     );
     while ( my @Row = $DBObject->FetchrowArray() ) {
        $Param{sevenday_incidentticket} =$Row[0] ;  
