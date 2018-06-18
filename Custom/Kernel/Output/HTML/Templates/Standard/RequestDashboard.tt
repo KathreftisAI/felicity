@@ -17,84 +17,102 @@
 <div class="spacer20"></div>
 
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Critical Open In</strong></h4>
-				<h1 class="text-danger">[% Data.critical_request %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Critical Open In </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;'">
+					<h4>For me</strong></h4>
+					<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</strong></h4>
+					<h1 class="text-danger">[% Data.critical_request %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;'">
-				<h4>Critical Open In</strong></h4>
-				<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Unassigned Requests</h4>
-				<h1 class="text-danger">[% Data.Unassigned_Request %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Unassigned Requests</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;'">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.Unassigned_Request %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;'">
-				<h4>Unassigned Requests</h4>
-				<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Overdue Requests</h4>
-				<h1 class="text-danger">[% Data.Overdue_Request %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Overdue Requests </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=RequestEscalation;'">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.Overdue_Request %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=RequestEscalation;'">
-				<h4>Overdue Request</h4>
-				<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
 
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Open Requests</h4>
-				<h1>[% Data.Open_request %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Requests</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;'">
+					<h4>For all</h4>
+					<h1>[% Data.TicketCounts.Open %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For me</h4>
+					<h1>[% Data.Open_request %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;'">
-				<h4>Open Requests</h4>
-				<h1>[% Data.TicketCounts.Open %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Requests not Updated for 7 days</h4>
-				<h1>[% Data.sevenday_requestticket %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Requests not Updated for 7 days</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.sevenday_requestticket %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest'">
-				<h4>Request not Updated for 7 days</h4>
-				<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<div class="col-md-6">
-				<h4>Open Requests Older Than 30 days</h4>
-				<h1>[% Data.ThirtyDays_requestticket %]</h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Request Older Than 30 days </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;Filter=All;'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.ThirtyDays_requestticket %]</h1>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;Filter=All;'">
-				<h4>Open Request Older Than 30 days</h4>
-				<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 
@@ -459,5 +477,15 @@
 	}
 	div.location {
 		cursor:pointer;
+		height: 130px;
+	}
+
+	.info-box{border:none;}
+
+	.panel-default>.panel-heading {
+	    position: relative;
+	    box-shadow: none;
+	    border-right: none;
+	    font-weight:700;
 	}
 </style>
