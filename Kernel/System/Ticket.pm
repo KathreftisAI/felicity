@@ -14,7 +14,7 @@ use warnings;
 use File::Path;
 use utf8;
 use Encode ();
-
+use Data::Dumper;
 use Kernel::Language qw(Translatable);
 use Kernel::System::EventHandler;
 use Kernel::System::Ticket::Article;
@@ -7501,6 +7501,264 @@ sub SearchUnknownTicketCustomers {
     }
 
     return $UnknownTicketCustomerList;
+}
+
+=item AutoAssignment()
+
+returns OwnerID based on the AutoAssignment Criteria set for the Queue in $ConfigObject->Get("Agent_Auto_Assignment")
+
+    my $AutoOwnerID = $TicketObject->AutoAssignment(
+        QueueID => 123,
+        UserID => 123
+    );
+
+Returns:
+
+    $AutoOwnerID = 4
+
+=cut
+
+
+sub AutoAssignment{
+
+    my ( $Self, %Param ) = @_;
+
+    if ( !$Param{QueueID} ) {
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'error',
+            Message  => "Need QueueID!",
+        );
+        return;
+    }
+
+    #get config object
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+
+    #get session object
+    my $SessionObject = $Kernel::OM->Get('Kernel::System::AuthSession');
+
+    # get user object
+    my $UserObject = $Kernel::OM->Get('Kernel::System::User');
+
+    # get Queue object
+    my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+
+    # get Group object
+    my $GroupObject = $Kernel::OM->Get('Kernel::System::Group');
+
+
+    #Get active 'User' Sessions
+    my %ActiveSessions = $SessionObject->GetActiveSessions(
+        UserType => 'User',
+    );
+
+    #Get config for queue to agent auto assignment
+    my $AgentAutoConfig = $ConfigObject->Get("Agent_Auto_Assignment");
+    my %AgentAutoConfigHash= %{$AgentAutoConfig};
+
+    my $AgentAutoCriteria;
+
+    for my $keys (keys %AgentAutoConfigHash){
+        if( $Param{QueueID} eq $keys){
+            $AgentAutoCriteria = $AgentAutoConfigHash{$keys};
+        }
+    }
+
+    if(!$AgentAutoCriteria){
+        $Kernel::OM->Get('Kernel::System::Log')->Log(
+            Priority => 'info',
+            Message  => "No Auto Assingment Criteria set for Queue",
+        );
+        return;
+    }
+
+
+    if($AgentAutoCriteria eq 'AFC'){
+
+        
+        #----------------------------------------------------------------#
+        #    All logged in users -> Random
+        #----------------------------------------------------------------#
+
+
+        #Extract usernames from active session hash
+        my @activeusers;
+        for my $key (keys $ActiveSessions{PerUser}){   
+            push @activeusers,$key;
+
+        }
+
+        # Get UserID from Username
+        my @activeuserIDs;
+        for my $activeuser (@activeusers){
+            my $activeuserID = $UserObject->UserLookup(
+                UserLogin => "$activeuser",
+            );
+
+            push @activeuserIDs,$activeuserID;
+
+        }
+
+        my $randomuser = $activeuserIDs[rand(@activeuserIDs)];
+
+        return $randomuser;
+
+
+    } elsif($AgentAutoCriteria eq 'FCB'){
+
+        #-----------------------------------------------------------------------#
+        #    All logged in users -> Least no of tickets
+        #-----------------------------------------------------------------------#
+
+
+        #Extract usernames from active session hash
+        my @activeusers;
+        for my $key (keys $ActiveSessions{PerUser}){   
+            push @activeusers,$key;
+
+        }
+
+        # Get UserID from Username
+        my @activeuserIDs;
+        for my $activeuser (@activeusers){
+            my $activeuserID = $UserObject->UserLookup(
+                UserLogin => "$activeuser",
+            );
+
+            push @activeuserIDs,$activeuserID;
+
+        }
+
+        #Get Count of tickets based on ActiveID and QueueID
+        my %IDTicketCount;
+        for my $activeid (@activeuserIDs){
+
+            my @TicketCounts = $Self->TicketSearch(
+                Result => 'ARRAY',
+                OwnerIDs => [$activeid],
+                Permission => 'rw',
+                UserID => $Param{UserID},
+                # StateType => 'Open',
+                # QueueIDs => [$Param{QueueID}]
+            );
+
+            $IDTicketCount{$activeid} = @TicketCounts;
+
+        }
+
+
+        my $AgentWithLeastTicket = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
+
+
+        return $AgentWithLeastTicket;
+
+
+    } elsif($AgentAutoCriteria eq 'PSG'){
+
+        #--------------------------------------------------------------------#
+        #    All users mapped to queue -> Random
+        #--------------------------------------------------------------------#
+
+
+
+        # get list of all users assigned to queue
+
+        my $GroupID = $QueueObject->GetQueueGroupID( QueueID => $Param{QueueID} );
+
+        my %UserList = $GroupObject->PermissionGroupUserGet(
+            GroupID => $GroupID,
+            Type    => 'rw',  # ro|move_into|priority|create|rw
+        );
+
+
+        #Extract userID from userlist
+        my @UserListIDs;
+        for my $key (keys %UserList){   
+            push @UserListIDs,$key;
+
+        }
+
+        my $randomuser = $UserListIDs[rand(@UserListIDs)];
+
+
+        return $randomuser;
+
+
+    }elsif($AgentAutoCriteria eq 'LFC'){
+
+        #----------------------------------------------------------------------------#
+        #    All logged in user, mapped to queue -> with least ticket
+        #----------------------------------------------------------------------------#
+
+
+        #Extract usernames from active session hash
+        my @activeusers;
+        for my $key (keys $ActiveSessions{PerUser}){   
+            push @activeusers,$key;
+
+        }
+
+        # Get UserID from Username
+        my @activeuserIDs;
+        for my $activeuser (@activeusers){
+            my $activeuserID = $UserObject->UserLookup(
+                UserLogin => "$activeuser",
+            );
+
+            push @activeuserIDs,$activeuserID;
+
+        }
+
+        # get list of all users assigned to queue
+
+        my $GroupID = $QueueObject->GetQueueGroupID( QueueID => $Param{QueueID} );
+
+        my %UserList = $GroupObject->PermissionGroupUserGet(
+            GroupID => $GroupID,
+            Type    => 'rw',  # ro|move_into|priority|create|rw
+        );
+
+
+        #Extract userID from userlist
+        my @UserListIDs;
+        for my $key (keys %UserList){   
+            push @UserListIDs,$key;
+
+        } 
+
+        my @activeusers2;
+        for my $key2 (@activeuserIDs){
+            for my $key3 (@UserListIDs){
+                if( $key2 == $key3){
+                    push @activeusers2, $key2;
+                }
+            }
+        }
+
+        #Get Count of tickets based on ActiveID and QueueID
+        my %IDTicketCount;
+        for my $activeid (@activeusers2){
+
+            my @TicketCounts = $Self->TicketSearch(
+                Result => 'ARRAY',
+                OwnerIDs => [$activeid],
+                Permission => 'rw',
+                UserID => $Param{UserID},
+                # StateType => 'Open',
+                QueueIDs => [$Param{QueueID}]
+            );
+
+            $IDTicketCount{$activeid} = @TicketCounts;
+
+        }
+
+        my $AgentWithLeastTicket = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
+
+
+        return $AgentWithLeastTicket;
+
+    }
+
 }
 
 sub DESTROY {

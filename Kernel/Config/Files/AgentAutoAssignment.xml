@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otrs_config version="1.0" init="Application">
+
+	<ConfigItem Name="Agent_Auto_Assignment" Required="1" Valid="1">
+        	<Description Translatable="1">
+        		Auto agent assignment feature while ticket creation based on following criterias:
+		AFC- Randomly from all logged in agents
+		FCB- Agent with least tickets from all logged in agents
+		PSG- Randomly from all agents mapped to queue
+		LFC- Agent with least number of ticket from all logged in and mapped users to the queue.
+		Possible settings: Queue_ID = auto assignment criteria string
+	</Description>
+        <Group>Agent_Auto_Assignment</Group>
+        <SubGroup>Agent_Auto_Assignment</SubGroup>
+        <Setting>
+            <Hash>
+            </Hash>
+        </Setting>
+    </ConfigItem>
+
+</otrs_config>
