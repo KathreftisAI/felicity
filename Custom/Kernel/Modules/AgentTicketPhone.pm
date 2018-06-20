@@ -1725,19 +1725,27 @@ DYNAMICFIELD:
         # else set owner to current agent but do not lock it
         else {
 
-            my $AutoOwnerID = $TicketObject->AutoAssignment(
-                    QueueID => $NewQueueID,
-                    UserID => $Self->{UserID}
+            my %AutoOwner = $TicketObject->AutoAssignment(
+                QueueID => $NewQueueID,
+                UserID => $Self->{UserID}
             );
 
-            if($AutoOwnerID){
+            if(%AutoOwner){
 
                 $TicketObject->TicketOwnerSet(
                     TicketID           => $TicketID,
-                    NewUserID          => $AutoOwnerID,
+                    NewUserID          => $AutoOwner{AutoOwnerID},
                     SendNoNotification => 1,
                     UserID             => $Self->{UserID},
                 );
+
+                my $Success = $TicketObject->HistoryAdd(
+                    Name         => "Ticket is Auto Assigned by $AutoOwner{AgentAutoCriteria} criteria",
+                    HistoryType  => 'OwnerUpdate', 
+                    TicketID     => $TicketID,
+                    CreateUserID => $Self->{UserID}
+                ); 
+
             } else {
 
                 $TicketObject->TicketOwnerSet(
