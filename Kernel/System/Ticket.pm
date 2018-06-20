@@ -7507,14 +7507,17 @@ sub SearchUnknownTicketCustomers {
 
 returns OwnerID based on the AutoAssignment Criteria set for the Queue in $ConfigObject->Get("Agent_Auto_Assignment")
 
-    my $AutoOwnerID = $TicketObject->AutoAssignment(
+    my %AutoOwner = $TicketObject->AutoAssignment(
         QueueID => 123,
         UserID => 123
     );
 
 Returns:
 
-    $AutoOwnerID = 4
+    %AutoOwner = {
+                    AgentAutoCriteria => 'abc',  
+                    AutoOwnerID => 123
+    }
 
 =cut
 
@@ -7572,6 +7575,8 @@ sub AutoAssignment{
         return;
     }
 
+    my %AutoAgent;
+
 
     if($AgentAutoCriteria eq 'AFC'){
 
@@ -7599,9 +7604,12 @@ sub AutoAssignment{
 
         }
 
-        my $randomuser = $activeuserIDs[rand(@activeuserIDs)];
+        $AutoAgent{AgentAutoCriteria} = $AgentAutoCriteria;
+        $AutoAgent{AutoOwnerID} = $activeuserIDs[rand(@activeuserIDs)];
 
-        return $randomuser;
+
+
+        return %AutoAgent;
 
 
     } elsif($AgentAutoCriteria eq 'FCB'){
@@ -7646,11 +7654,10 @@ sub AutoAssignment{
 
         }
 
+        $AutoAgent{AutoOwnerID} = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
+        $AutoAgent{AgentAutoCriteria} = $AgentAutoCriteria;
 
-        my $AgentWithLeastTicket = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
-
-
-        return $AgentWithLeastTicket;
+        return %AutoAgent;
 
 
     } elsif($AgentAutoCriteria eq 'PSG'){
@@ -7658,8 +7665,6 @@ sub AutoAssignment{
         #--------------------------------------------------------------------#
         #    All users mapped to queue -> Random
         #--------------------------------------------------------------------#
-
-
 
         # get list of all users assigned to queue
 
@@ -7670,7 +7675,6 @@ sub AutoAssignment{
             Type    => 'rw',  # ro|move_into|priority|create|rw
         );
 
-
         #Extract userID from userlist
         my @UserListIDs;
         for my $key (keys %UserList){   
@@ -7678,10 +7682,11 @@ sub AutoAssignment{
 
         }
 
-        my $randomuser = $UserListIDs[rand(@UserListIDs)];
+        $AutoAgent{AutoOwnerID} = $UserListIDs[rand(@UserListIDs)];
+        $AutoAgent{AgentAutoCriteria} = $AgentAutoCriteria;
 
 
-        return $randomuser;
+        return %AutoAgent;
 
 
     }elsif($AgentAutoCriteria eq 'LFC'){
@@ -7749,13 +7754,12 @@ sub AutoAssignment{
             );
 
             $IDTicketCount{$activeid} = @TicketCounts;
-
         }
 
-        my $AgentWithLeastTicket = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
+        $AutoAgent{AutoOwnerID} = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
+        $AutoAgent{AgentAutoCriteria} = $AgentAutoCriteria;
 
-
-        return $AgentWithLeastTicket;
+        return %AutoAgent;
 
     }
 

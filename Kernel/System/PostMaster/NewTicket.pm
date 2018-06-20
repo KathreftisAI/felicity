@@ -10,7 +10,7 @@ package Kernel::System::PostMaster::NewTicket;
 
 use strict;
 use warnings;
-
+use Data::Dumper;
 our @ObjectDependencies = (
     'Kernel::Config',
     'Kernel::System::CustomerUser',
@@ -220,16 +220,16 @@ sub Run {
         $GetParam{'X-OTRS-CustomerUser'} = $GetParam{SenderEmailAddress};
     }
 
-    my $AutoOwnerID = $TicketObject->AutoAssignment(
+    my %AutoOwner = $TicketObject->AutoAssignment(
         QueueID => $QueueID,
         UserID => $Param{InmailUserID}
     );
 
     my $OwnerID;
 
-    if($AutoOwnerID){
+    if(%AutoOwner){
         # get ticket owner
-        $OwnerID = $GetParam{'X-OTRS-OwnerID'} || $AutoOwnerID;
+        $OwnerID = $GetParam{'X-OTRS-OwnerID'} || $AutoOwner{AutoOwnerID};
         if ( $GetParam{'X-OTRS-Owner'} ) {
 
             my $TmpOwnerID = $Kernel::OM->Get('Kernel::System::User')->UserLookup(
@@ -290,6 +290,13 @@ sub Run {
     if ( !$TicketID ) {
         return;
     }
+
+    my $Success = $TicketObject->HistoryAdd(
+        Name         => "Ticket is Auto Assigned by $AutoOwner{AgentAutoCriteria} criteria",
+        HistoryType  => 'OwnerUpdate', 
+        TicketID     => $TicketID,
+        CreateUserID => $Param{InmailUserID}
+    );
 
     # debug
     if ( $Self->{Debug} > 0 ) {
