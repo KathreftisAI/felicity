@@ -1,0 +1,41 @@
+{
+  "name": "showdown-table",
+  "version": "1.0.1",
+  "description": "Add markdown table flavor to showdown",
+  "keywords": [
+    "markdown",
+    "showdown",
+    "showdown extension",
+    "tables"
+  ],
+  "author": "Estevão Soares dos Santos",
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/showdownjs/table-extension.git",
+    "web": "https://github.com/showdownjs/table-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/showdownjs/table-extension/issues"
+  },
+  "main": "./dist/showdown-table.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "showdown": "1.0.x"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "load-grunt-tasks": "^3.2.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-conventional-changelog": "^1.1.0",
+    "grunt-jscs": "^1.2.0",
+    "grunt-simple-mocha": "^0.4.0",
+    "grunt-stripcomments": "^0.3.1"
+  }
+}

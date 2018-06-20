@@ -81,6 +81,10 @@
 
         <!-- spinner -->
 
+        <!-- Showdown JS -->
+        <script type="text/javascript" src="[% Config("Frontend::WebPath") %]js/thirdparty/showdownjs/dist/showdown.min.js"></script>
+        <script type="text/javascript" src="[% Config("Frontend::WebPath") %]js/thirdparty/showdown-table/dist/showdown-table.min.js"></script>
+
 
         <script src="[% Config("Frontend::WebPath") %]skins/Agent/plugins/spin.js/spin.js"></script>
         <script src="[% Config("Frontend::WebPath") %]skins/Agent/plugins/angular-spinner/angular-spinner.js"></script>

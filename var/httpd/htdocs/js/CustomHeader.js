@@ -29,8 +29,17 @@ $(window).scroll(function() {
  	$(".msg-items").css("max-height", chatHeight);
 });
 
+// $("#discuss").animate({ scrollTop: $("#discuss").attr("scrollHeight") - $('#discuss').height() }, 3000);
 
-const rc = new WebSocket('ws://192.168.2.249:3000/websocket');
+const scrollToBottom = function scrollToBottom (duration) {
+	let messageWindow = $(".discuss-sidebar");
+	let scrollHeight = messageWindow.prop("scrollHeight");
+	messageWindow.stop().animate({scrollTop: scrollHeight}, duration || 0);
+};
+
+
+// const rc = new WebSocket('ws://192.168.2.249:3000/websocket');
+const rc = new WebSocket('ws://192.168.2.57:8096/websocket');
 
 let now = new Date();
 
@@ -51,8 +60,8 @@ let stream = {
     ]
 }
 
-const sha256 = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // admin - 249
-// const sha256 = "48114F783C3243BA4CF20EC7DAF80BF199CD3375BF491A0CE09634CEB56032BF"; // shata
+// const sha256 = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // admin - 249
+const sha256 = "48114F783C3243BA4CF20EC7DAF80BF199CD3375BF491A0CE09634CEB56032BF"; // shata
 // const sha256 = "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4"; // unobot
 
 let pong = {
@@ -159,11 +168,15 @@ function loadMessagesInWindow( messages ){
 function addMessageLi( addClass, messageData ){
 	let messageTime = new Date(messageData.ts['$date']);
 	messageTime = messageTime.toLocaleString();
+
+	let converter = new showdown.Converter({extensions: ['table']});
+	let body = converter.makeHtml(messageData.msg);
+
 	$("#msg-items-u").append('\
 		<li class="msg-item '+addClass+'">\
 			<div class="msg-body">\
 				<div class="msg-header"> <span class="msg-name">'+messageData.u['name']+'</span> <span class="msg-datetime">'+messageTime+'</span> </div>\
-				<div class="msg-message">'+messageData.msg+'</div>\
+				<div class="msg-message">'+body+'</div>\
 			</div>\
 		</li>\
     ');
@@ -176,11 +189,9 @@ $(".chat-area textarea").keydown(function(e){
 		let messageBody = sendMessageBody;
 		messageBody.params[0].msg = $(this).val();
 		messageBody.id = randomID();
-		messageBody.params[0]['_id'] = randomID();
-// $('#chatmessages').scrollTop($('#chatmessages')[0].scrollHeight);		
+		messageBody.params[0]['_id'] = randomID();	
 		$(this).val('');
 		rc.send(JSON.stringify(messageBody));
-  		// e.preventDefault();
-  		// return true;
+		scrollToBottom();
   	}
 });
