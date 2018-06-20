@@ -84,28 +84,8 @@ X-OTRS-Login: [% Env("Baselink") %]
 <script type="text/javascript" src="[% Config("Frontend::WebPath") %]js/Tea_JS_loader.js"></script>
 
 <script type="text/javascript" src="[% Config("Frontend::WebPath") %]js/thirdparty/jquery-2.1.4/jquery.js"></script>
-<script type="text/javascript">
-     
-function CaptchaRefresh() {
-    var url = '/felicity/Captcha.pl';
-        var subquery = '';
-        $.ajax({
 
-            url: url,
-            type: 'post',
-            datatype: 'json',
-            success: function(response){
-            var myObj = JSON.parse(response);
-            document.getElementById("CaptchaImage").src="[% Config("Frontend::WebPath") %]Captcha/http/image/"+myObj.result+".png";
-            document.getElementById("tokenvalue").value=myObj.result;
-            }
-        });
-
-}
-
-</script>
-
-    <title>[% Translate(Data.Title) | html %] - [% Config("ProductName") %]</title>
+<title>[% Translate(Data.Title) | html %] - [% Config("ProductName") %]</title>
 
 [% InsertTemplate("HTMLHeadBlockEvents.tt") %]
 <link rel="stylesheet" href="[% Config("Frontend::WebPath") %]skins/Agent/default/css/thirdparty/felicity_agent/css/felicity_styles.css" />
@@ -182,36 +162,6 @@ function CaptchaRefresh() {
           </div>
         </div>
 		
-		<div class="form-group">
-			
-			<div class="captcha-con">
-			  
-			  <div class="captcha-img">
-			  <label for="Captcha" ><!--[% Translate("Captcha") | html %]--></label>
-			  <label for="CaptchaInput" class="Mandatory"> 
-			  <span class="Marker">*</span> [% Translate("Enter Captcha") | html %] 
-			  </label>
-			  
-			  <img id="CaptchaImage" src="[% Data.tokenpath | html %]" alt="Captcha" >
-			  
-			   <input autocorrect="off" autocapitalize="off" type="text" id="CaptchaInput" name="CaptchaInput" value="[% Data.CaptchaInput | html %]" required="" />			   
-			  
-			  <div class="refresh-btn">
-				  <a onclick="CaptchaRefresh();"> 
-				  <i class="fa fa-refresh"></i>
-				  </a>
-			  </div>
-			  <div class="spacer"></div>
-			  </div>
-			  <input id="tokenvalue" type="hidden" name="token" value="[% Data.token | html %]" />
-			  
-			
-			  
-			  <div class="spacer"></div>
-			  
-			</div>
-		  
-		</div>
 		
         <div class="form-group">
           <button type="submit" id="LoginButton" class="btn btn-primary full-width" value="[% Translate("Login") | html %]" disabled="disabled"><span>[% Translate("Login") | html %]</span></button>
@@ -222,7 +172,7 @@ function CaptchaRefresh() {
         <label for="TwoFactorToken" class="InvisibleText [% Data.MandatoryClass | html %]"> [% RenderBlockStart("AuthTwoFactorMandatory") %] <span class="Marker">*</span> [% RenderBlockEnd("AuthTwoFactorMandatory") %]
           [% Translate("2 Factor Token") | html %] </label>
         
-		<div>
+		    <div>
           <input type="text" placeholder="[% Translate("2 Factor Token") | html %]" id="TwoFactorToken" name="TwoFactorToken" class="W75pc [% Data.ValidateRequired | html %]" />
         </div>
 		

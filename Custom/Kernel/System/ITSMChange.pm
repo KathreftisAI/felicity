@@ -3577,7 +3577,7 @@ sub CustomPermission{
         }
     }
 
-    if ($Param{Action} eq 'AgentITSMTemplateEditContent' || $Param{Action} eq 'AgentITSMTemplateOverview'   ) {
+    if ($Param{Action} eq 'AgentITSMTemplateEditContent' || $Param{Action} eq 'AgentITSMTemplateOverview' || $Param{Action} eq 'AgentITSMChangeManager'  ) {
         my %CreateGroupList = $GroupObject->PermissionUserITSMChangeGroupGet(
             UserID => $Param{UserID},
             Type   => 'rw',

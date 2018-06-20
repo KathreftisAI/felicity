@@ -16,74 +16,136 @@
 
 
 <div class="spacer20"></div>
+	
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-		<h4>Critical Open In</h4>
-		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;">[% Data.critical_incident %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Critical Open In </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentIncident;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.criticalincident %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
+
 	<div class="col-md-4 text-center">
-	<div class="info-box">
-		<h4>Unassigned Incidents</h4>
-		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterLock=1;Filter=All;">[% Data.Unassigned_Incidents %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Unassigned Incident</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentIncident;ColumnFilterLock=1;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>	
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.UnassignedIncidents %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
+
 	<div class="col-md-4 text-center">
-	<div class="info-box">
-		<h4>Overdue Incidents</h4>
-		<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentNewEscalation;">[% Data.Overdue_Incidents %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Overdue Incidents</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentNewEscalation;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.OverdueIncidents %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
 
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-		<h4>Open Incidents</h4>
-		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;ColumnFilterState=4;Filter=All;">[% Data.Open_incident %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Incidents</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentIncident;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.Open %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.TicketCounts.Openincident %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
+
 	<div class="col-md-4 text-center">
-	<div class="info-box">
-		<h4>Incidents not Updated for 7 days</h4>
-		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;">[% Data.sevenday_incidentticket %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Incidents not Updated for 7 days</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentIncident;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.TicketCounts.sevendayincidentticket %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
+
 	<div class="col-md-4 text-center">
-	<div class="info-box">
-		<h4>Open Incidents Older Than 30 days</h4>
-		<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentIncident;Filter=All;">[% Data.ThirtyDays_incidentticket %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Incidents Older Than 30 days</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentIncident;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.TicketCounts.IncidentTicket %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
 
-
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body" id="statePieDiv" style="height:400px;"></div>
+	        <div id="statePieDiv" style="height:400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-			<div class="panel-body " id="openIncident" style="height:400px;"></div>
+			<div id="openIncident" style="height:400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body " id="OpenCloseStateDiv" style="height:400px;"></div>
+	        <div id="OpenCloseStateDiv" style="height:400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	       <div class="panel-body " id="matrix" style="height:400px;"></div>
+	       <div id="matrix" style="height:400px;"></div>
 	    </div>
 	</div>
-
-
 
 	<div class="clearfix"></div>
 
@@ -409,5 +471,19 @@
 <style type="text/css">	
 	.text-danger {
 	  color: red;
+	}
+
+	div.location {
+		cursor:pointer;
+		height: 130px;
+	}
+
+	.info-box{border:none;}
+
+	.panel-default>.panel-heading {
+	    position: relative;
+	    box-shadow: none;
+	    border-right: none;
+	    font-weight:700;
 	}
 </style>
