@@ -13,7 +13,6 @@ use warnings;
 
 use Storable;
 use URI::Escape qw();
-use Authen::Captcha;
 
 
 use Kernel::System::Time;
@@ -830,21 +829,7 @@ sub Login {
     # if not in PreLogin mode, show normal login form
     else {
 
-        # create a new object
-        my $captcha = Authen::Captcha->new();
-
-        # set the data_folder. contains flatfile db to maintain state
-        # set directory to hold publicly accessible images
-        $captcha = Authen::Captcha->new(
-            data_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha',
-            output_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha/http/image',
-        );
-
-        # create a captcha. Image filename is "$token.png"
-        my $token = $captcha->generate_code(5);
-        $Param{token}=$token;
-        $Param{tokenpath}=$ConfigObject->Get('Frontend::WebPath')."Captcha/http/image/$token.png";
-
+       
         $Self->Block(
             Name => 'LoginBox',
             Data => \%Param,
@@ -3515,21 +3500,6 @@ sub CustomerLogin {
     else {
 
 
-        # create a new object
-        my $captcha = Authen::Captcha->new();
-
-        # set the data_folder. contains flatfile db to maintain state
-        # set directory to hold publicly accessible images
-        $captcha = Authen::Captcha->new(
-        data_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha',
-        output_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha/http/image',
-        );
-
-        # create a captcha. Image filename is "$token.png"
-        my $token = $captcha->generate_code(5);
-        $Param{token}=$token;
-        $Param{tokenpath}="/otrs-web/Captcha/http/image/$token.png";
-        
         $Self->Block(
             Name => 'LoginBox',
             Data => \%Param,

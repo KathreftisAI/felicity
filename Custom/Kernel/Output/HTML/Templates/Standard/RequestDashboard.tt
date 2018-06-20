@@ -14,46 +14,105 @@
 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/heatmap.js"></script>
 <script src="[% Config("Frontend::WebPath") %]js/thirdparty/highchart/drilldown.js"></script>
 
-
 <div class="spacer20"></div>
 
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Critical Open In</strong></h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;">[% Data.critical_request %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Critical Open In </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;'">
+					<h4>For me</strong></h4>
+					<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</strong></h4>
+					<h1 class="text-danger">[% Data.critical_request %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Unassigned Requests</h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;">[% Data.Unassigned_Request %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Unassigned Requests</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterLock=1;Filter=All;'">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.Unassigned_Request %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Overdue Requests</h4>
-			<h1><a class="text-danger" href="[% Env('Baselink') %]Action=RequestEscalation;">[% Data.Overdue_Request %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Overdue Requests </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=RequestEscalation;'">
+					<h4>For all</h4>
+					<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For me</h4>
+					<h1 class="text-danger">[% Data.Overdue_Request %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="clearfix" style="height: 20px;"></div>
 
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Open Requests</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;">[% Data.Open_request %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Requests</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;ColumnFilterState=4;Filter=All;'">
+					<h4>For all</h4>
+					<h1>[% Data.TicketCounts.Open %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For me</h4>
+					<h1>[% Data.Open_request %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Requests not Updated for 7 days</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest">[% Data.sevenday_requestticket %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Requests not Updated for 7 days</div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.sevenday_requestticket %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4 text-center">
-		<div class="info-box">
-			<h4>Open Requests Older Than 30 days</h4>
-			<h1><a style="text-decoration: none;color: black;" href="[% Env('Baselink') %]Action=AgentRequest;Filter=All;">[% Data.ThirtyDays_requestticket %]</a></h1>
+		<div class="panel panel-default">
+			<div class="panel-heading">Open Request Older Than 30 days </div>
+			<div class="info-box">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentRequest;Filter=All;'">
+					<h4>For me</h4>
+					<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
+				</div>
+				<div class="col-md-6">
+					<h4>For all</h4>
+					<h1>[% Data.ThirtyDays_requestticket %]</h1>
+				</div>
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 
@@ -63,36 +122,36 @@
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body" id="stateBarReqDiv" style="height:400px;"></div>
+			<div id="stateBarReqDiv" style="height: 400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-
-	        <div class="panel-body " id="openRequest" style="height:400px;"></div>
+	        <div id="openRequest" style="height: 400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	        <div class="panel-body " id="OpenCloseStateReqDiv" style="height:400px;"></div>
+	        <div id="OpenCloseStateReqDiv" style="height: 400px;"></div>
 	    </div>
 	</div>
 
 	<div class="col-md-6">
 	    <div class="panel panel-default">
-	       <div class="panel-body " id="matrixRequestDiv" style="height:400px;"></div>
+	       <div id="matrixRequestDiv" style="height: 400px;"></div>
 	    </div>
 	</div>
 
 	<div class="clearfix"></div>
 
+
+
 <script type="text/javascript">
 /*-----------------------------------------------------------------------------------------------------------------*/
 	/************code for ticket state count*************/
 /*-----------------------------------------------------------------------------------------------------------------*/
-
 	var ticketStateList=[% JSON(Data.ticket_state_list) %];
 	var ticketState = [% JSON(Data.ticket_state) %];
 	var convertedStateArray = ticketState.map(function(stateValues) {
@@ -415,5 +474,18 @@
 <style type="text/css">	
 	.text-danger {
 	  color: red;
+	}
+	div.location {
+		cursor:pointer;
+		height: 130px;
+	}
+
+	.info-box{border:none;}
+
+	.panel-default>.panel-heading {
+	    position: relative;
+	    box-shadow: none;
+	    border-right: none;
+	    font-weight:700;
 	}
 </style>
