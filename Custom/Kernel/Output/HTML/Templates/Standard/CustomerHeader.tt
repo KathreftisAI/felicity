@@ -64,6 +64,9 @@ Disable the below line for disable mobile mode from customer side
               </a> </li> -->
           </ul>
         </li>
+		
+		  <li><a href="JavaScript:Void(0)" id="top_discuss_link"><i class="fa fa-comments"></i>Discuss</a></li>
+		  
         <li class="dropdown user"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i>
 [% Env("UserFirstname") | html %]
     <span class="drop-icon"></span></a>
@@ -82,3 +85,148 @@ Disable the below line for disable mobile mode from customer side
     </div>
     </div>
 </header>
+
+
+	<!--Side BAr For Chat Window -- >
+	
+	<!--Side Discuss Bar-->
+<div id="discuss_bar" class="animated slideInRight discuss-sidebar" style="display: none;">
+  <div class="discuss-top"> 
+    <div class="auto-width pull-right"><i class="la la-close la-2x close"></i></div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="panel with-nav-tabs panel-default">
+    <div class="panel-heading">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#discuss" data-toggle="tab"><i class="la la la-link"></i> Discuss</a></li>
+        <li> <a href="#members" data-toggle="tab"> <i class="la la la-comment-o"></i> Members<span class="badge">7</span> </a> </li>
+      </ul>
+    </div>
+    <div class="panel-body">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="discuss">
+          <ul class="msg-items">
+            <li class="msg-item msg-self">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Yazad</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy text of the printing.</div>
+              </div>
+            </li>
+            <li class="msg-item msg-from">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Felicity Support</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+              </div>
+            </li>
+            <li class="msg-item msg-self">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Yazad</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy.</div>
+              </div>
+            </li>
+            <li class="msg-item msg-self">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Yazad</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy.</div>
+              </div>
+            </li>
+            <li class="msg-item msg-self">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Yazad</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy.</div>
+              </div>
+            </li>
+            <li class="msg-item msg-self">
+              <div class="msg-body">
+                <div class="msg-header"> <span class="msg-name">Yazad</span> <span class="msg-datetime">6:46 PM</span> </div>
+                <div class="msg-message">Lorem Ipsum is simply dummy.</div>
+              </div>
+            </li>
+          </ul>
+          <div class="chat-area">
+            <textarea placeholder="Type 'Shift+Enter' to add a new line"></textarea>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="members">
+          <ul class="members-list">
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Vikash Jha </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+            <li class="member">
+              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
+              Yazad Balsara </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/*Discuss SideBar*/
+	
+$('#btn_discuss').click(function () {
+		$('#discuss_bar').show();		
+	});
+	
+	$('#btn_res_discuss').click(function () {
+		$('#discuss_bar').show();		
+	});
+	
+	$('#res-nav-btn').click(function () {
+		$('#res-nav').toggle();		
+	});
+	
+	$('#top_discuss_link').click(function () {
+		$('#discuss_bar').show();		
+	});
+	
+	$('#discuss_bar .close').click(function () {
+		$('#discuss_bar').hide();		
+	});
+	
+	$('#max_dis').click(function () {
+		$('#discuss_bar').toggleClass('expand');		
+	});
+	
+	$(".chat-area textarea").keydown(function(e){
+	if (e.keyCode === 13 && !e.shiftKey)
+	{
+	  e.preventDefault();
+	  return false;
+	  }
+	});
+	
+	$(window).scroll(function() {
+    var windowHeight = $(window).height();
+    $(".discuss-sidebar").css("height", windowHeight);
+	});
+</script>	
+	

@@ -20,3 +20,4 @@ var/tmp/*
 css-cache
 js-cache
 var/httpd/htdocs/Captcha/*
+Custom/Kernel/Config.pm
