@@ -19,4 +19,4 @@ var/log/Daemon/*.log
 var/tmp/*
 css-cache
 js-cache
-Custom/Kernel/Config.pm
+Config.pm
