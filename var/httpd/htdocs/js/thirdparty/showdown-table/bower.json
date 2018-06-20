@@ -1,0 +1,37 @@
+{
+  "name": "showdown-table",
+  "description": "Add markdown table favor to showdown",
+  "homepage": "https://github.com/showdownjs/table-extension",
+  "license": "BSD-2-Clause",
+  "authors": [
+    "Estevão Santos (https://github.com/tivie)",
+    "Pascal Deschênes (https://github.com/pdeschen)",
+    "Corey Innis (https://github.com/coreyti)",
+    "John Fraser"
+  ],
+  "keywords": [
+    "markdown",
+    "showdown",
+    "showdown extension",
+    "table"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/showdownjs/table-extension.git",
+    "web": "https://github.com/showdownjs/table-extension"
+  },
+  "main": ["dist/showdown-table.js"],
+  "dependencies": {
+    "showdown": "1.0.x"
+  },
+  "ignore": [
+    "src/",
+    "test/",
+    ".editorconfig",
+    ".gitignore",
+    ".jscs.json",
+    ".jshintrc",
+    ".travis.yml",
+    "Gruntfile.js"
+  ]
+}
