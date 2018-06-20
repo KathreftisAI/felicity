@@ -12,7 +12,7 @@ use strict;
 use warnings;
 use Kernel::Language qw(Translatable);
 use Kernel::System::VariableCheck qw(:all);
-
+use Data::Dumper;
 our $ObjectManagerDisabled = 1;
 
 sub new {
@@ -191,7 +191,7 @@ sub Run {
     $Param{open_incidentGroup}  = \@PriorityData;
 
 
-#----------------------function show count of ticket for login user-----------------------#
+#-------------------function show count of ticket for login user and total count---------------------#
 
     my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
 
@@ -211,16 +211,29 @@ sub Run {
                 Priorities  => ['P1'],
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
+                OwnerIDs=> [$Self->{UserID}],
+            },
+            criticalincident=>{
+                Result => 'COUNT',
+                Types   => ['Incident'],
+                States   => ['open'],
+                Priorities  => ['P1'],
+                UserID     => $Self->{UserID},
             },
             Open => {
                 Result => 'COUNT',
                 Types   => ['Incident'],
                 States   => ['open'],
-                
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
+                OwnerIDs=> [$Self->{UserID}],
             },
-
+            Openincident=>{
+                Result => 'COUNT',
+                Types   => ['Incident'],
+                States   => ['open'],
+                UserID     => $Self->{UserID},
+            },
             Unassigned => {
                 Result => 'COUNT',
                 Types   => ['Incident'],
@@ -228,12 +241,29 @@ sub Run {
                 Locks         => ['unlock'],
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
+                OwnerIDs=> [$Self->{UserID}],
+            },
+            UnassignedIncidents=>{
+                Result => 'COUNT',
+                Types   => ['Incident'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                Locks         => ['unlock'],
+                UserID     => $Self->{UserID},
             },
             Overdue => {
                 Result => 'COUNT',
                 Types => ['Incident'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
+                TicketEscalationTimeOlderDate => $TimeStampToday,
+                OwnerIDs=> [$Self->{UserID}],
+            },
+            OverdueIncidents=>{
+                Result => 'COUNT',
+                Types => ['Incident'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                UserID     => $Self->{UserID} ,
                 TicketEscalationTimeOlderDate => $TimeStampToday,
             },
             SevenDayUpdate => {
@@ -243,22 +273,37 @@ sub Run {
                 TicketLastChangeTimeOlderMinutes => 7*60*24,
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
+                OwnerIDs=> [$Self->{UserID}],
+            },
+            sevendayincidentticket=>{
+                Result => 'COUNT',
+                Types => ['Incident'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                TicketLastChangeTimeOlderMinutes => 7*60*24,
+                UserID     => $Self->{UserID},
             },
             ThirtyDayUpdate => {
                 Result => 'COUNT',
                 Types => ['Incident'],
-                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                StateType => ['open'],
                 TicketCreateTimeOlderMinutes => 30*24*60,
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
-            }
+                OwnerIDs=> [$Self->{UserID}],
+            },
+            IncidentTicket => {
+                Result => 'COUNT',
+                Types => ['Incident'],
+                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                TicketLastChangeTimeOlderMinutes => 30*24*60,
+                UserID     => $Self->{UserID},
+            },
 
         );
 
 
     my %TicketCounts;
-
-    for my $keys (qw(CriticalOpen Open Unassigned Overdue SevenDayUpdate ThirtyDayUpdate)) {
+    for my $keys (qw(CriticalOpen criticalincident Open Openincident Unassigned UnassignedIncidents Overdue OverdueIncidents SevenDayUpdate sevendayincidentticket ThirtyDayUpdate IncidentTicket)) {
         $TicketCounts{$keys} = $TicketObject->TicketSearch(
            %{$Filters{$keys}}
         );
@@ -266,77 +311,9 @@ sub Run {
 
      $Param{TicketCounts} = \%TicketCounts;
 
+     $Param{OwnerID} = $Self->{UserID};
+
 #----------------------------END----------------------------------------------------------#
-#-----------------------------------------------------------------------------------------#
-    #query for number dashboard
-#-----------------------------------------------------------------------------------------#
-
-    #open critical ticket
-    return if !$DBObject->Prepare(
-        SQL  => "select  b.name as State,c.name as Priority, count(a.id) AS Count
-        from ticket a , ticket_state b ,  ticket_priority c
-        where a.ticket_state_id = b.id and a.ticket_priority_id = c.id
-        and b.name = 'open' and  c.name = 'P1' and a.type_id=2
-        group by b.name ,c.name
-        order by b.name ,c.name",
-    );
-   
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-       $Param{critical_incident} = $Row[2];
-    }
-    
-    #open incidents
-    return if !$DBObject->Prepare(
-        SQL  => "select  b.name as State, count(a.id) AS Count
-        from ticket a , ticket_state b
-        where a.ticket_state_id = b.id and a.type_id=2
-        and b.name = 'open'
-        group by b.name",
-    );
-
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-       $Param{Open_incident} = $Row[1];
-    }
-   
-    #Incidents not updated for 7 days
-    return if !$DBObject->Prepare(
-        SQL  => "select  count(a.id) as count 
-        from ticket a , ticket_state b
-        where a.ticket_state_id = b.id and  b.name !=  'closed'  and a.type_id=2
-        and cast(a.change_time as date) <= (current_date - interval 7 day )",
-    );
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-       $Param{sevenday_incidentticket} =$Row[0] ;  
-    }
-
-    #Incidents not updated for 30 days
-    return if !$DBObject->Prepare(
-        SQL  => "select  count(cast(a.change_time as date)) as count
-        from ticket a , ticket_state b
-        where a.ticket_state_id = b.id and b.name !=  'closed' and a.type_id=2
-        and cast(a.change_time as date) >= (current_date - interval 30 day)",
-    );
-   
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-      $Param{ThirtyDays_incidentticket} =  $Row[0]  ;
-    }
-   
-    #Unassigned Incident
-    return if !$DBObject->Prepare(
-        SQL  => "Select count(*) from ticket where ticket_lock_id =1 AND type_id=2 AND ticket_state_id != 2",
-    );
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-      $Param{Unassigned_Incidents} =  $Row[0]  ;
-    }
-
-    #Overdue Incident
-    return if !$DBObject->Prepare(
-        SQL  => "SELECT COUNT(id)FROM ticket WHERE escalation_solution_time > 0 AND from_unixtime(escalation_solution_time) < NOW() AND type_id=2 AND ticket_state_id != 2",
-    );
-    while ( my @Row = $DBObject->FetchrowArray() ) {
-      $Param{Overdue_Incidents} =  $Row[0]  ;
-    }
-
 
     my $Output = $LayoutObject->Header();
     $Output .= $LayoutObject->NavigationBar();
