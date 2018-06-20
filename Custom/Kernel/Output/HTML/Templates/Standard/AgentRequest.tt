@@ -19,7 +19,7 @@ padding:5px 0px !important;
 <div class="btn-tkt-div">
 <div class="spacer10"></div>
 	<ul class="btn-box">
-	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Request"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png" title="Add New Incident"> </a></li>
+	<li><a href="[% Env('Baselink') %]Action=AgentTicketPhone&type=Request"><img src="[% Config("Frontend::WebPath") %]skins/Agent/default/img/add-btn.png" title="Add New Request"> </a></li>
 	</ul> 
 </div>
 

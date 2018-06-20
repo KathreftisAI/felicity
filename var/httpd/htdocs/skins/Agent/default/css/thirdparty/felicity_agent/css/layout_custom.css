@@ -424,3 +424,12 @@ div#ArticleItems .ArticleMailContent iframe{border:none;}
     max-width: 246px !important;
 }
 button{font-weight:normal !important;}
+
+div#Dashboard0250-TicketStats svg {
+    height: 257px !important;
+	padding: 0px !important;
+}
+.OverviewActions ul.OverviewZoom {
+    display: none;
+}
+form label.LabelError{color:#ff505e !important;}

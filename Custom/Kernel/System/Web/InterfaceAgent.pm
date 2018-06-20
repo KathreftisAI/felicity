@@ -10,7 +10,6 @@ package Kernel::System::Web::InterfaceAgent;
 
 use strict;
 use warnings;
-use Authen::Captcha;
 use Crypt::Tea_JS;
 use MIME::Base64;
 use Kernel::Language qw(Translatable);
@@ -196,19 +195,6 @@ sub Run {
     my $SessionObject = $Kernel::OM->Get('Kernel::System::AuthSession');
     my $UserObject    = $Kernel::OM->Get('Kernel::System::User');
 
-    # Create Captcha Directory if doesn't exist;
-    my $OutputDirectory = $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha/http/image';
-    if ( !-d $OutputDirectory ) {
-        if( !File::Path::make_path( $OutputDirectory,    { chmod => 0775 } ) ){
-            $Kernel::OM->Get('Kernel::System::Log')->Log(
-                Priority => 'error',
-                Message  => "Can't create directory '$OutputDirectory': $!",
-            );
-            return;
-        }
-    }   
-
-
     # check request type
     if ( $Param{Action} eq 'PreLogin' ) {
         my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
@@ -227,81 +213,8 @@ sub Run {
     }
     elsif ( $Param{Action} eq 'Login' ) {
 
-         # create AuthObject
+        # create AuthObject
         my $AuthObject = $Kernel::OM->Get('Kernel::System::Auth');
-
-        #Captcha verification code
-          # create a new object
-        my $captcha = Authen::Captcha->new();
-
-        # set the data_folder. contains flatfile db to maintain state
-        # set directory to hold publicly accessible images
-        $captcha = Authen::Captcha->new(
-            data_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha',
-            output_folder => $ConfigObject->Get('Home').'/var/httpd/htdocs/Captcha/http/image',
-        );
-        #params
-        my $token = $ParamObject->GetParam( Param => 'token' ) || '';
-        my $CaptchaInput = $ParamObject->GetParam( Param => 'CaptchaInput' ) || '';
-        my $results;
-        if($CaptchaInput){
-            # check for a valid submitted captcha
-            #   $CaptchaInput is the submitted letter combination guess from the user
-            #   $token is the submitted token from the user (that we gave them)
-            $results = $captcha->check_code($CaptchaInput,$token);
-        }
-         # login is invalid
-        if ( $results ne '1' ) {
-
-            my $Expires = '+' . $ConfigObject->Get('SessionMaxTime') . 's';
-            if ( !$ConfigObject->Get('SessionUseCookieAfterBrowserClose') ) {
-                $Expires = '';
-            }
-
-            $Kernel::OM->ObjectParamAdd(
-                'Kernel::Output::HTML::Layout' => {
-                    SetCookies => {
-                        OTRSBrowserHasCookie => $ParamObject->SetCookie(
-                            Key      => 'OTRSBrowserHasCookie',
-                            Value    => 1,
-                            Expires  => $Expires,
-                            Path     => $ConfigObject->Get('ScriptAlias'),
-                            Secure   => $CookieSecureAttribute,
-                            HTTPOnly => 1,
-                        ),
-                    },
-                    }
-            );
-            my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
-
-            # redirect to alternate login
-            if ( $ConfigObject->Get('LoginURL') ) {
-                $Param{RequestedURL} = $LayoutObject->LinkEncode( $Param{RequestedURL} );
-                print $LayoutObject->Redirect(
-                    ExtURL => $ConfigObject->Get('LoginURL')
-                        . "?Reason=LoginFailed&RequestedURL=$Param{RequestedURL}",
-                );
-                return;
-            }
-
-            # show normal login
-            $LayoutObject->Print(
-                Output => \$LayoutObject->Login(
-                    Title   => 'Login',
-                    Message => $Kernel::OM->Get('Kernel::System::Log')->GetLogEntry(
-                        Type => 'Info',
-                        What => 'Message',
-                        )
-                        || $LayoutObject->{LanguageObject}->Translate( $AuthObject->GetLastErrorMessage() )
-                        || Translatable('Invalid Captcha'),
-                    LoginFailed => 1,
-                    MessageType => 'Error',
-                    %Param,
-                ),
-            );
-            return;
-        }
-        # end of Captcha code
 
         # get params
         my $PostUser = $ParamObject->GetParam( Param => 'User' ) || '';

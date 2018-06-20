@@ -73,13 +73,25 @@ sub Run {
         $GetParam{$ParamName} = $ParamObject->GetParam( Param => $ParamName );
     }
 
+    my @Approvals;
+
     #add approvers to getparam if there are any to create workorders
     if ( $GetParam{NoofApprovers} && $GetParam{NoofApprovers} > 0 ) {
         for my $i ( 1 .. $GetParam{NoofApprovers} ) {
             $GetParam{ 'approver_' . $i }
                 = $ParamObject->GetParam( Param => 'approver_' . $i );
+            push @Approvals,
+                {
+                id   => $GetParam{ 'approver_' . $i },
+                name => $ParamObject->GetParam(
+                    Param => 'approver_' . $i . '_name'
+                )
+                };
         }
     }
+
+    #WorkOrder User List Required while reloading page for attachment
+    $Param{Approvals} = \@Approvals;
 
     # get dynamic fields from ParamObject
     my %DynamicFieldValues;
@@ -764,10 +776,11 @@ DYNAMICFIELD:
         Type   => 'create',
     );
 
+    $ITSMChangeGroups{'-'} = '-';
     $Param{ITSMChangeGroupIDSelectionString} = $LayoutObject->BuildSelection(
         Data       => \%ITSMChangeGroups,
         Name       => 'ITSMChangeGroupID',
-        SelectedID => $Param{ITSMChangeGroupID},
+        SelectedID => $GetParam{ITSMChangeGroupID},
         Class      => 'Modernize Validate_Required '
             . ( $Param{Errors}->{'ITSMChangeGroupID'} || '' ),
     );
