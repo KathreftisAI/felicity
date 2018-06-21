@@ -36,3 +36,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };
+/*********added for remove web spellchecker 20-06-2018**********/
+	CKEDITOR.config.removePlugins='wsc'
