@@ -14,9 +14,8 @@
         $("#btn-ticket-info").click(function(){
             $("#TicketSideBar").toggle();
         });
-
         var ticket_state = $("#statetype").val();
-    //  console.log("Content is "+ticket_state);
+
         if(ticket_state=="pending auto" || ticket_state=="pending reminder")
         {
             document.getElementById("on_hold").style.display= "block";
