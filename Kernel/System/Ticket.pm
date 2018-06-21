@@ -7505,7 +7505,8 @@ sub SearchUnknownTicketCustomers {
 
 =item AutoAssignment()
 
-returns OwnerID based on the AutoAssignment Criteria set for the Queue in $ConfigObject->Get("Agent_Auto_Assignment")
+returns OwnerID and AutoAssignment Criteria based on the AutoAssignment Criteria
+set for the Queue in Config "Agent_Auto_Assignment"
 
     my %AutoOwner = $TicketObject->AutoAssignment(
         QueueID => 123,
@@ -7515,8 +7516,8 @@ returns OwnerID based on the AutoAssignment Criteria set for the Queue in $Confi
 Returns:
 
     %AutoOwner = {
-                    AgentAutoCriteria => 'abc',  
-                    AutoOwnerID => 123
+        AgentAutoCriteria => 'abc',  
+        AutoOwnerID => 123
     }
 
 =cut
@@ -7646,12 +7647,11 @@ sub AutoAssignment{
                 OwnerIDs => [$activeid],
                 Permission => 'rw',
                 UserID => $Param{UserID},
-                # StateType => 'Open',
+                StateType => 'Open',
                 # QueueIDs => [$Param{QueueID}]
             );
 
             $IDTicketCount{$activeid} = @TicketCounts;
-
         }
 
         $AutoAgent{AutoOwnerID} = (sort { $IDTicketCount{$a} <=> $IDTicketCount{$b} } keys %IDTicketCount)[0];
@@ -7749,7 +7749,7 @@ sub AutoAssignment{
                 OwnerIDs => [$activeid],
                 Permission => 'rw',
                 UserID => $Param{UserID},
-                # StateType => 'Open',
+                StateType => 'Open',
                 QueueIDs => [$Param{QueueID}]
             );
 

@@ -7,6 +7,23 @@
 # the enclosed file COPYING for license information (AGPL). If you
 # did not receive this file, see http://www.gnu.org/licenses/agpl.txt.
 # --
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        $("#btn-ticket-info").click(function(){
+            $("#TicketSideBar").toggle();
+        });
+        var ticket_state = $("#statetype").val();
+
+        if(ticket_state=="pending auto" || ticket_state=="pending reminder")
+        {
+            document.getElementById("on_hold").style.display= "block";
+        }
+
+    });
+</script>
+
 <div class="btn-tkt-div">
 <div class="spacer10"></div>
 	<ul class="btn-box">
@@ -65,20 +82,6 @@
             location.reload();
         });
     });
-#Jugni added code for SLA HOLD
-     $(document).ready(function(){
-       $("#btn-ticket-info").click(function(){
-          $("#TicketSideBar").toggle();
-       });
-
-	var ticket_state = $("#statetype").val();
-//	console.log("Content is "+ticket_state);
-	if(ticket_state=="pending auto" || ticket_state=="pending reminder")
-	 {
-       		document.getElementById("on_hold").style.display= "block";
-	 }
-
-     });
 
 //]]></script>
 
