@@ -286,7 +286,7 @@ sub Run {
                         What => 'Message',
                         )
                         || $LayoutObject->{LanguageObject}->Translate( $AuthObject->GetLastErrorMessage() )
-                        || Translatable('Login failed! Your user name or password was entered incorrectly.'),
+                        || Translatable('Login failed! Your username or password was entered incorrectly.'),
                     LoginFailed => 1,
                     MessageType => 'Error',
                     User        => $User,

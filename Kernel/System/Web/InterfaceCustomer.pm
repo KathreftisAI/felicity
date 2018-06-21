@@ -273,7 +273,7 @@ sub Run {
                         What => 'Message',
                         )
                         || $AuthObject->GetLastErrorMessage()
-                        || Translatable('Login failed! Your user name or password was entered incorrectly.'),
+                        || Translatable('Login failed! Your username or password was entered incorrectly.'),
                     User        => $PostUser,
                     LoginFailed => 1,
                     %Param,
