@@ -19,13 +19,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Critical Open In </div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>				
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1 class="text-danger">[% Data.critical_problem %]</h1>
+					<h1 class="text-danger">[% Data.TicketCounts.criticalproblem %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -35,13 +35,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Unassigned Problems</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterLock=1;Filter=All;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterLock=1;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1 class="text-danger">[% Data.Unassigned_Problems %]</h1>
+					<h1 class="text-danger">[% Data.TicketCounts.UnassignedProblems %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -51,13 +51,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Overdue Problems </div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=ProblemEscalation;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=ProblemEscalation;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1 class="text-danger">[% Data.Overdue_Problems %]</h1>
+					<h1 class="text-danger">[% Data.TicketCounts.OverdueProblems %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -70,13 +70,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Open Problems</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterState=4;Filter=All;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.Open %]</h1>
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1>[% Data.Open_problem %]</h1>
+					<h1>[% Data.TicketCounts.Openproblem %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -86,13 +86,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Problems not Updated for 7 days</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1>[% Data.sevenday_problemticket %]</h1>
+					<h1>[% Data.TicketCounts.sevendayproblemticket %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -102,13 +102,13 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Open Problems Older Than 30 days</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;Filter=All;'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
 				</div>
 				<div class="col-md-6">
 					<h4>For all</h4>
-					<h1>[% Data.ThirtyDays_problemticket %]</h1>
+					<h1>[% Data.TicketCounts.ThirtyDaysproblemticket %]</h1>
 				</div>
 				<div class="clearfix"></div>
 			</div>
