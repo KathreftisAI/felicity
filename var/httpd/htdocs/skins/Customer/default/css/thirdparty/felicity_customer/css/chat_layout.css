@@ -1,0 +1,192 @@
+/*Discuss Sidebar Section*/
+/*Discuss Bar*/
+#discuss_bar
+{
+	width:360px;
+	height: 100%;
+	position: fixed;
+	border:1px solid #DDD;
+	right:-1px;
+	top:0;
+	background-color:#FFF;
+	z-index:999;
+}
+
+.expand
+{
+	width:100% !important;
+	height: 100% !important;
+	position: fixed;
+	top:0;
+	left: 0;
+}
+
+.discuss-top
+{
+	background-color:#f5f6fa;
+	padding: 10px 15px;
+}
+
+.discuss-top i{cursor:pointer;}
+.discuss-sidebar{position:relative;}
+.discuss-sidebar .panel-heading {padding: 0px 0px !important; }
+.discuss-sidebar .panel-default{border:none;outline: none; box-shadow: none;}
+.discuss-sidebar .nav-tabs{border:none;outline: none;}
+
+.discuss-sidebar .panel-default>.panel-heading { background-color: #FFF;}
+.discuss-sidebar .panel-heading .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+{	color: #FFF;
+    cursor: default;
+    background-color: #25628f;
+}
+.discuss-sidebar .panel-heading .nav-tabs>li a {
+    font-size: 16px !important;
+    color: #737373;
+	border:none; outline: none; border-radius: 0;
+}
+.discuss-sidebar .panel-default>.panel-heading .nav-tabs li a i{font-size: 18px;}
+.discuss-sidebar .panel-default>.panel-heading .badge{position: relative; background-color:#B70003 !important; font-size: 11px;margin-left: 6px;}
+
+.msg-items{
+	list-style: none;
+    margin: 0;
+    padding:20px;
+	overflow-y: scroll;
+	vertical-align: bottom;
+    min-height: 100%;
+}
+.msg-items::-webkit-scrollbar {
+ width: .4em;
+}
+.msg-items::-webkit-scrollbar, .msg-items::-webkit-scrollbar-thumb {
+ overflow:visible;
+ border-radius: 4px;
+}
+.msg-items::-webkit-scrollbar-thumb {
+ background: rgba(0,0,0,.2);
+}
+
+.msg-items .msg-item{
+	padding: 8px;
+	border:1px solid #EEE;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.msg-items .msg-item.msg-self{
+	padding: 8px;
+	border:1px solid #EEE;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	position: relative;
+	right: -10px;
+	background-color: #FFF;
+}
+
+
+.msg-items .msg-item.msg-from{
+	padding: 8px;
+	border:1px solid #EEE;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	position: relative;
+	left: -10px;
+	background-color: #f5f6fa;
+}
+
+
+.msg-item .msg-body:before, .msg-item .msg-body:after {
+    content: ' ';
+    display: block;
+    width: 9px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    background-repeat: no-repeat;
+}
+
+.msg-items .msg-item.msg-self .msg-body:before
+{
+	right: -9px;
+    top: 8px;
+    width: 9px;
+    height: 16px;
+    background-image: url(../images/msgself.png);
+    background-color: #FFF;
+}
+
+.msg-items .msg-item.msg-from .msg-body:before
+{
+	left: -9px;
+    top: 8px;
+    width: 9px;
+    height: 16px;
+    background-image: url(../images/msgfrom.png);
+    background-color: #f5f6fa;
+}
+.msg-items .msg-name
+{
+	width: auto;
+    max-width: 70%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    color: #000;
+    float: left;
+    font-weight: 600;
+}
+.msg-items .msg-datetime
+{
+	width: auto;
+    max-width: 30%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 11px;
+    color: #CCC;
+    float: right;
+	text-align: right;
+}
+.msg-items .msg-header
+{
+	width:100%;
+	clear: both;	
+}
+
+.msg-items .msg-message
+{
+	width:100%;
+	clear: both;
+	margin-top: 8px;
+	font-size: 12px;
+}
+
+.chat-area{
+	background-color: #f5f5f5;
+	border-top:1px solid #DDD;
+	padding: 10px;
+	position: absolute;
+	bottom: 0;
+	width:100%;
+	left:0; 
+}
+.chat-area textarea{width:100% !important; background-color: #FFF; border:none !important; border-radius: 0px !important; resize: none !important; padding: 10px; font-size:11px; }
+
+/*Discuss Sidemar Member List*/
+.members-list{padding:10px; margin: 0;}
+.members-list .member{list-style: none;
+    width: 100%;
+    border-bottom: 1px solid #DDD;
+    position: relative;
+    padding: 5px 5px 5px 60px;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 16px;}
+.members-list .member .avatar{width: 40px;
+    height: 40px;
+    position: absolute;
+    float: left;
+    left: 0px;}
+.members-list .member .avatar img{max-width: 40px; border-radius:100%; border:1px solid #DDD;}
