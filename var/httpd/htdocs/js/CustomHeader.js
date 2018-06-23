@@ -40,13 +40,14 @@ const scrollToBottom = function scrollToBottom (duration) {
 
 // const rc = new WebSocket('ws://192.168.2.249:3000/websocket');
 // const rc = new WebSocket('ws://192.168.2.57:8096/websocket');
-const rc = new WebSocket('ws://192.168.2.166:4000/websocket');
+// const rc = new WebSocket('ws://192.168.2.166:4000/websocket');
+const rc = new WebSocket('ws://localhost:1300/websocket');
 
 // Global variable - stores Ids for all the API calls
-const apiIds = [];
+const apiIds = {};
 // apiIds['login'] 				= [];
-apiIds['loadMessagesFromRoom'] 	= [];
-apiIds['stream'] 				= [];
+apiIds['loadHistory'] 			= [];
+apiIds['streamRoomMessages'] 	= [];
 apiIds['getUsersOfRoom'] 		= [];
 apiIds['sendMessageBody'] 		= [];
 apiIds['sendMessageBody_id'] 	= [];
@@ -57,6 +58,7 @@ let now = new Date();
 // Generate a random ID
 function randomID() {
 	return '_' + Math.random().toString(36).substr(2, 9);
+	// return Math.random().substr(2, 9);
 };
 
 // const sha256 = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // admin - 249
@@ -82,16 +84,18 @@ let login = {
         {
             "user": { 
             	"username": "shrad"
+            	// "userId": "yNrqEkCJYwj2v7rgh"
             },
-            "password": {
-                "digest": sha256,
-                "algorithm":"sha-256"
-            }
+            "password": 'shrad'
+            // "password": {
+            //     "digest": sha256,
+            //     "algorithm":"sha-256"
+            // }
         }
     ]
 };
 
-let stream = {
+let streamRoomMessages = {
     "msg": "sub",
     "id": '',
     "name": "stream-room-messages",
@@ -125,7 +129,7 @@ let sendMessageBody = {
     ]
 };
 
-let loadMessagesFromRoom = {
+let loadHistory = {
     "msg": "method",
     "method": "loadHistory",
     "id": '',
@@ -136,20 +140,21 @@ let loadMessagesFromRoom = {
 rc.onopen = function( event ){
 	
 	// login['id'] 				= randomID();
-	loadMessagesFromRoom['id'] 	= randomID();
-	stream['id'] 				= randomID();
+	loadHistory['id'] 			= randomID();
+	streamRoomMessages['id'] 	= randomID();
 	getUsersOfRoom['id'] 		= randomID();
 	
 	// apiIds['login'].push(login['id']);
-	apiIds['loadMessagesFromRoom'].push(loadMessagesFromRoom['id']);
-	apiIds['stream'].push(stream['id']);
+	apiIds['loadHistory'].push(loadHistory['id']);
+	apiIds['streamRoomMessages'].push(streamRoomMessages['id']);
 	apiIds['getUsersOfRoom'].push(getUsersOfRoom['id']);
 
 	rc.send(JSON.stringify(connect));
 	rc.send(JSON.stringify(login));
-	rc.send(JSON.stringify(loadMessagesFromRoom));
 	rc.send(JSON.stringify(getUsersOfRoom));
-	rc.send(JSON.stringify(stream));
+	rc.send(JSON.stringify(loadHistory));
+	rc.send(JSON.stringify(streamRoomMessages));
+
 }
 
 rc.onmessage = function( event ){
@@ -172,31 +177,27 @@ rc.onmessage = function( event ){
 
 		case 'result':
 
-console.log(data['id']);
 			if(data['id'] === 'l0g1n'){
-// console.log("Login ID: "+data['id']);
-			}
-			else if($.inArray(data['id'], apiIds['loadMessagesFromRoom'])){
-console.log("Load Messages ID: "+data['id']);
-// console.log("It comes here");
-// console.log(data.result);
-
-				if(typeof data.result.messages !== 'undefined'){
-					loadMessagesInWindow(data.result.messages);
-				}
-			}
-			else if($.inArray(data['id'], apiIds['stream'])){
-console.log("Stream: "+data['id']);
 
 			}
-			else if($.inArray(data['id'], apiIds['getUsersOfRoom'])){
-console.log("Get users ID: "+data['id']);
+			else if($.inArray(data['id'], apiIds['getUsersOfRoom']) !== -1){
+
+				displayUsersInList(data['result']['records']);
+			}
+			else if($.inArray(data['id'], apiIds['loadHistory']) !== -1){
+				loadHistoryInWindow(data.result.messages);
+				// if(typeof data.result.messages !== 'undefined'){
+				// 	loadHistoryInWindow(data.result.messages);
+				// }
+			}
+			else if($.inArray(data['id'], apiIds['streamRoomMessages']) !== -1){
+
 
 			}
-			else if($.inArray(data['id'], apiIds['sendMessageBody'])){
-console.log("Message Body ID: "+data['id']);
+			else if($.inArray(data['id'], apiIds['sendMessageBody']) !== -1){
 
 			}
+			data = '';
 			break;
 
 		case 'added':
@@ -206,26 +207,44 @@ console.log("Message Body ID: "+data['id']);
 	}
 }
 
+function displayUsersInList( usersData ){
+console.log(usersData);
+	let usersListTemplate = '';
+	let usersOnline = usersData.length;
+	for (var i = 0; i < usersOnline; i++) {
+		usersListTemplate += '\
+			<li class="member">\
+	            <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>\
+	              '+usersData[i]['name']+' \
+	        </li>\
+		';
+	}
+
+	$("#members-u").append(usersListTemplate);
+	$("#members-count").html(usersOnline);
+}
+
+// Load message in window
 function loadSingleMessageInWindow( messageData ){
+	
 	if(messageData.u.username == login.params[0].user.username){
 		addMessageLi('msg-self', messageData);
 	}else{
 		addMessageLi('msg-from', messageData);
 	}
+	return true;
 }
 
-function loadMessagesInWindow( messages ){
+// Triggers on first page load (Loads history)
+function loadHistoryInWindow( messages ){
 
 	for (var i = messages.length - 1; i >= 0; i--) {
-		messages[i];
-		if(messages[i].u.username == login.params[0].user.username){
-			addMessageLi('msg-self', messages[i]);
-		} else {
-			addMessageLi('msg-from', messages[i]);
-		}
+
+		loadSingleMessageInWindow(messages[i]);
 	}
 }
 
+// Add Message to the stack
 function addMessageLi( addClass, messageData ){
 	let messageTime = new Date(messageData.ts['$date']);
 	messageTime = messageTime.toLocaleString();
@@ -233,18 +252,27 @@ function addMessageLi( addClass, messageData ){
 	let converter = new showdown.Converter({extensions: ['table']});
 	let body = converter.makeHtml(messageData.msg);
 
+	let title = messageData.u['name'];
+
+	if(messageData.t !== 'undefined' && messageData.t === 'uj'){
+		title = body;
+		body = "<h5><strong style='color: orange;'>User Joined Group</strong></h5>";
+	}
+
 	$("#msg-items-u").append('\
 		<li class="msg-item '+addClass+'">\
 			<div class="msg-body">\
-				<div class="msg-header"> <span class="msg-name">'+messageData.u['name']+'</span> <span class="msg-datetime">'+messageTime+'</span> </div>\
+				<div class="msg-header"> <span class="msg-name">'+title+'</span> <span class="msg-datetime">'+messageTime+'</span> </div>\
 				<div class="msg-message">'+body+'</div>\
 			</div>\
 		</li>\
     ');
 }
 
+//On Key up
 $(".chat-area textarea").keydown(function(e){
 	
+	// When User presses the enter key
 	if (e.keyCode === 13 && !e.shiftKey ) {
 		e.preventDefault();
 

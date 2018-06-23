@@ -177,7 +177,7 @@
     <div class="panel-heading">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#discuss" data-toggle="tab"><i class="la la la-link"></i> Discuss</a></li>
-        <li> <a href="#members" data-toggle="tab"> <i class="la la la-comment-o"></i> Members<span class="badge">7</span> </a> </li>
+        <li> <a href="#members" data-toggle="tab"> <i class="la la la-comment-o"></i> Agents<span class="badge" id="members-count">7</span> </a> </li>
       </ul>
     </div>
     <div class="panel-body">
@@ -192,10 +192,6 @@
         </div>
         <div class="tab-pane fade" id="members">
           <ul class="members-list" id="members-u">
-            <li class="member">
-              <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>
-              Vikash Jha 
-            </li>
           </ul>
         </div>
       </div>
