@@ -10,7 +10,11 @@ $('#res-nav-btn').click(function () {
 	$('#res-nav').toggle();		
 });
 
-$('#top_discuss_link').click(function () {
+// $('#top_discuss_link').click(function () {
+// 	$('#discuss_bar').show();		
+// });
+
+$('#top_discuss_link').on('click', function () {
 	$('#discuss_bar').show();		
 });
 
@@ -18,7 +22,11 @@ $('#discuss_bar .close').click(function () {
 	$('#discuss_bar').hide();		
 });
 
-$('#max_dis').click(function () {
+// $('#max_dis').click(function () {
+// 	$('#discuss_bar').toggleClass('expand');		
+// });
+
+$('#max_dis').on('click', function () {
 	$('#discuss_bar').toggleClass('expand');		
 });
 
@@ -31,8 +39,9 @@ $(window).scroll(function() {
 
 // $("#discuss").animate({ scrollTop: $("#discuss").attr("scrollHeight") - $('#discuss').height() }, 3000);
 
-const scrollToBottom = function scrollToBottom (duration) {
-	let messageWindow = $("#discuss");
+function scrollToBottom(duration) {
+	// let messageWindow = $(".discuss-sidebar");
+	let messageWindow = $(window);
 	let scrollHeight = messageWindow.prop("scrollHeight");
 	messageWindow.stop().animate({scrollTop: scrollHeight}, duration || 0);
 };
@@ -42,6 +51,8 @@ const scrollToBottom = function scrollToBottom (duration) {
 // const rc = new WebSocket('ws://192.168.2.57:8096/websocket');
 // const rc = new WebSocket('ws://192.168.2.166:4000/websocket');
 const rc = new WebSocket('ws://localhost:1300/websocket');
+
+const collections = {};
 
 // Global variable - stores Ids for all the API calls
 const apiIds = {};
@@ -182,7 +193,7 @@ rc.onmessage = function( event ){
 			}
 			else if($.inArray(data['id'], apiIds['getUsersOfRoom']) !== -1){
 
-				displayUsersInList(data['result']['records']);
+				addUsersInList(data['result']['records']);
 			}
 			else if($.inArray(data['id'], apiIds['loadHistory']) !== -1){
 				loadHistoryInWindow(data.result.messages);
@@ -201,27 +212,87 @@ rc.onmessage = function( event ){
 			break;
 
 		case 'added':
+
+			var collectionName = data['collection'];
+			if(collections[collectionName] === undefined){
+				collections[collectionName] = {};
+			}
+
+			collections[collectionName][data['id']] = {};
+			collections[collectionName][data['id']]['name'] = data['fields']['name'];
+			
+			updateUI(data, collectionName);
 			break;
 		case 'removed':
+
+			var collectionName = data['collection'];
+			delete collections[collectionName]['id'];
 			break;
 	}
 }
 
-function displayUsersInList( usersData ){
-console.log(usersData);
+// Change UI according to the collectionName which 
+// was added or removed
+function updateUI( data, collectionName ){
+	switch(collectionName){
+		case 'users':
+			if(data.msg === 'added'){
+
+			}
+			else if(data.msg === 'removed'){
+				// removeUsersInList(data);
+				$("#members_"+data['id']).remove();
+				delete collections['users'][data['id']];
+				let count = parseInt($("#members-count").html()) - 1;
+				$("#members-count").html(count);
+			}
+			break;
+
+		default:
+			console.log("default");
+	}
+}
+
+
+// function removeUsersInList( userData ){
+// 	$("#members_"+userData['id']).remove();
+// }
+
+// Add user in members area
+function addUsersInList( usersData ){
+
 	let usersListTemplate = '';
-	let usersOnline = usersData.length;
+	let usersOnline = 0;
+
+	if((usersData['msg'] !== 'undefined') && (usersData['msg'] === 'added')){
+
+		usersListTemplate += addUserLi(usersData);
+
+		collections['users'][usersData['id']] = {};
+		collections['users'][usersData['id']]['name'] = usersData['fields']['name'];
+		usersOnline = usersData.length === 'undefined' ? 1:usersData.length;
+	}
 	for (var i = 0; i < usersOnline; i++) {
-		usersListTemplate += '\
-			<li class="member">\
-	            <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>\
-	              '+usersData[i]['name']+' \
-	        </li>\
-		';
+	
+		usersListTemplate += addUserLi(usersData[i]);
+		collections['users'][usersData[i]['id']] = {};
+		collections['users'][usersData[i]['id']]['name'] = usersData[i]['fields']['name'];
+		usersOnline++;
 	}
 
 	$("#members-u").append(usersListTemplate);
 	$("#members-count").html(usersOnline);
+}
+
+function addUserLi( userData ){
+	let userLi = '\
+		<li class="member" id="members_"'+userData['_id']+'>\
+            <div class="avatar"><img src="assets/images/avatar-13.jpg"></div>\
+              '+usersData['name']+' \
+        </li>\
+	';
+
+	return userLi;
 }
 
 // Load message in window
