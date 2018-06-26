@@ -1186,3 +1186,34 @@ fieldset h2 {
     max-height: 130px !important;
     overflow-y: auto;
 }
+
+.LayoutPopup .PopupHeader {
+    background: #25628f!important;
+    color: #FFF !important;
+}
+
+#MainBox .LayoutPopup .PopupHeader h1 {
+    color: #FFF !important;
+}
+
+
+#MainBox .LayoutPopup .Content {
+    padding: 13px 10px!important;
+}
+
+#MainBox .LayoutPopup .btn{margin:15px!important;}
+
+ul.OverviewZoom {
+    display: none !important;
+}
+
+.TableSmall thead th.OverviewHeader .ColumnSettingsBox span.SelectedValue a {
+    background: #000!important;
+    left: auto!important;
+    position: absolute!important;
+    text-align: left!important;
+    right: 0px!important;
+    width: 18px!important;
+}
+
+

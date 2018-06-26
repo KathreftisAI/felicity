@@ -1,5 +1,15 @@
 /*Minimum Width*/
-
+body.RealPopup p a.CancelClosePopup, body.RealPopup p a.UndoClosePopup {
+    position: absolute !important;
+    right: 10px;
+    top: 10px;
+    width: 22px;
+    height: 22px;
+    background: url(/felicity-web/skins/Agent/default/img/close-btn.png) no-repeat!important;
+    color: transparent !important;
+    overflow: hidden !important;
+    text-indent: -99px;
+}
 @media (min-width: 1024px)
 {
 }
