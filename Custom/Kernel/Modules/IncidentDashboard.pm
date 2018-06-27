@@ -240,15 +240,16 @@ sub Run {
                 States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
                 Locks         => ['unlock'],
                 UserID     => $Self->{UserID},
-                Permission => 'ro',
-                OwnerIDs=> [$Self->{UserID}],
+                Permission => 'rw',
+                OwnerIDs=> [1],
             },
             UnassignedIncidents=>{
                 Result => 'COUNT',
                 Types   => ['Incident'],
                 States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
-                Locks         => ['unlock'],
+                #Locks         => ['unlock'],
                 UserID     => $Self->{UserID},
+                OwnerIDs=> [1], 
             },
             Overdue => {
                 Result => 'COUNT',
@@ -269,7 +270,7 @@ sub Run {
             SevenDayUpdate => {
                 Result => 'COUNT',
                 Types => ['Incident'],
-                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                StateType    => ['open'],
                 TicketLastChangeTimeOlderMinutes => 7*60*24,
                 UserID     => $Self->{UserID},
                 Permission => 'ro',
@@ -278,7 +279,7 @@ sub Run {
             sevendayincidentticket=>{
                 Result => 'COUNT',
                 Types => ['Incident'],
-                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                StateType    => ['open'],
                 TicketLastChangeTimeOlderMinutes => 7*60*24,
                 UserID     => $Self->{UserID},
             },
@@ -294,7 +295,7 @@ sub Run {
             IncidentTicket => {
                 Result => 'COUNT',
                 Types => ['Incident'],
-                States   => ['new', 'closed unsuccessful', 'open', 'removed', 'pending reminder', 'resolved', 'Pending for appoval', 'Pending for business', 'Pending with IT team', 'Pending with vendor', 'Under observation', 'Pending With Customer', 'Awaiting Response', 'ReOpen'],
+                StateType    => ['open'],
                 TicketLastChangeTimeOlderMinutes => 30*24*60,
                 UserID     => $Self->{UserID},
             },

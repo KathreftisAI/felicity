@@ -47,7 +47,7 @@ $(function(){
 	});
 	//if Reset button clicked than reload page to display all Queues
 	$('#Reset').on('click',function(){
-		window.location.href ="[% Env('Baselink') %]Action=AgentRequest";
+		window.location.href ="[% Env('Baselink') %]Action=AgentRequest;DeleteFilters=DeleteFilters";
 	});
 
 	//To change My Queue name to All Queues in Small

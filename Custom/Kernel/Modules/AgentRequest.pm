@@ -403,12 +403,18 @@ sub Run {
         # store column filters
         my $StoredFilters = \%ColumnFilter;
 
+        my $RequestDashboard = $ParamObject->GetParam( Param => 'RequestDashboard' ) || '';
+
         my $StoredFiltersKey = 'UserStoredFilterColumns-' . $Self->{Action};
-        $UserObject->SetPreferences(
-            UserID => $Self->{UserID},
-            Key    => $StoredFiltersKey,
-            Value  => $JSONObject->Encode( Data => $StoredFilters ),
-        );
+
+        if (!$RequestDashboard) {
+            $UserObject->SetPreferences(
+                UserID => $Self->{UserID},
+                Key    => $StoredFiltersKey,
+                Value  => $JSONObject->Encode( Data => $StoredFilters ),
+            );
+        }
+
     }
 
     my $CountTotal = 0;
@@ -499,6 +505,7 @@ sub Run {
         QueueIDs     => \@ViewableQueueIDs,
         Filter       => $Filter,
         UseSubQueues => $UseSubQueues,
+        ColumnFilter => \%ColumnFilter
     );
 
     my $SubQueueIndicatorTitle = '';
@@ -528,10 +535,7 @@ sub Run {
         Action            => 'AgentRequest',
         Total             => $CountTotal,
         RequestedURL      => $Self->{RequestedURL},
-    #my @a=\%RequstedURL;
-    #open(my $fh,">>","/tmp/debug");
-    #print $fh "@a";
-    #close($fh);<>;
+   
         NavBar => \%NavBar,
         View   => $View,
 
@@ -579,6 +583,7 @@ sub BuildQueueView {
         AllQueues       => \%AllQueues,
         ViewableTickets => $Self->{ViewableTickets},
         UseSubQueues    => $Param{UseSubQueues},
+        ColumnFilter => $Param{ColumnFilter},
     );
 }
 
@@ -704,7 +709,7 @@ sub _MaskQueueView {
         my $Filter = $Kernel::OM->Get('Kernel::System::Web::Request')->GetParam( Param => 'Filter' ) || 'Unlocked';
 
 ####################code added by milan to display Queue Dropdown###########
-        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentRequest;Filter='.$Filter.';View='.$View.';QueueID='.$Queue{QueueID}}=$Queue{Queue};
+        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentRequest;Filter='.$Filter.';View='.$View.';DeleteFilters=DeleteFilters;QueueID='.$Queue{QueueID}}=$Queue{Queue};
         if ($Queue{QueueID} eq $QueueID && $Self->{ShowAllTicketFlag} ne '1') {
            $SelectedQueue = $Queue{Queue};
         }
@@ -797,13 +802,20 @@ sub _MaskQueueView {
         }
     }
 
+
 #############To convert Queuelist into Dropdown added by milan##############
+    my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+
+    if ($Param{ColumnFilter}{QueueIDs}[0]) {
+        $SelectedQueue = $QueueObject->QueueLookup( QueueID => $Param{ColumnFilter}{QueueIDs}[0] );
+    }
+
     $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentRequest'} = '- ' . $LayoutObject->{LanguageObject}->Translate('AllQueues') . ' -';
     $Param{DropdownQueueList} = $LayoutObject->AgentQueueListOption(
         Name           => 'DropdownQueueID',
         Data           => \%DropdownQueueList,
         Class          => 'Modernize Small',
-        Selected       => $SelectedQueue
+        Selected       => $SelectedQueue,
     );
 ################################################################
 

@@ -19,7 +19,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Critical Open In </div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterPriority=1;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.CriticalOpen %]</h1>				
 				</div>
@@ -35,7 +35,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Unassigned Problems</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterLock=1;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterLock=1;Filter=All;ColumnFilterOwner=1;DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.Unassigned %]</h1>
 				</div>
@@ -51,7 +51,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Overdue Problems </div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=ProblemEscalation;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=ProblemEscalation;ColumnFilterOwner=[% Data.OwnerID %];DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1 class="text-danger">[% Data.TicketCounts.Overdue %]</h1>
 				</div>
@@ -70,7 +70,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Open Problems</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterState=4;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.Open %]</h1>
 				</div>
@@ -86,7 +86,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Problems not Updated for 7 days</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;ColumnFilterOwner=[% Data.OwnerID %];DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.SevenDayUpdate %]</h1>
 				</div>
@@ -102,7 +102,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Open Problems Older Than 30 days</div>
 			<div class="info-box">
-				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];'">
+				<div class="col-md-6 location" onclick="location.href='[% Env('Baselink') %]Action=AgentProblem;Filter=All;ColumnFilterOwner=[% Data.OwnerID %];DeleteFilters=DeleteFilters;ProblemDashboard=true;'">
 					<h4>For me</h4>
 					<h1>[% Data.TicketCounts.ThirtyDayUpdate %]</h1>
 				</div>

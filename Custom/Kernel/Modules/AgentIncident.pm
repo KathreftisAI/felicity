@@ -405,12 +405,17 @@ sub Run {
         # store column filters
         my $StoredFilters = \%ColumnFilter;
 
+        my $IncidentDashboard = $ParamObject->GetParam( Param => 'IncidentDashboard' ) || '';
+
         my $StoredFiltersKey = 'UserStoredFilterColumns-' . $Self->{Action};
-        $UserObject->SetPreferences(
-            UserID => $Self->{UserID},
-            Key    => $StoredFiltersKey,
-            Value  => $JSONObject->Encode( Data => $StoredFilters ),
-        );
+
+        if (!$IncidentDashboard) {
+            $UserObject->SetPreferences(
+                UserID => $Self->{UserID},
+                Key    => $StoredFiltersKey,
+                Value  => $JSONObject->Encode( Data => $StoredFilters ),
+            );
+        }
     }
 
     my $CountTotal = 0;
@@ -501,6 +506,7 @@ sub Run {
         QueueIDs     => \@ViewableQueueIDs,
         Filter       => $Filter,
         UseSubQueues => $UseSubQueues,
+        ColumnFilter => \%ColumnFilter
     );
 
     my $SubQueueIndicatorTitle = '';
@@ -581,6 +587,7 @@ sub BuildQueueView {
         AllQueues       => \%AllQueues,
         ViewableTickets => $Self->{ViewableTickets},
         UseSubQueues    => $Param{UseSubQueues},
+        ColumnFilter => $Param{ColumnFilter},
     );
 }
 
@@ -706,7 +713,7 @@ sub _MaskQueueView {
         my $Filter = $Kernel::OM->Get('Kernel::System::Web::Request')->GetParam( Param => 'Filter' ) || 'Unlocked';
 
 ####################code added by milan to display Queue Dropdown###########
-        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentIncident;Filter='.$Filter.';View='.$View.';QueueID='.$Queue{QueueID}}=$Queue{Queue};
+        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentIncident;Filter='.$Filter.';View='.$View.';DeleteFilters=DeleteFilters;QueueID='.$Queue{QueueID}}=$Queue{Queue};
         if ($Queue{QueueID} eq $QueueID && $Self->{ShowAllTicketFlag} ne '1') {
            $SelectedQueue = $Queue{Queue};
         }
@@ -800,6 +807,12 @@ sub _MaskQueueView {
     }
 
 #############To convert Queuelist into Dropdown added by milan##############
+    my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+
+    if ($Param{ColumnFilter}{QueueIDs}[0]) {
+        $SelectedQueue = $QueueObject->QueueLookup( QueueID => $Param{ColumnFilter}{QueueIDs}[0] );
+    }
+    
     $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentIncident'} = '- ' . $LayoutObject->{LanguageObject}->Translate('AllQueues') . ' -';
     $Param{DropdownQueueList} = $LayoutObject->AgentQueueListOption(
         Name           => 'DropdownQueueID',

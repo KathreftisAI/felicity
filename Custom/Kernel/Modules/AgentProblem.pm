@@ -401,12 +401,17 @@ sub Run {
         # store column filters
         my $StoredFilters = \%ColumnFilter;
 
+        my $ProblemDashboard = $ParamObject->GetParam( Param => 'ProblemDashboard' ) || '';
+
         my $StoredFiltersKey = 'UserStoredFilterColumns-' . $Self->{Action};
-        $UserObject->SetPreferences(
-            UserID => $Self->{UserID},
-            Key    => $StoredFiltersKey,
-            Value  => $JSONObject->Encode( Data => $StoredFilters ),
-        );
+
+        if (!$ProblemDashboard) {
+            $UserObject->SetPreferences(
+                UserID => $Self->{UserID},
+                Key    => $StoredFiltersKey,
+                Value  => $JSONObject->Encode( Data => $StoredFilters ),
+            );
+        }
     }
 
     my $CountTotal = 0;
@@ -498,6 +503,7 @@ sub Run {
         QueueIDs     => \@ViewableQueueIDs,
         Filter       => $Filter,
         UseSubQueues => $UseSubQueues,
+        ColumnFilter => \%ColumnFilter
     );
 
     my $SubQueueIndicatorTitle = '';
@@ -577,6 +583,7 @@ sub BuildQueueView {
         AllQueues       => \%AllQueues,
         ViewableTickets => $Self->{ViewableTickets},
         UseSubQueues    => $Param{UseSubQueues},
+        ColumnFilter => $Param{ColumnFilter},
     );
 }
 
@@ -705,7 +712,7 @@ sub _MaskQueueView {
 
 
 ####################code added by milan to display Queue Dropdown###########
-        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentProblem;Filter='.$Filter.';View='.$View.';QueueID='.$Queue{QueueID}}=$Queue{Queue};
+        $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentProblem;Filter='.$Filter.';View='.$View.';DeleteFilters=DeleteFilters;QueueID='.$Queue{QueueID}}=$Queue{Queue};
         if ($Queue{QueueID} eq $QueueID && $Self->{ShowAllTicketFlag} ne '1') {
            $SelectedQueue = $Queue{Queue};
         }
@@ -803,6 +810,12 @@ sub _MaskQueueView {
 
 
 #############To convert Queuelist into Dropdown added by milan##############
+    my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
+
+    if ($Param{ColumnFilter}{QueueIDs}[0]) {
+        $SelectedQueue = $QueueObject->QueueLookup( QueueID => $Param{ColumnFilter}{QueueIDs}[0] );
+    }
+    
     $DropdownQueueList{$LayoutObject->{Baselink}.'Action=AgentProblem'} = '- ' . $LayoutObject->{LanguageObject}->Translate('AllQueues') . ' -';
     $Param{DropdownQueueList} = $LayoutObject->AgentQueueListOption(
         Name           => 'DropdownQueueID',

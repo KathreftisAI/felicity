@@ -11,7 +11,7 @@
                 <Description>Request for Services (e.g., Update on OS)</Description>
                 <NavBarName>Request1</NavBarName>
                 <NavBar>
-                    <Description>Request1</Description>
+                    <Description>Request</Description>
                     <Name>Request</Name>
                     <Link></Link>
                     <NavBar>Request</NavBar>
