@@ -10,7 +10,7 @@ package Kernel::System::PostMaster::NewTicket;
 
 use strict;
 use warnings;
-use Data::Dumper;
+
 our @ObjectDependencies = (
     'Kernel::Config',
     'Kernel::System::CustomerUser',
@@ -67,6 +67,8 @@ sub Run {
 
     # get config object
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+    # get ticket object
+    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
 
     # get state
     my $State = $ConfigObject->Get('PostmasterDefaultState') || 'new';
@@ -264,9 +266,6 @@ sub Run {
 
         $Opts{ResponsibleID} = $TmpResponsibleID || $Opts{ResponsibleID};
     }
-
-    # get ticket object
-    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
 
     # create new ticket
     my $NewTn    = $TicketObject->TicketCreateNumber();
