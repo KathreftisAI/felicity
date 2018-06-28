@@ -289,13 +289,14 @@ sub Run {
     if ( !$TicketID ) {
         return;
     }
-
-    my $Success = $TicketObject->HistoryAdd(
-        Name         => "Ticket is Auto Assigned by $AutoOwner{AgentAutoCriteria} criteria",
-        HistoryType  => 'OwnerUpdate', 
-        TicketID     => $TicketID,
-        CreateUserID => $Param{InmailUserID}
-    );
+    if(%AutoOwner){
+        my $Success = $TicketObject->HistoryAdd(
+            Name         => "Ticket is Auto Assigned by $AutoOwner{AgentAutoCriteria} criteria",
+            HistoryType  => 'OwnerUpdate', 
+            TicketID     => $TicketID,
+            CreateUserID => $Param{InmailUserID}
+        );
+    }
 
     # debug
     if ( $Self->{Debug} > 0 ) {
