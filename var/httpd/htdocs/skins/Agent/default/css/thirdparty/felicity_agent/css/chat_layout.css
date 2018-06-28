@@ -2,7 +2,7 @@
 /*Discuss Bar*/
 #discuss_bar
 {
-	width:360px;
+	width:400px;
 	height: 100%;
 	position: fixed;
 	border:1px solid #DDD;
@@ -47,13 +47,17 @@
 .discuss-sidebar .panel-default>.panel-heading .nav-tabs li a i{font-size: 18px;}
 .discuss-sidebar .panel-default>.panel-heading .badge{position: relative; background-color:#B70003 !important; font-size: 11px;margin-left: 6px;}
 
+#discuss_bar .panel-body {
+    padding: 0px !important;
+}
 .msg-items{
-	list-style: none;
-    margin: 0;
-    padding:20px;
-	overflow-y: scroll;
-	vertical-align: bottom;
-    min-height: 100%;
+	 overflow-y: scroll;
+	 overflow-x: hidden;
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+  direction: rtl;
+  width:100%;
+
 }
 .msg-items::-webkit-scrollbar {
  width: .4em;
@@ -72,18 +76,34 @@
 	border-radius: 4px;
 	margin-bottom: 20px;
 	position: relative;
+	-webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  direction: ltr;
 }
 
 .msg-items .msg-item.msg-self{
-	padding: 8px;
+	padding: 5px 5px;
 	border:1px solid #EEE;
 	border-radius: 4px;
 	margin-bottom: 10px;
 	position: relative;
 	right: -10px;
+	    margin-right: 80px;
 	background-color: #FFF;
 }
+.msg-self .msg-name
+{
+	color: #42a5f5;
+}
 
+.msg-from .msg-name
+{
+	color: #b50026;
+}
+.chat-area textarea{   
+ width: 100% !important;
+ max-width: 100% !important;
+ }
 
 .msg-items .msg-item.msg-from{
 	padding: 8px;
@@ -92,6 +112,7 @@
 	margin-bottom: 10px;
 	position: relative;
 	left: -10px;
+	margin-left: 80px;
 	background-color: #f5f6fa;
 }
 
@@ -116,6 +137,9 @@
     background-color: #FFF;
 }
 
+
+
+
 .msg-items .msg-item.msg-from .msg-body:before
 {
 	left: -9px;
@@ -132,10 +156,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 14px;
-    color: #000;
+    font-size: 12px;
     float: left;
-    font-weight: 600;
+    font-weight: normal;
 }
 .msg-items .msg-datetime
 {
@@ -159,10 +182,12 @@
 {
 	width:100%;
 	clear: both;
-	margin-top: 8px;
+	margin-top: 0px;
 	font-size: 12px;
 }
-
+.msg-items .msg-message p{
+	margin:0px;
+}
 .chat-area{
 	background-color: #f5f5f5;
 	border-top:1px solid #DDD;
