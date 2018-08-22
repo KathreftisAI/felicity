@@ -1269,3 +1269,20 @@ label, fieldset label {
     font-weight: normal;
     font-size: 13px;
 }
+fieldset.TableLike.Narrow > label, fieldset.TableLike.Narrow > .Row > label, fieldset.TableLike.Narrow > .Value, fieldset.TableLike.Narrow > .Row > .Value
+{
+    word-wrap: normal !important;
+	word-break: normal!important;
+}
+ul.OverviewZoom {
+    display: none !important;
+}
+
+.TableSmall thead th.OverviewHeader .ColumnSettingsBox span.SelectedValue a {
+    background: #000!important;
+    left: auto!important;
+    position: absolute!important;
+    text-align: left!important;
+    right: 0px!important;
+    width: 18px!important;
+}
